@@ -12,6 +12,16 @@
     <string name="etPassword">Password</string>
     <string name="btnLogin">Log in !</string>
     <string name="tvNyr">Not yet register?</string>
+    <string name="title_activity_register">Register</string>
+
+    <!-- activity_register -->
+    <string name="tvError"></string>
+    <string name="etName">Name</string>
+    <string name="etUsername">Username</string>
+    <string name="etMail">E-Mail</string>
+    <string name="etConfirmMail">Confirm E-mail</string>
+    <string name="etConfirmPassword">Confirm Password</string>
+    <string name="btnRegister">Register</string>
 
 
 </resources>
