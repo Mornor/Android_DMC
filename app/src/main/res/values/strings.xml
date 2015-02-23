@@ -3,9 +3,15 @@
 
     <string name="hello_world">Hello world!</string>
 
-    <!-- Toolbar -->
+    <!-- Toolbar in menu/menu_login -->
     <string name="action_settings">Settings</string>
     <string name="exit">Exit</string>
+
+    <!-- activity_login -->
+    <string name="etLogin">Login</string>
+    <string name="etPassword">Password</string>
+    <string name="btnLogin">Log in !</string>
+    <string name="tvNyr">Not yet register?</string>
 
 
 </resources>
