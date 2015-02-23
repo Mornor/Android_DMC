@@ -24,7 +24,7 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
     private String message;
     private JSONArray json;
 
-    public final static String SAVE_DATA_URL        = "http://chat.ngrok.com/android";
+    public final static String SAVE_USER_URL        = "http://localhost:9000/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
 
     public HttpAsync(String name, String message){
@@ -62,7 +62,7 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
     public void doPost(){
         try{
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(SAVE_DATA_URL);
+            HttpPost httpPost = new HttpPost(SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("name", name));
             list.add(new BasicNameValuePair("message", message));
