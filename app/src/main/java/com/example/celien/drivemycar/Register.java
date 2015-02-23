@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.celien.drivemycar.http.HttpAsync;
+
 
 public class Register extends ActionBarActivity {
 
@@ -74,7 +76,8 @@ public class Register extends ActionBarActivity {
 
         // If confirmation succeed
         else if(error == null){
-            tvError.setText("OKK");
+            HttpAsync httpAsync = new HttpAsync(this.getClass());
+            // Save the User into db using instance of HttpAsync
         }
     }
 

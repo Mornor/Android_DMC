@@ -2,6 +2,8 @@ package com.example.celien.drivemycar.http;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -18,11 +20,12 @@ import java.util.List;
  * 2nd Parameter : Types of parameter passed in onProgressUpdate
  * 3rd Parameter : Types of parameter passed in onPostExecute
  */
-public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
 
     private String name;
     private String message;
     private JSONArray json;
+    private Class caller;
 
     public final static String SAVE_USER_URL        = "http://localhost:9000/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
@@ -34,6 +37,12 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
 
     // Default constructor
     public HttpAsync(){}
+
+    // Generic constructor, in order to retrieve the caller class.
+    public HttpAsync(Class<T> caller){
+        this.caller = caller;
+        Log.d("HttpAsyn caller", this.caller.getName());
+    }
 
     @Override
     protected void onPreExecute() {
