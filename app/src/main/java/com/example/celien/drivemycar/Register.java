@@ -2,6 +2,7 @@ package com.example.celien.drivemycar;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,6 @@ public class Register extends ActionBarActivity {
     private EditText etPassword;
     private EditText etConfirmPassword;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class Register extends ActionBarActivity {
         etConfirmPassword   = (EditText)findViewById(R.id.etConfirmPassword);
     }
 
-    // Called when register button is clicked. 
+    // Called when register button is clicked.
     public void onClickRegister(View v){
         String name             = etName.getText().toString();
         String username         = etUsername.getText().toString();
@@ -49,6 +49,53 @@ public class Register extends ActionBarActivity {
         String confirmMail      = etConfirmMail.getText().toString();
         String password         = etPassword.getText().toString();
         String confirmPassword  = etConfirmPassword.getText().toString();
+
+        // If confirmation failed
+        String error = checkConfirmation(mail, confirmMail, password, confirmPassword);
+        if(error != null){
+            tvError.setText(error);
+            switch (error){
+                case "Mail and its confirmation\ndoes not match, please correct it.":
+                    etConfirmMail.setText("");
+                    etConfirmMail.setHint("New mail confirmation");
+                    break;
+                case "\nPassword and its confirmation\ndoes not match, please correct it.":
+                    etConfirmPassword.setText("");
+                    etConfirmPassword.setHint("New pwd confirmation");
+                    break;
+                case "Mail and its confirmation\nPassword and its confirmation\ndoes not match, please correct it.":
+                    etConfirmMail.setText("");
+                    etConfirmMail.setHint("New mail confirmation");
+                    etConfirmPassword.setText("");
+                    etConfirmPassword.setHint("New pwd confirmation");
+                    break;
+            }
+        }
+        else if(error == null){
+            tvError.setText("OKK");
+        }
+    }
+
+    /**
+     * @param params, in this order : [0] -> mail, [1] -> confirmMail, [2] -> password, [3] -> confirmPassword
+     * @return a message with errors if errors occurs, null otherwise.
+     */
+    private String checkConfirmation(String... params){
+        boolean isError = false;
+        String result = "";
+        if(!params[0].equals(params[1])){
+            result += "Mail and its confirmation";
+            isError = true;
+        }
+        if(!params[2].equals(params[3])){
+            result += "\nPassword and its confirmation";
+            isError = true;
+        }
+        if(isError)
+            return result + "\ndoes not match, please correct it.";
+        else
+            return null;
+
     }
 
     @Override
