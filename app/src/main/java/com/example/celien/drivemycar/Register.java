@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.utils.Action;
 
 
 public class Register extends ActionBarActivity {
@@ -24,6 +25,12 @@ public class Register extends ActionBarActivity {
     private EditText etConfirmMail;
     private EditText etPassword;
     private EditText etConfirmPassword;
+
+    // Value of the fields
+    String name;
+    String username;
+    String mail;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +52,11 @@ public class Register extends ActionBarActivity {
 
     // Called when register button is clicked.
     public void onClickRegister(View v){
-        String name             = etName.getText().toString();
-        String username         = etUsername.getText().toString();
-        String mail             = etMail.getText().toString();
-        String confirmMail      = etConfirmMail.getText().toString();
-        String password         = etPassword.getText().toString();
+        name                    = etName.getText().toString();
+        username                = etUsername.getText().toString();
+        mail                    = etMail.getText().toString();
+        String confirmMail      = etConfirmMail.getText().toString(); // Declared here because used just to confirm the fields.
+        password                = etPassword.getText().toString();
         String confirmPassword  = etConfirmPassword.getText().toString();
 
         // If confirmation failed
@@ -75,9 +82,10 @@ public class Register extends ActionBarActivity {
         }
 
         // If confirmation succeed
+        // Save the User into db using instance of HttpAsync
         else if(error == null){
             HttpAsync httpAsync = new HttpAsync(this.getClass());
-            // Save the User into db using instance of HttpAsync
+            httpAsync.execute(Action.SAVE_USER);
         }
     }
 
@@ -123,5 +131,38 @@ public class Register extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*Getters and Setters*/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

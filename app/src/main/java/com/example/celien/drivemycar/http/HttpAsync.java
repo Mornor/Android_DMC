@@ -4,6 +4,8 @@ package com.example.celien.drivemycar.http;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.celien.drivemycar.utils.Action;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -39,9 +41,9 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
     public HttpAsync(){}
 
     // Generic constructor, in order to retrieve the caller class.
+    // For example, to retrieve the name of the caller class : this.caller.getName();
     public HttpAsync(Class<T> caller){
         this.caller = caller;
-        Log.d("HttpAsyn caller", this.caller.getName());
     }
 
     @Override
@@ -50,12 +52,16 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
 
     }
 
+    /**
+     * @param params
+     * @return JSONArray which is passed to onPostExecute();
+     */
     @Override
     protected JSONArray doInBackground(String... params) {
-        if(params[0].equals("GET"))
-            return doGet();
+        if(params[0].equals(Action.SAVE_USER))
+            return saveNewUser();
         else if(params[0].equals("POST")){
-            doPost();
+            //doPost();
             return null;
         }
         else
@@ -68,7 +74,7 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
     }
 
     /*Save the name and the message into remote DB*/
-    public void doPost(){
+    public JSONArray saveNewUser(){
         try{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
@@ -80,7 +86,7 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
         }catch(Exception e){
             e.printStackTrace();
         }
-
+        return null;
     }
 
     /*Retrieve names and messages into remote DB*/
