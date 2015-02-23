@@ -3,25 +3,50 @@ package com.example.celien.drivemycar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Login extends ActionBarActivity {
+
+    Button btnLogin;
+    TextView tvNyr; // Not Yet Register
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+        setListeners();
     }
 
     private void init(){
-
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Drive My Car");
+
+        // Get the items on activity_login
+        tvNyr = (TextView)findViewById(R.id.tvNyr);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
+    }
+
+    private void setListeners(){
+        tvNyr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Toast", "Clicked");
+            }
+        });
+    }
+
+    public void onClickLogin(View v){
+        Log.d("Toast", "Button Clicked");
     }
 
 

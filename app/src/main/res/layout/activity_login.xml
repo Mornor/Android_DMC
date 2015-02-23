@@ -35,15 +35,18 @@
         android:layout_below="@+id/etPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:onClick="onClickLogin"
         android:text="@string/btnLogin" />
 
     <TextView
+        android:id="@+id/tvNyr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvNyr"
         android:layout_below="@+id/btnLogin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginTop="40dp"
+        android:textColor="@color/blueRegister"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
