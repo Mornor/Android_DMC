@@ -71,6 +71,8 @@ public class Register extends ActionBarActivity {
                     break;
             }
         }
+
+        // If confirmation succeed
         else if(error == null){
             tvError.setText("OKK");
         }
