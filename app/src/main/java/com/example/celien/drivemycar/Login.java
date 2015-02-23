@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,8 +15,8 @@ import android.widget.Toast;
 
 public class Login extends ActionBarActivity {
 
-    Button btnLogin;
-    TextView tvNyr; // Not Yet Register
+    private Button btnLogin;
+    private TextView tvNyr; // Not Yet Register
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,13 @@ public class Login extends ActionBarActivity {
         btnLogin = (Button)findViewById(R.id.btnLogin);
     }
 
+    // Set the listener for the TextView.
     private void setListeners(){
         tvNyr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Toast", "Clicked");
+                Intent i = new Intent(v.getContext(), Register.class);
+                startActivity(i);
             }
         });
     }

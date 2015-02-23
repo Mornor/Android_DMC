@@ -1,92 +1,95 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar"
-        android:textColor="@color/ColorPrimary"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar"
-        android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etName" />
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tool_bar"
+            android:textColor="@color/ColorPrimary"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etName"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etUsername" />
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvError"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etName" />
 
-    <EditText
-        android:id="@+id/etMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etMail" />
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etName"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etUsername" />
 
-    <EditText
-        android:id="@+id/etConfirmMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etMail"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etConfirmMail" />
+        <EditText
+            android:id="@+id/etMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etUsername"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etMail" />
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etConfirmMail"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etPassword" />
+        <EditText
+            android:id="@+id/etConfirmMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etMail"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etConfirmMail" />
 
-    <EditText
-        android:id="@+id/etConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:hint="@string/etConfirmPassword" />
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etConfirmMail"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etPassword" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/etConfirmPassword"
-        android:text="@string/btnRegister"
-        android:layout_marginTop="30dp"
-        android:onClick="onClickRegister" />
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etPassword"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:width="200dp"
+            android:hint="@string/etConfirmPassword" />
 
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/etConfirmPassword"
+            android:text="@string/btnRegister"
+            android:layout_marginTop="30dp"
+            android:onClick="onClickRegister" />
 
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
