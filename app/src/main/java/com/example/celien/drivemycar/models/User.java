@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String specificity; // Cf. DMC, for example if a smoker.
 
-    public User(String name, String email, String username, String password, String specificity){
+    public User(String name, String email, String username, String password){
         this.name = name;
         this.email = email;
         this.username = username;

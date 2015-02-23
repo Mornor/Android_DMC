@@ -4,6 +4,8 @@ package com.example.celien.drivemycar.http;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.celien.drivemycar.Register;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.apache.http.HttpResponse;
@@ -22,12 +24,12 @@ import java.util.List;
  * 2nd Parameter : Types of parameter passed in onProgressUpdate
  * 3rd Parameter : Types of parameter passed in onPostExecute
  */
-public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
 
     private String name;
     private String message;
     private JSONArray json;
-    private Class caller;
+    private Register callerRegister;
 
     public final static String SAVE_USER_URL        = "http://localhost:9000/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
@@ -42,8 +44,8 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
 
     // Generic constructor, in order to retrieve the caller class.
     // For example, to retrieve the name of the caller class : this.caller.getName();
-    public HttpAsync(Class<T> caller){
-        this.caller = caller;
+    public HttpAsync(Register caller){
+        this.callerRegister = caller;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
      */
     @Override
     protected JSONArray doInBackground(String... params) {
-        if(params[0].equals(Action.SAVE_USER))
+        if(params[0].equals(Action.SAVE_USER.toString()))
             return saveNewUser();
         else if(params[0].equals("POST")){
             //doPost();
@@ -75,12 +77,16 @@ public class HttpAsync<T> extends AsyncTask<String, Void, JSONArray>{
 
     /*Save the name and the message into remote DB*/
     public JSONArray saveNewUser(){
+        User temp = callerRegister.getUser();
         try{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("name", name));
-            list.add(new BasicNameValuePair("message", message));
+            list.add(new BasicNameValuePair("name", temp.getName()));
+            list.add(new BasicNameValuePair("username", temp.getUsername()));
+            list.add(new BasicNameValuePair("email", temp.getUsername()));
+            list.add(new BasicNameValuePair("password", temp.getUsername()));
+            list.add(new BasicNameValuePair("specificity", temp.getSpecificity()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
         }catch(Exception e){

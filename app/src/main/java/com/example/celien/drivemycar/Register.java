@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 
@@ -27,6 +28,7 @@ public class Register extends ActionBarActivity {
     private EditText etConfirmPassword;
 
     // Value of the fields
+    private User temp;
     String name;
     String username;
     String mail;
@@ -84,8 +86,9 @@ public class Register extends ActionBarActivity {
         // If confirmation succeed
         // Save the User into db using instance of HttpAsync
         else if(error == null){
-            HttpAsync httpAsync = new HttpAsync(this.getClass());
-            httpAsync.execute(Action.SAVE_USER);
+            HttpAsync httpAsync = new HttpAsync(this);
+            temp = new User(name, mail, username, password);
+            httpAsync.execute(Action.SAVE_USER.toString());
         }
     }
 
@@ -142,27 +145,7 @@ public class Register extends ActionBarActivity {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public User getUser(){
+       return temp;
     }
 }
