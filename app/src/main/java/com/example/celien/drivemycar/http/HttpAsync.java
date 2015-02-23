@@ -31,7 +31,7 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
     private JSONArray json;
     private Register callerRegister;
 
-    public final static String SAVE_USER_URL        = "http://localhost:9000/register";
+    public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
 
     public HttpAsync(String name, String message){
@@ -89,9 +89,11 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
             list.add(new BasicNameValuePair("specificity", temp.getSpecificity()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
+            Log.d("HttpAsync", "Data send");
         }catch(Exception e){
             e.printStackTrace();
         }
+
         return null;
     }
 
