@@ -3,7 +3,8 @@ package com.example.celien.drivemycar.utils;
 
 public enum Action {
 
-    SAVE_USER("saveUser");
+    SAVE_USER("saveUser"),
+    AUTHENTICATE("authenticate");
 
     private final String name;
 

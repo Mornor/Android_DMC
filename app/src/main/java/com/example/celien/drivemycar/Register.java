@@ -99,11 +99,11 @@ public class Register extends ActionBarActivity {
     private String checkConfirmation(String... params){
         boolean isError = false;
         String result = "";
-        if(!params[0].equals(params[1])){
+        if(!params[1].equals(params[2])){
             result += "Mail and its confirmation";
             isError = true;
         }
-        if(!params[2].equals(params[3])){
+        if(!params[3].equals(params[4])){
             result += "\nPassword and its confirmation";
             isError = true;
         }

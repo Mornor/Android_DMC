@@ -4,6 +4,7 @@ package com.example.celien.drivemycar.http;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.celien.drivemycar.Login;
 import com.example.celien.drivemycar.Register;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -16,6 +17,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,28 +28,30 @@ import java.util.List;
  * 2nd Parameter : Types of parameter passed in onProgressUpdate
  * 3rd Parameter : Types of parameter passed in onPostExecute
  */
-public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     private String name;
     private String message;
     private JSONArray json;
+
     private Register callerRegister;
+    private Login loginCaller;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
-
-    public HttpAsync(String name, String message){
-        this.name    = name;
-        this.message = message;
-    }
+    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/login";
 
     // Default constructor
     public HttpAsync(){}
 
-    // Generic constructor, in order to retrieve the caller class.
-    // For example, to retrieve the name of the caller class : this.caller.getName();
+
+    // Only simple way to retrieve the caller.
     public HttpAsync(Register caller){
         this.callerRegister = caller;
+    }
+
+    public HttpAsync(Login caller){
+        this.loginCaller = caller;
     }
 
     @Override
@@ -59,24 +65,42 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
      * @return JSONArray which is passed to onPostExecute();
      */
     @Override
-    protected JSONArray doInBackground(String... params) {
+    protected Object doInBackground(String... params) {
         if(params[0].equals(Action.SAVE_USER.toString()))
             return saveNewUser();
-        else if(params[0].equals("POST")){
-            //doPost();
-            return null;
-        }
+        else if(params[0].equals(Action.AUTHENTICATE.toString()))
+            return authenticate();
         else
             return null;
     }
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
+    protected void onPostExecute(Object object) {
+        // Chek to know which instance has been called, and so to know who is the current instance.
+        if(loginCaller != null)
+            loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse.
+    }
 
+    public int authenticate(){
+        int responseCode =  0;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(SAVE_USER_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", loginCaller.getLogin()));
+            list.add(new BasicNameValuePair("password", loginCaller.getPassword()));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            responseCode = response.getStatusLine().getStatusCode(); // 200 if successfull.
+            Log.d("Async", Integer.toString(responseCode));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseCode;
     }
 
     /*Save the name and the message into remote DB*/
-    public JSONArray saveNewUser(){
+    public int saveNewUser(){
         User temp = callerRegister.getUser();
         try{
             HttpClient httpClient = new DefaultHttpClient();
@@ -89,12 +113,11 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
             list.add(new BasicNameValuePair("specificity", temp.getSpecificity()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
-            Log.d("HttpAsync", "Data send");
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
     /*Retrieve names and messages into remote DB*/
@@ -105,14 +128,6 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
     }
 
     /*Getters and Setters*/
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getName() {
         return name;
     }
@@ -121,12 +136,5 @@ public class HttpAsync extends AsyncTask<String, Void, JSONArray>{
         this.name = name;
     }
 
-    public JSONArray getJson() {
-        return json;
-    }
-
-    public void setJson(JSONArray json) {
-        this.json = json;
-    }
 
 }

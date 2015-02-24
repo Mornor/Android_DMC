@@ -9,14 +9,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.utils.Action;
 
 
 public class Login extends ActionBarActivity {
 
     private Button btnLogin;
     private TextView tvNyr; // Not Yet Register
+    private EditText etLogin;
+    private EditText etPassword;
+    private String login;
+    private String password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +42,10 @@ public class Login extends ActionBarActivity {
         getSupportActionBar().setTitle("Drive My Car");
 
         // Get the items on activity_login
-        tvNyr = (TextView)findViewById(R.id.tvNyr);
-        btnLogin = (Button)findViewById(R.id.btnLogin);
+        tvNyr       = (TextView)findViewById(R.id.tvNyr);
+        btnLogin    = (Button)findViewById(R.id.btnLogin);
+        etLogin     = (EditText)findViewById(R.id.etLogin);
+        etPassword  = (EditText)findViewById(R.id.etPassword);
     }
 
     // Set the listener for the TextView.
@@ -49,9 +60,19 @@ public class Login extends ActionBarActivity {
     }
 
     public void onClickLogin(View v){
-        Log.d("Toast", "Button Clicked");
+        HttpAsync httpAsync = new HttpAsync(this);
+        login    = etLogin.getText().toString();
+        password = etPassword.getText().toString();
+        httpAsync.execute(Action.AUTHENTICATE.toString());
     }
 
+    public void onPostExecute(Object object){
+        int responseAuth = (int) object;
+        if(responseAuth == 200)
+           Log.d("Login", "Auth Successfull");
+        else
+            Log.d("Login", "Auth Failed");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,4 +95,14 @@ public class Login extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /*Getters and Setters*/
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
