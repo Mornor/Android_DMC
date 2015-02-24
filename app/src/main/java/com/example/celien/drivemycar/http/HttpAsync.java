@@ -16,9 +16,13 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,14 +89,14 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         int responseCode =  0;
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(SAVE_USER_URL);
+            HttpPost httpPost = new HttpPost(AUTHENTICATE_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", loginCaller.getLogin()));
             list.add(new BasicNameValuePair("password", loginCaller.getPassword()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
-            responseCode = response.getStatusLine().getStatusCode(); // 200 if successfull.
-            Log.d("Async", Integer.toString(responseCode));
+            responseCode = response.getStatusLine().getStatusCode();
+            Log.d("Async responseCode", Integer.toString(responseCode));
         } catch (Exception e) {
             e.printStackTrace();
         }

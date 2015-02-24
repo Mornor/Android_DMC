@@ -49,7 +49,7 @@ public class JsonParser {
         return createJsonFromString(json);
     }
 
-    private String createJsonStringFromInputStream(InputStream inputStream){
+    public static String createJsonStringFromInputStream(InputStream inputStream){
         try{
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(inputStream, "iso-8859-1"), 8);

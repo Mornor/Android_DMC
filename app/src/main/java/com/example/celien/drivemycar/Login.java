@@ -23,6 +23,7 @@ public class Login extends ActionBarActivity {
     private TextView tvNyr; // Not Yet Register
     private EditText etLogin;
     private EditText etPassword;
+    private TextView tvError;
     private String login;
     private String password;
 
@@ -46,6 +47,7 @@ public class Login extends ActionBarActivity {
         btnLogin    = (Button)findViewById(R.id.btnLogin);
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
+        tvError     = (TextView)findViewById(R.id.tvError);
     }
 
     // Set the listener for the TextView.
@@ -68,10 +70,10 @@ public class Login extends ActionBarActivity {
 
     public void onPostExecute(Object object){
         int responseAuth = (int) object;
-        if(responseAuth == 200)
+        if(responseAuth == 303) // HTTP 1.0/303 -> Redirect
            Log.d("Login", "Auth Successfull");
         else
-            Log.d("Login", "Auth Failed");
+            tvError.setText("Wrong password or username");
     }
 
     @Override
