@@ -61,8 +61,8 @@ public class Login extends ActionBarActivity {
 
     public void onClickLogin(View v){
         HttpAsync httpAsync = new HttpAsync(this);
-        login    = etLogin.getText().toString();
-        password = etPassword.getText().toString();
+        login    = etLogin.getText().toString().trim();
+        password = etPassword.getText().toString().trim();
         httpAsync.execute(Action.AUTHENTICATE.toString());
     }
 
