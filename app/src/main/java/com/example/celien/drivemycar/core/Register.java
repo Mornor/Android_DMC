@@ -1,4 +1,4 @@
-package com.example.celien.drivemycar;
+package com.example.celien.drivemycar.core;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;

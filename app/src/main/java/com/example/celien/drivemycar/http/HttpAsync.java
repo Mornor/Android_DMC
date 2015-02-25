@@ -3,11 +3,9 @@ package com.example.celien.drivemycar.http;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
 
-import com.example.celien.drivemycar.Login;
-import com.example.celien.drivemycar.Register;
+import com.example.celien.drivemycar.core.Login;
+import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -18,7 +16,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
