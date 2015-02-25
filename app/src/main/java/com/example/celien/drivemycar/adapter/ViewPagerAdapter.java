@@ -3,7 +3,6 @@ package com.example.celien.drivemycar.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.example.celien.drivemycar.tabs.TabAccount;
 
@@ -14,9 +13,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int nbTabs){
         super(fm);
-        this.titles = titles;
-        this.nbTabs = nbTabs;
-
+        this.titles     = titles;
+        this.nbTabs     = nbTabs;
     }
 
     @Override

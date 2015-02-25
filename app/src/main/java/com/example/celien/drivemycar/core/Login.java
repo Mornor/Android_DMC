@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.tabs.TabAccount;
 import com.example.celien.drivemycar.utils.Action;
 
 
@@ -30,7 +31,6 @@ public class Login extends ActionBarActivity {
     private ProgressDialog pbLogin;
     private String login;
     private String password;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,13 @@ public class Login extends ActionBarActivity {
         tvNyr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start the home activity
                 Intent i = new Intent(v.getContext(), Register.class);
                 startActivity(i);
+                Bundle bundle = new Bundle();
+                bundle.putString("username", login);
+                TabAccount tabAccount = new TabAccount();
+                tabAccount.setArguments(bundle);
             }
         });
     }

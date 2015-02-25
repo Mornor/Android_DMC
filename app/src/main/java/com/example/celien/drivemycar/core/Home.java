@@ -16,12 +16,13 @@ import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
  */
 public class Home extends ActionBarActivity{
 
-    Toolbar toolbar;
-    ViewPagerAdapter pagerAdapter;
-    ViewPager pager;
-    SlidingTabLayout tabs;
-    CharSequence titles[];
-    int nbTabs;
+    private Toolbar toolbar;
+    private ViewPagerAdapter pagerAdapter;
+    private ViewPager pager;
+    private SlidingTabLayout tabs;
+    private CharSequence titles[];
+    private int nbTabs;
+    private String username; // From login page.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

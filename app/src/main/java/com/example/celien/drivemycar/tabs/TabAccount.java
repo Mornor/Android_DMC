@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 
+import org.w3c.dom.Text;
+
 
 public class TabAccount extends Fragment {
 
@@ -19,12 +21,15 @@ public class TabAccount extends Fragment {
     private TextView tvSettings;
     private TextView tvLogout;
     private TextView tvEditableRanking;
+    private String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_tab_account, container, false);
+        Bundle bundle = this.getArguments();
+        if(bundle != null)
+            this.username = bundle.getString("username");
         init(rootView);
-
         return rootView;
     }
 
@@ -34,6 +39,8 @@ public class TabAccount extends Fragment {
         tvSettings          = (TextView)v.findViewById(R.id.tvSettings);
         tvLogout            = (TextView)v.findViewById(R.id.tvLogout);
         tvEditableRanking   = (TextView)v.findViewById(R.id.tvEditableRanking);
+
+        tvUsername.setText(username);
 
         tvSettings.setOnClickListener(new View.OnClickListener(){
             @Override
