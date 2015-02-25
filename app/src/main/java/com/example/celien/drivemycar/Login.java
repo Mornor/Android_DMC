@@ -70,8 +70,8 @@ public class Login extends ActionBarActivity {
 
     public void onPostExecute(Object object){
         int responseAuth = (int) object;
-        if(responseAuth == 303) // HTTP 1.0/303 -> Redirect
-           Log.d("Login", "Auth Successfull");
+        if(responseAuth == 200) // HTTP 1.0/200 -> OK.
+            tvError.setText("Success");
         else
             tvError.setText("Wrong password or username");
     }

@@ -43,7 +43,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
-    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/login";
+    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android_login";
 
     // Default constructor
     public HttpAsync(){}
@@ -82,7 +82,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     protected void onPostExecute(Object object) {
         // Chek to know which instance has been called, and so to know who is the current instance.
         if(loginCaller != null)
-            loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse.
+            loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
     }
 
     public int authenticate(){
@@ -96,7 +96,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             responseCode = response.getStatusLine().getStatusCode();
-            Log.d("Async responseCode", Integer.toString(responseCode));
         } catch (Exception e) {
             e.printStackTrace();
         }
