@@ -12,7 +12,7 @@ import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
 
 /**
- * Main page of the app, with slider tabs.
+ * Main page of the app, with sliding tabs.
  */
 public class Home extends ActionBarActivity{
 
