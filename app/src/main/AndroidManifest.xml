@@ -23,6 +23,10 @@
             android:name=".core.Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".tabs.TabAccount"
+            android:label="@string/title_activity_tab_account" >
+        </activity>
     </application>
 
 </manifest>

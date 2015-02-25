@@ -22,6 +22,16 @@
     <string name="etConfirmMail">Confirm E-mail</string>
     <string name="etConfirmPassword">Confirm Password</string>
     <string name="btnRegister">Register</string>
+    <string name="title_activity_tab_account">TabAccount</string>
+
+    <!-- tab_personnal_space -->
+    <string name="tvName">Name</string>
+    <string name="tvPseudo">Pseudo</string>
+    <string name="tvRanking">Ranking</string>
+    <string name="tvEditableRanking">4/100</string>
+    <string name="tvSettings">Settings</string>
+    <string name="tvLogout">Logout</string>
+    <string name="tvMyCar">My car</string>
 
 
 </resources>

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.celien.drivemycar.tabs.TabAccount;
+
 public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     private CharSequence titles[];
@@ -19,6 +21,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
+        switch (position){
+            case 0 :
+                TabAccount tabAccount = new TabAccount();
+                return tabAccount;
+
+        }
+
         return null;
     }
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/tool_bar"
+        android:text="@string/tvName"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:id="@+id/tvPseudo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvPseudo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/tvName"
+        android:layout_margin="10dp" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/avatar"
+        android:layout_alignBottom="@+id/tvPseudo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tool_bar"
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginTop="10dp" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ivAvatar"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvMyCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvMyCar"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_above="@+id/tvEditableRanking"
+        android:layout_toRightOf="@+id/ivMyCar"
+        android:layout_toEndOf="@+id/ivMyCar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="65dp" />
+
+    <ImageView
+        android:id="@+id/ivMyCar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/line1"
+        android:src="@drawable/my_car"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ivMyCar"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvRanking"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:text="@string/tvRanking"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/tvEditableRanking"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="@string/tvEditableRanking"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBottom="@+id/tvRanking"
+        android:layout_toRightOf="@+id/tvRanking"
+        android:layout_toEndOf="@+id/tvRanking" />
+
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvSettings"
+        android:layout_below="@+id/tvRanking"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/tvLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvLogout"
+        android:layout_below="@+id/tvSettings"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
