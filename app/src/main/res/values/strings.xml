@@ -33,5 +33,8 @@
     <string name="tvLogout">Logout</string>
     <string name="tvMyCar">My car</string>
 
+    <!-- Home -->
+    <string name="title_activity_home">Home</string>
+
 
 </resources>
