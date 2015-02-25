@@ -29,10 +29,16 @@ public class Register extends ActionBarActivity {
 
     // Value of the fields
     private User temp;
-    String name;
-    String username;
-    String mail;
-    String password;
+    private String name;
+    private String username;
+    private String mail;
+    private String password;
+
+    //Usefull var
+    boolean formError;
+    boolean confirmMailError;
+    boolean confirmPasswordError;
+    boolean usernameError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,29 +69,15 @@ public class Register extends ActionBarActivity {
 
         // If confirmation failed
         String error = checkConfirmation(mail, confirmMail, password, confirmPassword);
-        if(error != null){
-            tvError.setText(error);
-            switch (error){
-                case "Mail and its confirmation\ndoes not match, please correct it.":
-                    etConfirmMail.setText("");
-                    etConfirmMail.setHint("New mail confirmation");
-                    break;
-                case "\nPassword and its confirmation\ndoes not match, please correct it.":
-                    etConfirmPassword.setText("");
-                    etConfirmPassword.setHint("New pwd confirmation");
-                    break;
-                case "Mail and its confirmation\nPassword and its confirmation\ndoes not match, please correct it.":
-                    etConfirmMail.setText("");
-                    etConfirmMail.setHint("New mail confirmation");
-                    etConfirmPassword.setText("");
-                    etConfirmPassword.setHint("New pwd confirmation");
-                    break;
-            }
+        if(formError){
+            if(confirmMailError)
+                tvError.setText(error);
         }
 
         // If confirmation succeed
         // Save the User into db using instance of HttpAsync
-        else if(error == null){
+        else if(!formError){
+            tvError.setText("");
             HttpAsync httpAsync = new HttpAsync(this);
             temp = new User(name, mail, username, password);
             httpAsync.execute(Action.SAVE_USER.toString());
@@ -97,18 +89,23 @@ public class Register extends ActionBarActivity {
      * @return a message with errors if errors occurs, null otherwise.
      */
     private String checkConfirmation(String... params){
-        boolean isError = false;
-        String result = "";
-        if(!params[1].equals(params[2])){
-            result += "Mail and its confirmation";
-            isError = true;
+        formError = false;
+        usernameError = false;
+        confirmPasswordError = false;
+        confirmMailError = false;
+        String result = "Please, confirm the following error(s):\n";
+        if(!params[0].equals(params[1])){
+            result += "- Mail and its confirmation does not match\n";
+            formError = true;
+            confirmMailError = true;
         }
-        if(!params[3].equals(params[4])){
-            result += "\nPassword and its confirmation";
-            isError = true;
+        if(!params[2].equals(params[3])){
+            result += "- Password and its confirmation does not match\n";
+            formError = true;
+            confirmPasswordError = true;
         }
-        if(isError)
-            return result + "\ndoes not match, please correct it.";
+        if(formError)
+            return result;
         else
             return null;
 
