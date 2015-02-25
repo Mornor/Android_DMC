@@ -69,6 +69,7 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:width="200dp"
+            android:password="true"
             android:hint="@string/etPassword" />
 
         <EditText
@@ -79,6 +80,7 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:width="200dp"
+            android:password="true"
             android:hint="@string/etConfirmPassword" />
 
         <Button

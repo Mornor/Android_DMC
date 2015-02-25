@@ -87,6 +87,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         }
         if(registerCaller != null){
             registerCaller.getRing().dismiss();
+            boolean success = ( (int) object) == 0 ? true : false;
+            registerCaller.onPostExecute(success);
         }
 
     }
@@ -111,6 +113,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     /*Save the name and the message into remote DB*/
     public int saveNewUser(){
         User temp = registerCaller.getUser();
+        int success;
         try{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
@@ -121,11 +124,12 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("password", temp.getPassword()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
+            success = 0;
         }catch(Exception e){
             e.printStackTrace();
+            success = -1;
         }
-
-        return 0;
+        return success;
     }
 
     /*Retrieve names and messages into remote DB*/
