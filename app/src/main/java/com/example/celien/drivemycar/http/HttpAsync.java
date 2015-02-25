@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.http;
 
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -20,11 +21,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +35,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private String message;
     private JSONArray json;
 
-    private Register callerRegister;
+    private Register registerCaller;
     private Login loginCaller;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
@@ -52,7 +48,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     // Only simple way to retrieve the caller.
     public HttpAsync(Register caller){
-        this.callerRegister = caller;
+        this.registerCaller = caller;
     }
 
     public HttpAsync(Login caller){
@@ -63,8 +59,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     protected void onPreExecute() {
         // If caller is Login
         if(loginCaller != null)
-            loginCaller.getPbLogin().setVisibility(View.VISIBLE);
-
+            loginCaller.setProgressBar(ProgressDialog.show(loginCaller, "Please wait ...", "Login ..."));
+        if(registerCaller != null)
+            registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Register ..."));
     }
 
     /**
@@ -85,8 +82,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     protected void onPostExecute(Object object) {
         // Chek to know which instance has been called, and so to know who is the current instance.
         if(loginCaller != null){
-            loginCaller.getPbLogin().setVisibility(View.GONE);
+            loginCaller.getProgressDialog().dismiss();
             loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
+        }
+        if(registerCaller != null){
+            registerCaller.getRing().dismiss();
         }
 
     }
@@ -110,16 +110,15 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     /*Save the name and the message into remote DB*/
     public int saveNewUser(){
-        User temp = callerRegister.getUser();
+        User temp = registerCaller.getUser();
         try{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("name", temp.getName()));
             list.add(new BasicNameValuePair("username", temp.getUsername()));
-            list.add(new BasicNameValuePair("email", temp.getUsername()));
-            list.add(new BasicNameValuePair("password", temp.getUsername()));
-            list.add(new BasicNameValuePair("specificity", temp.getSpecificity()));
+            list.add(new BasicNameValuePair("email", temp.getEmail()));
+            list.add(new BasicNameValuePair("password", temp.getPassword()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
         }catch(Exception e){

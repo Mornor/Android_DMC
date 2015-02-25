@@ -1,7 +1,9 @@
 package com.example.celien.drivemycar;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,11 +36,14 @@ public class Register extends ActionBarActivity {
     private String mail;
     private String password;
 
-    //Usefull var
+    // Usefull var
     boolean formError;
     boolean confirmMailError;
     boolean confirmPasswordError;
     boolean usernameError;
+
+    // Usefull GUI stuff
+    ProgressDialog ring;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,10 @@ public class Register extends ActionBarActivity {
     }
 
     private void init(){
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Registration");
+
         btnRegister         = (Button)findViewById(R.id.btnRegister);
         tvError             = (TextView)findViewById(R.id.tvError);
         etName              = (EditText)findViewById(R.id.etName);
@@ -144,5 +153,13 @@ public class Register extends ActionBarActivity {
 
     public User getUser(){
        return temp;
+    }
+
+    public ProgressDialog getRing(){
+        return ring;
+    }
+
+    public void setRing(ProgressDialog ring){
+        this.ring = ring;
     }
 }

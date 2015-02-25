@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class Login extends ActionBarActivity {
     private EditText etLogin;
     private EditText etPassword;
     private TextView tvError;
-    private ProgressBar pbLogin;
+    private ProgressDialog pbLogin;
     private String login;
     private String password;
 
@@ -48,7 +49,6 @@ public class Login extends ActionBarActivity {
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
         tvError     = (TextView)findViewById(R.id.tvError);
-        pbLogin     = (ProgressBar)findViewById(R.id.pbLogin);
     }
 
     // Set the listener for the TextView.
@@ -108,8 +108,12 @@ public class Login extends ActionBarActivity {
         return password;
     }
 
-    public ProgressBar getPbLogin(){
+    public ProgressDialog getProgressDialog(){
         return pbLogin;
+    }
+
+    public void setProgressBar(ProgressDialog pb){
+        this.pbLogin = pb;
     }
 
 }
