@@ -4,21 +4,21 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/tool_bar"
-        android:text="@string/tvName"
+        android:text="@string/tvUsername"
         android:layout_margin="10dp" />
 
     <TextView
-        android:id="@+id/tvPseudo"
+        android:id="@+id/tvMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tvPseudo"
+        android:text="@string/tvMail"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/tvName"
+        android:layout_below="@+id/tvUsername"
         android:layout_margin="10dp" />
 
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/avatar"
-        android:layout_alignBottom="@+id/tvPseudo"
+        android:layout_alignBottom="@+id/tvMail"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/tool_bar"

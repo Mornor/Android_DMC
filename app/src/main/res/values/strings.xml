@@ -25,8 +25,8 @@
     <string name="title_activity_tab_account">TabAccount</string>
 
     <!-- tab_personnal_space -->
-    <string name="tvName">Name</string>
-    <string name="tvPseudo">Pseudo</string>
+    <string name="tvUsername">Username</string>
+    <string name="tvMail">E-mail</string>
     <string name="tvRanking">Ranking</string>
     <string name="tvEditableRanking">4/100</string>
     <string name="tvSettings">Settings</string>

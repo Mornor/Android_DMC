@@ -25,7 +25,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
             case 0 :
                 TabAccount tabAccount = new TabAccount();
                 return tabAccount;
-
         }
 
         return null;

@@ -75,11 +75,11 @@ public class Login extends ActionBarActivity {
     public void onPostExecute(Object object){
         int responseAuth = (int) object;
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK.
-            tvError.setText("Success");
-            createAndShowResult("Login sucessfull", "Ok");
+            Intent i = new Intent(this, Home.class);
+            startActivity(i);
         }
         else
-            tvError.setText("Wrong password or username");
+            createAndShowResult("Wrong password or username", "Retry");
     }
 
     private void createAndShowResult(String title, String btntext){
