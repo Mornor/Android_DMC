@@ -1,10 +1,13 @@
 package com.example.celien.drivemycar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,10 +74,24 @@ public class Login extends ActionBarActivity {
 
     public void onPostExecute(Object object){
         int responseAuth = (int) object;
-        if(responseAuth == 200) // HTTP 1.0/200 -> OK.
+        if(responseAuth == 200){ // HTTP 1.0/200 -> OK.
             tvError.setText("Success");
+            createAndShowResult("Login sucessfull", "Ok");
+        }
         else
             tvError.setText("Wrong password or username");
+    }
+
+    private void createAndShowResult(String title, String btntext){
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // When btn is clicked
+                        Log.d("Ok", "Ok has  been clicked");
+                    }
+                }).show();
     }
 
     @Override

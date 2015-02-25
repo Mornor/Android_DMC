@@ -1,6 +1,8 @@
 package com.example.celien.drivemycar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -140,6 +142,25 @@ public class Register extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onPostExecute(boolean success){
+        if(success)
+            createAndShowResult("Register sucessfull", "Ok");
+        else
+            Log.d("Register", "Failed");
+    }
+
+    private void createAndShowResult(String title, String btntext){
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // When btn is clicked
+                        Log.d("Ok", "Ok has  been clicked");
+                    }
+                }).show();
     }
 
     /*Getters and Setters*/
