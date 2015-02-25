@@ -169,6 +169,7 @@ public class Register extends ActionBarActivity {
     private void launchIntentToLogin(){
         Intent i = new Intent(this, Login.class);
         startActivity(i);
+        finish(); // Kill the Register activity.
     }
 
     /*Getters and Setters*/

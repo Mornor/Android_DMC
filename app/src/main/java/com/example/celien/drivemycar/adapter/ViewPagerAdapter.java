@@ -1,0 +1,52 @@
+package com.example.celien.drivemycar.adapter;
+
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
+public class ViewPagerAdapter extends FragmentStatePagerAdapter{
+
+    private CharSequence titles[];
+    private int nbTabs;
+
+    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int nbTabs){
+        super(fm);
+        this.titles = titles;
+        this.nbTabs = nbTabs;
+
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public int getCount() {
+        return nbTabs;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
+    }
+
+
+    /*Getters and Setters*/
+    public CharSequence[] getTitles() {
+        return titles;
+    }
+
+    public void setTitles(CharSequence[] titles) {
+        this.titles = titles;
+    }
+
+    public int getNbTabs() {
+        return nbTabs;
+    }
+
+    public void setNbTabs(int nbTabs) {
+        this.nbTabs = nbTabs;
+    }
+}
