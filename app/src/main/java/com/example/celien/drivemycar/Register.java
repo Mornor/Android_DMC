@@ -3,6 +3,7 @@ package com.example.celien.drivemycar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -71,12 +72,12 @@ public class Register extends ActionBarActivity {
 
     // Called when register button is clicked.
     public void onClickRegister(View v){
-        name                    = etName.getText().toString();
-        username                = etUsername.getText().toString();
-        mail                    = etMail.getText().toString();
-        String confirmMail      = etConfirmMail.getText().toString(); // Declared here because used just to confirm the fields.
-        password                = etPassword.getText().toString();
-        String confirmPassword  = etConfirmPassword.getText().toString();
+        name                    = etName.getText().toString().trim();
+        username                = etUsername.getText().toString().trim();
+        mail                    = etMail.getText().toString().trim();
+        String confirmMail      = etConfirmMail.getText().toString().trim(); // Declared here because used just to confirm the fields.
+        password                = etPassword.getText().toString().trim();
+        String confirmPassword  = etConfirmPassword.getText().toString().trim();
 
         // If confirmation failed
         String error = checkConfirmation(mail, confirmMail, password, confirmPassword);
@@ -146,7 +147,7 @@ public class Register extends ActionBarActivity {
 
     public void onPostExecute(boolean success){
         if(success)
-            createAndShowResult("Register sucessfull", "Ok");
+            createAndShowResult("Register sucessfull, please log in", "Ok");
         else
             Log.d("Register", "Failed");
     }
@@ -158,9 +159,14 @@ public class Register extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // When btn is clicked
-                        Log.d("Ok", "Ok has  been clicked");
+                        launchIntentToLogin();
                     }
                 }).show();
+    }
+
+    private void launchIntentToLogin(){
+        Intent i = new Intent(this, Login.class);
+        startActivity(i);
     }
 
     /*Getters and Setters*/
