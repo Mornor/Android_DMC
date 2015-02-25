@@ -1,7 +1,6 @@
 package com.example.celien.drivemycar.core;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,12 +16,12 @@ import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
  */
 public class Home extends ActionBarActivity{
 
-    private Toolbar toolbar;
-    private ViewPagerAdapter pagerAdapter;
-    private ViewPager pager;
-    private SlidingTabLayout tabs;
-    private CharSequence titles[];
-    private int nbTabs;
+    Toolbar toolbar;
+    ViewPagerAdapter pagerAdapter;
+    ViewPager pager;
+    SlidingTabLayout tabs;
+    CharSequence titles[];
+    int nbTabs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

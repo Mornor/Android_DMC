@@ -1,9 +1,9 @@
 package com.example.celien.drivemycar.adapter;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.example.celien.drivemycar.tabs.TabAccount;
 
@@ -25,9 +25,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
             case 0 :
                 TabAccount tabAccount = new TabAccount();
                 return tabAccount;
+            case 1 :
+                TabAccount tabAccount1 = new TabAccount();
+                return tabAccount1;
+            case 2 :
+                TabAccount tabAccount2 = new TabAccount();
+                return tabAccount2;
         }
 
-        return null;
+        return null; // Should never occurs
     }
 
     @Override
