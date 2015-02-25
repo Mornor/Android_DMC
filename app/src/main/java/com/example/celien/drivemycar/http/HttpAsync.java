@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.http;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import com.example.celien.drivemycar.Login;
 import com.example.celien.drivemycar.Register;
@@ -60,7 +61,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
+        // If caller is Login
+        if(loginCaller != null)
+            loginCaller.getPbLogin().setVisibility(View.VISIBLE);
 
     }
 
@@ -81,8 +84,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     @Override
     protected void onPostExecute(Object object) {
         // Chek to know which instance has been called, and so to know who is the current instance.
-        if(loginCaller != null)
+        if(loginCaller != null){
+            loginCaller.getPbLogin().setVisibility(View.GONE);
             loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
+        }
+
     }
 
     public int authenticate(){

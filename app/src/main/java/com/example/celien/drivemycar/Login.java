@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class Login extends ActionBarActivity {
     private EditText etLogin;
     private EditText etPassword;
     private TextView tvError;
+    private ProgressBar pbLogin;
     private String login;
     private String password;
 
@@ -48,6 +50,7 @@ public class Login extends ActionBarActivity {
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
         tvError     = (TextView)findViewById(R.id.tvError);
+        pbLogin     = (ProgressBar)findViewById(R.id.pbLogin);
     }
 
     // Set the listener for the TextView.
@@ -66,7 +69,7 @@ public class Login extends ActionBarActivity {
         login    = etLogin.getText().toString().trim();
         password = etPassword.getText().toString().trim();
         httpAsync.execute(Action.AUTHENTICATE.toString());
-    }
+     }
 
     public void onPostExecute(Object object){
         int responseAuth = (int) object;
@@ -105,6 +108,10 @@ public class Login extends ActionBarActivity {
 
     public String getPassword() {
         return password;
+    }
+
+    public ProgressBar getPbLogin(){
+        return pbLogin;
     }
 
 }
