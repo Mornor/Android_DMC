@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class TabAccount extends Fragment {
     private TextView tvSettings;
     private TextView tvLogout;
     private TextView tvEditableRanking;
+    private ImageView ivMyCar;
+    private TextView tvMyCar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class TabAccount extends Fragment {
         tvSettings          = (TextView)v.findViewById(R.id.tvSettings);
         tvLogout            = (TextView)v.findViewById(R.id.tvLogout);
         tvEditableRanking   = (TextView)v.findViewById(R.id.tvEditableRanking);
+        tvMyCar             = (TextView)v.findViewById(R.id.tvMyCar);
+        ivMyCar             = (ImageView)v.findViewById(R.id.ivMyCar);
+
 
         tvSettings.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,5 +55,20 @@ public class TabAccount extends Fragment {
                 Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
             }
         });
+
+        tvMyCar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "tvMyCar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ivMyCar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "ivMyCar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
