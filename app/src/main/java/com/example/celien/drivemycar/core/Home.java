@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
+import com.example.celien.drivemycar.tabs.TabAccount;
 
 /**
  * Main page of the app, with sliding tabs.
@@ -29,6 +31,18 @@ public class Home extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
+
+        // Get the username from Login.
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null)
+            this.username = bundle.getString("username");
+
+        // Send username to TabAccount
+        Bundle bundleToTabAccount = new Bundle();
+        bundleToTabAccount.putString("username", username);
+        TabAccount tab = new TabAccount();
+        tab.setArguments(bundle);
+
     }
 
     private void init(){
