@@ -62,10 +62,6 @@ public class Login extends ActionBarActivity {
                 // Start the home activity
                 Intent i = new Intent(v.getContext(), Register.class);
                 startActivity(i);
-                Bundle bundle = new Bundle();
-                bundle.putString("username", login);
-                TabAccount tabAccount = new TabAccount();
-                tabAccount.setArguments(bundle);
             }
         });
     }
