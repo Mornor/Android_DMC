@@ -3,7 +3,6 @@ package com.example.celien.drivemycar.tabs;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,6 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
-
-import org.w3c.dom.Text;
-
-
 public class TabAccount extends Fragment {
 
     private TextView tvUsername;
