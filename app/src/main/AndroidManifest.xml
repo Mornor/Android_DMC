@@ -27,6 +27,10 @@
             android:name=".core.Home"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name=".core.CarSettings"
+            android:label="@string/title_activity_car_settings" >
+        </activity>
     </application>
 
 </manifest>

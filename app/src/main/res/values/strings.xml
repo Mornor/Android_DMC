@@ -35,6 +35,7 @@
 
     <!-- Home -->
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_car_settings">CarSettings</string>
 
 
 </resources>
