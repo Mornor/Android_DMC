@@ -7,6 +7,8 @@ import android.view.MenuItem;
 
 import com.example.celien.drivemycar.R;
 
+/*TODO before everything : Check if the user already have a car in DB.*/
+
 public class CarSettings extends ActionBarActivity {
 
     @Override

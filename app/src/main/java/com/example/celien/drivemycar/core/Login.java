@@ -78,6 +78,12 @@ public class Login extends ActionBarActivity {
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK.
             Intent i = new Intent(this, Home.class);
             startActivity(i);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("username", login);
+            TabAccount tab = new TabAccount();
+            tab.setArguments(bundle);
+
         }
         else
             createAndShowResult("Wrong password or username", "Retry");

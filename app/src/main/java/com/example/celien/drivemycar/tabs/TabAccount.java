@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.tabs;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ public class TabAccount extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_tab_account, container, false);
+        String args = getArguments().getString("username");
+        Log.d("Username received : ", args);
         init(rootView);
         return rootView;
     }
