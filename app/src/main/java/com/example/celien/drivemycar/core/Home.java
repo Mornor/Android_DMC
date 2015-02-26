@@ -38,10 +38,10 @@ public class Home extends ActionBarActivity{
             this.username = bundle.getString("username");
 
         // Send username to TabAccount
-        Bundle bundleToTabAccount = new Bundle();
+        /*Bundle bundleToTabAccount = new Bundle();
         bundleToTabAccount.putString("username", username);
         TabAccount tab = new TabAccount();
-        tab.setArguments(bundle);
+        tab.setArguments(bundle);*/
 
     }
 
@@ -77,5 +77,10 @@ public class Home extends ActionBarActivity{
         if(id == R.id.action_settings)
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    /*Getters and Setters*/
+    public String getUsername(){
+        return username;
     }
 }
