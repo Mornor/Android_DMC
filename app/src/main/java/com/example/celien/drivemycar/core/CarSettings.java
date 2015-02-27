@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.core;
 import android.app.Dialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,15 +96,13 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         Button btnSet              = (Button)np.findViewById(R.id.btnSet);
         Button btnCancel           = (Button)np.findViewById(R.id.btnCancel);
 
-        // Set the range and some parameters
+        // Set the range and some parameters;
         npUnit.setMinValue(minValUnit);
         npUnit.setMaxValue(maxValUnit);
-        npUnit.setWrapSelectorWheel(false);
         npUnit.setOnValueChangedListener(this);
 
         npTenth.setMinValue(minValTenth);
         npTenth.setMaxValue(maxValTenth);
-        npTenth.setWrapSelectorWheel(false);
         npTenth.setOnValueChangedListener(this);
 
         // Set the listeners
