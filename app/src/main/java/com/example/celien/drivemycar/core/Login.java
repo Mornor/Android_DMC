@@ -67,10 +67,13 @@ public class Login extends ActionBarActivity {
     }
 
     public void onClickLogin(View v){
-        HttpAsync httpAsync = new HttpAsync(this);
+        Intent i = new Intent(this, Home.class);
+        i.putExtra("username", login);
+        startActivity(i);
+        /*HttpAsync httpAsync = new HttpAsync(this);
         login    = etLogin.getText().toString().trim();
         password = etPassword.getText().toString().trim();
-        httpAsync.execute(Action.AUTHENTICATE.toString());
+        httpAsync.execute(Action.AUTHENTICATE.toString());*/
      }
 
     public void onPostExecute(Object object){

@@ -41,10 +41,13 @@
     <string name="etBrand">Brand</string>
     <string name="etModel">Model</string>
     <string name="tvFuelCons">Fuel consumption</string>
+    <string name="tvValueFuelCons">0.0</string>
+    <string name="tvValueCo2Cons">0.0</string>
     <string name="tvUnitFuel">l/100Kms</string>
     <string name="tvCo2Cons">C02 consumption</string>
     <string name="tvConsC02Unit">g/Km</string>
-    <string name="defaultValue">0.0</string>
+    <string name="tvValuePriceHtva">0.0</string>
+    <string name="tvValueLeasePrice">0.0</string>
     <string name="tvPriceHtva">Excl. TVA price</string>
     <string name="tvLeasePrice">Leasing price</string>
     <string name="tvLeaseUnit">per month</string>

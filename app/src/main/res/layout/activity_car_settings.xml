@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/defaultValue"
+            android:text="@string/tvValueFuelCons"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp" />
 
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/defaultValue"
+            android:text="@string/tvValueCo2Cons"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
 
@@ -140,7 +140,7 @@
             android:id="@+id/tvPriceHtva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/defaultValue"
+            android:text="@string/tvValuePriceHtva"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
@@ -170,7 +170,7 @@
             android:id="@+id/tvLeasePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/defaultValue"
+            android:text="@string/tvValueLeasePrice"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
