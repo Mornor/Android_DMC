@@ -22,9 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 1st Parameter : Types of parameter passed in doInBackGround
- * 2nd Parameter : Types of parameter passed in onProgressUpdate
- * 3rd Parameter : Types of parameter passed in onPostExecute
+ * AsyncTask is closed when the activity is closed.
+ * 1st Parameter : Types of parameter passed in doInBackGround() --> Thread != Main Thread.
+ * 2nd Parameter : Types of parameter passed in onProgressUpdate() --> Executed on the Main Thread.
+ * 3rd Parameter : Types of parameter passed in onPostExecute() and parameter returned by doInBackground().
  */
 public class HttpAsync extends AsyncTask<String, Void, Object>{
 

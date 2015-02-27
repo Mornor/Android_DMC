@@ -8,7 +8,189 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/etBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="250dp"
+        android:layout_below="@+id/tool_bar"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/llFuel"
+        android:hint="@string/etBrand"
+        android:layout_marginLeft="-5dp" />
+
+    <EditText
+        android:id="@+id/etModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etBrand"
+        android:width="250dp"
+        android:layout_alignLeft="@+id/llFuel"
+        android:layout_marginTop="10dp"
+        android:hint="@string/etModel"
+        android:layout_marginLeft="-5dp" />
+
+    <TextView
+        android:id="@+id/tvEnergy"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:text="@string/tvEnergy"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/etModel"
+        android:layout_alignLeft="@+id/llFuel"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="0dp" />
+
+    <Spinner
+        android:id="@+id/spFuelList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/fuel_array"
+        android:prompt="@string/chooseFuel"
+        android:layout_below="@+id/etModel"
+        android:layout_toRightOf="@+id/tvEnergy"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignRight="@+id/etModel"
+        android:layout_alignEnd="@+id/etModel" />
+
+    <LinearLayout
+        android:id="@+id/llFuel"
+        android:layout_below="@+id/spFuelList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvFuel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tvFuelCons" />
+
+        <TextView
+            android:id="@+id/tvFuelCons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/defaultValue"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/tvUnitFuel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tvUnitFuel"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCo2"
+        android:layout_alignLeft="@+id/llFuel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llFuel"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tvCo2Cons" />
+
+        <TextView
+            android:id="@+id/tvC02Cons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/defaultValue"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvConsC02Unit"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llHtvaPrice"
+        android:layout_below="@+id/llCo2"
+        android:layout_alignLeft="@id/llCo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvPriceHtva"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvPriceHtva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultValue"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/euro"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLeasePrice"
+        android:layout_below="@id/llHtvaPrice"
+        android:layout_alignLeft="@+id/llHtvaPrice"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvLeasePrice"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvLeasePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultValue"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/euro"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveCar"
+        android:layout_below="@+id/llLeasePrice"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btnSaveCar"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
 

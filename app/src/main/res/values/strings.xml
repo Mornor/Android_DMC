@@ -37,5 +37,27 @@
     <string name="title_activity_home">Home</string>
     <string name="title_activity_car_settings">CarSettings</string>
 
+    <!-- activity_car_settings-->
+    <string name="etBrand">Brand</string>
+    <string name="etModel">Model</string>
+    <string name="tvFuelCons">Fuel consumption</string>
+    <string name="tvUnitFuel">l/100Kms</string>
+    <string name="tvCo2Cons">C02 consumption</string>
+    <string name="tvConsC02Unit">g/Km</string>
+    <string name="defaultValue">0.0</string>
+    <string name="tvPriceHtva">Excl. TVA price</string>
+    <string name="tvLeasePrice">Leasing price</string>
+    <string name="tvLeaseUnit">per month</string>
+    <string name="euro">€</string>
+    <string name="btnSaveCar">Save car</string>
+    <string name="tvEnergy">Energy</string>
+    <string name="chooseFuel">Choose Fuel</string>
+    <string-array name="fuel_array">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Gas</item>
+        <item>Electricity</item>
+    </string-array>
+
 
 </resources>

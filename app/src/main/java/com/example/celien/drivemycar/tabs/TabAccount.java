@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.tabs;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.core.CarSettings;
 import com.example.celien.drivemycar.core.Home;
 public class TabAccount extends Fragment {
 
@@ -68,7 +70,8 @@ public class TabAccount extends Fragment {
         ivMyCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "ivMyCar", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(v.getContext(), CarSettings.class);
+                startActivity(i);
             }
         });
 
