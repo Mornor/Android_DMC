@@ -106,11 +106,12 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     }
 
     public int saveNewCar(){
-        int success;
+        int success = 0;
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", carSettingsCaller.getUsername()));
             list.add(new BasicNameValuePair("brand", carSettingsCaller.getBrand()));
             list.add(new BasicNameValuePair("model", carSettingsCaller.getModel()));
             list.add(new BasicNameValuePair("fuel", carSettingsCaller.getFuel()));
@@ -120,12 +121,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("leasing_price", carSettingsCaller.getLeasingPrice()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
-            success = 0;
+            success = response.getStatusLine().getStatusCode();
         } catch (Exception e) {
             e.printStackTrace();
-            success = -1;
         }
-        return 0;
+        return success;
     }
 
     public int authenticate(){

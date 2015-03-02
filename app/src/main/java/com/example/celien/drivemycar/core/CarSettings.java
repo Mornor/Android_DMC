@@ -27,6 +27,9 @@ import com.example.celien.drivemycar.utils.Action;
 
 public class CarSettings extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
 
+    // From TabAccount
+    private String username;
+
     // Items on activity
     private EditText etBrand;
     private EditText etModel;
@@ -57,6 +60,11 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     private void init(){
+
+        Bundle dataFromTabAccount = getIntent().getExtras();
+        if(dataFromTabAccount != null)
+            username = dataFromTabAccount.getString("username");
+
         etBrand         = (EditText)findViewById(R.id.etBrand);
         etModel         = (EditText)findViewById(R.id.etModel);
         spFuel          = (Spinner)findViewById(R.id.spFuelList);
@@ -221,7 +229,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     // Call when HttpAsyn has done everything
     public void onPostExecute(Object object){
-            if((int) object == -1)
+            if((int) object != 200)
                 createAndShowResult("Error when saving the car", "Retry", false);
             else
                 createAndShowResult("Car is succesfully registered", "Ok", true);
@@ -240,6 +248,8 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     private void launchIntent(){
         Intent i = new Intent(this, Home.class);
+        i.putExtra("username", username);
+        finish();
         startActivity(i);
     }
 
@@ -278,32 +288,16 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         return fuelCons;
     }
 
-    public void setFuelCons(String fuelCons) {
-        this.fuelCons = fuelCons;
-    }
-
     public String getC02Cons() {
         return c02Cons;
-    }
-
-    public void setC02Cons(String c02Cons) {
-        this.c02Cons = c02Cons;
     }
 
     public String getHtvaPrice() {
         return htvaPrice;
     }
 
-    public void setHtvaPrice(String htvaPrice) {
-        this.htvaPrice = htvaPrice;
-    }
-
     public String getLeasingPrice() {
         return leasingPrice;
-    }
-
-    public void setLeasingPrice(String leasingPrice) {
-        this.leasingPrice = leasingPrice;
     }
 
     public ProgressDialog getSavingCar() {
@@ -312,5 +306,13 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     public void setSavingCar(ProgressDialog savingCar) {
         this.savingCar = savingCar;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
