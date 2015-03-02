@@ -109,8 +109,8 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     private void setFieldsValues(){
-        brand           = etBrand.getText().toString();
-        model           = etModel.getText().toString();
+        brand           = etBrand.getText().toString().trim();
+        model           = etModel.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
         fuelCons        = tvFuelCons.getText().toString();
         c02Cons         = tvCo2Cons.getText().toString();
