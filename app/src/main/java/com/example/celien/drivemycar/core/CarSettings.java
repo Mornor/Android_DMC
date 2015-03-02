@@ -31,13 +31,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     private TextView tvHtvaPrice;
     private TextView tvLeasePrice;
     private Button btnSaveCar;
-    private ImageView redDotBrand;
-    private ImageView redDotModel;
-    private ImageView redDotFuel;
-    private ImageView redDotCo2;
-    private ImageView redDotHtvaPrice;
-    private ImageView redDotLeasePrice;
-
+    
     // Value of the item
     private String brand;
     private String model;
@@ -64,12 +58,6 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
-        redDotBrand     = (ImageView)findViewById(R.id.ivRedDotBrand);
-        redDotModel     = (ImageView)findViewById(R.id.ivRedDotModel);
-        redDotFuel      = (ImageView)findViewById(R.id.ivRedDotFuel);
-        redDotCo2       = (ImageView)findViewById(R.id.ivRedDotCo2);
-        redDotHtvaPrice = (ImageView)findViewById(R.id.ivRedDotHtvaPrice);
-        redDotLeasePrice= (ImageView)findViewById(R.id.ivRedDotLeasePrice);
     }
 
     private void setListeners(){
