@@ -239,7 +239,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     private void launchIntent(){
-        Intent i = new Intent(this, TabAccount.class);
+        Intent i = new Intent(this, Home.class);
         startActivity(i);
     }
 
