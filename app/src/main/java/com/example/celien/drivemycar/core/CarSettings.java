@@ -1,11 +1,9 @@
 package com.example.celien.drivemycar.core;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -126,28 +124,36 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     private boolean checkFields(){
-        if(etBrand.getText().toString().isEmpty() || etModel.getText().toString().isEmpty()){
-            redDotBrand.setVisibility(View.VISIBLE);
-            redDotModel.setVisibility(View.VISIBLE);
+        if(etBrand.getText().toString().isEmpty()){
+            etBrand.setHintTextColor(Color.RED);
+            return false;
+        }
+
+        if(etModel.getText().toString().isEmpty()){
+            etModel.setHintTextColor(Color.RED);
             return false;
         }
 
         // If no fuel consumption and Electricity fuel not selected.
         if(tvFuelCons.getText().toString().equals("0.0") && !spFuel.getSelectedItem().toString().equals("Electricity")){
-            redDotFuel.setVisibility(View.VISIBLE);
+            tvFuelCons.setTextColor(Color.RED);
             return false;
         }
 
         // If not Co2 consumption and Electricty not selected.
         if(tvCo2Cons.getText().toString().equals("0.0") && !spFuel.getSelectedItem().toString().equals("Electricity")){
-            redDotCo2.setVisibility(View.GONE);
+            tvCo2Cons.setTextColor(Color.RED);
             return false;
         }
 
         // If lease price or htva price != 0
-        if(!tvHtvaPrice.getText().toString().equals("0.0") || !tvHtvaPrice.getText().toString().equals("0.0")){
-            redDotLeasePrice.setVisibility(View.VISIBLE);
-            redDotHtvaPrice.setVisibility(View.VISIBLE);
+        if(tvHtvaPrice.getText().toString().equals("0.0")){
+            tvHtvaPrice.setTextColor(Color.RED);
+            return false;
+        }
+
+        if(tvLeasePrice.getText().toString().equals("0.0")){
+            tvLeasePrice.setTextColor(Color.RED);
             return false;
         }
 
