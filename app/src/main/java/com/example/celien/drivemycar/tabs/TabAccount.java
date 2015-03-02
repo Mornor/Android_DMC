@@ -45,7 +45,6 @@ public class TabAccount extends Fragment {
         this.username = homeActivity.getUsername();
         tvUsername.setText(username);
 
-
         tvSettings.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -63,7 +62,9 @@ public class TabAccount extends Fragment {
         tvMyCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "tvMyCar", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(v.getContext(), CarSettings.class);
+                i.putExtra("username", username);
+                startActivity(i);
             }
         });
 
