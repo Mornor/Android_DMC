@@ -4,6 +4,7 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.example.celien.drivemycar.core.CarSettings;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.models.User;
@@ -35,6 +36,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     private Register registerCaller;
     private Login loginCaller;
+    private CarSettings carSettings;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
@@ -51,6 +53,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     public HttpAsync(Login caller){
         this.loginCaller = caller;
+    }
+
+    public HttpAsync(CarSettings carSettings){
+        this.carSettings = carSettings;
     }
 
     @Override
@@ -72,8 +78,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return saveNewUser();
         else if(params[0].equals(Action.AUTHENTICATE.toString()))
             return authenticate();
-        else
-            return null;
+        else if(params[0].equals(Action.SAVE_CAR.toString()))
+            return saveNewCar();
+        return null;
     }
 
     @Override
@@ -89,6 +96,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             registerCaller.onPostExecute(success);
         }
 
+    }
+
+    public int saveNewCar(){
+        int success; 
+        return 0;
     }
 
     public int authenticate(){

@@ -1,6 +1,8 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,16 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.utils.Action;
 
 /*TODO before everything : Check if the user already have a car in DB.*/
 
 public class CarSettings extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
 
+    // Items on activity
     private EditText etBrand;
     private EditText etModel;
     private Spinner spFuel;
@@ -27,6 +33,21 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     private TextView tvHtvaPrice;
     private TextView tvLeasePrice;
     private Button btnSaveCar;
+    private ImageView redDotBrand;
+    private ImageView redDotModel;
+    private ImageView redDotFuel;
+    private ImageView redDotCo2;
+    private ImageView redDotHtvaPrice;
+    private ImageView redDotLeasePrice;
+
+    // Value of the item
+    private String brand;
+    private String model;
+    private String fuel;
+    private double fuelCons;
+    private double c02Cons;
+    private double htvaPrice;
+    private double leasingPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +66,12 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
+        redDotBrand     = (ImageView)findViewById(R.id.ivRedDotBrand);
+        redDotModel     = (ImageView)findViewById(R.id.ivRedDotModel);
+        redDotFuel      = (ImageView)findViewById(R.id.ivRedDotFuel);
+        redDotCo2       = (ImageView)findViewById(R.id.ivRedDotCo2);
+        redDotHtvaPrice = (ImageView)findViewById(R.id.ivRedDotHtvaPrice);
+        redDotLeasePrice= (ImageView)findViewById(R.id.ivRedDotLeasePrice);
     }
 
     private void setListeners(){
@@ -79,9 +106,52 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         btnSaveCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(checkFields()){
+                    setFieldsValues();
+                    HttpAsync httpAsync = new HttpAsync(CarSettings.this); // Anonymous inner class contain a ref to the instance of the class they are created in
+                    httpAsync.execute(Action.SAVE_CAR.toString());
+                }
             }
         });
+    }
+
+    private void setFieldsValues(){
+        brand           = etBrand.getText().toString();
+        model           = etModel.getText().toString();
+        fuel            = spFuel.getSelectedItem().toString();
+        fuelCons        = Double.valueOf(tvFuelCons.getText().toString());
+        c02Cons         = Double.valueOf(tvCo2Cons.getText().toString());
+        leasingPrice    = Double.valueOf(tvLeasePrice.getText().toString());
+        htvaPrice       = Double.valueOf(tvLeasePrice.getText().toString());
+    }
+
+    private boolean checkFields(){
+        if(etBrand.getText().toString().isEmpty() || etModel.getText().toString().isEmpty()){
+            redDotBrand.setVisibility(View.VISIBLE);
+            redDotModel.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        // If no fuel consumption and Electricity fuel not selected.
+        if(tvFuelCons.getText().toString().equals("0.0") && !spFuel.getSelectedItem().toString().equals("Electricity")){
+            redDotFuel.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        // If not Co2 consumption and Electricty not selected.
+        if(tvCo2Cons.getText().toString().equals("0.0") && !spFuel.getSelectedItem().toString().equals("Electricity")){
+            redDotCo2.setVisibility(View.GONE);
+            return false;
+        }
+
+        // If lease price or htva price != 0
+        if(!tvHtvaPrice.getText().toString().equals("0.0") || !tvHtvaPrice.getText().toString().equals("0.0")){
+            redDotLeasePrice.setVisibility(View.VISIBLE);
+            redDotHtvaPrice.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        return true;
     }
 
     private void showNumberPicker(String title, int minValUnit, int maxValUnit, int minValTenth, int maxValTenth, final TextView field){
@@ -151,5 +221,62 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
+    }
+
+    /*Getters and Setters*/
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public double getFuelCons() {
+        return fuelCons;
+    }
+
+    public void setFuelCons(double fuelCons) {
+        this.fuelCons = fuelCons;
+    }
+
+    public double getC02Cons() {
+        return c02Cons;
+    }
+
+    public void setC02Cons(double c02Cons) {
+        this.c02Cons = c02Cons;
+    }
+
+    public double getHtvaPrice() {
+        return htvaPrice;
+    }
+
+    public void setHtvaPrice(double htvaPrice) {
+        this.htvaPrice = htvaPrice;
+    }
+
+    public double getLeasingPrice() {
+        return leasingPrice;
+    }
+
+    public void setLeasingPrice(double leasingPrice) {
+        this.leasingPrice = leasingPrice;
     }
 }

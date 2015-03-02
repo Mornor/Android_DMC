@@ -13,6 +13,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:id="@+id/ivRedDotBrand"
+        android:layout_toLeftOf="@+id/etBrand"
+        android:layout_alignBottom="@+id/etBrand"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
     <EditText
         android:id="@+id/etBrand"
         android:layout_width="wrap_content"
@@ -23,6 +33,16 @@
         android:layout_alignLeft="@+id/llFuel"
         android:hint="@string/etBrand"
         android:layout_marginLeft="-5dp" />
+
+    <ImageView
+        android:id="@+id/ivRedDotModel"
+        android:layout_toLeftOf="@+id/etModel"
+        android:layout_alignBottom="@+id/etModel"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 
     <EditText
         android:id="@+id/etModel"
@@ -59,6 +79,16 @@
         android:layout_alignRight="@+id/etModel"
         android:layout_alignEnd="@+id/etModel" />
 
+    <ImageView
+        android:id="@+id/ivRedDotFuel"
+        android:layout_toLeftOf="@+id/llFuel"
+        android:layout_alignBottom="@+id/llFuel"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
     <LinearLayout
         android:id="@+id/llFuel"
         android:layout_below="@+id/spFuelList"
@@ -92,6 +122,17 @@
             />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivRedDotCo2"
+        android:layout_toLeftOf="@+id/llCo2"
+        android:layout_alignBottom="@+id/llCo2"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+
     <LinearLayout
         android:id="@+id/llCo2"
         android:layout_alignLeft="@+id/llFuel"
@@ -122,6 +163,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
      </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivRedDotHtvaPrice"
+        android:layout_toLeftOf="@+id/llHtvaPrice"
+        android:layout_alignBottom="@+id/llHtvaPrice"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
     <LinearLayout
         android:id="@+id/llHtvaPrice"
         android:layout_below="@+id/llCo2"
@@ -151,6 +202,17 @@
             android:text="@string/euro"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivRedDotLeasePrice"
+        android:layout_toLeftOf="@+id/llLeasePrice"
+        android:layout_alignBottom="@+id/llLeasePrice"
+        android:src="@drawable/red_dot"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
 
     <LinearLayout
         android:id="@+id/llLeasePrice"

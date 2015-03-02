@@ -55,6 +55,8 @@
     <string name="btnSaveCar">Save car</string>
     <string name="tvEnergy">Energy</string>
     <string name="chooseFuel">Choose Fuel</string>
+    <string name="btnCancelNumberPicker">Cancel</string>
+    <string name="btnSetNumberPicker">Set</string>
     <string-array name="fuel_array">
         <item>Petrol</item>
         <item>Diesel</item>
