@@ -62,11 +62,13 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     @Override
     protected void onPreExecute() {
-        // If caller is Login
+        // Get the current caller class
         if(loginCaller != null)
             loginCaller.setProgressBar(ProgressDialog.show(loginCaller, "Please wait ...", "Login ..."));
         if(registerCaller != null)
             registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Register ..."));
+        if(carSettingsCaller != null)
+            carSettingsCaller.setSavingCar(ProgressDialog.show(carSettingsCaller, "Please wait ...", "Saving the car ..."));
     }
 
     /**
@@ -95,6 +97,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             registerCaller.getRing().dismiss();
             boolean success = ( (int) object) == 0 ? true : false;
             registerCaller.onPostExecute(success);
+        }
+        if(carSettingsCaller != null){
+            carSettingsCaller.getSavingCar().dismiss();
+            carSettingsCaller.onPostExecute(object); // 0 if success, -1 if failure
         }
 
     }

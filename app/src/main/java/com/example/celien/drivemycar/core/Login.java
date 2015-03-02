@@ -93,8 +93,6 @@ public class Login extends ActionBarActivity {
                 .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // When btn is clicked
-                        Log.d("Ok", "Ok has  been clicked");
                     }
                 }).show();
     }

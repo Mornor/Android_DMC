@@ -1,6 +1,10 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.tabs.TabAccount;
 import com.example.celien.drivemycar.utils.Action;
 
 /*TODO before everything : Check if the user already have a car in DB.*/
@@ -31,7 +36,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     private TextView tvHtvaPrice;
     private TextView tvLeasePrice;
     private Button btnSaveCar;
-    
+
     // Value of the item
     private String brand;
     private String model;
@@ -40,6 +45,8 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     private String c02Cons;
     private String htvaPrice;
     private String leasingPrice;
+
+    private ProgressDialog savingCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +219,30 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         return super.onOptionsItemSelected(item);
     }
 
+    // Call when HttpAsyn has done everything
+    public void onPostExecute(Object object){
+            if((int) object == -1)
+                createAndShowResult("Error when saving the car", "Retry", false);
+            else
+                createAndShowResult("Car is succesfully registered", "Ok", true);
+    }
+
+    private void createAndShowResult(String title, String btntext, final boolean success){
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(success) launchIntent();
+                    }
+                }).show();
+    }
+
+    private void launchIntent(){
+        Intent i = new Intent(this, TabAccount.class);
+        startActivity(i);
+    }
+
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
@@ -273,5 +304,13 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     public void setLeasingPrice(String leasingPrice) {
         this.leasingPrice = leasingPrice;
+    }
+
+    public ProgressDialog getSavingCar() {
+        return savingCar;
+    }
+
+    public void setSavingCar(ProgressDialog savingCar) {
+        this.savingCar = savingCar;
     }
 }
