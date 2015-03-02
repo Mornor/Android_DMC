@@ -71,6 +71,7 @@ public class TabAccount extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), CarSettings.class);
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });

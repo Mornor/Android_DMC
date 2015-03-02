@@ -32,16 +32,16 @@ public class Home extends ActionBarActivity{
         setContentView(R.layout.activity_home);
         init();
 
-        // Get the username from Login.
+        // Get the username from Login or from CarSettings
         Bundle bundle = getIntent().getExtras();
         if(bundle != null)
             this.username = bundle.getString("username");
 
         // Send username to TabAccount
-        /*Bundle bundleToTabAccount = new Bundle();
+        Bundle bundleToTabAccount = new Bundle();
         bundleToTabAccount.putString("username", username);
         TabAccount tab = new TabAccount();
-        tab.setArguments(bundle);*/
+        tab.setArguments(bundle);
 
     }
 
