@@ -44,10 +44,10 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     private String brand;
     private String model;
     private String fuel;
-    private double fuelCons;
-    private double c02Cons;
-    private double htvaPrice;
-    private double leasingPrice;
+    private String fuelCons;
+    private String c02Cons;
+    private String htvaPrice;
+    private String leasingPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +119,10 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         brand           = etBrand.getText().toString();
         model           = etModel.getText().toString();
         fuel            = spFuel.getSelectedItem().toString();
-        fuelCons        = Double.valueOf(tvFuelCons.getText().toString());
-        c02Cons         = Double.valueOf(tvCo2Cons.getText().toString());
-        leasingPrice    = Double.valueOf(tvLeasePrice.getText().toString());
-        htvaPrice       = Double.valueOf(tvLeasePrice.getText().toString());
+        fuelCons        = tvFuelCons.getText().toString();
+        c02Cons         = tvCo2Cons.getText().toString();
+        leasingPrice    = tvLeasePrice.getText().toString();
+        htvaPrice       = tvLeasePrice.getText().toString();
     }
 
     private boolean checkFields(){
@@ -224,6 +224,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     /*Getters and Setters*/
+
     public String getBrand() {
         return brand;
     }
@@ -248,35 +249,35 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         this.fuel = fuel;
     }
 
-    public double getFuelCons() {
+    public String getFuelCons() {
         return fuelCons;
     }
 
-    public void setFuelCons(double fuelCons) {
+    public void setFuelCons(String fuelCons) {
         this.fuelCons = fuelCons;
     }
 
-    public double getC02Cons() {
+    public String getC02Cons() {
         return c02Cons;
     }
 
-    public void setC02Cons(double c02Cons) {
+    public void setC02Cons(String c02Cons) {
         this.c02Cons = c02Cons;
     }
 
-    public double getHtvaPrice() {
+    public String getHtvaPrice() {
         return htvaPrice;
     }
 
-    public void setHtvaPrice(double htvaPrice) {
+    public void setHtvaPrice(String htvaPrice) {
         this.htvaPrice = htvaPrice;
     }
 
-    public double getLeasingPrice() {
+    public String getLeasingPrice() {
         return leasingPrice;
     }
 
-    public void setLeasingPrice(double leasingPrice) {
+    public void setLeasingPrice(String leasingPrice) {
         this.leasingPrice = leasingPrice;
     }
 }

@@ -36,11 +36,12 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     private Register registerCaller;
     private Login loginCaller;
-    private CarSettings carSettings;
+    private CarSettings carSettingsCaller;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
-    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android_login";
+    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
+    public final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
 
     // Default constructor
     public HttpAsync(){}
@@ -56,7 +57,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     }
 
     public HttpAsync(CarSettings carSettings){
-        this.carSettings = carSettings;
+        this.carSettingsCaller = carSettings;
     }
 
     @Override
@@ -99,7 +100,25 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     }
 
     public int saveNewCar(){
-        int success; 
+        int success;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("brand", carSettingsCaller.getBrand()));
+            list.add(new BasicNameValuePair("model", carSettingsCaller.getModel()));
+            list.add(new BasicNameValuePair("fuel", carSettingsCaller.getFuel()));
+            list.add(new BasicNameValuePair("fuelCons", carSettingsCaller.getFuelCons()));
+            list.add(new BasicNameValuePair("c02Cons", carSettingsCaller.getC02Cons()));
+            list.add(new BasicNameValuePair("htvaPrice", carSettingsCaller.getHtvaPrice()));
+            list.add(new BasicNameValuePair("leasePrice", carSettingsCaller.getLeasingPrice()));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = -1; 
+        }
         return 0;
     }
 
