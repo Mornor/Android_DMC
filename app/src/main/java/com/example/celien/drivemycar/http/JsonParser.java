@@ -1,5 +1,7 @@
 package com.example.celien.drivemycar.http;
 
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -26,6 +28,7 @@ public class JsonParser {
     static JSONArray jsonArray;
     static JSONObject jsonObject;
     static String json;
+    static  JSONObject result;
 
     public JsonParser(){
         inputStream = null;
@@ -54,12 +57,12 @@ public class JsonParser {
         return createJsonFromString(json);
     }
 
-    public JSONArray makePostHttpRequest(String url, String... params){
+    public JSONObject makePostHttpRequest(String url, String... params){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("name", params[0]));
+            list.add(new BasicNameValuePair("username", params[0]));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
@@ -70,7 +73,7 @@ public class JsonParser {
         } catch (IOException e){
             e.printStackTrace();
         }
-        return createJsonFromString(json);
+        return createJsonObjectFromString(json);
     }
 
     public static String createJsonStringFromInputStream(InputStream inputStream){
@@ -96,6 +99,15 @@ public class JsonParser {
             e.printStackTrace();
         }
         return jsonArray;
+    }
+
+    private JSONObject createJsonObjectFromString(String json){
+        try {
+            result = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

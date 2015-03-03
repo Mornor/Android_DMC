@@ -7,31 +7,32 @@ import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Class used when the request send back a Json reponse
  */
 
-public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsyncJsonObject extends AsyncTask<String, Void, JSONObject>{
 
     private Login loginCaller;
 
     private static final String LOAD_USER_URL = "http://cafca.ngrok.com/android/get_user";
 
-    public HttpAsyncJson(Login loginCaller){
+    public HttpAsyncJsonObject(Login loginCaller){
         this.loginCaller = loginCaller;
     }
 
     @Override
-    protected JSONArray doInBackground(String... params) {
+    protected JSONObject doInBackground(String... params) {
         if(params[0].equals(Action.LOAD_USER.toString()))
             return loadUser(params[1]); // param[1] contain the username.
         return null;
     }
 
-    private JSONArray loadUser(String username){
+    private JSONObject loadUser(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_USER_URL, username);
+        JSONObject result = parser.makePostHttpRequest(LOAD_USER_URL, username);
         return result;
     }
 
@@ -41,11 +42,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     }
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        if(loginCaller != null) {
-            loginCaller.onPostExecuteLoadUser(jsonArray);
-            Log.d("HttpAsynJson", jsonArray.toString());
-        }
+    protected void onPostExecute(JSONObject jsonObject) {
+        if(loginCaller != null)
+            loginCaller.onPostExecuteLoadUser(jsonObject);
+
     }
 
     @Override

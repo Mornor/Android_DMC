@@ -17,10 +17,11 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
-import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.http.HttpAsyncJsonObject;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class Login extends ActionBarActivity {
@@ -78,14 +79,14 @@ public class Login extends ActionBarActivity {
     public void onPostExecuteAuthenticate(Object object){
         int responseAuth = (int) object;
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticate and exist)
-            HttpAsyncJson request = new HttpAsyncJson(this);
+            HttpAsyncJsonObject request = new HttpAsyncJsonObject(this);
             request.execute(Action.LOAD_USER.toString(), login);
         }
         else
             createAndShowResult("Wrong password or username", "Retry");
     }
 
-    public void onPostExecuteLoadUser(JSONArray json){
+    public void onPostExecuteLoadUser(JSONObject json){
         Log.d("Login", json.toString());
         /*Intent i = new Intent(this, Home.class);
         i.putExtra("username", login);
