@@ -64,6 +64,7 @@ public class TabAccount extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), CarSettings.class);
                 i.putExtra("username", username);
+                getActivity().finish();
                 startActivity(i);
             }
         });
@@ -73,6 +74,7 @@ public class TabAccount extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), CarSettings.class);
                 i.putExtra("username", username);
+                getActivity().finish();
                 startActivity(i);
             }
         });

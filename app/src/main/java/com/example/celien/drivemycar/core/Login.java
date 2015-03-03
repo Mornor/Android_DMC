@@ -81,6 +81,7 @@ public class Login extends ActionBarActivity {
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK.
             Intent i = new Intent(this, Home.class);
             i.putExtra("username", login);
+            finish();
             startActivity(i);
         }
         else
