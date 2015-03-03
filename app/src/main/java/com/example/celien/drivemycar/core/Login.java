@@ -18,11 +18,16 @@ import android.widget.TextView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.models.Car;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Login extends ActionBarActivity {
@@ -35,6 +40,9 @@ public class Login extends ActionBarActivity {
     private ProgressDialog pbLogin;
     private String login;
     private String password;
+
+    // The user (if this one exist)
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,7 @@ public class Login extends ActionBarActivity {
         httpAsync.execute(Action.AUTHENTICATE.toString());
      }
 
+    /*Here I check if the user is authorized*/
     public void onPostExecuteAuthenticate(Object object){
         int responseAuth = (int) object;
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticate and exist)
@@ -87,20 +96,51 @@ public class Login extends ActionBarActivity {
             createAndShowResult("Wrong password or username", "Retry");
     }
 
+    /*Here I get some user info (id, name, username, email, phone_number) but NOT yet the his/her List<Car> */
+    /*The length of the JSONArray is 0 (only one user)*/
     public void onPostExecuteLoadUser(JSONArray json){
+        user = new User();
         try {
             for(int i = 0 ; i < json.length() ; i++){
                 JSONObject object = json.getJSONObject(i);
-                Log.d("User ", object.getString("username"));
+                user.setId(object.getInt("id"));
+                user.setName(object.getString("name"));
+                user.setUsername(object.getString("username"));
+                user.setEmail(object.getString("email"));
+                user.setPhoneNumber(object.getString("phone_number"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        /*Intent i = new Intent(this, Home.class);
-        i.putExtra("username", login);
-        finish();
-        startActivity(i);*/
+        HttpAsyncJson request = new HttpAsyncJson(this);
+        request.execute(Action.LOAD_CARS.toString(), login);
+        Log.d("Went trough", "onPostExecuteLoadUser");
+    }
+
+    /*Here, I get the List<Car> of the user (no cars mean array is empty)*/
+    public void onPostExecuteLoadCars(JSONArray array){
+        List<Car> cars = new ArrayList<>();
+        try {
+            for(int i = 0 ; i < array.length() ; i++){
+                JSONObject object = array.getJSONObject(i);
+                Car temp = new Car();
+                temp.setId(object.getInt("id"));
+                temp.setBrand(object.getString("brand"));
+                temp.setModel(object.getString("model"));
+                temp.setFuel(object.getString("fuel"));
+                temp.setAvg_cons(object.getDouble("avg_cons"));
+                temp.setC02_cons(object.getDouble("co2_cons"));
+                temp.setHtva_price(object.getDouble("htva_price"));
+                temp.setLeasing_price(object.getDouble("leasing_price"));
+                Log.d("Went trough", "onPostExecuteLoadCars");
+                cars.add(temp);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user.setCars(cars);
+
     }
 
     private void createAndShowResult(String title, String btntext){

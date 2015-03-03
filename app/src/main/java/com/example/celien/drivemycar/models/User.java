@@ -9,10 +9,12 @@ import java.util.List;
 
 public class User implements Parcelable{
 
+    private int id;
     private String name;
     private String username;
     private String email;
     private String password;
+    private String phoneNumber;
     private List<Car> cars;
 
     public User(String name, String email, String username, String password){
@@ -38,6 +40,8 @@ public class User implements Parcelable{
         cars = new ArrayList<Car>();
         source.readList(cars, null);
     }
+
+    public User(){}
 
     @Override
     public int describeContents() {
@@ -98,4 +102,27 @@ public class User implements Parcelable{
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }
