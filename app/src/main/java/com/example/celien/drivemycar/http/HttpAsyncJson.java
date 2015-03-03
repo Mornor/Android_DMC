@@ -13,26 +13,26 @@ import org.json.JSONObject;
  * Class used when the request send back a Json reponse
  */
 
-public class HttpAsyncJsonObject extends AsyncTask<String, Void, JSONObject>{
+public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private Login loginCaller;
 
     private static final String LOAD_USER_URL = "http://cafca.ngrok.com/android/get_user";
 
-    public HttpAsyncJsonObject(Login loginCaller){
+    public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
     }
 
     @Override
-    protected JSONObject doInBackground(String... params) {
+    protected JSONArray doInBackground(String... params) {
         if(params[0].equals(Action.LOAD_USER.toString()))
             return loadUser(params[1]); // param[1] contain the username.
         return null;
     }
 
-    private JSONObject loadUser(String username){
+    private JSONArray loadUser(String username){
         JsonParser parser = new JsonParser();
-        JSONObject result = parser.makePostHttpRequest(LOAD_USER_URL, username);
+        JSONArray result = parser.makePostHttpRequest(LOAD_USER_URL, username);
         return result;
     }
 
@@ -42,9 +42,9 @@ public class HttpAsyncJsonObject extends AsyncTask<String, Void, JSONObject>{
     }
 
     @Override
-    protected void onPostExecute(JSONObject jsonObject) {
+    protected void onPostExecute(JSONArray jsonArray) {
         if(loginCaller != null)
-            loginCaller.onPostExecuteLoadUser(jsonObject);
+            loginCaller.onPostExecuteLoadUser(jsonArray);
 
     }
 

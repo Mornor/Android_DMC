@@ -54,10 +54,10 @@ public class JsonParser {
         } catch (IOException e){
             e.printStackTrace();
         }
-        return createJsonFromString(json);
+        return createJsonArrayFromString(json);
     }
 
-    public JSONObject makePostHttpRequest(String url, String... params){
+    public JSONArray makePostHttpRequest(String url, String... params){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
@@ -73,7 +73,7 @@ public class JsonParser {
         } catch (IOException e){
             e.printStackTrace();
         }
-        return createJsonObjectFromString(json);
+        return createJsonArrayFromString(json);
     }
 
     public static String createJsonStringFromInputStream(InputStream inputStream){
@@ -92,7 +92,7 @@ public class JsonParser {
         return json;
     }
 
-    private JSONArray createJsonFromString(String json){
+    private JSONArray createJsonArrayFromString(String json){
         try{
             jsonArray = new JSONArray(json);
         }catch (JSONException e){
