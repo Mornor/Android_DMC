@@ -5,7 +5,8 @@ public enum Action {
 
     SAVE_USER("saveUser"),
     AUTHENTICATE("authenticate"),
-    SAVE_CAR("saveCar");
+    SAVE_CAR("saveCar"),
+    LOAD_USER("loadUser");
 
     private final String name;
 

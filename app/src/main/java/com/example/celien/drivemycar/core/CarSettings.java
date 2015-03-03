@@ -8,19 +8,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
-import com.example.celien.drivemycar.tabs.TabAccount;
 import com.example.celien.drivemycar.utils.Action;
 
 /*TODO before everything : Check if the user already have a car in DB.*/
@@ -54,12 +53,25 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_settings);
-        init();
-        setListeners();
+        // If the user already have a (or some) car(s)
+        if(doesUserHaveCars()){
+
+        }
+        else{
+            setContentView(R.layout.activity_car_settings);
+            initHaveNoCar();
+            setListenersHaveNoCar();
+        }
+
+
     }
 
-    private void init(){
+    private void initHaveNoCar(){
+
+        // Set the toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Add a car");
 
         Bundle dataFromTabAccount = getIntent().getExtras();
         if(dataFromTabAccount != null)
@@ -75,7 +87,14 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
     }
 
-    private void setListeners(){
+    /**
+     * @return true if the user already have some cars, false if the user does not have car.
+     */
+    private boolean doesUserHaveCars(){
+        return true;
+    }
+
+    private void setListenersHaveNoCar(){
         tvFuelCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

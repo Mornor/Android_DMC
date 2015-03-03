@@ -17,11 +17,10 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
-import com.example.celien.drivemycar.tabs.TabAccount;
+import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.utils.Action;
 
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import org.json.JSONArray;
 
 
 public class Login extends ActionBarActivity {
@@ -76,16 +75,22 @@ public class Login extends ActionBarActivity {
         httpAsync.execute(Action.AUTHENTICATE.toString());
      }
 
-    public void onPostExecute(Object object){
+    public void onPostExecuteAuthenticate(Object object){
         int responseAuth = (int) object;
-        if(responseAuth == 200){ // HTTP 1.0/200 -> OK.
-            Intent i = new Intent(this, Home.class);
-            i.putExtra("username", login);
-            finish();
-            startActivity(i);
+        if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticate and exist)
+            HttpAsyncJson request = new HttpAsyncJson(this);
+            request.execute(Action.LOAD_USER.toString(), login);
         }
         else
             createAndShowResult("Wrong password or username", "Retry");
+    }
+
+    public void onPostExecuteLoadUser(JSONArray json){
+        Log.d("Login", json.toString());
+        /*Intent i = new Intent(this, Home.class);
+        i.putExtra("username", login);
+        finish();
+        startActivity(i);*/
     }
 
     private void createAndShowResult(String title, String btntext){

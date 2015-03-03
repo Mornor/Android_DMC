@@ -91,7 +91,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         // Chek to know which instance has been called, and so to know who is the current instance.
         if(loginCaller != null){
             loginCaller.getProgressDialog().dismiss();
-            loginCaller.onPostExecute(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
+            loginCaller.onPostExecuteAuthenticate(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
         }
         if(registerCaller != null){
             registerCaller.getRing().dismiss();
@@ -100,7 +100,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         }
         if(carSettingsCaller != null){
             carSettingsCaller.getSavingCar().dismiss();
-            carSettingsCaller.onPostExecute(object); // 0 if success, -1 if failure
+            carSettingsCaller.onPostExecute(object); // 200 if ok (HttpResponse)
         }
 
     }
@@ -111,13 +111,13 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("username", carSettingsCaller.getUsername()));
-            list.add(new BasicNameValuePair("brand", carSettingsCaller.getBrand()));
-            list.add(new BasicNameValuePair("model", carSettingsCaller.getModel()));
-            list.add(new BasicNameValuePair("fuel", carSettingsCaller.getFuel()));
-            list.add(new BasicNameValuePair("avg_cons", carSettingsCaller.getFuelCons()));
-            list.add(new BasicNameValuePair("c02_cons", carSettingsCaller.getC02Cons()));
-            list.add(new BasicNameValuePair("htva_price", carSettingsCaller.getHtvaPrice()));
+            list.add(new BasicNameValuePair("username",      carSettingsCaller.getUsername()));
+            list.add(new BasicNameValuePair("brand",         carSettingsCaller.getBrand()));
+            list.add(new BasicNameValuePair("model",         carSettingsCaller.getModel()));
+            list.add(new BasicNameValuePair("fuel",          carSettingsCaller.getFuel()));
+            list.add(new BasicNameValuePair("avg_cons",      carSettingsCaller.getFuelCons()));
+            list.add(new BasicNameValuePair("c02_cons",      carSettingsCaller.getC02Cons()));
+            list.add(new BasicNameValuePair("htva_price",    carSettingsCaller.getHtvaPrice()));
             list.add(new BasicNameValuePair("leasing_price", carSettingsCaller.getLeasingPrice()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
@@ -153,9 +153,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("name", temp.getName()));
+            list.add(new BasicNameValuePair("name",     temp.getName()));
             list.add(new BasicNameValuePair("username", temp.getUsername()));
-            list.add(new BasicNameValuePair("email", temp.getEmail()));
+            list.add(new BasicNameValuePair("email",    temp.getEmail()));
             list.add(new BasicNameValuePair("password", temp.getPassword()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);

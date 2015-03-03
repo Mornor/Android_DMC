@@ -1,13 +1,19 @@
 package com.example.celien.drivemycar.models;
 
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class User implements Parcelable{
 
     private String name;
     private String username;
     private String email;
     private String password;
-    private String specificity; // Cf. DMC, for example if a smoker.
+    private List<Car> cars;
 
     public User(String name, String email, String username, String password){
         this.name = name;
@@ -15,6 +21,49 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(String name, String email, String username, String password, List<Car> cars){
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.cars = cars;
+    }
+
+    public User(Parcel source){
+        name = source.readString();
+        username = source.readString();
+        email = source.readString();
+        password = source.readString();
+        cars = new ArrayList<Car>();
+        source.readList(cars, null);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(username);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeList(cars);
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     /*Getters and Setters*/
     public String getName() {
@@ -47,14 +96,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSpecificity() {
-        return specificity;
-    }
-
-    public void setSpecificity(String specificity) {
-        this.specificity = specificity;
     }
 
 }
