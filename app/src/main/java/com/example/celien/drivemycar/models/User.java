@@ -7,8 +7,6 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.celien.drivemycar.models.Car.*;
-
 public class User implements Parcelable{
 
     private int id;
@@ -17,7 +15,7 @@ public class User implements Parcelable{
     private String email;
     private String password;
     private String phoneNumber;
-    private List<Car> cars;
+    private List<Car> cars = new ArrayList<>();
 
     public User(String name, String email, String username, String password){
         this.name = name;
@@ -70,16 +68,6 @@ public class User implements Parcelable{
             return new User[size];
         }
     };
-
-    public String toString(){
-
-        String[]cars = new String[this.cars.size()];
-        for(int i = 0 ; i < cars.length ; i++){
-            cars[i] += this.cars.get(i).getBrand();
-        }
-
-        return id + " - " +name+ " - " +username+ " - " +email+ " - " +phoneNumber+ " - " +cars;
-    }
 
     /*Getters and Setters*/
     public String getName() {
