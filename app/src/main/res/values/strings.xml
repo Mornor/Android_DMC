@@ -31,7 +31,7 @@
     <string name="tvEditableRanking">4/100</string>
     <string name="tvSettings">Settings</string>
     <string name="tvLogout">Logout</string>
-    <string name="tvMyCar">My car</string>
+    <string name="tvMyCar">My car(s)</string>
 
     <!-- Home -->
     <string name="title_activity_home">Home</string>
@@ -64,5 +64,7 @@
         <item>Electricity</item>
     </string-array>
 
+    <!--activity_custom_personnal_car_row-->
+    <string name="tvCarName">Car Name</string>
 
 </resources>

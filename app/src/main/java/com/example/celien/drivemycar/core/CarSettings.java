@@ -13,16 +13,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomListPersonnalCar;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+
+import java.util.Arrays;
 
 /*TODO before everything : Check if the user already have a car in DB.*/
 
@@ -65,9 +72,44 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
             initHaveNoCar();
             setListenersHaveNoCar();
         }
-        else
-            Log.d("User have", "Car");
+        else{
+            setContentView(R.layout.activity_list_personnal_cars);
+            initHaveCars();
+        }
 
+    }
+
+    private void initHaveCars(){
+
+        // Set the toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Personnal Car(s)");
+
+         // Create and set the Custom list adapter
+        String[] cars = makeListOfCars();
+        ListAdapter adapter = new CustomListPersonnalCar(this, cars);
+        ListView lv = (ListView)findViewById(R.id.lvCars);
+        lv.setAdapter(adapter);
+
+        // Set listener
+        lv.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String clickedItem = String.valueOf(parent.getItemAtPosition(position));
+                        Toast.makeText(getBaseContext(), clickedItem, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
+
+    private String[] makeListOfCars(){
+        String result[] = new String[user.getCars().size()]; // Size > 0 because the user have at least one car here
+        for(int i = 0 ; i < user.getCars().size() ; i++){
+            result[i] = user.getCars().get(i).getBrand() + " " + user.getCars().get(i).getModel();
+        }
+        return result;
     }
 
     private void retrieveUser(){
