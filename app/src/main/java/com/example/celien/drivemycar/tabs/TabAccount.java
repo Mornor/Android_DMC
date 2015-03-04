@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.core.CarSettings;
+import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.core.ListPersonnalCars;
 import com.example.celien.drivemycar.models.User;
 
 public class TabAccount extends Fragment {
@@ -78,11 +78,23 @@ public class TabAccount extends Fragment {
         });
     }
 
+    // Lauch the correct intent depends of the users hava cars or not.
     private void launchIntentToCarSettings(){
-        Intent i = new Intent(getActivity(), CarSettings.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("user", user);
-        i.putExtras(bundle);
-        startActivity(i);
+
+        // If user have no car
+        if(user.getCars().isEmpty()){
+            Intent i = new Intent(getActivity(), AddCar.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user", user);
+            i.putExtras(bundle);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(getActivity(), ListPersonnalCars.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user", user);
+            i.putExtras(bundle);
+            startActivity(i);
+        }
+
     }
 }

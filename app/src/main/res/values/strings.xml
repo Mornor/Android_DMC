@@ -66,5 +66,6 @@
 
     <!--activity_custom_personnal_car_row-->
     <string name="tvCarName">Car Name</string>
+    <string name="title_activity_list_personnal_cars">ListPersonnalCars</string>
 
 </resources>

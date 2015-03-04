@@ -4,7 +4,7 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import com.example.celien.drivemycar.core.CarSettings;
+import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.models.User;
@@ -36,7 +36,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     private Register registerCaller;
     private Login loginCaller;
-    private CarSettings carSettingsCaller;
+    private AddCar addCarCaller;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
@@ -56,8 +56,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.loginCaller = caller;
     }
 
-    public HttpAsync(CarSettings carSettings){
-        this.carSettingsCaller = carSettings;
+    public HttpAsync(AddCar addCar){
+        this.addCarCaller = addCar;
     }
 
     @Override
@@ -67,8 +67,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             loginCaller.setProgressBar(ProgressDialog.show(loginCaller, "Please wait ...", "Login ..."));
         if(registerCaller != null)
             registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Register ..."));
-        if(carSettingsCaller != null)
-            carSettingsCaller.setSavingCar(ProgressDialog.show(carSettingsCaller, "Please wait ...", "Saving the car ..."));
+        if(addCarCaller != null)
+            addCarCaller.setSavingCar(ProgressDialog.show(addCarCaller, "Please wait ...", "Saving the car ..."));
     }
 
     /**
@@ -99,9 +99,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             boolean success = ( (int) object) == 0 ? true : false;
             registerCaller.onPostExecute(success);
         }
-        if(carSettingsCaller != null){
-            carSettingsCaller.getSavingCar().dismiss();
-            carSettingsCaller.onPostExecute(object); // 200 if ok (HttpResponse)
+        if(addCarCaller != null){
+            addCarCaller.getSavingCar().dismiss();
+            addCarCaller.onPostExecute(object); // 200 if ok (HttpResponse)
         }
 
     }
@@ -112,14 +112,14 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("username",      carSettingsCaller.getUser().getUsername()));
-            list.add(new BasicNameValuePair("brand",         carSettingsCaller.getBrand()));
-            list.add(new BasicNameValuePair("model",         carSettingsCaller.getModel()));
-            list.add(new BasicNameValuePair("fuel",          carSettingsCaller.getFuel()));
-            list.add(new BasicNameValuePair("avg_cons",      carSettingsCaller.getFuelCons()));
-            list.add(new BasicNameValuePair("c02_cons",      carSettingsCaller.getC02Cons()));
-            list.add(new BasicNameValuePair("htva_price",    carSettingsCaller.getHtvaPrice()));
-            list.add(new BasicNameValuePair("leasing_price", carSettingsCaller.getLeasingPrice()));
+            list.add(new BasicNameValuePair("username",      addCarCaller.getUser().getUsername()));
+            list.add(new BasicNameValuePair("brand",         addCarCaller.getBrand()));
+            list.add(new BasicNameValuePair("model",         addCarCaller.getModel()));
+            list.add(new BasicNameValuePair("fuel",          addCarCaller.getFuel()));
+            list.add(new BasicNameValuePair("avg_cons",      addCarCaller.getFuelCons()));
+            list.add(new BasicNameValuePair("c02_cons",      addCarCaller.getC02Cons()));
+            list.add(new BasicNameValuePair("htva_price",    addCarCaller.getHtvaPrice()));
+            list.add(new BasicNameValuePair("leasing_price", addCarCaller.getLeasingPrice()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();

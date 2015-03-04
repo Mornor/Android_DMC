@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,11 +28,9 @@ import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
-import java.util.Arrays;
-
 /*TODO before everything : Check if the user already have a car in DB.*/
 
-public class CarSettings extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
+public class AddCar extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
 
     // From TabAccount
     private User user;
@@ -62,63 +59,17 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Get the User from TabAccount (which is the logged one)
-        retrieveUser();
-
-        // Test if the user already have some cars, and display the right template.
-        if(userHaveCars()) {
-            setContentView(R.layout.activity_car_settings);
-            initHaveNoCar();
-            setListenersHaveNoCar();
-        }
-        else{
-            setContentView(R.layout.activity_list_personnal_cars);
-            initHaveCars();
-        }
-
+        setContentView(R.layout.activity_car_settings);
+        init();
+        setListenersHaveNoCar();
     }
 
-    private void initHaveCars(){
+    private void init(){
 
-        // Set the toolbar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Personnal Car(s)");
-
-         // Create and set the Custom list adapter
-        String[] cars = makeListOfCars();
-        ListAdapter adapter = new CustomListPersonnalCar(this, cars);
-        ListView lv = (ListView)findViewById(R.id.lvCars);
-        lv.setAdapter(adapter);
-
-        // Set listener
-        lv.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String clickedItem = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(getBaseContext(), clickedItem, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-    }
-
-    private String[] makeListOfCars(){
-        String result[] = new String[user.getCars().size()]; // Size > 0 because the user have at least one car here
-        for(int i = 0 ; i < user.getCars().size() ; i++){
-            result[i] = user.getCars().get(i).getBrand() + " " + user.getCars().get(i).getModel();
-        }
-        return result;
-    }
-
-    private void retrieveUser(){
+        // Get the User (Object) from Login page and send it to TabAccount tab.
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
-    }
-
-    private void initHaveNoCar(){
 
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
@@ -133,13 +84,6 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
-    }
-
-    /**
-     * @return true if the user have no car in DB, false if the user does have some car.
-     */
-    private boolean userHaveCars(){
-        return user.getCars().isEmpty();
     }
 
     private void setListenersHaveNoCar(){
@@ -176,7 +120,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
             public void onClick(View v) {
                 if(checkFields()){
                     setFieldsValues();
-                    HttpAsync httpAsync = new HttpAsync(CarSettings.this); // Anonymous inner class contain a ref to the instance of the class they are created in
+                    HttpAsync httpAsync = new HttpAsync(AddCar.this); // Anonymous inner class contain a ref to the instance of the class they are created in
                     httpAsync.execute(Action.SAVE_CAR.toString());
                 }
             }
@@ -232,7 +176,7 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     private void showNumberPicker(String title, int minValUnit, int maxValUnit, int minValTenth, int maxValTenth, final TextView field){
         // Create the dialog
-        final Dialog np = new Dialog(CarSettings.this);
+        final Dialog np = new Dialog(AddCar.this);
         np.setTitle(title);
         np.setContentView(R.layout.number_picker_dialog);
 

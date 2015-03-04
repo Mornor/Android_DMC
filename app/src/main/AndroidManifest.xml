@@ -15,6 +15,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,8 +28,12 @@
             android:label="@string/title_activity_home" >
         </activity>
         <activity
-            android:name=".core.CarSettings"
+            android:name=".core.AddCar"
             android:label="@string/title_activity_car_settings" >
+        </activity>
+        <activity
+            android:name=".core.ListPersonnalCars"
+            android:label="@string/title_activity_list_personnal_cars" >
         </activity>
     </application>
 
