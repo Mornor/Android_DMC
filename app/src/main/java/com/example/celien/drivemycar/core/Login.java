@@ -113,9 +113,8 @@ public class Login extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        HttpAsyncJson request = new HttpAsyncJson(this);
+        HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiante the 2 instances.
         request.execute(Action.LOAD_CARS.toString(), login);
-        Log.d("Went trough", "onPostExecuteLoadUser");
     }
 
     /*Here, I get the List<Car> of the user (no cars mean array is empty)*/
@@ -133,14 +132,16 @@ public class Login extends ActionBarActivity {
                 temp.setC02_cons(object.getDouble("co2_cons"));
                 temp.setHtva_price(object.getDouble("htva_price"));
                 temp.setLeasing_price(object.getDouble("leasing_price"));
-                Log.d("Went trough", "onPostExecuteLoadCars");
                 cars.add(temp);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        user.setCars(cars);
 
+        user.setCars(cars);
+        Intent i = new Intent(this, Home.class);
+        i.putExtra("username", login);
+        startActivity(i);
     }
 
     private void createAndShowResult(String title, String btntext){

@@ -53,17 +53,9 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // If the user already have a (or some) car(s)
-        if(doesUserHaveCars()){
-
-        }
-        else{
-            setContentView(R.layout.activity_car_settings);
-            initHaveNoCar();
-            setListenersHaveNoCar();
-        }
-
-
+        setContentView(R.layout.activity_car_settings);
+        initHaveNoCar();
+        setListenersHaveNoCar();
     }
 
     private void initHaveNoCar(){

@@ -69,6 +69,16 @@ public class User implements Parcelable{
         }
     };
 
+    public String toString(){
+
+        String[]cars = new String[this.cars.size()];
+        for(int i = 0 ; i < cars.length ; i++){
+            cars[i] += this.cars.get(i).getBrand();
+        }
+
+        return id + " - " +name+ " - " +username+ " - " +email+ " - " +phoneNumber+ " - " +cars;
+    }
+
     /*Getters and Setters*/
     public String getName() {
         return name;

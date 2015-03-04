@@ -17,12 +17,18 @@ import org.json.JSONObject;
 public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private Login loginCaller;
+    private boolean choice; // If choice is true, then the instance of Login caller is used to retrieve the car.
 
     private static final String LOAD_USER_URL = "http://cafca.ngrok.com/android/get_user";
     private static final String LOAD_CARS_URL = "http://cafca.ngrok.com/android/get_cars";
 
     public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
+    }
+
+    public HttpAsyncJson(Login loginCaller, boolean choice){
+        this.loginCaller = loginCaller;
+        this.choice = choice;
     }
 
     @Override
@@ -48,29 +54,18 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    protected void onPostExecute(JSONArray jsonArray) {
+        if(loginCaller != null){
+            if(choice)  // If choice, then return the Car JSONArray.
+                loginCaller.onPostExecuteLoadCars(jsonArray);
+            else
+                loginCaller.onPostExecuteLoadUser(jsonArray);
+        }
     }
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        if(loginCaller != null){
-            try{
-                if(jsonArray.getJSONObject(0).getString("username") == null ) { // If username field is empty, then it's the car list.
-                    loginCaller.onPostExecuteLoadCars(jsonArray);
-                }
-                else{
-                    loginCaller.onPostExecuteLoadUser(jsonArray);
-                    Log.d("Sent cars", jsonArray.toString());
-                }
-
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-
-        }
-
-
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
 
     @Override
