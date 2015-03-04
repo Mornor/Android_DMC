@@ -298,8 +298,11 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     public void onPostExecute(Object object){
             if((int) object != 200)
                 createAndShowResult("Error when saving the car", "Retry", false);
-            else
+            else{
                 createAndShowResult("Car is succesfully registered", "Ok", true);
+                finish();
+            }
+
     }
 
     private void createAndShowResult(String title, String btntext, final boolean success){

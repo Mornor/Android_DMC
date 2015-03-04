@@ -83,7 +83,6 @@ public class TabAccount extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
-        getActivity().finish();
         startActivity(i);
     }
 }

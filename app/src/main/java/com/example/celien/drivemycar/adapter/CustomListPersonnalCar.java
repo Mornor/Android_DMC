@@ -14,7 +14,7 @@ import com.example.celien.drivemycar.R;
 public class CustomListPersonnalCar extends ArrayAdapter<String>{
 
     public CustomListPersonnalCar(Context context, String[] cars) {
-        super(context, R.layout.activity_custom_personnal_car_row);
+        super(context, R.layout.activity_custom_personnal_car_row, cars);
     }
 
     @Override

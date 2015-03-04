@@ -148,6 +148,7 @@ public class Login extends ActionBarActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
+        finish();
         startActivity(i);
     }
 
