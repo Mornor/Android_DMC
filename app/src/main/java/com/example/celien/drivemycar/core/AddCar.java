@@ -84,28 +84,28 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
         tvFuelCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNumberPicker("Set fuel consumption", 0, 30, 0, 9, tvFuelCons);
+                showNumberPicker("Set fuel consumption", tvFuelCons);
             }
         });
 
         tvCo2Cons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNumberPicker("Set C02 consumption", 0, 700, 0, 9, tvCo2Cons);
+                showNumberPicker("Set C02 consumption", tvCo2Cons);
             }
         });
 
         tvHtvaPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNumberPicker("Set price exc. TVA", 0, 1000000, 0, 99999, tvHtvaPrice);
+                showNumberPicker("Set price exc. TVA", tvHtvaPrice);
             }
         });
 
         tvLeasePrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNumberPicker("Set leasing price", 0, 1000, 0, 999, tvLeasePrice);
+                showNumberPicker("Set leasing price", tvLeasePrice);
             }
         });
 
@@ -168,32 +168,23 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
         return true;
     }
 
-    private void showNumberPicker(String title, int minValUnit, int maxValUnit, int minValTenth, int maxValTenth, final TextView field){
+    private void showNumberPicker(String title, final TextView field){
         // Create the dialog
         final Dialog np = new Dialog(AddCar.this);
         np.setTitle(title);
         np.setContentView(R.layout.number_picker_dialog);
 
         // Get the number pickers and the buttons
-        final NumberPicker npUnit  = (NumberPicker)np.findViewById(R.id.npUnit);
-        final NumberPicker npTenth = (NumberPicker)np.findViewById(R.id.npTenth);
+        final EditText unit  = (EditText)np.findViewById(R.id.etUnit);
+        final EditText tenth = (EditText)np.findViewById(R.id.etTenth);
         Button btnSet              = (Button)np.findViewById(R.id.btnSet);
         Button btnCancel           = (Button)np.findViewById(R.id.btnCancel);
-
-        // Set the range and some parameters;
-        npUnit.setMinValue(minValUnit);
-        npUnit.setMaxValue(maxValUnit);
-        npUnit.setOnValueChangedListener(this);
-
-        npTenth.setMinValue(minValTenth);
-        npTenth.setMaxValue(maxValTenth);
-        npTenth.setOnValueChangedListener(this);
 
         // Set the listeners
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                field.setText(String.valueOf(npUnit.getValue()) + "." + String.valueOf(npTenth.getValue()));
+                field.setText(unit.getText().toString() + "." + tenth.getText().toString());
                 np.dismiss();
             }
         });
