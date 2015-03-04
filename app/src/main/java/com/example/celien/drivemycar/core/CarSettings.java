@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,9 +55,25 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_settings);
-        initHaveNoCar();
-        setListenersHaveNoCar();
+
+        // Get the User from TabAccount (which is the logged one)
+        retrieveUser();
+
+        // Test if the user already have some cars, and display the right template.
+        if(userHaveCars()) {
+            setContentView(R.layout.activity_car_settings);
+            initHaveNoCar();
+            setListenersHaveNoCar();
+        }
+        else
+            Log.d("User have", "Car");
+
+    }
+
+    private void retrieveUser(){
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null)
+            this.user = currentUser;
     }
 
     private void initHaveNoCar(){
@@ -65,10 +82,6 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add a car");
-
-        User currentUser = (User)getIntent().getParcelableExtra("user");
-        if(currentUser != null)
-            this.user = currentUser;
 
         etBrand         = (EditText)findViewById(R.id.etBrand);
         etModel         = (EditText)findViewById(R.id.etModel);
@@ -81,10 +94,10 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
     }
 
     /**
-     * @return true if the user already have some cars, false if the user does not have car.
+     * @return true if the user have no car in DB, false if the user does have some car.
      */
-    private boolean doesUserHaveCars(){
-        return true;
+    private boolean userHaveCars(){
+        return user.getCars().isEmpty();
     }
 
     private void setListenersHaveNoCar(){
