@@ -68,4 +68,11 @@
     <string name="tvCarName">Car Name</string>
     <string name="title_activity_list_personnal_cars">ListPersonnalCars</string>
 
+    <!-- menu_list_personnal_cars-->
+    <string name="menuAddCar">AddCar</string>
+
+    <!-- General String-->
+    <string name="menuExit">Exit</string>
+    <string name="menuSettings">Settings</string>
+
 </resources>
