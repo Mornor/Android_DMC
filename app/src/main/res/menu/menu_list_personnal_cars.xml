@@ -6,19 +6,19 @@
     <item
         android:id="@+id/menuAddCar"
         android:title="@string/menuAddCar"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/menuExit"
-        android:title="@string/menuExit"
-        android:orderInCategory="70"
+        android:orderInCategory="30"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menuSettings"
         android:title="@string/menuSettings"
-        android:orderInCategory="30"
+        android:orderInCategory="70"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuExit"
+        android:title="@string/menuExit"
+        android:orderInCategory="100"
         app:showAsAction="never" />
 
 </menu>
