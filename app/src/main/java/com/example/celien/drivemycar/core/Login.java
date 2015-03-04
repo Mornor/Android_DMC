@@ -139,6 +139,7 @@ public class Login extends ActionBarActivity {
         }
 
         user.setCars(cars);
+        Log.d("Finally ", user.getCars().get(1).getBrand());
         Intent i = new Intent(this, Home.class);
         i.putExtra("username", login);
         startActivity(i);

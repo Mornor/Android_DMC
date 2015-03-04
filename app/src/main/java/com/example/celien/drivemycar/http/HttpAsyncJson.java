@@ -56,8 +56,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         if(loginCaller != null){
-            if(choice)  // If choice, then return the Car JSONArray.
+            if(choice) {  // If choice, then return the Car JSONArray. (final stuff to return when log in)
+                loginCaller.getProgressDialog().dismiss();
                 loginCaller.onPostExecuteLoadCars(jsonArray);
+            }
             else
                 loginCaller.onPostExecuteLoadUser(jsonArray);
         }

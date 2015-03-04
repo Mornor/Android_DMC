@@ -90,7 +90,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     protected void onPostExecute(Object object) {
         // Chek to know which instance has been called, and so to know who is the current instance.
         if(loginCaller != null){
-            loginCaller.getProgressDialog().dismiss();
             loginCaller.onPostExecuteAuthenticate(object); // When the httpCall is over, send the httpResponse. (which is the http response status)
         }
         if(registerCaller != null){
