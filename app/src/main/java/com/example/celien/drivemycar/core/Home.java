@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.core;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -25,33 +26,23 @@ public class Home extends ActionBarActivity{
     private SlidingTabLayout tabs;
     private CharSequence titles[];
     private int nbTabs;
-    private String username; // From login page.
+    private User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Get the username from Login or from CarSettings
-        /*Bundle bundle = getIntent().getExtras();
-        if(bundle != null)
-            this.username = bundle.getString("username");*/
-
-        // Get the User (Object) from Login page
+        // Get the User (Object) from Login page and send it to TabAccount tab.
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
-            this.username = currentUser.getUsername();
+            this.user = currentUser;
 
         init();
-
-        // Send username to TabAccount
-        /*Bundle bundleToTabAccount = new Bundle();
-        bundleToTabAccount.putString("username", username);
-        TabAccount tab = new TabAccount();
-        tab.setArguments(bundle);*/
     }
 
     private void init(){
+
         // Init parameters
         nbTabs = 3;
         titles = new CharSequence[]{"Account", "Manage", "Cars"};
@@ -86,7 +77,11 @@ public class Home extends ActionBarActivity{
     }
 
     /*Getters and Setters*/
-    public String getUsername(){
-        return username;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

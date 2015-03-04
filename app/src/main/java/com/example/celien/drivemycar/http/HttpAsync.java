@@ -110,7 +110,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("username",      carSettingsCaller.getUsername()));
+            list.add(new BasicNameValuePair("username",      carSettingsCaller.getUser().getUsername()));
             list.add(new BasicNameValuePair("brand",         carSettingsCaller.getBrand()));
             list.add(new BasicNameValuePair("model",         carSettingsCaller.getModel()));
             list.add(new BasicNameValuePair("fuel",          carSettingsCaller.getFuel()));

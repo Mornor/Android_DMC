@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 /*TODO before everything : Check if the user already have a car in DB.*/
@@ -27,7 +28,7 @@ import com.example.celien.drivemycar.utils.Action;
 public class CarSettings extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
 
     // From TabAccount
-    private String username;
+    private User user;
 
     // Items on activity
     private EditText etBrand;
@@ -65,9 +66,9 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add a car");
 
-        Bundle dataFromTabAccount = getIntent().getExtras();
-        if(dataFromTabAccount != null)
-            username = dataFromTabAccount.getString("username");
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null)
+            this.user = currentUser;
 
         etBrand         = (EditText)findViewById(R.id.etBrand);
         etModel         = (EditText)findViewById(R.id.etModel);
@@ -259,8 +260,9 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
 
     private void launchIntent(){
         Intent i = new Intent(this, Home.class);
-        i.putExtra("username", username);
-        finish();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
         startActivity(i);
     }
 
@@ -319,11 +321,11 @@ public class CarSettings extends ActionBarActivity implements NumberPicker.OnVal
         this.savingCar = savingCar;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

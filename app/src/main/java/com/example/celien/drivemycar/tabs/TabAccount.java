@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.CarSettings;
 import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.models.User;
+
 public class TabAccount extends Fragment {
 
     private TextView tvUsername;
@@ -23,7 +25,7 @@ public class TabAccount extends Fragment {
     private TextView tvEditableRanking;
     private ImageView ivMyCar;
     private TextView tvMyCar;
-    private String username;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,8 +44,9 @@ public class TabAccount extends Fragment {
         ivMyCar             = (ImageView)v.findViewById(R.id.ivMyCar);
 
         Home homeActivity = (Home)getActivity();
-        this.username = homeActivity.getUsername();
-        tvUsername.setText(username);
+        user = homeActivity.getUser();
+        tvUsername.setText(user.getUsername());
+        tvMail.setText(user.getEmail());
 
         tvSettings.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -62,22 +65,24 @@ public class TabAccount extends Fragment {
         tvMyCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), CarSettings.class);
-                i.putExtra("username", username);
-                getActivity().finish();
-                startActivity(i);
+               launchIntentToCarSettings();
             }
         });
 
         ivMyCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), CarSettings.class);
-                i.putExtra("username", username);
-                getActivity().finish();
-                startActivity(i);
+                launchIntentToCarSettings();
             }
         });
+    }
 
+    private void launchIntentToCarSettings(){
+        Intent i = new Intent(getActivity(), CarSettings.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        getActivity().finish();
+        startActivity(i);
     }
 }
