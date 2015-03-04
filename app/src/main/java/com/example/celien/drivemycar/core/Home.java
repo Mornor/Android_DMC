@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.tabs.TabAccount;
 
 /**
@@ -32,17 +33,22 @@ public class Home extends ActionBarActivity{
         setContentView(R.layout.activity_home);
 
         // Get the username from Login or from CarSettings
-        Bundle bundle = getIntent().getExtras();
+        /*Bundle bundle = getIntent().getExtras();
         if(bundle != null)
-            this.username = bundle.getString("username");
+            this.username = bundle.getString("username");*/
+
+        // Get the User (Object) from Login page
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null)
+            this.username = currentUser.getUsername();
 
         init();
 
         // Send username to TabAccount
-        Bundle bundleToTabAccount = new Bundle();
+        /*Bundle bundleToTabAccount = new Bundle();
         bundleToTabAccount.putString("username", username);
         TabAccount tab = new TabAccount();
-        tab.setArguments(bundle);
+        tab.setArguments(bundle);*/
     }
 
     private void init(){

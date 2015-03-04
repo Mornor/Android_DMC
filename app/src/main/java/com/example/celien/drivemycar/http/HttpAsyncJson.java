@@ -43,7 +43,6 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private JSONArray loadCars(String username){
         JsonParser parser = new JsonParser();
         JSONArray result = parser.makePostHttpRequest(LOAD_CARS_URL, username);
-        Log.d("Cars : ", result.toString());
         return result;
     }
 

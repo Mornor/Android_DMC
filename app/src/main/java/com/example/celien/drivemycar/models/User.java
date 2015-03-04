@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.celien.drivemycar.models.Car.*;
+
 public class User implements Parcelable{
 
     private int id;
@@ -38,7 +40,7 @@ public class User implements Parcelable{
         email = source.readString();
         password = source.readString();
         cars = new ArrayList<Car>();
-        source.readList(cars, null);
+        source.readTypedList(cars, Car.CREATOR);
     }
 
     public User(){}
@@ -54,7 +56,7 @@ public class User implements Parcelable{
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(password);
-        dest.writeList(cars);
+        dest.writeTypedList(cars);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

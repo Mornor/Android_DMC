@@ -1,6 +1,9 @@
 package com.example.celien.drivemycar.models;
 
-public class Car {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Car implements Parcelable {
     private int id;
     private String brand;
     private String model;
@@ -11,6 +14,44 @@ public class Car {
     private double leasing_price;
 
     public Car(){}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(brand);
+        dest.writeString(model);
+        dest.writeString(fuel);
+        dest.writeDouble(avg_cons);
+        dest.writeDouble(c02_cons);
+        dest.writeDouble(htva_price);
+        dest.writeDouble(leasing_price);
+    }
+
+    public static final Creator<Car> CREATOR = new Creator<Car>() {
+        @Override
+        public Car createFromParcel(Parcel source) {
+            Car car = new Car();
+            car.id = source.readInt();
+            car.brand = source.readString();
+            car.model = source.readString();
+            car.fuel = source.readString();
+            car.avg_cons = source.readDouble();
+            car.c02_cons = source.readDouble();
+            car.htva_price = source.readDouble();
+            car.leasing_price = source.readDouble();
+            return car;
+        }
+
+        @Override
+        public Car[] newArray(int size) {
+            return new Car[size];
+        }
+    };
 
     /*Getters and Setter*/
     public String getBrand() {
@@ -76,4 +117,6 @@ public class Car {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }
