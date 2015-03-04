@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -96,8 +97,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         }
         if(registerCaller != null){
             registerCaller.getRing().dismiss();
-            boolean success = ( (int) object) == 0 ? true : false;
-            registerCaller.onPostExecute(success);
+            registerCaller.onPostExecute((int) object);
         }
         if(addCarCaller != null){
             addCarCaller.getSavingCar().dismiss();
@@ -108,18 +108,33 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     public int saveNewCar(){
         int success = 0;
+
+        // Create the car
+        Car car  = new Car();
+        car.setBrand(addCarCaller.getBrand());
+        car.setModel(addCarCaller.getModel());
+        car.setFuel(addCarCaller.getFuel());
+        car.setAvg_cons(Double.valueOf(addCarCaller.getFuelCons()));
+        car.setC02_cons(Double.valueOf(addCarCaller.getC02Cons()));
+        car.setHtva_price(Double.valueOf(addCarCaller.getHtvaPrice()));
+        car.setLeasing_price(Double.valueOf(addCarCaller.getLeasingPrice()));
+
+        // Add the car to the currentUser
+        addCarCaller.getUser().getCars().add(car);
+
+        // Save the car into Db
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username",      addCarCaller.getUser().getUsername()));
-            list.add(new BasicNameValuePair("brand",         addCarCaller.getBrand()));
-            list.add(new BasicNameValuePair("model",         addCarCaller.getModel()));
-            list.add(new BasicNameValuePair("fuel",          addCarCaller.getFuel()));
-            list.add(new BasicNameValuePair("avg_cons",      addCarCaller.getFuelCons()));
-            list.add(new BasicNameValuePair("c02_cons",      addCarCaller.getC02Cons()));
-            list.add(new BasicNameValuePair("htva_price",    addCarCaller.getHtvaPrice()));
-            list.add(new BasicNameValuePair("leasing_price", addCarCaller.getLeasingPrice()));
+            list.add(new BasicNameValuePair("brand",         car.getBrand()));
+            list.add(new BasicNameValuePair("model",         car.getModel()));
+            list.add(new BasicNameValuePair("fuel",          car.getFuel()));
+            list.add(new BasicNameValuePair("avg_cons",      String.valueOf(car.getAvg_cons())));
+            list.add(new BasicNameValuePair("c02_cons",      String.valueOf(car.getC02_cons())));
+            list.add(new BasicNameValuePair("htva_price",    String.valueOf(car.getHtva_price())));
+            list.add(new BasicNameValuePair("leasing_price", String.valueOf(car.getLeasing_price())));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();
@@ -149,7 +164,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     /*Save the name and the message into remote DB*/
     public int saveNewUser(){
         User temp = registerCaller.getUser();
-        int success;
+        int responseCode = 0;
         try{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
@@ -160,12 +175,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("password", temp.getPassword()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
-            success = 0;
+            responseCode = response.getStatusLine().getStatusCode();
         }catch(Exception e){
             e.printStackTrace();
-            success = -1;
         }
-        return success;
+        return responseCode;
     }
 
     /*Retrieve names and messages into remote DB*/

@@ -147,21 +147,20 @@ public class Register extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onPostExecute(boolean success){
-        if(success)
-            createAndShowResult("Register sucessfull, please log in", "Ok");
+    public void onPostExecute(int success){
+        if(success == 200)
+            createAndShowResult("Register sucessfull, please log in", "Ok", true);
         else
-            Log.d("Register", "Failed");
+            createAndShowResult("Register failed", "Retry", false);
     }
 
-    private void createAndShowResult(String title, String btntext){
+    private void createAndShowResult(String title, String btntext, final boolean success){
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // When btn is clicked
-                        launchIntentToLogin();
+                       if(success) launchIntentToLogin();
                     }
                 }).show();
     }

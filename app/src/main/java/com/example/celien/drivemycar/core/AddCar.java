@@ -9,26 +9,20 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.adapter.CustomListPersonnalCar;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
-
-/*TODO before everything : Check if the user already have a car in DB.*/
 
 public class AddCar extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
 
@@ -244,7 +238,6 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
                 createAndShowResult("Error when saving the car", "Retry", false);
             else{
                 createAndShowResult("Car is succesfully registered", "Ok", true);
-                finish();
             }
 
     }
@@ -261,10 +254,12 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
     }
 
     private void launchIntent(){
+        Log.d("User cars ", user.getCars().get(0).getBrand());
         Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
+        finish();
         startActivity(i);
     }
 
