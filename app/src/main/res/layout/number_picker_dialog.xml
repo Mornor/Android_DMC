@@ -32,24 +32,29 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnCancelNumberPicker"
+    <LinearLayout
         android:layout_below="@+id/llText"
-        android:layout_alignLeft="@+id/llText"
-        android:layout_alignStart="@+id/llText"
-        android:layout_marginTop="18dp" />
-
-    <Button
-        android:id="@+id/btnSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btnCancel"
-        android:text="@string/btnSetNumberPicker"
-        android:layout_alignTop="@+id/btnCancel"
-        android:layout_alignRight="@+id/llText"
-        android:layout_alignEnd="@+id/llText" />
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnCancelNumberPicker"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/btnSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/btnSetNumberPicker"
+            android:layout_marginLeft="30dp" />
+
+        </LinearLayout>
+
+
 
 </RelativeLayout>
