@@ -76,7 +76,28 @@
         android:layout_alignBottom="@+id/tvMaxConsFuel"
         android:layout_toEndOf="@+id/tvMaxConsFuel"
         android:layout_toRightOf="@+id/tvMaxConsFuel"
-        android:layout_marginBottom="3dp" />
+        android:layout_marginBottom="2dp" />
+
+    <TextView
+        android:id="@+id/tvNbSit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvNbSit"
+        android:layout_below="@+id/tvFuelCons"
+        android:layout_alignLeft="@+id/tvBrand"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/etNbSits"
+        android:editable="false"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMaxConsFuel"
+        android:layout_toEndOf="@+id/tvNbSit"
+        android:layout_toRightOf="@+id/tvNbSit"
+        android:layout_alignLeft="@+id/tvMaxConsFuel"
+        android:layout_alignBottom="@+id/tvNbSit" />
 
 
 </RelativeLayout>

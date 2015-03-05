@@ -77,6 +77,7 @@
     <string name="tvMaxCons">max</string>
     <string name="tvCons">Consumption</string>
     <string name="hChoose">Choose ...</string>
+    <string name="tvNbSit">Number of sits</string>
 
     <!-- General String-->
     <string name="menuExit">Exit</string>
