@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvBrand"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:id="@+id/etBrand"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvBrand"
+        android:layout_toRightOf="@+id/tvBrand"
+        android:layout_alignBottom="@+id/tvBrand"
+        android:editable="false"
+        android:hint="@string/hChoose"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvEnergy"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:text="@string/tvEnergy"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tvBrand"
+        android:layout_alignLeft="@+id/tvBrand"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="0dp" />
+
+    <Spinner
+        android:id="@+id/spFuelList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/fuel_array"
+        android:prompt="@string/chooseFuel"
+        android:layout_below="@+id/etBrand"
+        android:layout_alignLeft="@+id/etBrand"
+        android:layout_alignStart="@+id/etBrand"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvFuelCons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvFuelCons"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/spFuelList"
+        android:layout_alignLeft="@+id/tvBrand"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/tvMaxConsFuel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvMaxCons"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toEndOf="@+id/tvFuelCons"
+        android:layout_toRightOf="@+id/tvFuelCons"
+        android:layout_alignBottom="@+id/tvFuelCons"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/tvUnitFuel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvUnitFuel"
+        android:layout_alignBottom="@+id/tvMaxConsFuel"
+        android:layout_toEndOf="@+id/tvMaxConsFuel"
+        android:layout_toRightOf="@+id/tvMaxConsFuel"
+        android:layout_marginBottom="3dp" />
+
+
+</RelativeLayout>

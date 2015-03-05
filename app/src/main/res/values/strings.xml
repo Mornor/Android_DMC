@@ -71,9 +71,17 @@
     <!-- menu_list_personnal_cars-->
     <string name="menuAddCar">Add a car</string>
 
+    <!--activity_tab_search -->
+    <string name="tvBrand">Brand</string>
+    <string name="btnSelectBrand">Select </string>
+    <string name="tvMaxCons">max</string>
+    <string name="tvCons">Consumption</string>
+    <string name="hChoose">Choose ...</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
     <string name="title_modify_car">Modify car</string>
+    <string name="title_activity_tab_search_car">TabSearchCar</string>
 
 </resources>

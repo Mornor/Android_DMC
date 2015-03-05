@@ -45,7 +45,7 @@ public class Home extends ActionBarActivity{
 
         // Init parameters
         nbTabs = 3;
-        titles = new CharSequence[]{"Account", "Manage", "Cars"};
+        titles = new CharSequence[]{"Account", "Rent", "Cars"};
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
