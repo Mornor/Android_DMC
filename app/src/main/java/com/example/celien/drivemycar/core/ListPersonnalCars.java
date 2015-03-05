@@ -97,6 +97,7 @@ public class ListPersonnalCars extends ActionBarActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
+        finish();
         startActivity(i);
     }
 
@@ -106,6 +107,7 @@ public class ListPersonnalCars extends ActionBarActivity {
         bundle.putParcelable("user", user);
         bundle.putInt("posCar", posCar);
         i.putExtras(bundle);
+        finish();
         startActivity(i);
     }
 
