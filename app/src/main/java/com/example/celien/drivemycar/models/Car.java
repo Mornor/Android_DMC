@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class Car implements Parcelable {
     private int id;
+    private int userFk;
     private String brand;
     private String model;
     private String fuel;
@@ -35,15 +36,15 @@ public class Car implements Parcelable {
     public static final Creator<Car> CREATOR = new Creator<Car>() {
         @Override
         public Car createFromParcel(Parcel source) {
-            Car car = new Car();
-            car.id = source.readInt();
-            car.brand = source.readString();
-            car.model = source.readString();
-            car.fuel = source.readString();
-            car.avg_cons = source.readDouble();
-            car.c02_cons = source.readDouble();
-            car.htva_price = source.readDouble();
-            car.leasing_price = source.readDouble();
+            Car car             = new Car();
+            car.id              = source.readInt();
+            car.brand           = source.readString();
+            car.model           = source.readString();
+            car.fuel            = source.readString();
+            car.avg_cons        = source.readDouble();
+            car.c02_cons        = source.readDouble();
+            car.htva_price      = source.readDouble();
+            car.leasing_price   = source.readDouble();
             return car;
         }
 
@@ -118,5 +119,11 @@ public class Car implements Parcelable {
         this.id = id;
     }
 
+    public int getUserFk() {
+        return userFk;
+    }
 
+    public void setUserFk(int userFk) {
+        this.userFk = userFk;
+    }
 }

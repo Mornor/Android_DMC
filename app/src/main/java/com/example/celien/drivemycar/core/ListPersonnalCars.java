@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomListPersonnalCar;
+import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 
 public class ListPersonnalCars extends ActionBarActivity {
@@ -29,7 +30,7 @@ public class ListPersonnalCars extends ActionBarActivity {
 
     private void init(){
 
-        // Get the User (Object) from Login page and send it to TabAccount tab.
+        // Get the User (Object).
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
@@ -49,8 +50,8 @@ public class ListPersonnalCars extends ActionBarActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String clickedItem = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(getBaseContext(), clickedItem, Toast.LENGTH_SHORT).show();
+                        Car clickedCar = (Car) parent.getItemAtPosition(position);
+                        launchIntentToModifyCar(clickedCar);
                     }
                 }
         );
@@ -70,7 +71,7 @@ public class ListPersonnalCars extends ActionBarActivity {
 
         switch (id){
             case R.id.menuAddCar:
-                launchIntent();
+                launchIntentToAddCar();
                 break;
             case R.id.menuSettings:
                 break;
@@ -81,10 +82,18 @@ public class ListPersonnalCars extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void launchIntent(){
+    private void launchIntentToAddCar(){
         Intent i = new Intent(this, AddCar.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        startActivity(i);
+    }
+
+    private void launchIntentToModifyCar(Car car){
+        Intent i = new Intent(this, ModifyCar.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("car", car);
         i.putExtras(bundle);
         startActivity(i);
     }

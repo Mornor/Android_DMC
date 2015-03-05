@@ -15,7 +15,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -35,6 +34,11 @@
             android:name=".core.ListPersonnalCars"
             android:label="@string/title_activity_list_personnal_cars" >
         </activity>
+        <activity
+            android:name=".core.ModifyCar"
+            android:label="@string/title_modify_car" >
+        </activity>
+
     </application>
 
 </manifest>

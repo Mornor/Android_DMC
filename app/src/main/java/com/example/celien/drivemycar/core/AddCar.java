@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,7 +23,7 @@ import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
-public class AddCar extends ActionBarActivity implements NumberPicker.OnValueChangeListener {
+public class AddCar extends ActionBarActivity {
 
     // From TabAccount
     private User user;
@@ -55,12 +54,12 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_settings);
         init();
-        setListenersHaveNoCar();
+        setListeners();
     }
 
     private void init(){
 
-        // Get the User (Object) from Login page and send it to TabAccount tab.
+        // Get the User (Object).
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
@@ -80,7 +79,7 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
     }
 
-    private void setListenersHaveNoCar(){
+    private void setListeners(){
         tvFuelCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +244,6 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
     }
 
     private void launchIntent(){
-        Log.d("User cars ", user.getCars().get(0).getBrand());
         Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
@@ -254,13 +252,7 @@ public class AddCar extends ActionBarActivity implements NumberPicker.OnValueCha
         startActivity(i);
     }
 
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-    }
-
     /*Getters and Setters*/
-
     public String getBrand() {
         return brand;
     }

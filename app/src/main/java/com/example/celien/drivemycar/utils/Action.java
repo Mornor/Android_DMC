@@ -6,6 +6,7 @@ public enum Action {
     SAVE_USER("saveUser"),
     AUTHENTICATE("authenticate"),
     SAVE_CAR("saveCar"),
+    MODIFY_CAR("modifyCar"),
     LOAD_USER("loadUser"),
     LOAD_CARS("loadCars");
 

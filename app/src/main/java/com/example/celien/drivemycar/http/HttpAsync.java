@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Login;
+import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
@@ -38,11 +39,13 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private Register registerCaller;
     private Login loginCaller;
     private AddCar addCarCaller;
+    private ModifyCar modifyCarCaller;
 
     public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
     public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     public final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
+    public final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
 
     // Default constructor
     public HttpAsync(){}
@@ -61,6 +64,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.addCarCaller = addCar;
     }
 
+    public HttpAsync(ModifyCar modifyCar){
+        this.modifyCarCaller = modifyCar;
+    }
+
     @Override
     protected void onPreExecute() {
         // Get the current caller class
@@ -70,6 +77,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Register ..."));
         if(addCarCaller != null)
             addCarCaller.setSavingCar(ProgressDialog.show(addCarCaller, "Please wait ...", "Saving the car ..."));
+        if(modifyCarCaller != null)
+            modifyCarCaller.setModifyCar(ProgressDialog.show(modifyCarCaller, "Please wait ...", "Modifying car..."));
     }
 
     /**
@@ -84,6 +93,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return authenticate();
         else if(params[0].equals(Action.SAVE_CAR.toString()))
             return saveNewCar();
+        else if(params[0].equals(Action.MODIFY_CAR.toString()))
+            return modifycar();
         return null;
     }
 
@@ -103,7 +114,46 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             addCarCaller.getSavingCar().dismiss();
             addCarCaller.onPostExecute(object); // 200 if ok (HttpResponse)
         }
+        if(modifyCarCaller != null){
+            modifyCarCaller.getModifyCar().dismiss();
+            modifyCarCaller.onPostExecute(object);
+        }
 
+    }
+
+    public int modifycar(){
+        int success = 0;
+
+        // Update the car into current User's List<Car>
+        Car car = modifyCarCaller.getCar();
+        car.setBrand(modifyCarCaller.getBrand());
+        car.setModel(modifyCarCaller.getModel());
+        car.setFuel(modifyCarCaller.getFuel());
+        car.setAvg_cons(Double.valueOf(modifyCarCaller.getFuelCons()));
+        car.setC02_cons(Double.valueOf(modifyCarCaller.getC02Cons()));
+        car.setHtva_price(Double.valueOf(modifyCarCaller.getHtvaPrice()));
+        car.setLeasing_price(Double.valueOf(modifyCarCaller.getLeasingPrice()));
+
+        // Update it into DB.
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(MODIFY_CAR_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("id",            String.valueOf(car.getId())));
+            list.add(new BasicNameValuePair("brand",         car.getBrand()));
+            list.add(new BasicNameValuePair("model",         car.getModel()));
+            list.add(new BasicNameValuePair("fuel",          car.getFuel()));
+            list.add(new BasicNameValuePair("avg_cons",      String.valueOf(car.getAvg_cons())));
+            list.add(new BasicNameValuePair("c02_cons",      String.valueOf(car.getC02_cons())));
+            list.add(new BasicNameValuePair("htva_price",    String.valueOf(car.getHtva_price())));
+            list.add(new BasicNameValuePair("leasing_price", String.valueOf(car.getLeasing_price())));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
     }
 
     public int saveNewCar(){
