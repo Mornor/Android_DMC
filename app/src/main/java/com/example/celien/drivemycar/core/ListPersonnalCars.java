@@ -40,8 +40,7 @@ public class ListPersonnalCars extends ActionBarActivity {
         getSupportActionBar().setTitle("Personnal Car(s)");
 
         // Create and set the Custom list adapter
-        String[] cars = makeListOfCars();
-        ListAdapter adapter = new CustomListPersonnalCar(this, cars);
+        ListAdapter adapter = new CustomListPersonnalCar(this, user.getCars());
         ListView lv = (ListView)findViewById(R.id.lvCars);
         lv.setAdapter(adapter);
 
@@ -55,20 +54,6 @@ public class ListPersonnalCars extends ActionBarActivity {
                     }
                 }
         );
-    }
-
-    private String[] makeListOfCars(){
-        String result[] = new String[user.getCars().size()]; // Size > 0 because the user have at least one car here
-        for(int i = 0 ; i < user.getCars().size() ; i++){
-            result[i] = user.getCars().get(i).getBrand() + " " + user.getCars().get(i).getModel();
-        }
-        return result;
-    }
-
-    private void retrieveUser(){
-        User currentUser = (User)getIntent().getParcelableExtra("user");
-        if(currentUser != null)
-            this.user = currentUser;
     }
 
     @Override
