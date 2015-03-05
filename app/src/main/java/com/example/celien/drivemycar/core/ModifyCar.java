@@ -19,11 +19,13 @@ import android.widget.TextView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.Car;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;;
 
 public class ModifyCar  extends ActionBarActivity {
 
-    // Current Car
+    // Current User
+    private User user;
     private Car car;
 
     // Items on activity
@@ -57,10 +59,12 @@ public class ModifyCar  extends ActionBarActivity {
 
     private void init(){
 
-        // Get the current car.
-        Car currentCar = (Car)getIntent().getParcelableExtra("car");
-        if(currentCar != null)
-            this.car = currentCar;
+        // Get the current user and the car to modify.
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null){
+            this.user = currentUser;
+            this.car = user.getCars().get(getIntent().getExtras().getInt("posCar"));
+        }
 
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
@@ -75,6 +79,7 @@ public class ModifyCar  extends ActionBarActivity {
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
+
 
         etBrand.setText(car.getBrand());
         etModel.setText(car.getModel());
@@ -180,10 +185,10 @@ public class ModifyCar  extends ActionBarActivity {
         np.setContentView(R.layout.number_picker_dialog);
 
         // Get the number pickers and the buttons
-        final EditText unit  = (EditText)np.findViewById(R.id.etUnit);
-        final EditText tenth = (EditText)np.findViewById(R.id.etTenth);
-        Button btnSet              = (Button)np.findViewById(R.id.btnSet);
-        Button btnCancel           = (Button)np.findViewById(R.id.btnCancel);
+        final EditText unit         = (EditText)np.findViewById(R.id.etUnit);
+        final EditText tenth        = (EditText)np.findViewById(R.id.etTenth);
+        Button btnSet               = (Button)np.findViewById(R.id.btnSet);
+        Button btnCancel            = (Button)np.findViewById(R.id.btnCancel);
 
         // Set the listeners
         btnSet.setOnClickListener(new View.OnClickListener() {
@@ -227,6 +232,10 @@ public class ModifyCar  extends ActionBarActivity {
 
     private void launchIntentToHome(){
         Intent i = new Intent(this, Home.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        finish();
         startActivity(i);
     }
 

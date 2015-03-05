@@ -51,10 +51,20 @@ public class ListPersonnalCars extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Car clickedCar = (Car) parent.getItemAtPosition(position);
-                        launchIntentToModifyCar(clickedCar);
+                        launchIntentToModifyCar(user, getPositionCarInList(clickedCar));
                     }
                 }
         );
+    }
+
+    // Return position of the car in the list, -1 if error.
+    private int getPositionCarInList(Car car){
+        int carPosition = -1;
+        for(int i = 0 ; i < user.getCars().size() ; i++){
+            if(user.getCars().get(i).equals(car))
+                carPosition = i;
+        }
+        return carPosition;
     }
 
     @Override
@@ -90,10 +100,11 @@ public class ListPersonnalCars extends ActionBarActivity {
         startActivity(i);
     }
 
-    private void launchIntentToModifyCar(Car car){
+    private void launchIntentToModifyCar(User user, int posCar){
         Intent i = new Intent(this, ModifyCar.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("car", car);
+        bundle.putParcelable("user", user);
+        bundle.putInt("posCar", posCar);
         i.putExtras(bundle);
         startActivity(i);
     }
