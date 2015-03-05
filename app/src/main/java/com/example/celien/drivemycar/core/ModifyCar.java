@@ -1,8 +1,10 @@
 package com.example.celien.drivemycar.core;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -50,7 +52,7 @@ public class ModifyCar  extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_settings);
         init();
-        setListener();
+        setListeners();
     }
 
     private void init(){
@@ -81,19 +83,6 @@ public class ModifyCar  extends ActionBarActivity {
         tvHtvaPrice.setText(String.valueOf(car.getHtva_price()));
         tvLeasePrice.setText(String.valueOf(car.getLeasing_price()));
         btnSaveCar.setText("Modify car");
-    }
-
-    private void setListener(){
-        btnSaveCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkFields()){
-                    setFieldsValues();
-                    HttpAsync request = new HttpAsync(ModifyCar.this);
-                    request.execute(Action.MODIFY_CAR.toString());
-                }
-            }
-        });
     }
 
     private void setFieldsValues(){
@@ -143,13 +132,86 @@ public class ModifyCar  extends ActionBarActivity {
         return true;
     }
 
+    private void setListeners(){
+        tvFuelCons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set fuel consumption", tvFuelCons);
+            }
+        });
+
+        tvCo2Cons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set C02 consumption", tvCo2Cons);
+            }
+        });
+
+        tvHtvaPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set price exc. TVA", tvHtvaPrice);
+            }
+        });
+
+        tvLeasePrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set leasing price", tvLeasePrice);
+            }
+        });
+
+        btnSaveCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkFields()){
+                    setFieldsValues();
+                    HttpAsync request = new HttpAsync(ModifyCar.this);
+                    request.execute(Action.MODIFY_CAR.toString());
+                }
+            }
+        });
+    }
+
+    private void showNumberPicker(String title, final TextView field){
+        // Create the dialog
+        final Dialog np = new Dialog(ModifyCar.this);
+        np.setTitle(title);
+        np.setContentView(R.layout.number_picker_dialog);
+
+        // Get the number pickers and the buttons
+        final EditText unit  = (EditText)np.findViewById(R.id.etUnit);
+        final EditText tenth = (EditText)np.findViewById(R.id.etTenth);
+        Button btnSet              = (Button)np.findViewById(R.id.btnSet);
+        Button btnCancel           = (Button)np.findViewById(R.id.btnCancel);
+
+        // Set the listeners
+        btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                field.setText(unit.getText().toString() + "." + tenth.getText().toString());
+                np.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                np.dismiss();
+            }
+        });
+
+        // Show the dialog
+        np.show();
+    }
+
+
     public void onPostExecute(Object object){
         if((int) object != 200)
-            createAndShowResult("Error when saving the car", "Retry", false);
+            createAndShowResult("Error when updating the car", "Retry", false);
         else{
-            createAndShowResult("Car is succesfully registered", "Ok", true);
+            createAndShowResult("Car is succesfully updated", "Ok", true);
         }
-
     }
 
     private void createAndShowResult(String title, String btntext, final boolean success){
@@ -158,9 +220,14 @@ public class ModifyCar  extends ActionBarActivity {
                 .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(success) Log.d("Success", "");
+                        if(success) launchIntentToHome();
                     }
                 }).show();
+    }
+
+    private void launchIntentToHome(){
+        Intent i = new Intent(this, Home.class);
+        startActivity(i);
     }
 
     /*Getters and Setters*/
