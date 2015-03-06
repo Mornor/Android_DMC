@@ -4,10 +4,20 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/tvCarDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvCarDetails"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <TextView
         android:id="@+id/tvBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/tvCarDetails"
         android:text="@string/tvBrand"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp" />
@@ -98,6 +108,26 @@
         android:layout_toRightOf="@+id/tvNbSit"
         android:layout_alignLeft="@+id/tvMaxConsFuel"
         android:layout_alignBottom="@+id/tvNbSit" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/etNbSits"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvPeriod"
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>
