@@ -80,6 +80,11 @@
     <string name="tvNbSit">Number of sits</string>
     <string name="tvCarDetails">Car specifications</string>
     <string name="tvPeriod">Period</string>
+    <string name="tvFrom">From</string>
+    <string name="tvTo">To</string>
+    <string name="tvAt">at</string>
+    <string name="tvPickDate">Pick date</string>
+    <string name="tvTime">Choose time</string>
 
     <!-- General String-->
     <string name="menuExit">Exit</string>
