@@ -94,10 +94,10 @@ public class ModifyCar  extends ActionBarActivity {
         brand           = etBrand.getText().toString().trim();
         model           = etModel.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
-        fuelCons        = tvFuelCons.getText().toString();
-        c02Cons         = tvCo2Cons.getText().toString();
-        leasingPrice    = tvLeasePrice.getText().toString();
-        htvaPrice       = tvLeasePrice.getText().toString();
+        fuelCons        = tvFuelCons.getText().toString().trim();
+        c02Cons         = tvCo2Cons.getText().toString().trim();
+        leasingPrice    = tvLeasePrice.getText().toString().trim();
+        htvaPrice       = tvLeasePrice.getText().toString().trim();
 
         car.setBrand(brand);
         car.setModel(model);

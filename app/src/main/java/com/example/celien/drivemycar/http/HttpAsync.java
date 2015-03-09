@@ -127,7 +127,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
         // Update the car into current User's List<Car>
         Car car = modifyCarCaller.getCar();
-        Log.d("IdHttpp", String.valueOf(modifyCarCaller.getUser().getId()));
+        Log.d("Leasing price : ", String.valueOf(car.getLeasing_price()));
 
         // Update it into DB.
         try {
