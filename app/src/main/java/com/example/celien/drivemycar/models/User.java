@@ -33,6 +33,7 @@ public class User implements Parcelable{
     }
 
     public User(Parcel source){
+        id = source.readInt();
         name = source.readString();
         username = source.readString();
         email = source.readString();
@@ -50,6 +51,7 @@ public class User implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(username);
         dest.writeString(email);

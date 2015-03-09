@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.http;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Login;
@@ -41,11 +42,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private AddCar addCarCaller;
     private ModifyCar modifyCarCaller;
 
-    public final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
-    public final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
-    public final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
-    public final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
-    public final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
+    private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
+    private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
+    private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
+    private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
+    private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";;
 
     // Default constructor
     public HttpAsync(){}
@@ -126,20 +127,14 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
         // Update the car into current User's List<Car>
         Car car = modifyCarCaller.getCar();
-        car.setBrand(modifyCarCaller.getBrand());
-        car.setModel(modifyCarCaller.getModel());
-        car.setFuel(modifyCarCaller.getFuel());
-        car.setAvg_cons(Double.valueOf(modifyCarCaller.getFuelCons()));
-        car.setC02_cons(Double.valueOf(modifyCarCaller.getC02Cons()));
-        car.setHtva_price(Double.valueOf(modifyCarCaller.getHtvaPrice()));
-        car.setLeasing_price(Double.valueOf(modifyCarCaller.getLeasingPrice()));
+        Log.d("IdHttpp", String.valueOf(modifyCarCaller.getUser().getId()));
 
         // Update it into DB.
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(MODIFY_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("id",            String.valueOf(car.getId())));
+            list.add(new BasicNameValuePair("idUser",        String.valueOf(modifyCarCaller.getUser().getId())));
             list.add(new BasicNameValuePair("brand",         car.getBrand()));
             list.add(new BasicNameValuePair("model",         car.getModel()));
             list.add(new BasicNameValuePair("fuel",          car.getFuel()));
@@ -191,6 +186,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return success;
     }
 

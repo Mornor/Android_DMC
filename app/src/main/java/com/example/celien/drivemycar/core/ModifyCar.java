@@ -98,6 +98,14 @@ public class ModifyCar  extends ActionBarActivity {
         c02Cons         = tvCo2Cons.getText().toString();
         leasingPrice    = tvLeasePrice.getText().toString();
         htvaPrice       = tvLeasePrice.getText().toString();
+
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setFuel(fuel);
+        car.setAvg_cons(Double.valueOf(fuelCons));
+        car.setC02_cons(Double.valueOf(c02Cons));
+        car.setHtva_price(Double.valueOf(htvaPrice));
+        car.setLeasing_price(Double.valueOf(leasingPrice));
     }
 
     private boolean checkFields(){
@@ -258,6 +266,14 @@ public class ModifyCar  extends ActionBarActivity {
 
     public String getBrand() {
         return brand;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setBrand(String brand) {
