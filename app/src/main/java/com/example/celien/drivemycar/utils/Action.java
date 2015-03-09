@@ -8,6 +8,7 @@ public enum Action {
     SAVE_CAR("saveCar"),
     MODIFY_CAR("modifyCar"),
     LOAD_USER("loadUser"),
+    CHECK_USERNAME("checkUsername"),
     LOAD_CARS("loadCars");
 
     private final String name;

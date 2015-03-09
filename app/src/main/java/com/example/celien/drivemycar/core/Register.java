@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -82,20 +83,35 @@ public class Register extends ActionBarActivity {
         String confirmPassword  = etConfirmPassword.getText().toString().trim();
 
         // If confirmation failed
-        String error = checkConfirmation(mail, confirmMail, password, confirmPassword);
+        String error = checkConfirmation(mail, confirmMail, password, confirmPassword, username);
         if(formError){
             if(confirmMailError)
                 tvError.setText(error);
         }
 
         // If confirmation succeed
-        // Save the User into db using instance of HttpAsync
         else if(!formError){
+            // Check if username is unique.
+            checkUsernameUnique(username);
+        }
+    }
+
+    private void checkUsernameUnique(String username){
+        HttpAsyncJson request = new HttpAsyncJson(this);
+        request.execute(Action.CHECK_USERNAME.toString(), username);
+    }
+
+    /*Last step, result is returned by onPostExecute in HttpAsynJson*/
+    public void onPostExecuteUsernameUnique(Boolean result){
+        if(result)
+            tvError.setText("Username already exist");
+        else{
             tvError.setText("");
             HttpAsync httpAsync = new HttpAsync(this);
             temp = new User(name, mail, username, password);
             httpAsync.execute(Action.SAVE_USER.toString());
         }
+
     }
 
     /**
