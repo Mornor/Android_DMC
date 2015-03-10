@@ -3,9 +3,11 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.webkit.JsPromptResult;
 
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.tabs.TabSearchCar;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -21,10 +23,12 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private Login loginCaller;
     private boolean choice; // If choice is true, then the instance of Login caller is used to retrieve the car.
     private Register registerCaller;
+    private TabSearchCar tabSearchCarCaller;
 
     private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
     private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
+    private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
 
     public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
@@ -33,6 +37,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     public HttpAsyncJson(Login loginCaller, boolean choice){
         this.loginCaller = loginCaller;
         this.choice = choice;
+    }
+
+    public HttpAsyncJson(TabSearchCar caller){
+        this.tabSearchCarCaller = caller;
     }
 
     public HttpAsyncJson(Register caller){
@@ -47,7 +55,15 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             return loadCars(params[1]); // also contains the username.
         if(params[0].equals(Action.CHECK_USERNAME.toString()))
             return checkUsernameUnique(params[1]);
+        if(params[0].equals(Action.GET_BRAND.toString()))
+            return getBrands();
         return null;
+    }
+
+    private JSONArray getBrands(){
+        JsonParser parser = new JsonParser();
+        JSONArray result = parser.makeGetHttpRequest(LOAD_ALL_CARS_BRAND);
+        return result;
     }
 
     private JSONArray checkUsernameUnique(String username){
@@ -87,7 +103,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+        }
+        if(tabSearchCarCaller != null){
+            tabSearchCarCaller.getSearchBrandCar().dismiss();
+            tabSearchCarCaller.onPostExecuteSearchBrand(jsonArray);
         }
     }
 
@@ -95,6 +114,8 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     protected void onPreExecute() {
         if(registerCaller != null)
             registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
+        if(tabSearchCarCaller != null)
+            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait", "Search available brands"));
     }
 
     @Override

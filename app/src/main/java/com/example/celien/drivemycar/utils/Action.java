@@ -10,6 +10,7 @@ public enum Action {
     LOAD_USER("loadUser"),
     CHECK_USERNAME("checkUsername"),
     DELETE_CAR("deleteCar"),
+    GET_BRAND("getBrand"),
     LOAD_CARS("loadCars");
 
     private final String name;

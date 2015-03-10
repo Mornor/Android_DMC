@@ -1,32 +1,52 @@
 package com.example.celien.drivemycar.tabs;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 
-import org.w3c.dom.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TabSearchCar extends Fragment{
 
+    private User user;
+
     // Fragment variables
-    EditText etBrand;
-    Spinner spEnergy;
-    TextView tvConsoFuel;
-    EditText etNbSits;
-    TextView dateFrom;
-    TextView timeFrom;
-    TextView dateTo;
-    TextView timeTo;
+    private EditText etBrand;
+    private Spinner spEnergy;
+    private TextView tvConsoFuel;
+    private EditText etNbSits;
+    private TextView dateFrom;
+    private TextView timeFrom;
+    private TextView dateTo;
+    private TextView timeTo;
 
+    // Usefull Progress Dialog
+    private ProgressDialog searchBrandCar;
+    private ProgressDialog searchCorrespondingCar;
 
+    // Usefull variables
+    private String[] brand;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,9 +57,14 @@ public class TabSearchCar extends Fragment{
     }
 
     private void init(View v){
+        // Get current User
+        Home homeActivity = (Home)getActivity();
+        user = homeActivity.getUser();
+
+        // Get fields
         etBrand     = (EditText)v.findViewById(R.id.etBrand);
         spEnergy    = (Spinner)v.findViewById(R.id.spFuelList);
-        tvConsoFuel = (TextView)v.findViewById(R.id.tvFuelCons);
+        tvConsoFuel = (TextView)v.findViewById(R.id.tvMaxConsFuel);
         etNbSits    = (EditText)v.findViewById(R.id.etNbSits);
         dateFrom    = (TextView)v.findViewById(R.id.tvPickDateFrom);
         timeFrom    = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
@@ -51,21 +76,22 @@ public class TabSearchCar extends Fragment{
         etBrand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                HttpAsyncJson request = new HttpAsyncJson(TabSearchCar.this);
+                request.execute(Action.GET_BRAND.toString());
             }
         });
 
         tvConsoFuel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                showNumberPicker("Set max. consumption", tvConsoFuel);
             }
         });
 
         etNbSits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showNumberPicker("Set wished number of sits", etNbSits);
             }
         });
 
@@ -97,5 +123,77 @@ public class TabSearchCar extends Fragment{
             }
         });
 
+    }
+
+    private void showNumberPicker(String title, final TextView field){
+        // Create the dialog
+        final Dialog np = new Dialog(TabSearchCar.this.getActivity());
+        np.setTitle(title);
+        np.setContentView(R.layout.number_picker_dialog);
+
+        // Get the number pickers and the buttons
+        final EditText unit         = (EditText)np.findViewById(R.id.etUnit);
+        Button btnSet               = (Button)np.findViewById(R.id.btnSet);
+        Button btnCancel            = (Button)np.findViewById(R.id.btnCancel);
+
+        // Set the listeners
+        btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                field.setText(unit.getText().toString());
+                np.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                np.dismiss();
+            }
+        });
+
+        // Show the dialog
+        np.show();
+    }
+
+    public void onPostExecuteSearchBrand(JSONArray array){
+        brand = new String[array.length()];
+        try {
+            for(int i = 0 ; i < array.length() ; i++) {
+                JSONObject object = array.getJSONObject(i);
+                brand[i] = object.getString(String.valueOf(i));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        buildBrandDialog();
+    }
+
+    private void buildBrandDialog(){
+        AlertDialog.Builder brandDialog = new AlertDialog.Builder(TabSearchCar.this.getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = (View) inflater.inflate(R.layout.brand_dialog, null);
+        brandDialog.setView(v);
+        ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brand);
+        lvBrand.setAdapter(adapter);
+        brandDialog.show();
+    }
+
+    /*Getters and Setters*/
+    public ProgressDialog getSearchBrandCar() {
+        return searchBrandCar;
+    }
+
+    public void setSearchBrandCar(ProgressDialog searchBrandCar) {
+        this.searchBrandCar = searchBrandCar;
+    }
+
+    public ProgressDialog getSearchCorrespondingCar() {
+        return searchCorrespondingCar;
+    }
+
+    public void setSearchCorrespondingCar(ProgressDialog searchCorrespondingCar) {
+        this.searchCorrespondingCar = searchCorrespondingCar;
     }
 }

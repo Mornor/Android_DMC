@@ -85,6 +85,7 @@
     <string name="tvAt">at</string>
     <string name="tvPickDate">Pick date</string>
     <string name="tvTime">Choose time</string>
+    <string name="btnSearch">Search</string>
 
     <!-- General String-->
     <string name="menuExit">Exit</string>

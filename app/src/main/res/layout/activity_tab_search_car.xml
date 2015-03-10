@@ -48,7 +48,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_below="@+id/tvBrand"
             android:layout_alignLeft="@+id/tvBrand"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="0dp" />
 
         <Spinner
@@ -60,7 +60,7 @@
             android:layout_below="@+id/etBrand"
             android:layout_alignLeft="@+id/etBrand"
             android:layout_alignStart="@+id/etBrand"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="30dp" />
 
         <TextView
             android:id="@+id/tvFuelCons"
@@ -102,12 +102,12 @@
             android:layout_below="@+id/tvFuelCons"
             android:layout_alignLeft="@+id/tvBrand"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="30dp" />
 
         <EditText
             android:id="@+id/etNbSits"
             android:editable="false"
-            android:layout_width="60dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvMaxConsFuel"
             android:layout_toEndOf="@+id/tvNbSit"
@@ -217,8 +217,16 @@
             android:layout_toRightOf="@+id/tvAtTo"
             android:layout_alignLeft="@+id/tvChooseTimeFrom"
             android:layout_alignBottom="@+id/tvAtTo"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSearch"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/tvChooseTimeTo" />
 
     </RelativeLayout>
 
