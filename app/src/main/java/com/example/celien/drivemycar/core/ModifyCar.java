@@ -20,7 +20,7 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.utils.Action;;
+import com.example.celien.drivemycar.utils.Action;;import java.util.List;
 
 public class ModifyCar  extends ActionBarActivity {
 
@@ -87,7 +87,16 @@ public class ModifyCar  extends ActionBarActivity {
         tvCo2Cons.setText(String.valueOf(car.getC02_cons()));
         tvHtvaPrice.setText(String.valueOf(car.getHtva_price()));
         tvLeasePrice.setText(String.valueOf(car.getLeasing_price()));
+        spFuel.setSelection(getPositionItemSpinner(car.getFuel()));
         btnSaveCar.setText("Modify car");
+    }
+
+    private int getPositionItemSpinner(String carEnergy){
+        int pos = 0;
+        String[] energyList = getResources().getStringArray(R.array.fuel_array);
+        for(int i = 0 ; i < energyList.length ; i++)
+            if(energyList[i].equals(carEnergy)) pos = i;
+        return pos;
     }
 
     private void setFieldsValues(){
