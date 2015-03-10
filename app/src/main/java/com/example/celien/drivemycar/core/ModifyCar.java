@@ -194,7 +194,6 @@ public class ModifyCar  extends ActionBarActivity {
 
         // Get the number pickers and the buttons
         final EditText unit         = (EditText)np.findViewById(R.id.etUnit);
-        final EditText tenth        = (EditText)np.findViewById(R.id.etTenth);
         Button btnSet               = (Button)np.findViewById(R.id.btnSet);
         Button btnCancel            = (Button)np.findViewById(R.id.btnCancel);
 
@@ -202,7 +201,7 @@ public class ModifyCar  extends ActionBarActivity {
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                field.setText(unit.getText().toString() + "." + tenth.getText().toString());
+                field.setText(unit.getText().toString());
                 np.dismiss();
             }
         });
