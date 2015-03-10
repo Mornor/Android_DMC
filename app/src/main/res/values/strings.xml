@@ -91,5 +91,6 @@
     <string name="menuSettings">Settings</string>
     <string name="title_modify_car">Modify car</string>
     <string name="title_activity_tab_search_car">TabSearchCar</string>
+    <string name="action_delete_car">Delete</string>
 
 </resources>

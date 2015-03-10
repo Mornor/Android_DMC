@@ -5,7 +5,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +23,8 @@ import com.example.celien.drivemycar.models.User;
 public class ListPersonnalCars extends ActionBarActivity {
 
     private User user;
+    private ActionMode mActionMode;
+    private Car selectedCarToDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,30 @@ public class ListPersonnalCars extends ActionBarActivity {
         ListView lv = (ListView)findViewById(R.id.lvCars);
         lv.setAdapter(adapter);
 
-        // Set listener
+        // Set listener (short press)
         lv.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Car clickedCar = (Car) parent.getItemAtPosition(position);
                         launchIntentToModifyCar(user, getPositionCarInList(clickedCar));
+                    }
+                }
+        );
+
+        // Set listener (long press)
+        lv.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(mActionMode != null)
+                            return false;
+
+                        // Start the CAB using the actionModeCallBack defined below
+                        mActionMode = ListPersonnalCars.this.startActionMode(actionModeCallBack);
+                        view.setSelected(true);
+                        selectedCarToDelete = (Car) parent.getItemAtPosition(position);
+                        return true;
                     }
                 }
         );
@@ -111,6 +132,49 @@ public class ListPersonnalCars extends ActionBarActivity {
         finish();
         startActivity(i);
     }
+
+    private void deleteCar(){
+        Log.d("Car to delete ", selectedCarToDelete.getBrand());
+    }
+
+    // Set the ActionMode.Callback method in order to implement a custiom bar menu
+    private ActionMode.Callback actionModeCallBack = new ActionMode.Callback(){
+
+        // Called when actionMode is create (id startActionMode() was called)
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate the correct Menu
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_actions_car, menu);
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // if nothing is done
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.action_delete_car:
+                    deleteCar();
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+
+            }
+        }
+
+        // Called when the user exit action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
 
 
 }
