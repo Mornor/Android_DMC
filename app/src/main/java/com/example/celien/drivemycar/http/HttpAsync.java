@@ -13,6 +13,7 @@ import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -21,7 +22,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +50,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
     private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
-    private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";;
+    private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
+    private final static String GET_CAR_ID           = "http://cafca.ngrok.com/android/get_car_id";
 
     // Default constructor
     public HttpAsync(){}
@@ -153,6 +158,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     public int saveNewCar(){
         int success = 0;
+        InputStream is = null;
+        int idCarAfterSave = 0;
 
         // Create the car
         Car car  = new Car();
@@ -163,9 +170,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         car.setC02_cons(Double.valueOf(addCarCaller.getC02Cons()));
         car.setHtva_price(Double.valueOf(addCarCaller.getHtvaPrice()));
         car.setLeasing_price(Double.valueOf(addCarCaller.getLeasingPrice()));
-
-        // Add the car to the currentUser
-        addCarCaller.getUser().getCars().add(car);
 
         // Save the car into Db
         try {
@@ -183,9 +187,28 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();
+            // Get the response
+            HttpEntity httpEntity = response.getEntity();
+            is = httpEntity.getContent();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Get the ID of the car that has just been saved (only way to get the ID)
+        JsonParser parser = new JsonParser();
+        String jsonString = parser.createJsonStringFromInputStream(is);
+        JSONObject idCarJson = parser.createJsonObjectFromString(jsonString);
+
+        try {
+            idCarAfterSave = idCarJson.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Add the car to the currentUser and set the new ID from DB
+        car.setId(idCarAfterSave);
+        addCarCaller.getUser().getCars().add(car);
+        Log.d("HttpAsync carID ", String.valueOf(car.getId()));
 
         return success;
     }

@@ -101,7 +101,7 @@ public class JsonParser {
         return jsonArray;
     }
 
-    private JSONObject createJsonObjectFromString(String json){
+    public JSONObject createJsonObjectFromString(String json){
         try {
             result = new JSONObject(json);
         } catch (JSONException e) {
