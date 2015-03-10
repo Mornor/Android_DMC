@@ -127,7 +127,7 @@ public class AddCar extends ActionBarActivity {
         fuelCons        = tvFuelCons.getText().toString();
         c02Cons         = tvCo2Cons.getText().toString();
         leasingPrice    = tvLeasePrice.getText().toString();
-        htvaPrice       = tvLeasePrice.getText().toString();
+        htvaPrice       = tvHtvaPrice.getText().toString();
     }
 
     private boolean checkFields(){
