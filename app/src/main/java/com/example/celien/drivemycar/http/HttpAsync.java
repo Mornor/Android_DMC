@@ -51,7 +51,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
     private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
-    private final static String GET_CAR_ID           = "http://cafca.ngrok.com/android/get_car_id";
 
     // Default constructor
     public HttpAsync(){}
@@ -132,14 +131,13 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
         // Update the car into current User's List<Car>
         Car car = modifyCarCaller.getCar();
-        Log.d("Leasing price : ", String.valueOf(car.getLeasing_price()));
 
         // Update it into DB.
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(MODIFY_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("idUser",        String.valueOf(modifyCarCaller.getUser().getId())));
+            list.add(new BasicNameValuePair("id",            String.valueOf(car.getId())));
             list.add(new BasicNameValuePair("brand",         car.getBrand()));
             list.add(new BasicNameValuePair("model",         car.getModel()));
             list.add(new BasicNameValuePair("fuel",          car.getFuel()));
@@ -208,7 +206,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         // Add the car to the currentUser and set the new ID from DB
         car.setId(idCarAfterSave);
         addCarCaller.getUser().getCars().add(car);
-        Log.d("HttpAsync carID ", String.valueOf(car.getId()));
 
         return success;
     }
