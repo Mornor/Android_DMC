@@ -140,8 +140,7 @@ public class ListPersonnalCars extends ActionBarActivity {
     }
 
     private void deleteCar(){
-        HttpAsync request = new HttpAsync(this);
-        request.execute(Action.DELETE_CAR.toString());
+        createAndShowConfirm();
     }
 
     public void onPostExecuteDeleteCar(Object resp){
@@ -150,6 +149,24 @@ public class ListPersonnalCars extends ActionBarActivity {
         else{
             createAndShowResult("Car is succesfully deleted", "Ok", true);
         }
+    }
+
+    private void createAndShowConfirm(){
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm removal")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        HttpAsync request = new HttpAsync(ListPersonnalCars.this);
+                        request.execute(Action.DELETE_CAR.toString());
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
     }
 
     private void createAndShowResult(String title, String btntext, final boolean success){
