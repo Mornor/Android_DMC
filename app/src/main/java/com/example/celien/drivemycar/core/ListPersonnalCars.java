@@ -1,5 +1,8 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,14 +20,17 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomListPersonnalCar;
+import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 
 public class ListPersonnalCars extends ActionBarActivity {
 
     private User user;
     private ActionMode mActionMode;
     private Car selectedCarToDelete;
+    private ProgressDialog deleteCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +140,36 @@ public class ListPersonnalCars extends ActionBarActivity {
     }
 
     private void deleteCar(){
-        Log.d("Car to delete ", selectedCarToDelete.getBrand());
+        HttpAsync request = new HttpAsync(this);
+        request.execute(Action.DELETE_CAR.toString());
+    }
+
+    public void onPostExecuteDeleteCar(Object resp){
+        if((int) resp != 200)
+            createAndShowResult("Error when deleting the car", "Retry", false);
+        else{
+            createAndShowResult("Car is succesfully deleted", "Ok", true);
+        }
+    }
+
+    private void createAndShowResult(String title, String btntext, final boolean success){
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setPositiveButton(btntext, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(success) launchIntentToHome();
+                    }
+                }).show();
+    }
+
+    private void launchIntentToHome(){
+        Intent i = new Intent(this, Home.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        finish();
+        startActivity(i);
     }
 
     // Set the ActionMode.Callback method in order to implement a custiom bar menu
@@ -165,7 +200,6 @@ public class ListPersonnalCars extends ActionBarActivity {
                     return true;
                 default:
                     return false;
-
             }
         }
 
@@ -176,5 +210,16 @@ public class ListPersonnalCars extends ActionBarActivity {
         }
     };
 
+    /*Getters and Setters*/
+    public Car getSelectedCarToDelete() {
+        return selectedCarToDelete;
+    }
 
+    public ProgressDialog getProgressDialog() {
+        return deleteCar;
+    }
+
+    public void setProgressDialog(ProgressDialog deleteCar) {
+        this.deleteCar = deleteCar;
+    }
 }

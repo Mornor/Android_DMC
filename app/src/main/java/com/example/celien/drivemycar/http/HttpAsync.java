@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.celien.drivemycar.core.AddCar;
+import com.example.celien.drivemycar.core.ListPersonnalCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
@@ -45,12 +46,14 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private Login loginCaller;
     private AddCar addCarCaller;
     private ModifyCar modifyCarCaller;
+    private ListPersonnalCars listPersonnalCarsCaller;
 
     private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
     private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
     private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
+    private final static String DELETE_CAR_URL       = "http://cafca.ngrok.com/android/delete_car";
 
     // Default constructor
     public HttpAsync(){}
@@ -73,6 +76,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.modifyCarCaller = modifyCar;
     }
 
+    public HttpAsync(ListPersonnalCars caller){
+        this.listPersonnalCarsCaller = caller;
+    }
+
     @Override
     protected void onPreExecute() {
         // Get the current caller class
@@ -84,6 +91,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             addCarCaller.setSavingCar(ProgressDialog.show(addCarCaller, "Please wait ...", "Saving the car ..."));
         if(modifyCarCaller != null)
             modifyCarCaller.setModifyCar(ProgressDialog.show(modifyCarCaller, "Please wait ...", "Modifying car..."));
+        if(listPersonnalCarsCaller != null)
+            listPersonnalCarsCaller.setProgressDialog(ProgressDialog.show(listPersonnalCarsCaller, "Please wait ...", "Deleting car..."));
     }
 
     /**
@@ -99,7 +108,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         else if(params[0].equals(Action.SAVE_CAR.toString()))
             return saveNewCar();
         else if(params[0].equals(Action.MODIFY_CAR.toString()))
-            return modifycar();
+            return modifyCar();
+        else if(params[0].equals(Action.DELETE_CAR.toString()))
+            return deleteCar();
         return null;
     }
 
@@ -123,10 +134,31 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             modifyCarCaller.getModifyCar().dismiss();
             modifyCarCaller.onPostExecute(object);
         }
+        if(listPersonnalCarsCaller != null){
+            listPersonnalCarsCaller.getProgressDialog().dismiss();
+            listPersonnalCarsCaller.onPostExecuteDeleteCar(object);
+        }
 
     }
 
-    public int modifycar(){
+    private int deleteCar(){
+        int success = 0;
+        Car carToDelete = listPersonnalCarsCaller.getSelectedCarToDelete();
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(DELETE_CAR_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("id", String.valueOf(carToDelete.getId())));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
+    private int modifyCar(){
         int success = 0;
 
         // Update the car into current User's List<Car>
@@ -154,7 +186,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         return success;
     }
 
-    public int saveNewCar(){
+    private int saveNewCar(){
         int success = 0;
         InputStream is = null;
         int idCarAfterSave = 0;
@@ -228,7 +260,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     }
 
     /*Save the name and the message into remote DB*/
-    public int saveNewUser(){
+    private int saveNewUser(){
         User temp = registerCaller.getUser();
         int responseCode = 0;
         try{
