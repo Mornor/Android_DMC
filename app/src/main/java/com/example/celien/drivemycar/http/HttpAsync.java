@@ -144,6 +144,9 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private int deleteCar(){
         int success = 0;
         Car carToDelete = listPersonnalCarsCaller.getSelectedCarToDelete();
+        User user = listPersonnalCarsCaller.getUser();
+        user.getCars().remove(carToDelete);
+
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(DELETE_CAR_URL);

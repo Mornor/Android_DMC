@@ -222,4 +222,9 @@ public class ListPersonnalCars extends ActionBarActivity {
     public void setProgressDialog(ProgressDialog deleteCar) {
         this.deleteCar = deleteCar;
     }
+
+    public User getUser() {
+        return user;
+    }
+
 }
