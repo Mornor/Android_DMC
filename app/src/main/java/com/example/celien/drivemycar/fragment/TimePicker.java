@@ -5,8 +5,10 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.tabs.TabSearchCar;
 
 import java.util.Calendar;
 
@@ -15,6 +17,7 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         // Retrieve current time to show in the time picker dialog
         final Calendar c    = Calendar.getInstance();
         int hour            = c.get(Calendar.HOUR_OF_DAY);
@@ -24,7 +27,7 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
         return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
 
-    //
+
     @Override
     public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
 

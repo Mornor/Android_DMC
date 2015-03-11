@@ -130,7 +130,6 @@ public class TabSearchCar extends Fragment{
                 showTimePicker("timeTo");
             }
         });
-
     }
 
     private void showTimePicker(String tag){
