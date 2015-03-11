@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,16 +157,22 @@ public class TabSearchCar extends Fragment{
         np.show();
     }
 
+    // Array receive contains all the brand in array.getJSONObject(0)
+    // For example, to get the first brand : array.getJSONObject(0).getString("1");
     public void onPostExecuteSearchBrand(JSONArray array){
-        brand = new String[array.length()];
         try {
-            for(int i = 0 ; i < array.length() ; i++) {
-                JSONObject object = array.getJSONObject(i);
+            Log.d("Brand size tab", String.valueOf(array.getJSONObject(0).length()));
+            brand = new String[array.getJSONObject(0).length()];
+            for(int i = 0 ; i < array.getJSONObject(0).length() ; i++) {
+                JSONObject object = array.getJSONObject(0);
                 brand[i] = object.getString(String.valueOf(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("Brand 0 ", brand[0]);
+        Log.d("Brand 1", brand[1]);
+
         buildBrandDialog();
     }
 
