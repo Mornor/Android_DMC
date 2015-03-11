@@ -33,7 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TabSearchCar extends Fragment implements  DatePicker.DatePickerListener{
+public class TabSearchCar extends Fragment {
 
     private User user;
 
@@ -140,13 +140,9 @@ public class TabSearchCar extends Fragment implements  DatePicker.DatePickerList
     private void showDatePicker(String tag){
         DialogFragment fragment = new DatePicker();
         fragment.show(getActivity().getFragmentManager(), tag);
-    }
-
-    @Override
-    public void onDateSelected(int year, int month, int day) {
+        Bundle bundle = getArguments();
+        int year = bundle.getInt("year");
         Log.d("Tab year ", String.valueOf(year));
-        Log.d("Tab month ", String.valueOf(month));
-        Log.d("Tab day ", String.valueOf(day));
     }
 
     private void showNumberPicker(String title, final TextView field){

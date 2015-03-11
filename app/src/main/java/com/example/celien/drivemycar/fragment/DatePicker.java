@@ -7,14 +7,12 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.tabs.TabSearchCar;
 
 import java.util.Calendar;
 
 
 public class DatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-    // Use this instance of the interface to send action events to the caller's activity.
-    DatePickerListener mListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,25 +26,12 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mListener.onDateSelected(year, monthOfYear, dayOfMonth);
-    }
-
-    /* Interface is used to send callback event to the caller activity.
-     * That means the caller activity have to implements this interface */
-    public interface DatePickerListener{
-        public void onDateSelected(int year, int month, int day);
-    }
-
-    // Override to instantiate the DatePickerListener
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try{
-            mListener = (DatePickerListener) activity; // Instantiate it so that we can send event to the activity's caller.
-        }catch (ClassCastException e){
-            throw new ClassCastException(activity.toString() +" must implements DatePickerListener");
-        }
-
+        TabSearchCar tabSearchCar = new TabSearchCar();
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", year);
+        bundle.putInt("month", monthOfYear);
+        bundle.putInt("day", dayOfMonth);
+        tabSearchCar.setArguments(bundle);
     }
 
 }
