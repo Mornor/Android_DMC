@@ -20,9 +20,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
-import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
-import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -35,7 +33,7 @@ public class TabSearchCar extends Fragment{
     private User user;
 
     // Fragment variables
-    private EditText etBrand;
+    private TextView tvBrandChoose;
     private Spinner spEnergy;
     private TextView tvConsoFuel;
     private EditText etNbSits;
@@ -66,18 +64,18 @@ public class TabSearchCar extends Fragment{
         user = homeActivity.getUser();
 
         // Get fields
-        etBrand     = (EditText)v.findViewById(R.id.etBrand);
-        spEnergy    = (Spinner)v.findViewById(R.id.spFuelList);
-        tvConsoFuel = (TextView)v.findViewById(R.id.tvMaxConsFuel);
-        etNbSits    = (EditText)v.findViewById(R.id.etNbSits);
-        dateFrom    = (TextView)v.findViewById(R.id.tvPickDateFrom);
-        timeFrom    = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
-        dateTo      = (TextView)v.findViewById(R.id.tvPickDateTo);
-        timeTo      = (TextView)v.findViewById(R.id.tvChooseTimeTo);
+        tvBrandChoose   = (TextView)v.findViewById(R.id.etBrand);
+        spEnergy        = (Spinner)v.findViewById(R.id.spFuelList);
+        tvConsoFuel     = (TextView)v.findViewById(R.id.tvMaxConsFuel);
+        etNbSits        = (EditText)v.findViewById(R.id.etNbSits);
+        dateFrom        = (TextView)v.findViewById(R.id.tvPickDateFrom);
+        timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
+        dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
+        timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
     }
 
     private void setListeners(){
-        etBrand.setOnClickListener(new View.OnClickListener() {
+        tvBrandChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HttpAsyncJson request = new HttpAsyncJson(TabSearchCar.this);
@@ -186,7 +184,6 @@ public class TabSearchCar extends Fragment{
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brand);
         lvBrand.setAdapter(adapter);
-        //brandDialog.show();
         lvBrand.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -201,7 +198,7 @@ public class TabSearchCar extends Fragment{
 
     private void setBrandText(String brand){
         alert.dismiss();
-        etBrand.setText(brand);
+        tvBrandChoose.setText(brand);
     }
 
     /*Getters and Setters*/

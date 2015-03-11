@@ -28,17 +28,17 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp" />
 
-        <EditText
-            android:id="@+id/etBrand"
+        <TextView
+            android:id="@+id/tvBrandChoose"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/tvBrand"
             android:layout_toRightOf="@+id/tvBrand"
             android:layout_alignBottom="@+id/tvBrand"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:editable="false"
             android:hint="@string/hChoose"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="-12dp" />
+            android:layout_marginLeft="30dp" />
 
         <TextView
             android:id="@+id/tvEnergy"
@@ -57,9 +57,9 @@
             android:layout_height="wrap_content"
             android:entries="@array/fuel_array"
             android:prompt="@string/chooseFuel"
-            android:layout_below="@+id/etBrand"
-            android:layout_alignLeft="@+id/etBrand"
-            android:layout_alignStart="@+id/etBrand"
+            android:layout_below="@+id/tvBrandChoose"
+            android:layout_alignLeft="@+id/tvBrandChoose"
+            android:layout_alignStart="@+id/tvBrandChoose"
             android:layout_marginTop="30dp" />
 
         <TextView
