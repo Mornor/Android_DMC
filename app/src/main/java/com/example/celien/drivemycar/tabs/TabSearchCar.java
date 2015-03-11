@@ -1,11 +1,14 @@
 package com.example.celien.drivemycar.tabs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -58,13 +62,14 @@ public class TabSearchCar extends Fragment{
         return rootView;
     }
 
+
     private void init(View v){
         // Get current User
         Home homeActivity = (Home)getActivity();
         user = homeActivity.getUser();
 
         // Get fields
-        tvBrandChoose   = (TextView)v.findViewById(R.id.etBrand);
+        tvBrandChoose   = (TextView)v.findViewById(R.id.tvBrandChoose);
         spEnergy        = (Spinner)v.findViewById(R.id.spFuelList);
         tvConsoFuel     = (TextView)v.findViewById(R.id.tvMaxConsFuel);
         etNbSits        = (EditText)v.findViewById(R.id.etNbSits);
@@ -107,7 +112,7 @@ public class TabSearchCar extends Fragment{
         timeFrom.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                showTimePicker("timePickerFrom");
             }
         });
 
@@ -125,6 +130,11 @@ public class TabSearchCar extends Fragment{
             }
         });
 
+    }
+
+    private void showTimePicker(String tag){
+        DialogFragment fragment = new TimePicker();
+        fragment.show(getActivity().getFragmentManager(), tag);
     }
 
     private void showNumberPicker(String title, final TextView field){
