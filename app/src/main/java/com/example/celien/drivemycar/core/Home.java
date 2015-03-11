@@ -18,7 +18,7 @@ import com.example.celien.drivemycar.tabs.TabAccount;
 /**
  * Main page of the app, with sliding tabs.
  */
-public class Home extends ActionBarActivity{
+public class Home extends ActionBarActivity {
 
     private Toolbar toolbar;
     private ViewPagerAdapter pagerAdapter;
