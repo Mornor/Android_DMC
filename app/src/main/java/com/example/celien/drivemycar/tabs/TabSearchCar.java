@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -48,6 +50,7 @@ public class TabSearchCar extends Fragment{
 
     // Usefull variables
     private String[] brand;
+    private AlertDialog alert;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -170,13 +173,12 @@ public class TabSearchCar extends Fragment{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("Brand 0 ", brand[0]);
-        Log.d("Brand 1", brand[1]);
 
-        buildBrandDialog();
+        alert = buildBrandDialog().create();
+        alert.show();
     }
 
-    private void buildBrandDialog(){
+    private AlertDialog.Builder buildBrandDialog(){
         AlertDialog.Builder brandDialog = new AlertDialog.Builder(TabSearchCar.this.getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = (View) inflater.inflate(R.layout.brand_dialog, null);
@@ -184,7 +186,22 @@ public class TabSearchCar extends Fragment{
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brand);
         lvBrand.setAdapter(adapter);
-        brandDialog.show();
+        //brandDialog.show();
+        lvBrand.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Object clickedCar = parent.getItemAtPosition(position);
+                        setBrandText(clickedCar.toString());
+                    }
+                }
+        );
+        return brandDialog;
+    }
+
+    private void setBrandText(String brand){
+        alert.dismiss();
+        etBrand.setText(brand);
     }
 
     /*Getters and Setters*/
