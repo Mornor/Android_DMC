@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.fragment.DatePicker;
 import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
@@ -105,28 +106,28 @@ public class TabSearchCar extends Fragment{
         dateFrom.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                showDatePicker("dateFrom");
             }
         });
 
         timeFrom.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                showTimePicker("timePickerFrom");
+                showTimePicker("timeFrom");
             }
         });
 
         dateTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showDatePicker("dateTo");
             }
         });
 
         timeTo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                showTimePicker("timeTo");
             }
         });
 
@@ -134,6 +135,11 @@ public class TabSearchCar extends Fragment{
 
     private void showTimePicker(String tag){
         DialogFragment fragment = new TimePicker();
+        fragment.show(getActivity().getFragmentManager(), tag);
+    }
+
+    private void showDatePicker(String tag){
+        DialogFragment fragment = new DatePicker();
         fragment.show(getActivity().getFragmentManager(), tag);
     }
 
