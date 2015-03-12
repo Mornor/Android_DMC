@@ -244,6 +244,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
             // Add the car to the currentUser and set the new ID from DB
             car.setId(idCarAfterSave);
+
+            // Test if car is not already on User's list.
+            if(addCarCaller.getUser().getCars().contains(car))
+                success = -1;
+
             addCarCaller.getUser().getCars().add(car);
         }
 
