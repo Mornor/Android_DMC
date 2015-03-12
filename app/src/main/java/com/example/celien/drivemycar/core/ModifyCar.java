@@ -31,6 +31,7 @@ public class ModifyCar  extends ActionBarActivity {
     // Items on activity
     private EditText etBrand;
     private EditText etModel;
+    private EditText etLicencePlate;
     private Spinner spFuel;
     private TextView tvFuelCons;
     private TextView tvCo2Cons;
@@ -41,6 +42,7 @@ public class ModifyCar  extends ActionBarActivity {
     // Value of the item
     private String brand;
     private String model;
+    private String licencePlate;
     private String fuel;
     private String fuelCons;
     private String c02Cons;
@@ -73,6 +75,7 @@ public class ModifyCar  extends ActionBarActivity {
 
         etBrand         = (EditText)findViewById(R.id.etBrand);
         etModel         = (EditText)findViewById(R.id.etModel);
+        etLicencePlate  = (EditText)findViewById(R.id.etLicencePlate);
         spFuel          = (Spinner)findViewById(R.id.spFuelList);
         tvFuelCons      = (TextView)findViewById(R.id.tvFuelCons);
         tvCo2Cons       = (TextView)findViewById(R.id.tvC02Cons);
@@ -83,6 +86,7 @@ public class ModifyCar  extends ActionBarActivity {
 
         etBrand.setText(car.getBrand());
         etModel.setText(car.getModel());
+        etLicencePlate.setText(car.getLicencePlate());
         tvFuelCons.setText(String.valueOf(car.getAvg_cons()));
         tvCo2Cons.setText(String.valueOf(car.getC02_cons()));
         tvHtvaPrice.setText(String.valueOf(car.getHtva_price()));
@@ -102,6 +106,7 @@ public class ModifyCar  extends ActionBarActivity {
     private void setFieldsValues(){
         brand           = etBrand.getText().toString().trim();
         model           = etModel.getText().toString().trim();
+        licencePlate    = etLicencePlate.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
         fuelCons        = tvFuelCons.getText().toString().trim();
         c02Cons         = tvCo2Cons.getText().toString().trim();
@@ -110,6 +115,7 @@ public class ModifyCar  extends ActionBarActivity {
 
         car.setBrand(brand);
         car.setModel(model);
+        car.setLicencePlate(licencePlate);
         car.setFuel(fuel);
         car.setAvg_cons(Double.valueOf(fuelCons));
         car.setC02_cons(Double.valueOf(c02Cons));
@@ -125,6 +131,11 @@ public class ModifyCar  extends ActionBarActivity {
 
         if(etModel.getText().toString().isEmpty()){
             etModel.setHintTextColor(Color.RED);
+            return false;
+        }
+
+        if(etLicencePlate.getText().toString().isEmpty()){
+            etLicencePlate.setHintTextColor(Color.RED);
             return false;
         }
 

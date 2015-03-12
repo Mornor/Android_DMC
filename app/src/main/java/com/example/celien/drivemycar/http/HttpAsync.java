@@ -175,6 +175,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("id",            String.valueOf(car.getId())));
             list.add(new BasicNameValuePair("brand",         car.getBrand()));
             list.add(new BasicNameValuePair("model",         car.getModel()));
+            list.add(new BasicNameValuePair("licencePlate",  car.getLicencePlate()));
             list.add(new BasicNameValuePair("fuel",          car.getFuel()));
             list.add(new BasicNameValuePair("avg_cons",      String.valueOf(car.getAvg_cons())));
             list.add(new BasicNameValuePair("c02_cons",      String.valueOf(car.getC02_cons())));
