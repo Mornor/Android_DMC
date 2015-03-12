@@ -1,11 +1,11 @@
 package com.example.celien.drivemycar.fragment;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
-import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.tabs.TabSearchCar;

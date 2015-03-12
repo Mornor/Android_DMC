@@ -3,12 +3,13 @@ package com.example.celien.drivemycar.tabs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
+
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,10 @@ public class TabSearchCar extends Fragment {
     // Usefull variables
     private String[] brand;
     private AlertDialog alert;
+
+    // Calls variable (usefull for the DatePicker and TimePicker)
+    public static final int DATE_PICKER_FRAGMENT = 1;
+    public static final int TIME_PICKER_FRAGMENT = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,15 +139,25 @@ public class TabSearchCar extends Fragment {
 
     private void showTimePicker(String tag){
         DialogFragment fragment = new TimePicker();
-        fragment.show(getActivity().getFragmentManager(), tag);
+        //fragment.show(getActivity().getFragmentManager(), tag);
     }
 
     private void showDatePicker(String tag){
         DialogFragment fragment = new DatePicker();
-        fragment.show(getActivity().getFragmentManager(), tag);
-        Bundle bundle = getArguments();
-        int year = bundle.getInt("year");
-        Log.d("Tab year ", String.valueOf(year));
+        fragment.setTargetFragment(this, DATE_PICKER_FRAGMENT);
+        fragment.show(getFragmentManager().beginTransaction(), tag);
+    }
+
+    public void onActivityResult(int reqCode, int resCode, Intent data){
+        switch (reqCode){
+            case DATE_PICKER_FRAGMENT:
+                if(resCode == Activity.RESULT_OK){
+                    Bundle bdl = data.getExtras();
+                    int month = bdl.getInt("month");
+                    Log.d("Tab month ", String.valueOf(month));
+                }
+        }
+
     }
 
     private void showNumberPicker(String title, final TextView field){
