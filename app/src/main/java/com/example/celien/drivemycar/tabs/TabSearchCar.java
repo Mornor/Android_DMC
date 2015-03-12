@@ -123,7 +123,7 @@ public class TabSearchCar extends Fragment {
         dateFrom.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                showDatePicker("dateFrom");
+                showDatePicker("dateFrom"); // Be sure to send which is *equals* to the TextView name.
             }
         });
 
@@ -151,7 +151,8 @@ public class TabSearchCar extends Fragment {
 
     private void showTimePicker(String tag){
         DialogFragment fragment = new TimePicker();
-        //fragment.show(getActivity().getFragmentManager(), tag);
+        fragment.setTargetFragment(this, TIME_PICKER_FRAGMENT);
+        fragment.show(getFragmentManager(), tag);
     }
 
     private void showDatePicker(String tag){
@@ -171,11 +172,28 @@ public class TabSearchCar extends Fragment {
                     int month   = bdl.getInt("month");
                     int day     = bdl.getInt("day");
 
-                    // Create the String
-                    String date = day + "/" +month+ "/" +year;
+                    // Create the String and update corresponding TextView
+                    String date = day+ "/" +month+ "/" +year;
                     TextView tv = hmTextView.get(tag);
                     tv.setText(date);
                 }
+                break;
+            case TIME_PICKER_FRAGMENT:
+                if(resCode == Activity.RESULT_OK){
+                    // Retrieve data from TimePicker
+                    Bundle bdl  = data.getExtras();
+                    String tag  = bdl.getString("tag");
+                    int hour = bdl.getInt("hour");
+                    int minute = bdl.getInt("minute");
+
+                    // Create the String and update corresponding TextView
+                    String time = hour+ " : " +minute+ " h";
+                    TextView tv = hmTextView.get(tag);
+                    tv.setText(time);
+                }
+                break;
+            default:
+                break;
         }
 
     }

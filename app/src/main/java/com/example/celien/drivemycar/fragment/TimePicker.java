@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -30,6 +31,15 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
 
     @Override
     public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
-
+        // Create an Intent and send it back to TabSearchCar.onActivityResult.
+        String tagRcvd = getTag();
+        Intent i = new Intent();
+        Bundle bdl = new Bundle();
+        bdl.putString("tag", tagRcvd);
+        bdl.putInt("hour", hourOfDay);
+        bdl.putInt("minute", minute);
+        i.putExtras(bdl);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+        dismiss();
     }
 }
