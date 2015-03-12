@@ -194,29 +194,20 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         InputStream is = null;
         int idCarAfterSave = 0;
 
-        // Create the car
-        Car car  = new Car();
-        car.setBrand(addCarCaller.getBrand());
-        car.setModel(addCarCaller.getModel());
-        car.setFuel(addCarCaller.getFuel());
-        car.setAvg_cons(Double.valueOf(addCarCaller.getFuelCons()));
-        car.setC02_cons(Double.valueOf(addCarCaller.getC02Cons()));
-        car.setHtva_price(Double.valueOf(addCarCaller.getHtvaPrice()));
-        car.setLeasing_price(Double.valueOf(addCarCaller.getLeasingPrice()));
-
         // Save the car into Db
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username",      addCarCaller.getUser().getUsername()));
-            list.add(new BasicNameValuePair("brand",         car.getBrand()));
-            list.add(new BasicNameValuePair("model",         car.getModel()));
-            list.add(new BasicNameValuePair("fuel",          car.getFuel()));
-            list.add(new BasicNameValuePair("avg_cons",      String.valueOf(car.getAvg_cons())));
-            list.add(new BasicNameValuePair("c02_cons",      String.valueOf(car.getC02_cons())));
-            list.add(new BasicNameValuePair("htva_price",    String.valueOf(car.getHtva_price())));
-            list.add(new BasicNameValuePair("leasing_price", String.valueOf(car.getLeasing_price())));
+            list.add(new BasicNameValuePair("brand",         addCarCaller.getBrand()));
+            list.add(new BasicNameValuePair("model",         addCarCaller.getModel()));
+            list.add(new BasicNameValuePair("licencePlate",  addCarCaller.getLicencePlate()));
+            list.add(new BasicNameValuePair("fuel",          addCarCaller.getFuel()));
+            list.add(new BasicNameValuePair("avg_cons",      String.valueOf(addCarCaller.getFuelCons())));
+            list.add(new BasicNameValuePair("c02_cons",      String.valueOf(addCarCaller.getC02Cons())));
+            list.add(new BasicNameValuePair("htva_price",    String.valueOf(addCarCaller.getHtvaPrice())));
+            list.add(new BasicNameValuePair("leasing_price", String.valueOf(addCarCaller.getLeasingPrice())));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();
@@ -227,20 +218,33 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             e.printStackTrace();
         }
 
-        // Get the ID of the car that has just been saved (only way to get the ID)
-        JsonParser parser = new JsonParser();
-        String jsonString = parser.createJsonStringFromInputStream(is);
-        JSONObject idCarJson = parser.createJsonObjectFromString(jsonString);
+        // Create the car only if success == 200
+        if(success == 200){
+            Car car  = new Car();
+            car.setBrand(addCarCaller.getBrand());
+            car.setModel(addCarCaller.getModel());
+            car.setFuel(addCarCaller.getFuel());
+            car.setLicencePlate(addCarCaller.getLicencePlate());
+            car.setAvg_cons(Double.valueOf(addCarCaller.getFuelCons()));
+            car.setC02_cons(Double.valueOf(addCarCaller.getC02Cons()));
+            car.setHtva_price(Double.valueOf(addCarCaller.getHtvaPrice()));
+            car.setLeasing_price(Double.valueOf(addCarCaller.getLeasingPrice()));
 
-        try {
-            idCarAfterSave = idCarJson.getInt("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
+            // Get the ID of the car that has just been saved (only way to get the ID)
+            JsonParser parser = new JsonParser();
+            String jsonString = parser.createJsonStringFromInputStream(is);
+            JSONObject idCarJson = parser.createJsonObjectFromString(jsonString);
+
+            try {
+                idCarAfterSave = idCarJson.getInt("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Add the car to the currentUser and set the new ID from DB
+            car.setId(idCarAfterSave);
+            addCarCaller.getUser().getCars().add(car);
         }
-
-        // Add the car to the currentUser and set the new ID from DB
-        car.setId(idCarAfterSave);
-        addCarCaller.getUser().getCars().add(car);
 
         return success;
     }

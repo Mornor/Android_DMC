@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class Car implements Parcelable {
     private int id;
-    private int userFk;
     private String brand;
     private String model;
+    private String licencePlate;
     private String fuel;
     private double avg_cons; // Average consumption
     private double c02_cons;
@@ -26,6 +26,7 @@ public class Car implements Parcelable {
         dest.writeInt(id);
         dest.writeString(brand);
         dest.writeString(model);
+        dest.writeString(licencePlate);
         dest.writeString(fuel);
         dest.writeDouble(avg_cons);
         dest.writeDouble(c02_cons);
@@ -40,6 +41,7 @@ public class Car implements Parcelable {
             car.id              = source.readInt();
             car.brand           = source.readString();
             car.model           = source.readString();
+            car.licencePlate    = source.readString();
             car.fuel            = source.readString();
             car.avg_cons        = source.readDouble();
             car.c02_cons        = source.readDouble();
@@ -119,11 +121,11 @@ public class Car implements Parcelable {
         this.id = id;
     }
 
-    public int getUserFk() {
-        return userFk;
+    public String getLicencePlate() {
+        return licencePlate;
     }
 
-    public void setUserFk(int userFk) {
-        this.userFk = userFk;
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
     }
 }

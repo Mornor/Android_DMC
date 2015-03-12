@@ -31,6 +31,7 @@ public class AddCar extends ActionBarActivity {
     // Items on activity
     private EditText etBrand;
     private EditText etModel;
+    private EditText etLicencePlate;
     private Spinner spFuel;
     private TextView tvFuelCons;
     private TextView tvCo2Cons;
@@ -41,6 +42,7 @@ public class AddCar extends ActionBarActivity {
     // Value of the item
     private String brand;
     private String model;
+    private String licencePlate;
     private String fuel;
     private String fuelCons;
     private String c02Cons;
@@ -71,6 +73,7 @@ public class AddCar extends ActionBarActivity {
 
         etBrand         = (EditText)findViewById(R.id.etBrand);
         etModel         = (EditText)findViewById(R.id.etModel);
+        etLicencePlate  = (EditText)findViewById(R.id.etLicencePlate);
         spFuel          = (Spinner)findViewById(R.id.spFuelList);
         tvFuelCons      = (TextView)findViewById(R.id.tvFuelCons);
         tvCo2Cons       = (TextView)findViewById(R.id.tvC02Cons);
@@ -123,6 +126,7 @@ public class AddCar extends ActionBarActivity {
     private void setFieldsValues(){
         brand           = etBrand.getText().toString().trim();
         model           = etModel.getText().toString().trim();
+        licencePlate    = etLicencePlate.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
         fuelCons        = tvFuelCons.getText().toString();
         c02Cons         = tvCo2Cons.getText().toString();
@@ -138,6 +142,11 @@ public class AddCar extends ActionBarActivity {
 
         if(etModel.getText().toString().isEmpty()){
             etModel.setHintTextColor(Color.RED);
+            return false;
+        }
+
+        if(etLicencePlate.getText().toString().isEmpty()){
+            etLicencePlate.setHintTextColor(Color.RED);
             return false;
         }
 
@@ -175,8 +184,8 @@ public class AddCar extends ActionBarActivity {
 
         // Get the number pickers and the buttons
         final EditText unit  = (EditText)np.findViewById(R.id.etUnit);
-        Button btnSet              = (Button)np.findViewById(R.id.btnSet);
-        Button btnCancel           = (Button)np.findViewById(R.id.btnCancel);
+        Button btnSet        = (Button)np.findViewById(R.id.btnSet);
+        Button btnCancel     = (Button)np.findViewById(R.id.btnCancel);
 
         // Set the listeners
         btnSet.setOnClickListener(new View.OnClickListener() {
@@ -221,14 +230,12 @@ public class AddCar extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Call when HttpAsyn has done everything
+    // Call when HttpAsync has done everything
     public void onPostExecute(Object object){
             if((int) object != 200)
                 createAndShowResult("Error when saving the car", "Retry", false);
-            else{
+            else
                 createAndShowResult("Car is succesfully registered", "Ok", true);
-            }
-
     }
 
     private void createAndShowResult(String title, String btntext, final boolean success){
@@ -306,5 +313,13 @@ public class AddCar extends ActionBarActivity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getLicencePlate() {
+        return licencePlate;
+    }
+
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
     }
 }

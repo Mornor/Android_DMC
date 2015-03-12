@@ -35,13 +35,24 @@
         android:hint="@string/etModel"
         android:layout_marginLeft="-5dp" />
 
+    <EditText
+        android:id="@+id/etLicencePlate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etModel"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/llFuel"
+        android:width="250dp"
+        android:hint="@string/etLicencePlate"
+        android:layout_marginLeft="-5dp" />
+
     <TextView
         android:id="@+id/tvEnergy"
         android:layout_width="60sp"
         android:layout_height="wrap_content"
         android:text="@string/tvEnergy"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/etModel"
+        android:layout_below="@+id/etLicencePlate"
         android:layout_alignLeft="@+id/llFuel"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="0dp" />
@@ -52,7 +63,7 @@
         android:layout_height="wrap_content"
         android:entries="@array/fuel_array"
         android:prompt="@string/chooseFuel"
-        android:layout_below="@+id/etModel"
+        android:layout_below="@+id/etLicencePlate"
         android:layout_toRightOf="@+id/tvEnergy"
         android:layout_marginTop="11dp"
         android:layout_marginLeft="30dp"
