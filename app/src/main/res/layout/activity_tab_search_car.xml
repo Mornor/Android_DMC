@@ -104,22 +104,24 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginTop="30dp" />
 
-        <EditText
-            android:id="@+id/etNbSits"
+        <TextView
+            android:id="@+id/tvNbSitsChoose"
             android:editable="false"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMaxConsFuel"
             android:layout_toEndOf="@+id/tvNbSit"
             android:layout_toRightOf="@+id/tvNbSit"
             android:layout_alignLeft="@+id/tvMaxConsFuel"
-            android:layout_alignBottom="@+id/tvNbSit" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="@string/hChoose"
+            android:layout_alignBottom="@+id/tvNbSit"
+            android:layout_alignTop="@+id/tvNbSit" />
 
         <View
             android:id="@+id/line1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/etNbSits"
+            android:layout_below="@+id/tvNbSitsChoose"
             android:background="@android:color/darker_gray"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"

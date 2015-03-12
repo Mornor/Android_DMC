@@ -44,7 +44,7 @@ public class TabSearchCar extends Fragment {
     private TextView tvBrandChoose;
     private Spinner spEnergy;
     private TextView tvConsoFuel;
-    private EditText etNbSits;
+    private TextView tvNbSitsChoose;
     private TextView dateFrom;
     private TextView timeFrom;
     private TextView dateTo;
@@ -83,7 +83,7 @@ public class TabSearchCar extends Fragment {
         tvBrandChoose   = (TextView)v.findViewById(R.id.tvBrandChoose);
         spEnergy        = (Spinner)v.findViewById(R.id.spFuelList);
         tvConsoFuel     = (TextView)v.findViewById(R.id.tvMaxConsFuel);
-        etNbSits        = (EditText)v.findViewById(R.id.etNbSits);
+        tvNbSitsChoose  = (TextView)v.findViewById(R.id.tvNbSitsChoose);
         dateFrom        = (TextView)v.findViewById(R.id.tvPickDateFrom);
         timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
@@ -113,10 +113,10 @@ public class TabSearchCar extends Fragment {
             }
         });
 
-        etNbSits.setOnClickListener(new View.OnClickListener() {
+        tvNbSitsChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNumberPicker("Set wished number of sits", etNbSits);
+                showNumberPicker("Set wished number of sits", tvNbSitsChoose);
             }
         });
 
