@@ -32,8 +32,10 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
         String tagRcvd = getTag();
         Intent i = new Intent();
         Bundle bdl = new Bundle();
-        bdl.putInt("month", monthOfYear);
         bdl.putString("tag", tagRcvd);
+        bdl.putInt("year", year);
+        bdl.putInt("month", monthOfYear);
+        bdl.putInt("day", dayOfMonth);
         i.putExtras(bdl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
         dismiss();

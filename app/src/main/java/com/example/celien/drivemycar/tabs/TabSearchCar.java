@@ -164,13 +164,17 @@ public class TabSearchCar extends Fragment {
         switch (reqCode){
             case DATE_PICKER_FRAGMENT:
                 if(resCode == Activity.RESULT_OK){
-                    Bundle bdl = data.getExtras();
-                    int month = bdl.getInt("month");
-                    String tag = bdl.getString("tag");
-                    Log.d("Tab month ", String.valueOf(month));
-                    Log.d("Tab tag ", tag);
+                    // Retrieve data from DatePicker
+                    Bundle bdl  = data.getExtras();
+                    String tag  = bdl.getString("tag");
+                    int year    = bdl.getInt("year");
+                    int month   = bdl.getInt("month");
+                    int day     = bdl.getInt("day");
+
+                    // Create the String
+                    String date = day + "/" +month+ "/" +year;
                     TextView tv = hmTextView.get(tag);
-                    tv.setText(String.valueOf(month));
+                    tv.setText(date);
                 }
         }
 
