@@ -20,7 +20,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar c    = Calendar.getInstance();
         int year            = c.get(Calendar.YEAR);
-        int month           = c.get(Calendar.MONTH);
+        int month           = c.get(Calendar.MONTH) + 1; // because January is considered as 0.
         int day             = c.get(Calendar.DAY_OF_MONTH);
 
         return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -28,9 +28,12 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        // Create an Intent and send it back to TabSearchCar.onActivityResult.
+        String tagRcvd = getTag();
         Intent i = new Intent();
         Bundle bdl = new Bundle();
         bdl.putInt("month", monthOfYear);
+        bdl.putString("tag", tagRcvd);
         i.putExtras(bdl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
         dismiss();

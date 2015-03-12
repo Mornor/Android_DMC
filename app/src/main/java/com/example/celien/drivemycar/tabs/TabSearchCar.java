@@ -34,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class TabSearchCar extends Fragment {
 
     private User user;
@@ -55,6 +57,9 @@ public class TabSearchCar extends Fragment {
     // Usefull variables
     private String[] brand;
     private AlertDialog alert;
+
+    // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
+    private HashMap<String, TextView> hmTextView;
 
     // Calls variable (usefull for the DatePicker and TimePicker)
     public static final int DATE_PICKER_FRAGMENT = 1;
@@ -83,6 +88,13 @@ public class TabSearchCar extends Fragment {
         timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
         timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
+
+        // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
+        hmTextView = new HashMap<>();
+        hmTextView.put("dateFrom", dateFrom);
+        hmTextView.put("timeFrom", timeFrom);
+        hmTextView.put("dateTo", dateTo);
+        hmTextView.put("timeTo", timeTo);
     }
 
     private void setListeners(){
@@ -154,7 +166,11 @@ public class TabSearchCar extends Fragment {
                 if(resCode == Activity.RESULT_OK){
                     Bundle bdl = data.getExtras();
                     int month = bdl.getInt("month");
+                    String tag = bdl.getString("tag");
                     Log.d("Tab month ", String.valueOf(month));
+                    Log.d("Tab tag ", tag);
+                    TextView tv = hmTextView.get(tag);
+                    tv.setText(String.valueOf(month));
                 }
         }
 
