@@ -183,8 +183,8 @@ public class TabSearchCar extends Fragment {
                     // Retrieve data from TimePicker
                     Bundle bdl  = data.getExtras();
                     String tag  = bdl.getString("tag");
-                    int hour = bdl.getInt("hour");
-                    int minute = bdl.getInt("minute");
+                    int hour    = bdl.getInt("hour");
+                    int minute  = bdl.getInt("minute");
 
                     // Create the String and update corresponding TextView
                     String time = hour+ " : " +minute+ " h";
