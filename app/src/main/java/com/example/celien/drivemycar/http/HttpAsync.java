@@ -280,10 +280,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("name",     temp.getName()));
-            list.add(new BasicNameValuePair("username", temp.getUsername()));
-            list.add(new BasicNameValuePair("email",    temp.getEmail()));
-            list.add(new BasicNameValuePair("password", temp.getPassword()));
+            list.add(new BasicNameValuePair("name",         temp.getName()));
+            list.add(new BasicNameValuePair("username",     temp.getUsername()));
+            list.add(new BasicNameValuePair("email",        temp.getEmail()));
+            list.add(new BasicNameValuePair("password",     temp.getPassword()));
+            list.add(new BasicNameValuePair("bankAccount",  temp.getBankAccount()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             responseCode = response.getStatusLine().getStatusCode();
@@ -291,13 +292,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             e.printStackTrace();
         }
         return responseCode;
-    }
-
-    /*Retrieve names and messages into remote DB*/
-    public JSONArray doGet(){
-        JsonParser parser = new JsonParser();
-        JSONArray json = parser.makeGetHttpRequest(RETRIEVE_DATA_URL);
-        return json;
     }
 
     /*Getters and Setters*/

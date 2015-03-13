@@ -13,23 +13,26 @@ public class User implements Parcelable{
     private String name;
     private String username;
     private String email;
+    private String bankAccount;
     private String password;
     private String phoneNumber;
     private List<Car> cars = new ArrayList<>();
 
-    public User(String name, String email, String username, String password){
+    public User(String name, String email, String username, String password, String bankAccount){
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.bankAccount = bankAccount;
     }
 
-    public User(String name, String email, String username, String password, List<Car> cars){
+    public User(String name, String email, String username, String password, List<Car> cars, String bankAccount){
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
         this.cars = cars;
+        this.bankAccount = bankAccount;
     }
 
     public User(Parcel source){
@@ -37,6 +40,7 @@ public class User implements Parcelable{
         name = source.readString();
         username = source.readString();
         email = source.readString();
+        bankAccount = source.readString();
         password = source.readString();
         cars = new ArrayList<Car>();
         source.readTypedList(cars, Car.CREATOR);
@@ -55,6 +59,7 @@ public class User implements Parcelable{
         dest.writeString(name);
         dest.writeString(username);
         dest.writeString(email);
+        dest.writeString(bankAccount);
         dest.writeString(password);
         dest.writeTypedList(cars);
     }
@@ -126,5 +131,13 @@ public class User implements Parcelable{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }

@@ -107,6 +107,7 @@ public class Login extends ActionBarActivity {
                 user.setName(object.getString("name"));
                 user.setUsername(object.getString("username"));
                 user.setEmail(object.getString("email"));
+                user.setBankAccount(object.getString("bankAccount"));
                 user.setPhoneNumber(object.getString("phone_number"));
             }
         } catch (JSONException e) {

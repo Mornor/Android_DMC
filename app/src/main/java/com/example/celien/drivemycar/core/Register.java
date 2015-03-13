@@ -30,6 +30,7 @@ public class Register extends ActionBarActivity {
     private TextView tvError;
     private EditText etName;
     private EditText etUsername;
+    private EditText etBankAccount;
     private EditText etMail;
     private EditText etConfirmMail;
     private EditText etPassword;
@@ -37,6 +38,7 @@ public class Register extends ActionBarActivity {
 
     // Value of the fields
     private User temp;
+    private String bankAccount;
     private String name;
     private String username;
     private String mail;
@@ -65,6 +67,7 @@ public class Register extends ActionBarActivity {
 
         btnRegister         = (Button)findViewById(R.id.btnRegister);
         tvError             = (TextView)findViewById(R.id.tvError);
+        etBankAccount       = (EditText)findViewById(R.id.etBankAccount);
         etName              = (EditText)findViewById(R.id.etName);
         etUsername          = (EditText)findViewById(R.id.etUsername);
         etMail              = (EditText)findViewById(R.id.etMail);
@@ -77,13 +80,14 @@ public class Register extends ActionBarActivity {
     public void onClickRegister(View v){
         name                    = etName.getText().toString().trim();
         username                = etUsername.getText().toString().trim();
+        bankAccount             = etBankAccount.getText().toString().trim();
         mail                    = etMail.getText().toString().trim();
-        String confirmMail      = etConfirmMail.getText().toString().trim(); // Declared here because used just to confirm the fields.
+        String confirmMail      = etConfirmMail.getText().toString().trim();
         password                = etPassword.getText().toString().trim();
         String confirmPassword  = etConfirmPassword.getText().toString().trim();
 
         // If confirmation failed
-        String error = checkConfirmation(mail, confirmMail, password, confirmPassword, username);
+        String error = checkConfirmation(mail, confirmMail, password, confirmPassword, username, bankAccount);
         if(formError){
             if(confirmMailError)
                 tvError.setText(error);
@@ -108,14 +112,14 @@ public class Register extends ActionBarActivity {
         else{
             tvError.setText("");
             HttpAsync httpAsync = new HttpAsync(this);
-            temp = new User(name, mail, username, password);
+            temp = new User(name, mail, username, password, bankAccount);
             httpAsync.execute(Action.SAVE_USER.toString());
         }
 
     }
 
     /**
-     * @param params, in this order : [0] -> mail, [1] -> confirmMail, [2] -> password, [3] -> confirmPassword
+     * @param params, in this order : [0] -> mail, [1] -> confirmMail, [2] -> password, [3] -> confirmPassword, [4] -> bankAccount
      * @return a message with errors if errors occurs, null otherwise.
      */
     private String checkConfirmation(String... params){
@@ -134,6 +138,8 @@ public class Register extends ActionBarActivity {
             formError = true;
             confirmPasswordError = true;
         }
+        if(params[4].isEmpty())
+            formError = true;
         if(formError)
             return result;
         else

@@ -16,6 +16,7 @@
 
     <!-- activity_register -->
     <string name="tvError"></string>
+    <string name="etBankAccount">Bank account number</string>
     <string name="etName">Name</string>
     <string name="etUsername">Username</string>
     <string name="etMail">E-Mail</string>
