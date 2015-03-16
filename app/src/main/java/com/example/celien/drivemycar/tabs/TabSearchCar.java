@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
@@ -33,6 +34,7 @@ import com.example.celien.drivemycar.utils.Action;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -49,6 +51,8 @@ public class TabSearchCar extends Fragment {
     private TextView timeFrom;
     private TextView dateTo;
     private TextView timeTo;
+    private TextView tvMileage;
+    private Button btnSearch;
 
     // Usefull Progress Dialog
     private ProgressDialog searchBrandCar;
@@ -83,11 +87,13 @@ public class TabSearchCar extends Fragment {
         tvBrandChoose   = (TextView)v.findViewById(R.id.tvBrandChoose);
         spEnergy        = (Spinner)v.findViewById(R.id.spFuelList);
         tvConsoFuel     = (TextView)v.findViewById(R.id.tvMaxConsFuel);
+        tvMileage       = (TextView)v.findViewById(R.id.tvChooseMileage);
         tvNbSitsChoose  = (TextView)v.findViewById(R.id.tvNbSitsChoose);
         dateFrom        = (TextView)v.findViewById(R.id.tvPickDateFrom);
         timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
         timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
+        btnSearch       = (Button)v.findViewById(R.id.btnSearch);
 
         // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
         hmTextView = new HashMap<>();
@@ -103,6 +109,13 @@ public class TabSearchCar extends Fragment {
             public void onClick(View v) {
                 HttpAsyncJson request = new HttpAsyncJson(TabSearchCar.this);
                 request.execute(Action.GET_BRAND.toString());
+            }
+        });
+
+        tvMileage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set est. mileage", tvMileage);
             }
         });
 
@@ -145,6 +158,13 @@ public class TabSearchCar extends Fragment {
             @Override
             public void onClick(View v) {
                 showTimePicker("timeTo");
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
