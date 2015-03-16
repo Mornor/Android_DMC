@@ -233,7 +233,9 @@ public class AddCar extends ActionBarActivity {
     // Call when HttpAsync has done everything
     public void onPostExecute(Object object){
             if((int) object != 200)
-                createAndShowResult("Error when saving the car", "Retry", false);
+                createAndShowResult("Error when saving the car", "Please, verify your licence plate is unique", false);
+            else if((int) object == -1) // Then car is already present in User's List<Cars> (cf. HttpAsync.saveNewCar)
+                createAndShowResult("Error when saving the car", "You already have it", false);
             else
                 createAndShowResult("Car is succesfully registered", "Ok", true);
     }
