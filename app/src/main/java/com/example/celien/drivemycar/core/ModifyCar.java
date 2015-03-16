@@ -21,6 +21,7 @@ import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
 
 public class ModifyCar  extends ActionBarActivity {
 
@@ -86,9 +87,6 @@ public class ModifyCar  extends ActionBarActivity {
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
 
-        Log.d("ModifyCar ", String.valueOf(car.getNbSits()));
-
-
         etBrand.setText(car.getBrand());
         etModel.setText(car.getModel());
         etLicencePlate.setText(car.getLicencePlate());
@@ -142,7 +140,7 @@ public class ModifyCar  extends ActionBarActivity {
             return false;
         }
 
-        if(tvNbsits.getText().toString().isEmpty()){
+        if(tvNbsits.getText().toString().isEmpty() || !Tools.isInteger(tvNbsits.getText().toString())){
             tvNbsits.setTextColor(Color.RED);
             return false;
         }
