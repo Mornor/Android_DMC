@@ -233,7 +233,6 @@ public class TabSearchCar extends Fragment {
     // For example, to get the first brand : array.getJSONObject(0).getString("1");
     public void onPostExecuteSearchBrand(JSONArray array){
         try {
-            Log.d("Brand size tab", String.valueOf(array.getJSONObject(0).length()));
             brand = new String[array.getJSONObject(0).length()];
             for(int i = 0 ; i < array.getJSONObject(0).length() ; i++) {
                 JSONObject object = array.getJSONObject(0);
@@ -243,15 +242,20 @@ public class TabSearchCar extends Fragment {
             e.printStackTrace();
         }
 
-        alert = buildBrandDialog().create();
+        // length == 0, then there are no cars in DB.
+        if(brand.length == 0)
+            alert = buildBrandDialog("No available car so far").create();
+        else
+            alert = buildBrandDialog("Pick up a brand").create();
         alert.show();
     }
 
-    private AlertDialog.Builder buildBrandDialog(){
+    private AlertDialog.Builder buildBrandDialog(String title){
         AlertDialog.Builder brandDialog = new AlertDialog.Builder(TabSearchCar.this.getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = (View) inflater.inflate(R.layout.brand_dialog, null);
         brandDialog.setView(v);
+        brandDialog.setTitle(title);
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brand);
         lvBrand.setAdapter(adapter);
