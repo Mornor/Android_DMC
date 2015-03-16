@@ -20,7 +20,7 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.utils.Action;;import java.util.List;
+import com.example.celien.drivemycar.utils.Action;
 
 public class ModifyCar  extends ActionBarActivity {
 
@@ -32,6 +32,7 @@ public class ModifyCar  extends ActionBarActivity {
     private EditText etBrand;
     private EditText etModel;
     private EditText etLicencePlate;
+    private TextView tvNbsits;
     private Spinner spFuel;
     private TextView tvFuelCons;
     private TextView tvCo2Cons;
@@ -43,6 +44,7 @@ public class ModifyCar  extends ActionBarActivity {
     private String brand;
     private String model;
     private String licencePlate;
+    private String nbSits;
     private String fuel;
     private String fuelCons;
     private String c02Cons;
@@ -77,17 +79,21 @@ public class ModifyCar  extends ActionBarActivity {
         etModel         = (EditText)findViewById(R.id.etModel);
         etLicencePlate  = (EditText)findViewById(R.id.etLicencePlate);
         spFuel          = (Spinner)findViewById(R.id.spFuelList);
+        tvNbsits        = (TextView)findViewById(R.id.tvNbSitsChoose);
         tvFuelCons      = (TextView)findViewById(R.id.tvFuelCons);
         tvCo2Cons       = (TextView)findViewById(R.id.tvC02Cons);
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
         tvLeasePrice    = (TextView)findViewById(R.id.tvLeasePrice);
         btnSaveCar      = (Button)findViewById(R.id.btnSaveCar);
 
+        Log.d("ModifyCar ", String.valueOf(car.getNbSits()));
+
 
         etBrand.setText(car.getBrand());
         etModel.setText(car.getModel());
         etLicencePlate.setText(car.getLicencePlate());
         tvFuelCons.setText(String.valueOf(car.getAvg_cons()));
+        tvNbsits.setText(String.valueOf(car.getNbSits()));
         tvCo2Cons.setText(String.valueOf(car.getC02_cons()));
         tvHtvaPrice.setText(String.valueOf(car.getHtva_price()));
         tvLeasePrice.setText(String.valueOf(car.getLeasing_price()));
@@ -108,6 +114,7 @@ public class ModifyCar  extends ActionBarActivity {
         model           = etModel.getText().toString().trim();
         licencePlate    = etLicencePlate.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
+        nbSits          = tvNbsits.getText().toString().trim();
         fuelCons        = tvFuelCons.getText().toString().trim();
         c02Cons         = tvCo2Cons.getText().toString().trim();
         leasingPrice    = tvLeasePrice.getText().toString().trim();
@@ -117,6 +124,7 @@ public class ModifyCar  extends ActionBarActivity {
         car.setModel(model);
         car.setLicencePlate(licencePlate);
         car.setFuel(fuel);
+        car.setNbSits(Integer.valueOf(nbSits));
         car.setAvg_cons(Double.valueOf(fuelCons));
         car.setC02_cons(Double.valueOf(c02Cons));
         car.setHtva_price(Double.valueOf(htvaPrice));
@@ -131,6 +139,11 @@ public class ModifyCar  extends ActionBarActivity {
 
         if(etModel.getText().toString().isEmpty()){
             etModel.setHintTextColor(Color.RED);
+            return false;
+        }
+
+        if(tvNbsits.getText().toString().isEmpty()){
+            tvNbsits.setTextColor(Color.RED);
             return false;
         }
 
@@ -170,6 +183,13 @@ public class ModifyCar  extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 showNumberPicker("Set fuel consumption", tvFuelCons);
+            }
+        });
+
+        tvNbsits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set number of sits", tvNbsits);
             }
         });
 

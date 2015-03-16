@@ -32,6 +32,7 @@ public class AddCar extends ActionBarActivity {
     private EditText etBrand;
     private EditText etModel;
     private EditText etLicencePlate;
+    private TextView tvNbSits;
     private Spinner spFuel;
     private TextView tvFuelCons;
     private TextView tvCo2Cons;
@@ -43,6 +44,7 @@ public class AddCar extends ActionBarActivity {
     private String brand;
     private String model;
     private String licencePlate;
+    private String nbSits;
     private String fuel;
     private String fuelCons;
     private String c02Cons;
@@ -75,6 +77,7 @@ public class AddCar extends ActionBarActivity {
         etModel         = (EditText)findViewById(R.id.etModel);
         etLicencePlate  = (EditText)findViewById(R.id.etLicencePlate);
         spFuel          = (Spinner)findViewById(R.id.spFuelList);
+        tvNbSits        = (TextView)findViewById(R.id.tvNbSitsChoose);
         tvFuelCons      = (TextView)findViewById(R.id.tvFuelCons);
         tvCo2Cons       = (TextView)findViewById(R.id.tvC02Cons);
         tvHtvaPrice     = (TextView)findViewById(R.id.tvPriceHtva);
@@ -94,6 +97,13 @@ public class AddCar extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 showNumberPicker("Set C02 consumption", tvCo2Cons);
+            }
+        });
+
+        tvNbSits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNumberPicker("Set number of sits", tvNbSits);
             }
         });
 
@@ -128,6 +138,7 @@ public class AddCar extends ActionBarActivity {
         model           = etModel.getText().toString().trim();
         licencePlate    = etLicencePlate.getText().toString().trim();
         fuel            = spFuel.getSelectedItem().toString();
+        nbSits          = tvNbSits.getText().toString().trim();
         fuelCons        = tvFuelCons.getText().toString();
         c02Cons         = tvCo2Cons.getText().toString();
         leasingPrice    = tvLeasePrice.getText().toString();
@@ -137,6 +148,11 @@ public class AddCar extends ActionBarActivity {
     private boolean checkFields(){
         if(etBrand.getText().toString().isEmpty()){
             etBrand.setHintTextColor(Color.RED);
+            return false;
+        }
+
+        if(tvNbSits.getText().toString().isEmpty()){
+            tvNbSits.setTextColor(Color.RED);
             return false;
         }
 
@@ -323,5 +339,13 @@ public class AddCar extends ActionBarActivity {
 
     public void setLicencePlate(String licencePlate) {
         this.licencePlate = licencePlate;
+    }
+
+    public String getNbSits() {
+        return nbSits;
+    }
+
+    public void setNbSits(String nbSits) {
+        this.nbSits = nbSits;
     }
 }

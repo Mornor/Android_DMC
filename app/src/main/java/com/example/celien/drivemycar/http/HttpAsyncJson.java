@@ -101,6 +101,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
                 registerCaller.getRing().dismiss();
                 registerCaller.onPostExecuteUsernameUnique(success);
             } catch (JSONException e) {
+                Log.d("HttpAsyncJson ", e.toString());
                 e.printStackTrace();
             }
         }

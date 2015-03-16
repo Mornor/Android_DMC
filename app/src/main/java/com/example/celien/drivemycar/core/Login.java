@@ -130,6 +130,7 @@ public class Login extends ActionBarActivity {
                 temp.setModel(object.getString("model"));
                 temp.setLicencePlate(object.getString("licencePlate"));
                 temp.setFuel(object.getString("fuel"));
+                temp.setNbSits(object.getInt("nbSits"));
                 temp.setAvg_cons(object.getDouble("avg_cons"));
                 temp.setC02_cons(object.getDouble("co2_cons"));
                 temp.setHtva_price(object.getDouble("htva_price"));

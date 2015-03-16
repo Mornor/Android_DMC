@@ -76,10 +76,34 @@
             android:layout_alignEnd="@+id/etModel" />
 
         <LinearLayout
-            android:id="@+id/llFuel"
+            android:id="@+id/llNbSits"
             android:layout_below="@+id/spFuelList"
-            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/llHtvaPrice"
             android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNbSits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/tvNbSit" />
+
+            <TextView
+                android:id="@+id/tvNbSitsChoose"
+                android:text="@string/hChoose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llFuel"
+            android:layout_below="@+id/llNbSits"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

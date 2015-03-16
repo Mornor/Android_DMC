@@ -9,6 +9,7 @@ public class Car implements Parcelable {
     private String model;
     private String licencePlate;
     private String fuel;
+    private int nbSits;
     private double avg_cons; // Average consumption
     private double c02_cons;
     private double htva_price;
@@ -26,6 +27,7 @@ public class Car implements Parcelable {
         dest.writeInt(id);
         dest.writeString(brand);
         dest.writeString(model);
+        dest.writeInt(nbSits);
         dest.writeString(licencePlate);
         dest.writeString(fuel);
         dest.writeDouble(avg_cons);
@@ -41,6 +43,7 @@ public class Car implements Parcelable {
             car.id              = source.readInt();
             car.brand           = source.readString();
             car.model           = source.readString();
+            car.id              = source.readInt();
             car.licencePlate    = source.readString();
             car.fuel            = source.readString();
             car.avg_cons        = source.readDouble();
@@ -127,5 +130,13 @@ public class Car implements Parcelable {
 
     public void setLicencePlate(String licencePlate) {
         this.licencePlate = licencePlate;
+    }
+
+    public int getNbSits() {
+        return nbSits;
+    }
+
+    public void setNbSits(int nbSits) {
+        this.nbSits = nbSits;
     }
 }

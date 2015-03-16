@@ -177,6 +177,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("model",         car.getModel()));
             list.add(new BasicNameValuePair("licencePlate",  car.getLicencePlate()));
             list.add(new BasicNameValuePair("fuel",          car.getFuel()));
+            list.add(new BasicNameValuePair("nbSits",        String.valueOf(car.getNbSits())));
             list.add(new BasicNameValuePair("avg_cons",      String.valueOf(car.getAvg_cons())));
             list.add(new BasicNameValuePair("c02_cons",      String.valueOf(car.getC02_cons())));
             list.add(new BasicNameValuePair("htva_price",    String.valueOf(car.getHtva_price())));
@@ -205,10 +206,11 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("model",         addCarCaller.getModel()));
             list.add(new BasicNameValuePair("licencePlate",  addCarCaller.getLicencePlate()));
             list.add(new BasicNameValuePair("fuel",          addCarCaller.getFuel()));
-            list.add(new BasicNameValuePair("avg_cons",      String.valueOf(addCarCaller.getFuelCons())));
-            list.add(new BasicNameValuePair("c02_cons",      String.valueOf(addCarCaller.getC02Cons())));
-            list.add(new BasicNameValuePair("htva_price",    String.valueOf(addCarCaller.getHtvaPrice())));
-            list.add(new BasicNameValuePair("leasing_price", String.valueOf(addCarCaller.getLeasingPrice())));
+            list.add(new BasicNameValuePair("nbSits",        addCarCaller.getNbSits()));
+            list.add(new BasicNameValuePair("avg_cons",      addCarCaller.getFuelCons()));
+            list.add(new BasicNameValuePair("c02_cons",      addCarCaller.getC02Cons()));
+            list.add(new BasicNameValuePair("htva_price",    addCarCaller.getHtvaPrice()));
+            list.add(new BasicNameValuePair("leasing_price", addCarCaller.getLeasingPrice()));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();
@@ -225,6 +227,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             car.setBrand(addCarCaller.getBrand());
             car.setModel(addCarCaller.getModel());
             car.setFuel(addCarCaller.getFuel());
+            car.setNbSits(Integer.valueOf(addCarCaller.getNbSits()));
             car.setLicencePlate(addCarCaller.getLicencePlate());
             car.setAvg_cons(Double.valueOf(addCarCaller.getFuelCons()));
             car.setC02_cons(Double.valueOf(addCarCaller.getC02Cons()));
