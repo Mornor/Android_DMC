@@ -102,7 +102,7 @@
             android:layout_below="@+id/tvFuelCons"
             android:layout_alignLeft="@+id/tvBrand"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/tvNbSitsChoose"
@@ -117,11 +117,44 @@
             android:layout_alignBottom="@+id/tvNbSit"
             android:layout_alignTop="@+id/tvNbSit" />
 
+        <TextView
+            android:id="@+id/tvEstimatedMileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNbSit"
+            android:layout_alignLeft="@id/tvBrand"
+            android:text="@string/tvEstimatedMileage"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tvChooseMileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hChoose"
+            android:layout_toEndOf="@+id/tvEstimatedMileage"
+            android:layout_toRightOf="@+id/tvEstimatedMileage"
+            android:layout_alignBottom="@+id/tvEstimatedMileage"
+            android:layout_alignLeft="@+id/tvNbSitsChoose"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvKms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvKms"
+            android:layout_toEndOf="@+id/tvChooseMileage"
+            android:layout_toRightOf="@+id/tvChooseMileage"
+            android:layout_alignBottom="@+id/tvChooseMileage"
+            android:layout_marginLeft="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            />
+
         <View
             android:id="@+id/line1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/tvNbSitsChoose"
+            android:layout_below="@+id/tvEstimatedMileage"
             android:background="@android:color/darker_gray"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"

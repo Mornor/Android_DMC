@@ -85,6 +85,8 @@
     <string name="tvFrom">From</string>
     <string name="tvTo">To</string>
     <string name="tvAt">at</string>
+    <string name="tvKms">kms</string>
+    <string name="tvEstimatedMileage">Estimated mileage</string>
     <string name="tvPickDate">Pick date</string>
     <string name="tvTime">Choose time</string>
     <string name="btnSearch">Search</string>
