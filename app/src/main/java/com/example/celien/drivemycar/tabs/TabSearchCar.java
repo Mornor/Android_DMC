@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.tabs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 
 import android.app.ProgressDialog;
@@ -59,8 +60,17 @@ public class TabSearchCar extends Fragment {
     private ProgressDialog searchCorrespondingCar;
 
     // Usefull variables
-    private String[] brand;
+    private String[] brands;
     private AlertDialog alert;
+    private String dateFromStr;
+    private String timeFromStr;
+    private String dateToStr;
+    private String timeToStr;
+    private String energy;
+    private String brand;
+    private String fuelCons;
+    private String nbSits;
+    private String mileage;
 
     // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
     private HashMap<String, TextView> hmTextView;
@@ -164,9 +174,49 @@ public class TabSearchCar extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                setFieldsValue();
+                if(checkFields())
+                    makeRequest();
             }
         });
+    }
+
+    // If we arrived there, we already know that period's stuff and brand are picked up, we can now send request to the server.
+    private void makeRequest(){
+
+    }
+
+    private boolean checkFields(){
+        boolean result = false;
+        // Search is only possible if Date, Time and Brand are picked up.
+        if (brand.isEmpty())
+            tvBrandChoose.setTextColor(Color.RED);
+        if(dateFromStr.isEmpty())
+            dateFrom.setTextColor(Color.RED);
+        if(timeFromStr.isEmpty())
+            timeFrom.setTextColor(Color.RED);
+        if(dateToStr.isEmpty())
+            dateTo.setTextColor(Color.RED);
+        if(timeToStr.isEmpty())
+            timeTo.setTextColor(Color.RED);
+        if (!(brand.isEmpty() || dateFromStr.isEmpty() || timeFromStr.isEmpty() || timeToStr.isEmpty()))
+            result = true;
+        return result;
+    }
+
+
+
+
+    private void setFieldsValue(){
+        brand           = tvBrandChoose.getText().toString();
+        energy          = spEnergy.getSelectedItem().toString();
+        fuelCons        = tvConsoFuel.getText().toString();
+        nbSits          = tvNbSitsChoose.getText().toString();
+        mileage         = tvMileage.getText().toString();
+        dateFromStr     = dateFrom.getText().toString();
+        dateToStr       = dateTo.getText().toString();
+        timeFromStr     = timeFrom.getText().toString();
+        timeToStr       = timeTo.getText().toString();
     }
 
     private void showTimePicker(String tag){
@@ -253,17 +303,17 @@ public class TabSearchCar extends Fragment {
     // For example, to get the first brand : array.getJSONObject(0).getString("1");
     public void onPostExecuteSearchBrand(JSONArray array){
         try {
-            brand = new String[array.getJSONObject(0).length()];
+            brands = new String[array.getJSONObject(0).length()];
             for(int i = 0 ; i < array.getJSONObject(0).length() ; i++) {
                 JSONObject object = array.getJSONObject(0);
-                brand[i] = object.getString(String.valueOf(i));
+                brands[i] = object.getString(String.valueOf(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         // length == 0, then there are no cars in DB.
-        if(brand.length == 0)
+        if(brands.length == 0)
             alert = buildBrandDialog("No available car so far").create();
         else
             alert = buildBrandDialog("Pick up a brand").create();
@@ -277,7 +327,7 @@ public class TabSearchCar extends Fragment {
         brandDialog.setView(v);
         brandDialog.setTitle(title);
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brand);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brands);
         lvBrand.setAdapter(adapter);
         lvBrand.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {

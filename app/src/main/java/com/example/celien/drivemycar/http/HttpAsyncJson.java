@@ -3,7 +3,6 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.webkit.JsPromptResult;
 
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
@@ -29,6 +28,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
     private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
     private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
+    private static final String LOAD_SPECIFIC_CARS      = "http://cafca/ngrok.com/android/get_specific_cars";
 
     public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
