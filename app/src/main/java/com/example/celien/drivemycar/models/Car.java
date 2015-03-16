@@ -43,7 +43,7 @@ public class Car implements Parcelable {
             car.id              = source.readInt();
             car.brand           = source.readString();
             car.model           = source.readString();
-            car.id              = source.readInt();
+            car.nbSits          = source.readInt();
             car.licencePlate    = source.readString();
             car.fuel            = source.readString();
             car.avg_cons        = source.readDouble();

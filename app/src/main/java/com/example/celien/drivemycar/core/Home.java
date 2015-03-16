@@ -38,9 +38,6 @@ public class Home extends ActionBarActivity {
         if(currentUser != null)
             this.user = currentUser;
 
-        Log.d("Login Mail ", user.getEmail());
-        Log.d("Login Bank ", user.getBankAccount());
-
         init();
     }
 
