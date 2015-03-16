@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
@@ -23,6 +24,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private boolean choice; // If choice is true, then the instance of Login caller is used to retrieve the car.
     private Register registerCaller;
     private TabSearchCar tabSearchCarCaller;
+    private ListSpecificCars listSpecificCarsCaller;
 
     private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
@@ -43,6 +45,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         this.tabSearchCarCaller = caller;
     }
 
+    public HttpAsyncJson(ListSpecificCars caller){
+        this.listSpecificCarsCaller = caller;
+    }
+
     public HttpAsyncJson(Register caller){
         this.registerCaller = caller;
     }
@@ -57,6 +63,8 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             return checkUsernameUnique(params[1]);
         if(params[0].equals(Action.GET_BRAND.toString()))
             return getBrands();
+        if(params[0].equals(Action.LOAD_SPECIFIC_CARS))
+            return getSpecificCars();
         return null;
     }
 
@@ -84,6 +92,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         return result;
     }
 
+    private JSONArray getSpecificCars(){
+        return null;
+    }
+
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         if(loginCaller != null){
@@ -109,6 +121,10 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             tabSearchCarCaller.getSearchBrandCar().dismiss();
             tabSearchCarCaller.onPostExecuteSearchBrand(jsonArray);
         }
+        if(listSpecificCarsCaller != null){
+            listSpecificCarsCaller.onPostExecuteSearchRequestedCars(jsonArray);
+            listSpecificCarsCaller.getProgressDialog().dismiss();
+        }
     }
 
     @Override
@@ -116,7 +132,9 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(registerCaller != null)
             registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
         if(tabSearchCarCaller != null)
-            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait", "Search available brands"));
+            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
+        if(listSpecificCarsCaller != null)
+            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
     }
 
     @Override

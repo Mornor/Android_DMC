@@ -11,6 +11,7 @@ public enum Action {
     CHECK_USERNAME("checkUsername"),
     DELETE_CAR("deleteCar"),
     GET_BRAND("getBrand"),
+    LOAD_SPECIFIC_CARS("loadSpecificCars"),
     LOAD_CARS("loadCars");
 
     private final String name;

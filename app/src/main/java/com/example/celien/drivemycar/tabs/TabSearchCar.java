@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.core.ListSpecificCars;
+import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.fragment.DatePicker;
 import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
@@ -113,6 +115,25 @@ public class TabSearchCar extends Fragment {
         hmTextView.put("timeTo", timeTo);
     }
 
+    // If we arrived there, we already know that period's stuff and brand are picked up, we can now go to
+    // ListSpecificCar and make the request to the server in this class
+    private void launchIntentToSpecificCars(){
+        Intent i = new Intent(getActivity(), ListSpecificCars.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        i.putExtra("brand", brand);
+        i.putExtra("maxCons", fuelCons);
+        i.putExtra("nbSits", nbSits);
+        i.putExtra("energy", energy);
+        i.putExtra("dateFrom", dateFromStr);
+        i.putExtra("timeFrom", timeFromStr);
+        i.putExtra("dateTo", dateToStr);
+        i.putExtra("timeTo", timeToStr);
+        getActivity().finish();
+        startActivity(i);
+    }
+
     private void setListeners(){
         tvBrandChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,14 +197,9 @@ public class TabSearchCar extends Fragment {
             public void onClick(View v) {
                 setFieldsValue();
                 if(checkFields())
-                    makeRequest();
+                    launchIntentToSpecificCars();
             }
         });
-    }
-
-    // If we arrived there, we already know that period's stuff and brand are picked up, we can now send request to the server.
-    private void makeRequest(){
-
     }
 
     private boolean checkFields(){
