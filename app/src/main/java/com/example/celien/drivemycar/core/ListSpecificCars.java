@@ -17,8 +17,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
-/**
- * Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
+/*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
 public class ListSpecificCars extends ActionBarActivity {
 
     // Variables which come from TabSearchCar
@@ -99,5 +98,41 @@ public class ListSpecificCars extends ActionBarActivity {
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getNbSits() {
+        return nbSits;
+    }
+
+    public String getMaxCons() {
+        return maxCons;
+    }
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getDateFrom() {
+        return dateFrom;
+    }
+
+    public String getTimeFrom() {
+        return timeFrom;
+    }
+
+    public String getDateTo() {
+        return dateTo;
+    }
+
+    public String getTimeTo() {
+        return timeTo;
     }
 }
