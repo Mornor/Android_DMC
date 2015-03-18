@@ -259,7 +259,7 @@ public class TabSearchCar extends Fragment {
                     int day     = bdl.getInt("day");
 
                     // Create the String and update corresponding TextView
-                    String date = day+ "/" +month+ "/" +year;
+                    String date = year+ "-" +month+ "-" +day;
                     TextView tv = hmTextView.get(tag);
                     tv.setText(date);
                 }

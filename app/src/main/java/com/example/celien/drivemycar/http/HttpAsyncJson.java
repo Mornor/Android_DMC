@@ -93,7 +93,15 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     }
 
     private JSONArray getSpecificCars(){
-        return null;
+        JsonParser parser = new JsonParser();
+        JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS, "car",
+                listSpecificCarsCaller.getBrand(),
+                listSpecificCarsCaller.getEnergy(),
+                listSpecificCarsCaller.getMaxCons(),
+                listSpecificCarsCaller.getNbSits(),
+                listSpecificCarsCaller.getDateFrom(),
+                listSpecificCarsCaller.getDateTo());
+        return result;
     }
 
     @Override

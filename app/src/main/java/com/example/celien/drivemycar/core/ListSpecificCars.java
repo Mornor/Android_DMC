@@ -15,7 +15,11 @@ import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
 public class ListSpecificCars extends ActionBarActivity {
@@ -55,6 +59,8 @@ public class ListSpecificCars extends ActionBarActivity {
             this.dateTo     = getIntent().getStringExtra("dateTo");
             this.timeTo     = getIntent().getStringExtra("timeTo");
         }
+
+        getDateFrom();
         //getRequestedCars();
     }
 
@@ -120,19 +126,26 @@ public class ListSpecificCars extends ActionBarActivity {
         return brand;
     }
 
-    public String getDateFrom() {
-        return dateFrom;
+    // Return a Timestamp.toString made by concatinating DateFrom and TimeFrom
+    public Timestamp getDateFrom() {
+        Timestamp tp = null;
+        String timeFromWithoutSpace = timeFrom.replaceAll("\\s", "");
+        String timeFromToUse = timeFromWithoutSpace.substring(0, timeFromWithoutSpace.length()-1);
+
+        try {
+            String dateFromConc = dateFrom +" "+timeFromToUse;
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date date = dateFormat.parse(dateFromConc);
+            tp = new Timestamp(date.getTime());
+        }catch(Exception e){
+                e.printStackTrace();
+        }
+
+        return tp;
     }
 
-    public String getTimeFrom() {
-        return timeFrom;
-    }
-
+    // Return a Timestamp.toString made by concatinating DateTo and TimeTo
     public String getDateTo() {
         return dateTo;
-    }
-
-    public String getTimeTo() {
-        return timeTo;
     }
 }

@@ -55,23 +55,37 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
+    /***
+     * @param url
+     * @param params : default, params[0] == current username
+     * @return JSONArray with the one send bach by Play! */
     public JSONArray makePostHttpRequest(String url, String... params){
-        try{
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("username", params[0]));
-            httpPost.setEntity(new UrlEncodedFormEntity(list));
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            inputStream = httpEntity.getContent();
-            json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
+
+        // If we search a specific car, then we specify the following paramaters:
+        // params[1] -> Brand, params[2] -> Energy (Petrol, Diesel ...), params[3] -> MaxCons
+        // params[4] -> Nbsits
+        if(params[0].equals("car")){
+            return null;
         }
-        return createJsonArrayFromString(json);
+
+        else{
+            try{
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url);
+                List<NameValuePair> list = new ArrayList<>();
+                list.add(new BasicNameValuePair("username", params[0]));
+                httpPost.setEntity(new UrlEncodedFormEntity(list));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                inputStream = httpEntity.getContent();
+                json = createJsonStringFromInputStream(inputStream);
+            }catch (ClientProtocolException e){
+                e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            return createJsonArrayFromString(json);
+        }
     }
 
     public static String createJsonStringFromInputStream(InputStream inputStream){
