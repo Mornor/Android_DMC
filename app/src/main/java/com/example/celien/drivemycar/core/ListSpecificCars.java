@@ -96,6 +96,22 @@ public class ListSpecificCars extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private Timestamp createTimeString(String dateStr, String timeStr){
+        Timestamp tp = null;
+        String timeWithoutSpace = timeStr.replaceAll("\\s", "");
+        String timeFromToUse = timeWithoutSpace.substring(0, timeWithoutSpace.length()-1);
+
+        try {
+            String dateFromConc = dateStr +" "+timeFromToUse;
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date date = dateFormat.parse(dateFromConc);
+            tp = new Timestamp(date.getTime());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return tp;
+    }
 
     /*Getters and Setter*/
     public ProgressDialog getProgressDialog() {
@@ -128,24 +144,11 @@ public class ListSpecificCars extends ActionBarActivity {
 
     // Return a Timestamp.toString made by concatinating DateFrom and TimeFrom
     public Timestamp getDateFrom() {
-        Timestamp tp = null;
-        String timeFromWithoutSpace = timeFrom.replaceAll("\\s", "");
-        String timeFromToUse = timeFromWithoutSpace.substring(0, timeFromWithoutSpace.length()-1);
-
-        try {
-            String dateFromConc = dateFrom +" "+timeFromToUse;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            Date date = dateFormat.parse(dateFromConc);
-            tp = new Timestamp(date.getTime());
-        }catch(Exception e){
-                e.printStackTrace();
-        }
-
-        return tp;
+       return createTimeString(dateFrom, timeFrom);
     }
 
     // Return a Timestamp.toString made by concatinating DateTo and TimeTo
-    public String getDateTo() {
-        return dateTo;
+    public Timestamp getDateTo() {
+        return createTimeString(dateTo, timeTo); 
     }
 }
