@@ -30,7 +30,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
     private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
     private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
-    private static final String LOAD_SPECIFIC_CARS      = "http://cafca/ngrok.com/android/get_specific_cars";
+    private static final String LOAD_SPECIFIC_CARS_URL  = "http://cafca.ngrok.com/android/get_specific_cars";
 
     public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
@@ -63,7 +63,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             return checkUsernameUnique(params[1]);
         if(params[0].equals(Action.GET_BRAND.toString()))
             return getBrands();
-        if(params[0].equals(Action.LOAD_SPECIFIC_CARS))
+        if(params[0].equals(Action.LOAD_SPECIFIC_CARS.toString()))
             return getSpecificCars();
         return null;
     }
@@ -94,13 +94,13 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private JSONArray getSpecificCars(){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS, "car",
+        JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS_URL, "car",
                 listSpecificCarsCaller.getBrand(),
                 listSpecificCarsCaller.getEnergy(),
                 listSpecificCarsCaller.getMaxCons(),
                 listSpecificCarsCaller.getNbSits(),
-                listSpecificCarsCaller.getDateFrom(),
-                listSpecificCarsCaller.getDateTo());
+                listSpecificCarsCaller.getDateFrom().toString(),
+                listSpecificCarsCaller.getDateTo().toString());
         return result;
     }
 

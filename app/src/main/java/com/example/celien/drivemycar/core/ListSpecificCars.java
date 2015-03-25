@@ -14,6 +14,7 @@ import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -35,7 +36,10 @@ public class ListSpecificCars extends ActionBarActivity {
     private String dateTo;
     private String timeTo;
 
-    // Variables 
+    // Variables sent to the server in order to retrieve the cars which fits the choice of the user (from TabSearchCar).
+    // But I also use the previous vars.
+    private Timestamp from;
+    private Timestamp to;
 
     private ProgressDialog progressDialog;
 
@@ -62,8 +66,7 @@ public class ListSpecificCars extends ActionBarActivity {
             this.timeTo     = getIntent().getStringExtra("timeTo");
         }
 
-        getDateFrom();
-        //getRequestedCars();
+        getRequestedCars();
     }
 
     private void getRequestedCars(){
@@ -73,6 +76,12 @@ public class ListSpecificCars extends ActionBarActivity {
 
     // Create an ArrayList<Car> with the JSONArray received from HttpAsyncJsons
     public ArrayList<Car> onPostExecuteSearchRequestedCars(JSONArray array){
+
+        try {
+            Log.d("Result of search : ", array.getJSONObject(0).getString("owner"));
+        } catch (JSONException e) {
+            Log.d("Exception", e.toString());
+        }
         return null;
     }
 
@@ -98,7 +107,7 @@ public class ListSpecificCars extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Timestamp createTimeString(String dateStr, String timeStr){
+    private Timestamp createTimestampFromString(String dateStr, String timeStr){
         Timestamp tp = null;
         String timeWithoutSpace = timeStr.replaceAll("\\s", "");
         String timeFromToUse = timeWithoutSpace.substring(0, timeWithoutSpace.length()-1);
@@ -145,11 +154,11 @@ public class ListSpecificCars extends ActionBarActivity {
 
     // Return a Timestamp made by concatinating DateFrom and TimeFrom
     public Timestamp getDateFrom() {
-       return createTimeString(dateFrom, timeFrom);
+       return createTimestampFromString(dateFrom, timeFrom);
     }
 
     // Return a Timestamp made by concatinating DateTo and TimeTo
     public Timestamp getDateTo() {
-        return createTimeString(dateTo, timeTo);
+        return createTimestampFromString(dateTo, timeTo);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.celien.drivemycar.http;
 
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -63,9 +65,30 @@ public class JsonParser {
 
         // If we search a specific car, then we specify the following paramaters:
         // params[1] -> Brand, params[2] -> Energy (Petrol, Diesel ...), params[3] -> MaxCons
-        // params[4] -> Nbsits
+        // params[4] -> Nbsits, params[5] -> fromDate, params[6} -> toDate
         if(params[0].equals("car")){
-            return null;
+            try{
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url);
+                List<NameValuePair> list = new ArrayList<>();
+                list.add(new BasicNameValuePair("brand", params[1]));
+                list.add(new BasicNameValuePair("energy", params[2]));
+                list.add(new BasicNameValuePair("maxCons", params[3]));
+                list.add(new BasicNameValuePair("nbSits", params[4]));
+                list.add(new BasicNameValuePair("fromDate", params[5]));
+                list.add(new BasicNameValuePair("toDate", params[6]));
+                httpPost.setEntity(new UrlEncodedFormEntity(list));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                inputStream = httpEntity.getContent();
+                json = createJsonStringFromInputStream(inputStream);
+            }catch (ClientProtocolException e){
+               e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return createJsonArrayFromString(json);
         }
 
         else{
