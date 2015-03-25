@@ -75,6 +75,8 @@ public class ListSpecificCars extends ActionBarActivity {
     }
 
     // Create an ArrayList<Car> with the JSONArray received from HttpAsyncJsons
+    // The JSONArray received is constructed with the following model :
+    // [{"brand":"Bmw","model":"335i","owner":"Celien"}]
     public ArrayList<Car> onPostExecuteSearchRequestedCars(JSONArray array){
 
         try {

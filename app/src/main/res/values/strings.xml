@@ -91,6 +91,9 @@
     <string name="tvTime">Choose time</string>
     <string name="btnSearch">Search</string>
 
+    <!-- activity_list_specific_car -->
+    <string name="btnSendRequestToSelectedPeople">Send request to the selected people</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
