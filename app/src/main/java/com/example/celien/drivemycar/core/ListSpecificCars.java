@@ -109,7 +109,6 @@ public class ListSpecificCars extends ActionBarActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return tp;
     }
 
@@ -149,6 +148,6 @@ public class ListSpecificCars extends ActionBarActivity {
 
     // Return a Timestamp.toString made by concatinating DateTo and TimeTo
     public Timestamp getDateTo() {
-        return createTimeString(dateTo, timeTo); 
+        return createTimeString(dateTo, timeTo);
     }
 }
