@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.core;
 import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,12 @@ public class ListSpecificCars extends ActionBarActivity {
 
 
     private void init(){
+
+        // Set the toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Search result");
+
         // Get the User (Object).
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null){
