@@ -35,6 +35,8 @@ public class ListSpecificCars extends ActionBarActivity {
     private String dateTo;
     private String timeTo;
 
+    // Variables 
+
     private ProgressDialog progressDialog;
 
     @Override
@@ -141,12 +143,12 @@ public class ListSpecificCars extends ActionBarActivity {
         return brand;
     }
 
-    // Return a Timestamp.toString made by concatinating DateFrom and TimeFrom
+    // Return a Timestamp made by concatinating DateFrom and TimeFrom
     public Timestamp getDateFrom() {
        return createTimeString(dateFrom, timeFrom);
     }
 
-    // Return a Timestamp.toString made by concatinating DateTo and TimeTo
+    // Return a Timestamp made by concatinating DateTo and TimeTo
     public Timestamp getDateTo() {
         return createTimeString(dateTo, timeTo);
     }
