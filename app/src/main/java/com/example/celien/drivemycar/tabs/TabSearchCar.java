@@ -115,22 +115,36 @@ public class TabSearchCar extends Fragment {
         hmTextView.put("timeTo", timeTo);
     }
 
-    // If we arrived there, we already know that period's stuff and brand are picked up, we can now go to
+    // If we arrived there, we already know that period's stuff are picked up, we can now go to
     // ListSpecificCar and make the request to the server in this class
     private void launchIntentToSpecificCars(){
         Intent i = new Intent(getActivity(), ListSpecificCars.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
-        i.putExtra("brand", brand);
-        i.putExtra("maxCons", fuelCons);
-        i.putExtra("nbSits", nbSits);
+
+        // If the user has not choose a specific brand, then empty String is sent
+        if(brand.equals(getResources().getString(R.string.hChoose)))
+            i.putExtra("brand", "");
+        else if(! brand.equals(getResources().getString(R.string.hChoose)))
+            i.putExtra("brand", brand);
+
+        // Same for the others fields, except date and time stuff and energy
+        if(fuelCons.equals(getResources().getString(R.string.tvMaxCons)))
+            i.putExtra("maxCons", "");
+        else if(!fuelCons.equals(getResources().getString(R.string.tvMaxCons)))
+            i.putExtra("maxCons", fuelCons);
+
+        if(nbSits.equals(getResources().getString(R.string.hChoose)))
+            i.putExtra("nbSits", "");
+        else if(!nbSits.equals(getResources().getString(R.string.hChoose)))
+            i.putExtra("nbSits", nbSits);
+
         i.putExtra("energy", energy);
         i.putExtra("dateFrom", dateFromStr);
         i.putExtra("timeFrom", timeFromStr);
         i.putExtra("dateTo", dateToStr);
         i.putExtra("timeTo", timeToStr);
-        getActivity().finish();
         startActivity(i);
     }
 
@@ -204,9 +218,7 @@ public class TabSearchCar extends Fragment {
 
     private boolean checkFields(){
         boolean result = false;
-        // Search is only possible if Date, Time and Brand are picked up.
-        if (brand.isEmpty())
-            tvBrandChoose.setTextColor(Color.RED);
+        // Search is only possible if Date, Time are picked up.
         if(dateFromStr.isEmpty())
             dateFrom.setTextColor(Color.RED);
         if(timeFromStr.isEmpty())
@@ -215,13 +227,10 @@ public class TabSearchCar extends Fragment {
             dateTo.setTextColor(Color.RED);
         if(timeToStr.isEmpty())
             timeTo.setTextColor(Color.RED);
-        if (!(brand.isEmpty() || dateFromStr.isEmpty() || timeFromStr.isEmpty() || timeToStr.isEmpty()))
+        if (!(dateFromStr.isEmpty() || dateToStr.isEmpty() || timeFromStr.isEmpty() || timeToStr.isEmpty()))
             result = true;
         return result;
     }
-
-
-
 
     private void setFieldsValue(){
         brand           = tvBrandChoose.getText().toString();
