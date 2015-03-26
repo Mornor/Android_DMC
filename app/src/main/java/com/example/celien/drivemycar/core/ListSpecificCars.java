@@ -5,8 +5,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -41,21 +45,50 @@ public class ListSpecificCars extends ActionBarActivity {
     private String timeFrom;
     private String dateTo;
     private String timeTo;
+    private Button btnSendRequest;
 
     // Variables sent to the server in order to retrieve the cars which fits the choice of the user (from TabSearchCar).
     // But I also use the previous vars.
     private Timestamp from;
     private Timestamp to;
 
+    private ListAdapter adapter;
+    private  ListView lv;
     private ProgressDialog progressDialog;
+    private List<String> selectedUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_specific_cars);
+        selectedUsers = new ArrayList<>();
         init();
+        getRequestedCars();
     }
 
+
+    private void setListeners(){
+        // Can't click on the button until cars are shown.
+        btnSendRequest.setEnabled(true);
+
+        btnSendRequest.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+               for(int i = 0 ; i < selectedUsers.size() ; i++)
+                   Log.d("ListSpecificCar", selectedUsers.get(i));
+            }
+        });
+    }
+
+    // Maintain a dynamic list with the item selected via checkbox in CustomSpecificCar
+    // If boolean is true, add to list
+    // If false, remove
+    public void updateClickedItem(String username, boolean action){
+        if(action)
+            selectedUsers.add(username);
+        else
+            selectedUsers.remove(username);
+    }
 
     private void init(){
 
@@ -78,7 +111,7 @@ public class ListSpecificCars extends ActionBarActivity {
             this.timeTo     = getIntent().getStringExtra("timeTo");
         }
 
-        getRequestedCars();
+        btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);
     }
 
     private void getRequestedCars(){
@@ -102,10 +135,11 @@ public class ListSpecificCars extends ActionBarActivity {
         }
 
         // Create and set the custom listView.
-        ListAdapter adapter = new CustomSpecificCar(this, list);
-        ListView lv = (ListView) findViewById(R.id.lvCars);
+        adapter = new CustomSpecificCar(this, list, this);
+        lv = (ListView) findViewById(R.id.lvCars);
         lv.setAdapter(adapter);
 
+        setListeners();
     }
 
     @Override
