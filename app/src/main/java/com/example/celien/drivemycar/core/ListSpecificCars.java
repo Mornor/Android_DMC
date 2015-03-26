@@ -7,8 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomSpecificCar;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
@@ -16,12 +19,14 @@ import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
 public class ListSpecificCars extends ActionBarActivity {
@@ -81,17 +86,26 @@ public class ListSpecificCars extends ActionBarActivity {
         request.execute(Action.LOAD_SPECIFIC_CARS.toString());
     }
 
-    // Create an ArrayList<Car> with the JSONArray received from HttpAsyncJsons
+    // Create an ArrayList<JSONObject> from the JSONArray received from HttpAsyncJsons
     // The JSONArray received is constructed with the following model :
     // [{"brand":"Bmw","model":"335i","owner":"Celien"}]
-    public ArrayList<Car> onPostExecuteSearchRequestedCars(JSONArray array){
-
+    // Then, it create the CustomListView (customSpecificCar) with the within items
+    public void onPostExecuteSearchRequestedCars(JSONArray array){
+        List<JSONObject> list = new ArrayList<>(array.length());
         try {
-            Log.d("Result of search : ", array.getJSONObject(0).getString("owner"));
+            for(int i = 0 ; i < array.length() ; i++){
+                JSONObject temp = array.getJSONObject(i);
+                list.add(temp);
+            }
         } catch (JSONException e) {
-            Log.d("Exception", e.toString());
+            Log.e(e.getClass().getName(),"There is no JSONObject in the JSONArray", e);
         }
-        return null;
+
+        // Create and set the custom listView.
+        ListAdapter adapter = new CustomSpecificCar(this, list);
+        ListView lv = (ListView) findViewById(R.id.lvCars);
+        lv.setAdapter(adapter);
+
     }
 
     @Override

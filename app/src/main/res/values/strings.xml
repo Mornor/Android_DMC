@@ -94,6 +94,13 @@
     <!-- activity_list_specific_car -->
     <string name="btnSendRequestToSelectedPeople">Send request to the selected people</string>
 
+    <!-- custom_specific_car_row -->
+    <string name="tvOwner">Owner:</string>
+    <string name="tvOwnerEditable">Owner username</string>
+    <string name="tvModel">Model</string>
+    <string name="tvEstimatedPrice">Est. price</string>
+    <string name="tvEstimatedPriceEditable">Price</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
