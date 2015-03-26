@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.celien.drivemycar.tabs.TabAccount;
+import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter{
@@ -28,8 +29,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
                 TabSearchCar tabSearchCar = new TabSearchCar();
                 return tabSearchCar;
             case 2 :
-                TabAccount tabAccount2 = new TabAccount();
-                return tabAccount2;
+                TabOperations tabOperations = new TabOperations();
+                return tabOperations;
         }
 
         return null; // Should never occurs
