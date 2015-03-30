@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomSpecificCar;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -74,10 +75,15 @@ public class ListSpecificCars extends ActionBarActivity {
         btnSendRequest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-               for(int i = 0 ; i < selectedUsers.size() ; i++)
-                   Log.d("ListSpecificCar", selectedUsers.get(i));
+                saveData();
             }
         });
+    }
+
+    private void saveData(){
+        HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
+        httpAsyncNotif.execute(); 
+
     }
 
     // Maintain a dynamic list with the item selected via checkbox in CustomSpecificCar
