@@ -1,7 +1,10 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +23,7 @@ import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.notification.StartServiceReceiver;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -27,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class Login extends ActionBarActivity {
@@ -41,15 +47,31 @@ public class Login extends ActionBarActivity {
     private String login;
     private String password;
 
-    // The user (if this one exist)
+    // The current user (if this one exist)
     User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+        setReccuringAlarm(this);
         setListeners();
+    }
+
+    // Basically, set the intervall of time on which the app has to connect to the server to check if notifications are availbale.
+    private void setReccuringAlarm(Context context){
+        Calendar updateTime = Calendar.getInstance();
+        updateTime.setTimeZone(TimeZone.getDefault());
+        updateTime.set(Calendar.HOUR_OF_DAY, 12);
+        updateTime.set(Calendar.MINUTE, 30);
+        Intent downloader = new Intent(context, StartServiceReceiver.class);
+        downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        Log.d("MyActivity", "Set alarmManager.setRepeating to: " + updateTime.getTime().toLocaleString());
     }
 
     private void init(){
