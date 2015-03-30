@@ -81,7 +81,7 @@ public class JsonParser {
                 list.add(new BasicNameValuePair("nbSits", params[4]));
                 list.add(new BasicNameValuePair("fromDate", params[5]));
                 list.add(new BasicNameValuePair("toDate", params[6]));
-                list.add(new BasicNameValuePair("username", params[7])); 
+                list.add(new BasicNameValuePair("username", params[7]));
                 httpPost.setEntity(new UrlEncodedFormEntity(list));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 HttpEntity httpEntity = httpResponse.getEntity();
