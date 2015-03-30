@@ -111,6 +111,35 @@ public class JsonParser {
         }
     }
 
+    /*** Called in ListSpecificCar.saveData()*/
+    public JSONArray saveRequest(String url, List<List<String>> listRequest) {
+
+        try{
+            List<NameValuePair> list = new ArrayList<>();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            for(int i = 0 ; i < listRequest.size() ; i++){
+                for(int j = 0 ; j < listRequest.get(i).size() ; j += listRequest.get(i).size()){
+                    list.add(new BasicNameValuePair("pos", String.valueOf(i)));
+                    list.add(new BasicNameValuePair("owner", listRequest.get(i).get(j)));
+                    list.add(new BasicNameValuePair("brand", listRequest.get(i).get(j+1)));
+                    list.add(new BasicNameValuePair("model", listRequest.get(i).get(j+2)));
+                }
+            }
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
     public static String createJsonStringFromInputStream(InputStream inputStream){
         try{
             BufferedReader reader = new BufferedReader(

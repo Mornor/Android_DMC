@@ -92,6 +92,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         return result;
     }
 
+
     private JSONArray getSpecificCars(){
         JsonParser parser = new JsonParser();
         JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS_URL, "car",

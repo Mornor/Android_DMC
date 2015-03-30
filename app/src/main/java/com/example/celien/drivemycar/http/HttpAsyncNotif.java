@@ -14,6 +14,9 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
 
+
+    private static final String SAVE_REQUEST_URL = "http://cafca.ngrok.com/android/set_request";
+
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
     }
@@ -39,7 +42,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private JSONArray saveRequest(){
         // List is like :
         // 0 -> "celien", "bmw", "335i"
-        List<List<String>> listToSave = listSpecificCarsCaller.getSelectedItems();
+        JsonParser parser = new JsonParser();
+        JSONArray result = parser.saveRequest(SAVE_REQUEST_URL, listSpecificCarsCaller.getSelectedItems());
         return null;
     }
 }

@@ -83,7 +83,7 @@ public class ListSpecificCars extends ActionBarActivity {
 
     private void saveData(){
         HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
-        httpAsyncNotif.execute();
+        httpAsyncNotif.execute(Action.SAVE_REQUEST.toString());
     }
 
     // Maintain a dynamic JSONArray of the selected via checkbox in CustomSpecificCar
