@@ -82,14 +82,14 @@ public class ListSpecificCars extends ActionBarActivity {
 
     private void saveData(){
         HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
-        httpAsyncNotif.execute(); 
+        httpAsyncNotif.execute();
 
     }
 
-    // Maintain a dynamic list with the item selected via checkbox in CustomSpecificCar
+    // Maintain a dynamic list with the username selected via checkbox in CustomSpecificCar
     // If boolean is true, add to list
     // If false, remove
-    public void updateClickedItem(String username, boolean action){
+    public void updateClickedUsername(String username, boolean action){
         if(action)
             selectedUsers.add(username);
         else
