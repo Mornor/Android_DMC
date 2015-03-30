@@ -31,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
@@ -54,15 +55,15 @@ public class ListSpecificCars extends ActionBarActivity {
     private Timestamp to;
 
     private ListAdapter adapter;
-    private  ListView lv;
+    private ListView lv;
     private ProgressDialog progressDialog;
-    private List<String> selectedUsers;
+    private List<List<String>> selectedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_specific_cars);
-        selectedUsers = new ArrayList<>();
+        selectedItems = new ArrayList<List<String>>();
         init();
         getRequestedCars();
     }
@@ -86,15 +87,25 @@ public class ListSpecificCars extends ActionBarActivity {
 
     }
 
-    // Maintain a dynamic list with the username selected via checkbox in CustomSpecificCar
+    // Maintain a dynamic JSONArray of the selected via checkbox in CustomSpecificCar
     // If boolean is true, add to list
     // If false, remove
-    public void updateClickedUsername(String username, boolean action){
+    public void updateClickedUsername(JSONObject currentJson, boolean action){
+        List<String> jsonToString = new ArrayList<>();
+        try{
+            jsonToString.add(currentJson.getString("owner"));
+            jsonToString.add(currentJson.getString("brand"));
+            jsonToString.add(currentJson.getString("model"));
+        } catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
         if(action)
-            selectedUsers.add(username);
+            selectedItems.add(jsonToString);
         else
-            selectedUsers.remove(username);
+            selectedItems.remove(jsonToString);
     }
+
 
     private void init(){
 
