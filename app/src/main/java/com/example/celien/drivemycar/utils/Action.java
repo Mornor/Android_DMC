@@ -12,6 +12,7 @@ public enum Action {
     DELETE_CAR("deleteCar"),
     GET_BRAND("getBrand"),
     LOAD_SPECIFIC_CARS("loadSpecificCars"),
+    SAVE_REQUEST("saveRequest"),
     LOAD_CARS("loadCars");
 
     private final String name;

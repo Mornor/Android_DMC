@@ -84,7 +84,6 @@ public class ListSpecificCars extends ActionBarActivity {
     private void saveData(){
         HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
         httpAsyncNotif.execute();
-
     }
 
     // Maintain a dynamic JSONArray of the selected via checkbox in CustomSpecificCar
@@ -234,5 +233,9 @@ public class ListSpecificCars extends ActionBarActivity {
     // Return a Timestamp made by concatinating DateTo and TimeTo
     public Timestamp getDateTo() {
         return createTimestampFromString(dateTo, timeTo);
+    }
+
+    public List<List<String>> getSelectedItems() {
+        return selectedItems;
     }
 }
