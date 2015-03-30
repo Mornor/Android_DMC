@@ -9,8 +9,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,21 +116,27 @@ public class JsonParser {
 
     /*** Called in ListSpecificCar.saveData()*/
     public JSONArray saveRequest(String url, List<List<String>> listRequest) {
+        JSONArray toSendToServer = new JSONArray();
 
         try{
-            List<NameValuePair> list = new ArrayList<>();
+            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             for(int i = 0 ; i < listRequest.size() ; i++){
                 for(int j = 0 ; j < listRequest.get(i).size() ; j += listRequest.get(i).size()){
-                    list.add(new BasicNameValuePair("pos", String.valueOf(i)));
-                    list.add(new BasicNameValuePair("owner", listRequest.get(i).get(j)));
-                    list.add(new BasicNameValuePair("brand", listRequest.get(i).get(j+1)));
-                    list.add(new BasicNameValuePair("model", listRequest.get(i).get(j+2)));
+                    JSONObject temp = new JSONObject();
+                    temp.put("pos", i);
+                    temp.put("owner", );
+                    temp.put("brand", );
+                    temp.put("model", );
+                    toSendToServer.put(temp);
                 }
             }
-            httpPost.setEntity(new UrlEncodedFormEntity(list));
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            StringEntity se = new StringEntity(toSendToServer.toString());
+            httpPost.setEntity(se);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            HttpResponse httpResponse = httpClient.execute(httpPost, httpContext);
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
@@ -135,7 +144,10 @@ public class JsonParser {
             e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
+        } catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
         }
+
 
         return createJsonArrayFromString(json);
     }

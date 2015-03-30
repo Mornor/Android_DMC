@@ -57,13 +57,13 @@ public class ListSpecificCars extends ActionBarActivity {
     private ListAdapter adapter;
     private ListView lv;
     private ProgressDialog progressDialog;
-    private List<List<String>> selectedItems;
+    private List<HashMap<String, String>> selectedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_specific_cars);
-        selectedItems = new ArrayList<List<String>>();
+        selectedItems = new ArrayList<HashMap<String, String>>();
         init();
         getRequestedCars();
     }
@@ -89,20 +89,21 @@ public class ListSpecificCars extends ActionBarActivity {
     // Maintain a dynamic JSONArray of the selected via checkbox in CustomSpecificCar
     // If boolean is true, add to list
     // If false, remove
-    public void updateClickedUsername(JSONObject currentJson, boolean action){
-        List<String> jsonToString = new ArrayList<>();
+    public void updateClickedUsername(JSONObject currentJson, int position, boolean action){
+        HashMap<String, String> list = new HashMap<>();
         try{
-            jsonToString.add(currentJson.getString("owner"));
-            jsonToString.add(currentJson.getString("brand"));
-            jsonToString.add(currentJson.getString("model"));
+            list.put("pos", String.valueOf(position));
+            list.put("owner", currentJson.getString("owner"));
+            list.put("brand", currentJson.getString("brand"));
+            list.put("model", currentJson.getString("model"));
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         if(action)
-            selectedItems.add(jsonToString);
+            selectedItems.add(list);
         else
-            selectedItems.remove(jsonToString);
+            selectedItems.remove(list);
     }
 
 
@@ -235,7 +236,7 @@ public class ListSpecificCars extends ActionBarActivity {
         return createTimestampFromString(dateTo, timeTo);
     }
 
-    public List<List<String>> getSelectedItems() {
+    public List<HashMap<String, String>> getSelectedItems() {
         return selectedItems;
     }
 }

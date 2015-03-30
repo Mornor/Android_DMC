@@ -22,10 +22,11 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
-    List<JSONObject> list;
-    List<String> selectedUsers;
+public class CustomSpecificCar extends ArrayAdapter<JSONObject> implements View.OnClickListener{
     ListSpecificCars caller;
+    private JSONObject currentJson;
+    private CheckBox cbSelectedCar;
+    private int position;
 
     public CustomSpecificCar(Context ctxt, List<JSONObject> list, ListSpecificCars caller){
         super(ctxt, R.layout.custom_specific_car_row, list);
@@ -36,10 +37,11 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View customView = inflater.inflate(R.layout.custom_specific_car_row, parent, false);
+        this.position = position;
 
         // Set the reference of the layout
-        final JSONObject currentJson      = getItem(position);
-        final CheckBox cbSelectedCar      = (CheckBox)customView.findViewById(R.id.cbSelectedCar);
+        currentJson                       = getItem(this.position);
+        cbSelectedCar                     = (CheckBox)customView.findViewById(R.id.cbSelectedCar);
         TextView tvBrand                  = (TextView)customView.findViewById(R.id.tvBrand);
         TextView tvModel                  = (TextView)customView.findViewById(R.id.tvModel);
         TextView tvOwnerEditable          = (TextView)customView.findViewById(R.id.tvOwnerEditable);
@@ -54,20 +56,18 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        cbSelectedCar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(cbSelectedCar.isChecked()){
-                    caller.updateClickedUsername(currentJson, true);
-                }
-
-                else if(!cbSelectedCar.isChecked()){
-                    caller.updateClickedUsername(currentJson, false);
-                }
-            }
-        });
-
         return customView;
+    }
+
+    public void onClick(View v) {
+
+        if(v.getId() == R.id.cbSelectedCar){
+            if(cbSelectedCar.isChecked())
+                caller.updateClickedUsername(currentJson, position, true);
+            else if(!cbSelectedCar.isChecked())
+                caller.updateClickedUsername(currentJson, position, false);
+        }
+
     }
 
 }
