@@ -82,17 +82,17 @@ public class ListSpecificCars extends ActionBarActivity {
     }
 
     private void saveData(){
-        HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
-        httpAsyncNotif.execute(Action.SAVE_REQUEST.toString());
+        Log.d("List size", String.valueOf(selectedItems.size()));
+        //HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
+        //httpAsyncNotif.execute(Action.SAVE_REQUEST.toString());
     }
 
-    // Maintain a dynamic JSONArray of the selected via checkbox in CustomSpecificCar
+    // Maintain a dynamic JSONArray of the selected items via checkbox in CustomSpecificCar
     // If boolean is true, add to list
     // If false, remove
-    public void updateClickedUsername(JSONObject currentJson, int position, boolean action){
+    public void updateClickedUsername(JSONObject currentJson, boolean action){
         HashMap<String, String> list = new HashMap<>();
         try{
-            list.put("pos", String.valueOf(position));
             list.put("owner", currentJson.getString("owner"));
             list.put("brand", currentJson.getString("brand"));
             list.put("model", currentJson.getString("model"));

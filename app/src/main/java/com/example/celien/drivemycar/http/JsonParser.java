@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class JsonParser {
@@ -80,6 +81,7 @@ public class JsonParser {
                 list.add(new BasicNameValuePair("nbSits", params[4]));
                 list.add(new BasicNameValuePair("fromDate", params[5]));
                 list.add(new BasicNameValuePair("toDate", params[6]));
+                list.add(new BasicNameValuePair("username", params[7])); 
                 httpPost.setEntity(new UrlEncodedFormEntity(list));
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 HttpEntity httpEntity = httpResponse.getEntity();
@@ -115,22 +117,28 @@ public class JsonParser {
     }
 
     /*** Called in ListSpecificCar.saveData()*/
-    public JSONArray saveRequest(String url, List<List<String>> listRequest) {
+    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest) {
         JSONArray toSendToServer = new JSONArray();
-
+        Log.d("JsonParser size", String.valueOf(listRequest.size()));
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             for(int i = 0 ; i < listRequest.size() ; i++){
-                for(int j = 0 ; j < listRequest.get(i).size() ; j += listRequest.get(i).size()){
-                    JSONObject temp = new JSONObject();
-                    temp.put("pos", i);
-                    temp.put("owner", );
-                    temp.put("brand", );
-                    temp.put("model", );
-                    toSendToServer.put(temp);
-                }
+                JSONObject temp = new JSONObject();
+                temp.put("pos", listRequest.get(i).get("pos"));
+                Log.d("JsonParser ", listRequest.get(i).get("pos"));
+
+                temp.put("owner", listRequest.get(i).get("owner"));
+                Log.d("JsonParser ", listRequest.get(i).get("owner"));
+
+                temp.put("brand", listRequest.get(i).get("brand"));
+                Log.d("JsonParser ", listRequest.get(i).get("brand"));
+
+                temp.put("model", listRequest.get(i).get("model"));
+                Log.d("JsonParser ", listRequest.get(i).get("model"));
+
+                toSendToServer.put(temp);
             }
             StringEntity se = new StringEntity(toSendToServer.toString());
             httpPost.setEntity(se);

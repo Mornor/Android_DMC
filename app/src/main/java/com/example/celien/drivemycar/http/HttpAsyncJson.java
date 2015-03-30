@@ -101,7 +101,8 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getMaxCons(),
                 listSpecificCarsCaller.getNbSits(),
                 listSpecificCarsCaller.getDateFrom().toString(),
-                listSpecificCarsCaller.getDateTo().toString());
+                listSpecificCarsCaller.getDateTo().toString(),
+                listSpecificCarsCaller.getUser().getUsername());
         return result;
     }
 
