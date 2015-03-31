@@ -59,27 +59,11 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
         cbSelectedCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                try{
-                    if (cbSelectedCar.isChecked()) {
+                    if (cbSelectedCar.isChecked())
                         caller.updateClickedUsername(currentJson, true);
-                        Log.d("Custom item added ", currentJson.getString("pos"));
-                        Log.d("Custom item added ", currentJson.getString("owner"));
-                        Log.d("Custom item added ", currentJson.getString("brand"));
-                        Log.d("Custom item added ", currentJson.getString("model"));
-                    } else if (!cbSelectedCar.isChecked()) {
+                     else if (!cbSelectedCar.isChecked())
                         caller.updateClickedUsername(currentJson, false);
-                        Log.d("Custom item deleted ", currentJson.getString("pos"));
-                        Log.d("Custom item deleted ", currentJson.getString("owner"));
-                        Log.d("Custom item deleted ", currentJson.getString("brand"));
-                        Log.d("Custom item deleted ", currentJson.getString("model"));
-                    }
-                }catch(JSONException e){
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
+            }});
 
 
         return customView;
