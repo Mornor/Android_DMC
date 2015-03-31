@@ -126,8 +126,6 @@ public class JsonParser {
             HttpPost httpPost = new HttpPost(url);
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
-                temp.put("pos", listRequest.get(i).get("pos"));
-                Log.d("JsonParser ", listRequest.get(i).get("pos"));
 
                 temp.put("owner", listRequest.get(i).get("owner"));
                 Log.d("JsonParser ", listRequest.get(i).get("owner"));

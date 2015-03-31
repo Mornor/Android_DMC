@@ -86,12 +86,6 @@ public class ListSpecificCars extends ActionBarActivity {
     private void saveData(){
         if(selectedItems.size() == 0)
             Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
-        /*for(int i = 0 ; i < selectedItems.size() ; i++){
-            Log.d("List size ",  String.valueOf(selectedItems.size()));
-            Log.d("List Owner ", selectedItems.get(i).get("owner"));
-            Log.d("List Brand ", selectedItems.get(i).get("brand"));
-            Log.d("List Model ", selectedItems.get(i).get("model"));
-        }*/
         else
             new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
@@ -113,14 +107,6 @@ public class ListSpecificCars extends ActionBarActivity {
             selectedItems.add(list);
         else
             selectedItems.remove(list);
-
-/*
-        for(Iterator<HashMap<String, String>> iter = selectedItems.iterator() ; iter.hasNext();){
-            HashMap<String, String> temp = iter.next();
-            if(temp.equals(list))
-                iter.remove();
-        }
-        Log.d("List removed", "ok"); */
     }
 
 
