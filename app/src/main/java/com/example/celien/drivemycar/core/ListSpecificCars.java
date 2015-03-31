@@ -86,8 +86,15 @@ public class ListSpecificCars extends ActionBarActivity {
     private void saveData(){
         if(selectedItems.size() == 0)
             Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
-        else
-            new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+        for(int i = 0 ; i < selectedItems.size() ; i++){
+            Log.d("List size ",  String.valueOf(selectedItems.size()));
+            Log.d("List Owner ", selectedItems.get(i).get("owner"));
+            Log.d("List Brand ", selectedItems.get(i).get("brand"));
+            Log.d("List Model ", selectedItems.get(i).get("model"));
+        }
+
+        //else
+            //new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
 
     // Maintain a dynamic JSONArray of the selected items via checkbox in CustomSpecificCar
@@ -105,15 +112,16 @@ public class ListSpecificCars extends ActionBarActivity {
 
         if(action)
             selectedItems.add(list);
-        else{
-            for(Iterator<HashMap<String, String>> iter = selectedItems.iterator() ; iter.hasNext();){
-                HashMap<String, String> temp = iter.next();
-                if(temp.equals(list))
-                    iter.remove();
-            }
-            Log.d("List removed", "ok");
+        else
+            selectedItems.remove(list);
+
+/*
+        for(Iterator<HashMap<String, String>> iter = selectedItems.iterator() ; iter.hasNext();){
+            HashMap<String, String> temp = iter.next();
+            if(temp.equals(list))
+                iter.remove();
         }
-            //selectedItems.remove(list);
+        Log.d("List removed", "ok"); */
     }
 
 
@@ -151,7 +159,7 @@ public class ListSpecificCars extends ActionBarActivity {
     // [{"brand":"Bmw","model":"335i","owner":"Celien"}]
     // Then, it create the CustomListView (customSpecificCar) with the within items
     public void onPostExecuteSearchRequestedCars(JSONArray array){
-        List<JSONObject> list = new ArrayList<>(array.length());
+        List<JSONObject> list = new ArrayList<>();
         try {
             for(int i = 0 ; i < array.length() ; i++){
                 JSONObject temp = array.getJSONObject(i);
