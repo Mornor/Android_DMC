@@ -117,16 +117,27 @@ public class JsonParser {
     }
 
     /*** Called in ListSpecificCar.saveData()*/
-    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername) {
+    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo) {
         JSONArray toSendToServer = new JSONArray();
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
+
             // Add the username before sending the JSON.
             JSONObject usernameJson = new JSONObject();
             usernameJson.put("username", currentUsername);
             toSendToServer.put(usernameJson);
+
+            // Add the dates of the wished rental
+            JSONObject dateFromJson = new JSONObject();
+            dateFromJson.put("dateFrom", dateFrom);
+            toSendToServer.put(dateFromJson);
+            JSONObject dateToJson = new JSONObject();
+            dateToJson.put("dateTo", dateTo);
+            toSendToServer.put(dateToJson);
+
+            // Add every choosen possibilities
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
                 temp.put("owner", listRequest.get(i).get("owner"));

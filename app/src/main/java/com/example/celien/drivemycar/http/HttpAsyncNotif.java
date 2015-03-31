@@ -45,7 +45,12 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         // List<HashMaps<String, String> is like :
         // 0 -> "owner":"celien", "brand":"bmw", "model":"335i"
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.saveRequest(SAVE_REQUEST_URL, listSpecificCarsCaller.getSelectedItems(), listSpecificCarsCaller.getUser().getUsername());
+        JSONArray result = parser.saveRequest(
+                SAVE_REQUEST_URL,
+                listSpecificCarsCaller.getSelectedItems(),
+                listSpecificCarsCaller.getUser().getUsername(),
+                listSpecificCarsCaller.getDateFrom().toString(),
+                listSpecificCarsCaller.getDateTo().toString());
         return null;
     }
 }
