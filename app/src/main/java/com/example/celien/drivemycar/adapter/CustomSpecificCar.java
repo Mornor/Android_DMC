@@ -41,18 +41,6 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View customView = inflater.inflate(R.layout.custom_specific_car_row, parent, false);
 
-        try{
-            for(int i = 0 ; i < this.list.size() ; i++){
-                Log.d("In List custom size ", String.valueOf(list.size()));
-                Log.d("In List custom owner " ,list.get(i).getString("owner"));
-                Log.d("In List custom brand " ,list.get(i).getString("brand"));
-                Log.d("In List custom model " ,list.get(i).getString("model"));
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-
-
         // Set the reference of the layout
         currentJson                       = getItem(position);
         cbSelectedCar                     = (CheckBox)customView.findViewById(R.id.cbSelectedCar);
@@ -74,17 +62,10 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
         cbSelectedCar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if(isChecked)
                     caller.updateClickedUsername(getItem(position), true); // Add to the List
-                    try {
-                        Log.d("Has been checked model ", getItem(position).getString("model"));
-                        Log.d("Has been checked brand ", getItem(position).getString("brand"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
                 else
-                    caller.updateClickedUsername(currentJson, false); // Delete from the List
+                    caller.updateClickedUsername(getItem(position), false); // Delete from the List
             }
         });
 
