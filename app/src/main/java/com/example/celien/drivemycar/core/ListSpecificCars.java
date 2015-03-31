@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomSpecificCar;
@@ -82,9 +83,10 @@ public class ListSpecificCars extends ActionBarActivity {
     }
 
     private void saveData(){
-        Log.d("List size", String.valueOf(selectedItems.size()));
-        //HttpAsyncNotif httpAsyncNotif = new HttpAsyncNotif(this);
-        //httpAsyncNotif.execute(Action.SAVE_REQUEST.toString());
+        if(selectedItems.size() == 0)
+            Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
+        else
+            new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
 
     // Maintain a dynamic JSONArray of the selected items via checkbox in CustomSpecificCar
