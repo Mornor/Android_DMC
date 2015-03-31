@@ -47,11 +47,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         //JsonParser parser = new JsonParser();
         //JSONArray result = parser.saveRequest(SAVE_REQUEST_URL, listSpecificCarsCaller.getSelectedItems());
         List<HashMap<String, String>> receivedList = listSpecificCarsCaller.getSelectedItems();
-        for(int i = 0 ; i < receivedList.size() ; i++){
-            Log.d("In list http owner ", receivedList.get(i).get("owner"));
-            Log.d("In list http brand ", receivedList.get(i).get("brand"));
-            Log.d("In list http model ", receivedList.get(i).get("model"));
-        }
+       
 
         return null;
     }

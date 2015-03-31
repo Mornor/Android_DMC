@@ -86,15 +86,14 @@ public class ListSpecificCars extends ActionBarActivity {
     private void saveData(){
         if(selectedItems.size() == 0)
             Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
-        for(int i = 0 ; i < selectedItems.size() ; i++){
+        /*for(int i = 0 ; i < selectedItems.size() ; i++){
             Log.d("List size ",  String.valueOf(selectedItems.size()));
             Log.d("List Owner ", selectedItems.get(i).get("owner"));
             Log.d("List Brand ", selectedItems.get(i).get("brand"));
             Log.d("List Model ", selectedItems.get(i).get("model"));
-        }
-
-        //else
-            //new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+        }*/
+        else
+            new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
 
     // Maintain a dynamic JSONArray of the selected items via checkbox in CustomSpecificCar
