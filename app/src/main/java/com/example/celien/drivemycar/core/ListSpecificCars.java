@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
@@ -104,8 +105,15 @@ public class ListSpecificCars extends ActionBarActivity {
 
         if(action)
             selectedItems.add(list);
-        else
-            selectedItems.remove(list);
+        else{
+            for(Iterator<HashMap<String, String>> iter = selectedItems.iterator() ; iter.hasNext();){
+                HashMap<String, String> temp = iter.next();
+                if(temp.equals(list))
+                    iter.remove();
+            }
+            Log.d("List removed", "ok");
+        }
+            //selectedItems.remove(list);
     }
 
 
