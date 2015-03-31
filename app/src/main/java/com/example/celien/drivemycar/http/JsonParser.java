@@ -126,16 +126,9 @@ public class JsonParser {
             HttpPost httpPost = new HttpPost(url);
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
-
                 temp.put("owner", listRequest.get(i).get("owner"));
-                Log.d("JsonParser ", listRequest.get(i).get("owner"));
-
                 temp.put("brand", listRequest.get(i).get("brand"));
-                Log.d("JsonParser ", listRequest.get(i).get("brand"));
-
                 temp.put("model", listRequest.get(i).get("model"));
-                Log.d("JsonParser ", listRequest.get(i).get("model"));
-
                 toSendToServer.put(temp);
             }
             StringEntity se = new StringEntity(toSendToServer.toString());
