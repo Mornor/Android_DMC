@@ -117,13 +117,16 @@ public class JsonParser {
     }
 
     /*** Called in ListSpecificCar.saveData()*/
-    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest) {
+    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername) {
         JSONArray toSendToServer = new JSONArray();
-        Log.d("JsonParser size", String.valueOf(listRequest.size()));
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
+            // Add the username before sending the JSON.
+            JSONObject usernameJson = new JSONObject();
+            usernameJson.put("username", currentUsername);
+            toSendToServer.put(usernameJson);
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
                 temp.put("owner", listRequest.get(i).get("owner"));
