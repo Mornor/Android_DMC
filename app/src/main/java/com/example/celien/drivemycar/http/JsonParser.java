@@ -165,6 +165,25 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
+    public JSONObject getNotifications(String username, String url){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", username));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+    }catch (ClientProtocolException e){
+        e.printStackTrace();
+    } catch (IOException e){
+        e.printStackTrace();
+    }
+        return createJsonObjectFromString(json);
+    }
+
     public static String createJsonStringFromInputStream(InputStream inputStream){
         try{
             BufferedReader reader = new BufferedReader(
