@@ -50,6 +50,7 @@ public class Login extends ActionBarActivity {
     // The current user (if this one exist)
     User user;
 
+    private static final long REFRESH_NOTIF_INTERVAL = 1 * 60 * 1000; // 1 minute
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class Login extends ActionBarActivity {
         downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), 1 * 60 * 1000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), REFRESH_NOTIF_INTERVAL, pendingIntent);
         Log.d("MyActivity", "Set alarmManager.setRepeating to: " + updateTime.getTime());
     }
 

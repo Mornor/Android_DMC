@@ -161,17 +161,18 @@ public class JsonParser {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-
         return createJsonArrayFromString(json);
     }
 
-    public JSONObject getNotifications(String username, String url){
+    public JSONArray getNotifications(String username, String url){
+        Log.d("Username sent : ", username);
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
@@ -181,7 +182,7 @@ public class JsonParser {
     } catch (IOException e){
         e.printStackTrace();
     }
-        return createJsonObjectFromString(json);
+        return createJsonArrayFromString(json);
     }
 
     public static String createJsonStringFromInputStream(InputStream inputStream){
@@ -204,7 +205,7 @@ public class JsonParser {
         try{
             jsonArray = new JSONArray(json);
         }catch (JSONException e){
-            e.printStackTrace();
+            Log.d("Create error ", e.toString());
         }
         return jsonArray;
     }
