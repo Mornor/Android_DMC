@@ -49,7 +49,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private ListPersonnalCars listPersonnalCarsCaller;
 
     private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
-    private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
     private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
     private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
