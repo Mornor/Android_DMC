@@ -10,6 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.celien.drivemycar.core.Login;
+import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +26,10 @@ public class Notification extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        // Query DB
+        HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
+        httpAsyncJson.execute(Action.GET_NOTIFS.toString());
 
         // Do not want to keep the service in memory is it is stopped
         stopSelf();
