@@ -26,7 +26,7 @@ public class Notification extends Service {
         alarmManager.set(
                 alarmManager.RTC_WAKEUP, // Wake up device when System.currentTimeMillis() == second arrgument value (?)
                 System.currentTimeMillis() + (1000 * 60 * INTERVAL_IN_MINUTE),
-                PendingIntent.getService(this, 0, new Intent(this, Notification.class), 0));
+                PendingIntent.getService(this, 0, new Intent(this, Notification.class), 0)); // Set the class we want to start when we click on the Notification. 
     }
 
     @Override

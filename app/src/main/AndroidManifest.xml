@@ -48,6 +48,8 @@
             android:name=".core.ListSpecificCars"
             android:label="@string/title_activity_list_specific_cars" >
         </activity>
+        <service android:name=".service.Notification"></service>
+
 
     </application>
 
