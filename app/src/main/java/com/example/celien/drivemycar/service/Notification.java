@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -18,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Notification extends Service {
+
+    private User user;
 
     // Notification related
     NotificationCompat.Builder notification;
@@ -27,11 +30,16 @@ public class Notification extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        // Retrieve the current User
+        User currentUser = (User)intent.getParcelableExtra("user");
+        if(currentUser != null)
+            this.user = currentUser;
+
         // Query DB
         HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
         httpAsyncJson.execute(Action.GET_NOTIFS.toString());
 
-        // Do not want to keep the service in memory is it is stopped
+        // Do not keep the service in memory is it is stopped
         stopSelf();
 
         // If service is killed for no reason, then do not restart it automatically.

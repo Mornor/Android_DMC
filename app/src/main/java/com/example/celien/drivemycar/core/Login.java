@@ -48,10 +48,6 @@ public class Login extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Launch the notification service
-        startService(new Intent(this, Notification.class));
-
         init();
         setListeners();
     }
@@ -146,7 +142,17 @@ public class Login extends ActionBarActivity {
         }
 
         user.setCars(cars);
+        launchNotificationService();
         launchIntentToHome();
+    }
+
+    // Launch the service only when the user is logged in and authenticated
+    private void launchNotificationService(){
+        Intent i = new Intent(this, Notification.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        startService(i);
     }
 
     private void launchIntentToHome(){
