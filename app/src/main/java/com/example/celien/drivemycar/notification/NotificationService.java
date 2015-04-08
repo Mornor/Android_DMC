@@ -14,7 +14,6 @@ import com.example.celien.drivemycar.http.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class NotificationService extends IntentService{
 
@@ -25,28 +24,41 @@ public class NotificationService extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d("NotificationService", "About to execute MyTask");
-        //new getNotifs().execute();
-        //this.sendNotification(this);
-
+        GetNotifs getNotifs = new GetNotifs(this);
+        getNotifs.execute();
     }
 
-    private void sendNotification(Context context){
+    private void sendNotification(JSONArray array){
+        Context context = this;
         Intent notificationIntent = new Intent(context, Login.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        //Notification notif = new Notification.Builder(context)
-        //        .setSmallIcon(android.R.drawable.star_on)
-        //        .setContentTitle("Hello")
-        //        .setWhen(System.currentTimeMillis())
-        //        .build();
-        Notification notif = new Notification(android.R.drawable.star_on, "Refresh", System.currentTimeMillis());
-        notif.flags |= Notification.FLAG_AUTO_CANCEL;
-        notif.setLatestEventInfo(context, "Title", "Content", contentIntent);
+        Notification notif = null;
+        try{
+            notif = new Notification.Builder(context)
+                    .setSmallIcon(android.R.drawable.star_on)
+                    .setContentTitle(array.getJSONObject(0).getString("user_target_id"))
+                    .setAutoCancel(true)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        //notif.flags |= Notification.FLAG_AUTO_CANCEL; // Notification is closed when clicked by the user.
+        //Notification notif = new Notification(android.R.drawable.star_on, "Refresh", System.currentTimeMillis());
+        //notif.setLatestEventInfo(context, "Title", "Content", contentIntent);
         notificationManager.notify(0, notif);
     }
 
-    private class getNotifs extends AsyncTask<String, Void, JSONArray>{
+    private class GetNotifs extends AsyncTask<String, Void, JSONArray>{
         private static final String GET_NOTIFS_URL = "http://cafca.ngrok.com/android/get_notifs";
+
+        private NotificationService notificationServiceCaller;
+
+        public GetNotifs(NotificationService caller){
+            this.notificationServiceCaller = caller;
+        }
 
         @Override
         protected JSONArray doInBackground(String... params) {
@@ -55,24 +67,13 @@ public class NotificationService extends IntentService{
 
         @Override
         protected void onPostExecute(JSONArray array) {
-            printResult(array);
+            if(notificationServiceCaller != null)
+                notificationServiceCaller.sendNotification(array);
         }
 
         private JSONArray loadNotifs(){
             JsonParser parser = new JsonParser();
             return parser.getNotifications("Justine", GET_NOTIFS_URL);
-        }
-
-        private void printResult(JSONArray array){
-            Log.d("***", "***");
-            try {
-                for (int i = 0; i < array.length(); i++) {
-                    Log.d("Result source ", array.getJSONObject(i).getString("userSource"));
-                    Log.d("Result message", array.getJSONObject(i).getString("message"));
-                }
-            }catch(JSONException e){
-             Log.e(e.getClass().getName(), "JSONException", e);
-            }
         }
     }
 }
