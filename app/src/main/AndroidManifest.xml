@@ -48,6 +48,13 @@
             android:name=".core.ListSpecificCars"
             android:label="@string/title_activity_list_specific_cars" >
         </activity>
+
+        <receiver android:name=".receiver.NotificationAutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
         <service android:name=".service.Notification"></service>
 
 

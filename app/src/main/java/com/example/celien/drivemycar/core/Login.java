@@ -19,6 +19,7 @@ import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -47,6 +48,10 @@ public class Login extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Launch the notification service
+        startService(new Intent(this, Notification.class));
+
         init();
         setListeners();
     }
