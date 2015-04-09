@@ -133,6 +133,8 @@ public class Login extends ActionBarActivity {
             e.printStackTrace();
         }
 
+        Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+
         HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiante the 2 instances.
         request.execute(Action.LOAD_CARS.toString(), login);
     }
@@ -161,18 +163,13 @@ public class Login extends ActionBarActivity {
         }
 
         user.setCars(cars);
-        Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT);
-       // launchNotificationService();
+        launchNotificationService();
         launchIntentToHome();
     }
 
     // Launch the service only when the user is logged in and authenticated
     private void launchNotificationService(){
         Intent i = new Intent(this, Notification.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("user", user);
-        i.putExtras(bundle);
         startService(i);
     }
 

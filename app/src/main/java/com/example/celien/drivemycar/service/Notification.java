@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -14,6 +15,7 @@ import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.receiver.NotificationAutoStart;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +23,7 @@ import org.json.JSONObject;
 
 public class Notification extends Service {
 
-    private User user;
+    private String username;
 
     // Notification related
     NotificationCompat.Builder notification;
@@ -31,14 +33,16 @@ public class Notification extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        // Retrieve the current User
-        User currentUser = (User)intent.getParcelableExtra("user");
-        if(currentUser != null)
-            this.user = currentUser;
+        // Retrieve the current username in SharedPref
+        String userInfo[] = Tools.getUsernamePassword(getSharedPreferences("userInfo", Context.MODE_PRIVATE));
 
-        // Query DB
-        HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
-        httpAsyncJson.execute(Action.GET_NOTIFS.toString(), user.getUsername());
+        // So, if there is a user who has already logged in before (and not logout)
+        if(!userInfo[0].equals("")){
+            username = userInfo[0];
+            Log.d("Username is", username);
+            HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
+            httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username);
+        }
 
         // Do not keep the service in memory if it is stopped
         stopSelf();

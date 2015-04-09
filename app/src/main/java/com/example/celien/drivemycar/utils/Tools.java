@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.utils;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class Tools {
 
