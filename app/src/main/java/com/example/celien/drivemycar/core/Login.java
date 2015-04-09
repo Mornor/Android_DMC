@@ -2,6 +2,7 @@ package com.example.celien.drivemycar.core;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
@@ -21,6 +23,7 @@ import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +56,15 @@ public class Login extends ActionBarActivity {
     }
 
     private void init(){
+
+        // If there is already something into the SharedPreferences, then authenticate directly.
+        String[] userInfo = Tools.getUsernamePassword(getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        if (!userInfo[0].equals("") && !userInfo[1].equals("") ){
+            login = userInfo[0];
+            password = userInfo[1];
+            onClickLogin();
+        }
+
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -76,12 +88,19 @@ public class Login extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
+        btnLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                login = etLogin.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                onClickLogin();
+            }
+        });
     }
 
-    public void onClickLogin(View v){
+    public void onClickLogin(){
         HttpAsync httpAsync = new HttpAsync(this);
-        login    = etLogin.getText().toString().trim();
-        password = etPassword.getText().toString().trim();
         httpAsync.execute(Action.AUTHENTICATE.toString());
      }
 
@@ -142,7 +161,9 @@ public class Login extends ActionBarActivity {
         }
 
         user.setCars(cars);
-        launchNotificationService();
+        Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT);
+       // launchNotificationService();
         launchIntentToHome();
     }
 
