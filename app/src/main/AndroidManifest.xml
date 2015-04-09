@@ -51,8 +51,9 @@
 
         <receiver android:name=".receiver.NotificationAutoStart">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
+                <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
+                <action android:name=".service.Notification"/>
+            </intent-filter> -->
         </receiver>
 
         <service android:name=".service.Notification"></service>

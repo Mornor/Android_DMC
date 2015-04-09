@@ -73,13 +73,13 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(params[0].equals(Action.LOAD_SPECIFIC_CARS.toString()))
             return getSpecificCars();
         if(params[0].equals(Action.GET_NOTIFS.toString()))
-            return getNotifs();
+            return getNotifs(params[1]);
         return null;
     }
 
-    private JSONArray getNotifs(){
+    private JSONArray getNotifs(String username){
         JsonParser parser = new JsonParser();
-        return parser.getNotifications("Justine", GET_NOTIFS_URL);
+        return parser.getNotifications(username, GET_NOTIFS_URL);
     }
 
     private JSONArray getBrands(){

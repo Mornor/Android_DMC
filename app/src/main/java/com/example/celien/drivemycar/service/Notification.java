@@ -12,6 +12,7 @@ import android.util.Log;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.receiver.NotificationAutoStart;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -25,7 +26,7 @@ public class Notification extends Service {
     // Notification related
     NotificationCompat.Builder notification;
     private static final int UNIQUE_ID = 45452;
-    private static int INTERVAL_IN_MINUTE = 15; // Change this value to change the interval of refreshment.
+    private static int INTERVAL_IN_MINUTE = 1; // Change this value to change the interval of refreshment.
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -37,9 +38,9 @@ public class Notification extends Service {
 
         // Query DB
         HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
-        httpAsyncJson.execute(Action.GET_NOTIFS.toString());
+        httpAsyncJson.execute(Action.GET_NOTIFS.toString(), user.getUsername());
 
-        // Do not keep the service in memory is it is stopped
+        // Do not keep the service in memory if it is stopped
         stopSelf();
 
         // If service is killed for no reason, then do not restart it automatically.
@@ -50,7 +51,7 @@ public class Notification extends Service {
     public void onDestroy() {
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmManager.set(
-                alarmManager.RTC_WAKEUP, // Wake up device when System.currentTimeMillis() == second arrgument value (?)
+                alarmManager.RTC_WAKEUP, // Wake up device when System.currentTimeMillis() == second argument value (?)
                 System.currentTimeMillis() + (1000 * 60 * INTERVAL_IN_MINUTE),
                 PendingIntent.getService(this, 0, new Intent(this, Notification.class), 0));
     }

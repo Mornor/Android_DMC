@@ -54,7 +54,6 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
             tvModel.setText(currentJson.getString("model"));
             tvOwnerEditable.setText(currentJson.getString("owner"));
             cbSelectedCar.setTag(position);
-            cbSelectedCar.setChecked(currentJson.getBoolean("checked"));
         } catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
