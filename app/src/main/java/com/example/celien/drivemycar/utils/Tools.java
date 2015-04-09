@@ -15,12 +15,20 @@ public class Tools {
 
     // Retrieve username and password from SharedPreferences
     public static String[] getUsernamePassword(SharedPreferences pref){
-        String usernameSaved = pref.getString("username", ""); // Return nothin ("") if usernam doe not exist.
+        String usernameSaved = pref.getString("username", ""); // Return nothing ("") if usernams does not exist.
         String passwordSaved = pref.getString("password", "");
         String usernamePwd[] = new String[2];
         usernamePwd[0] = usernameSaved;
         usernamePwd[1] = passwordSaved;
         return usernamePwd;
+    }
+
+    // Clear SharedPreferences (typically, clear username/pwd when logout)
+    public static void clearSharedPref(SharedPreferences pref){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username", "");
+        editor.putString("password", "");
+        editor.apply();
     }
 
     public static boolean isInteger(String str){
