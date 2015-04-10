@@ -13,6 +13,7 @@ public enum Action {
     GET_BRAND("getBrand"),
     LOAD_SPECIFIC_CARS("loadSpecificCars"),
     SAVE_REQUEST("saveRequest"),
+    GET_NOTIFS("getNotifications"),
     LOAD_CARS("loadCars");
 
     private final String name;

@@ -1,8 +1,6 @@
 package com.example.celien.drivemycar.core;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,30 +8,29 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.notification.StartServiceReceiver;
+import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 
 public class Login extends ActionBarActivity {
@@ -50,31 +47,24 @@ public class Login extends ActionBarActivity {
     // The current user (if this one exist)
     User user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
-        setReccuringAlarm(this);
         setListeners();
     }
 
-    // Basically, set the intervall of time on which the app has to connect to the server to check if notifications are availbale.
-    private void setReccuringAlarm(Context context){
-        Calendar updateTime = Calendar.getInstance();
-        updateTime.setTimeZone(TimeZone.getDefault());
-        updateTime.set(Calendar.HOUR_OF_DAY, 12);
-        updateTime.set(Calendar.MINUTE, 30);
-        Intent downloader = new Intent(context, StartServiceReceiver.class);
-        downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        Log.d("MyActivity", "Set alarmManager.setRepeating to: " + updateTime.getTime().toLocaleString());
-    }
-
     private void init(){
+
+        // If there is already something into the SharedPreferences, then authenticate directly.
+        String[] userInfo = Tools.getUsernamePassword(getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        if (!userInfo[0].equals("") && !userInfo[1].equals("") ){
+            login = userInfo[0];
+            password = userInfo[1];
+            onClickLogin();
+        }
+
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -98,12 +88,19 @@ public class Login extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
+        btnLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                login = etLogin.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                onClickLogin();
+            }
+        });
     }
 
-    public void onClickLogin(View v){
+    public void onClickLogin(){
         HttpAsync httpAsync = new HttpAsync(this);
-        login    = etLogin.getText().toString().trim();
-        password = etPassword.getText().toString().trim();
         httpAsync.execute(Action.AUTHENTICATE.toString());
      }
 
@@ -136,6 +133,8 @@ public class Login extends ActionBarActivity {
             e.printStackTrace();
         }
 
+        Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+
         HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiante the 2 instances.
         request.execute(Action.LOAD_CARS.toString(), login);
     }
@@ -164,7 +163,14 @@ public class Login extends ActionBarActivity {
         }
 
         user.setCars(cars);
+        launchNotificationService();
         launchIntentToHome();
+    }
+
+    // Launch the service only when the user is logged in and authenticated
+    private void launchNotificationService(){
+        Intent i = new Intent(this, Notification.class);
+        startService(i);
     }
 
     private void launchIntentToHome(){

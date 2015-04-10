@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -25,12 +26,18 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private Register registerCaller;
     private TabSearchCar tabSearchCarCaller;
     private ListSpecificCars listSpecificCarsCaller;
+    private Notification notificationCaller;
 
     private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
     private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
     private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
     private static final String LOAD_SPECIFIC_CARS_URL  = "http://cafca.ngrok.com/android/get_specific_cars";
+    private static final String GET_NOTIFS_URL          = "http://cafca.ngrok.com/android/get_notifs";
+
+    public HttpAsyncJson(Notification caller){
+        this.notificationCaller = caller;
+    }
 
     public HttpAsyncJson(Login loginCaller){
         this.loginCaller = loginCaller;
@@ -65,7 +72,14 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             return getBrands();
         if(params[0].equals(Action.LOAD_SPECIFIC_CARS.toString()))
             return getSpecificCars();
+        if(params[0].equals(Action.GET_NOTIFS.toString()))
+            return getNotifs(params[1]);
         return null;
+    }
+
+    private JSONArray getNotifs(String username){
+        JsonParser parser = new JsonParser();
+        return parser.getNotifications(username, GET_NOTIFS_URL);
     }
 
     private JSONArray getBrands(){
@@ -134,6 +148,9 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(listSpecificCarsCaller != null){
             listSpecificCarsCaller.onPostExecuteSearchRequestedCars(jsonArray);
             listSpecificCarsCaller.getProgressDialog().dismiss();
+        }
+        if(notificationCaller != null){
+            notificationCaller.onPostExecuteLoadNotif(jsonArray);
         }
     }
 

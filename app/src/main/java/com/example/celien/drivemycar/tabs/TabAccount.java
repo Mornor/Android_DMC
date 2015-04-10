@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.tabs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,9 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.ListPersonnalCars;
+import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Tools;
 
 public class TabAccount extends Fragment {
 
@@ -59,7 +62,7 @@ public class TabAccount extends Fragment {
         tvLogout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Logout", Toast.LENGTH_SHORT).show();
+                logout();
             }
         });
 
@@ -76,6 +79,14 @@ public class TabAccount extends Fragment {
                 launchIntentToCarSettings();
             }
         });
+    }
+
+    // Logout the user (clear SharedPref) and go to Login activity.
+    private void logout(){
+        Tools.clearSharedPref(this.getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        Intent i = new Intent(this.getActivity(), Login.class);
+        startActivity(i);
+        getActivity().finish();
     }
 
     // Lauch the correct intent depends of the users hava cars or not.
