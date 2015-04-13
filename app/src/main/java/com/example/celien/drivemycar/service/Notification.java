@@ -14,6 +14,7 @@ import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.receiver.NotificationAutoStart;
+import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Tools;
 
@@ -39,7 +40,6 @@ public class Notification extends Service {
         // So, if there is a user who has already logged in before (and not logout)
         if(!userInfo[0].equals("")){
             username = userInfo[0];
-            Log.d("Username is", username);
             HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
             httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username);
         }
@@ -80,8 +80,8 @@ public class Notification extends Service {
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
 
-            // When clicked, go back to Login Activity
-            Intent i = new Intent(this, Login.class);
+            // When clicked, go to NotificationUser Activity
+            Intent i = new Intent(this, NotificationUser.class);
             PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
             notification.setContentIntent(pi);
 

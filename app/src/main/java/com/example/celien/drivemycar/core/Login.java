@@ -135,7 +135,7 @@ public class Login extends ActionBarActivity {
 
         Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
 
-        HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiante the 2 instances.
+        HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiate the 2 instances.
         request.execute(Action.LOAD_CARS.toString(), login);
     }
 

@@ -107,6 +107,7 @@
     <string name="title_modify_car">Modify car</string>
     <string name="title_activity_tab_search_car">TabSearchCar</string>
     <string name="action_delete_car">Delete</string>
+    <string name="title_activity_NotificationUser">Notification User</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

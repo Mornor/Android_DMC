@@ -33,7 +33,7 @@ public class Home extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Get the User (Object) from Login page or AddCar page and send it to TabAccount tab.
+        // Get the User (Object)
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
