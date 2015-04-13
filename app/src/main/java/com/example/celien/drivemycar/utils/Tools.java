@@ -32,6 +32,19 @@ public class Tools {
         editor.apply();
     }
 
+    // Write all notificication related stuff
+    public static void saveNotificationData(SharedPreferences sharedPreferences, String userSource, String userTarget, String brand, String model, String fromDate, String toDate){
+        SharedPreferences sharePref = sharedPreferences;
+        SharedPreferences.Editor editor = sharePref.edit();
+        editor.putString("userSource", userSource);
+        editor.putString("userTarget", userTarget);
+        editor.putString("brand", brand);
+        editor.putString("model", model);
+        editor.putString("fromDate", fromDate);
+        editor.putString("toDate", toDate);
+        editor.apply();
+    }
+
     public static boolean isInteger(String str){
         if (str == null) {
             return false;
