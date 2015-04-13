@@ -97,6 +97,7 @@ public class NotificationUser extends Activity{
         Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
+        bundle.putString("tabToOpen", "3"); // Open the TabOperations
         i.putExtras(bundle);
         finish();
         startActivity(i);
