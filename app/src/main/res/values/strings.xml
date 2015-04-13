@@ -101,6 +101,11 @@
     <string name="tvEstimatedPrice">Est. price</string>
     <string name="tvEstimatedPriceEditable">Price</string>
 
+    <!--- fragment_tab_operations -->
+    <string name="tvRequestFrom">Request from</string>
+    <string name="tvUserSource">Name</string>
+    <string name="tvCanIUse">Can I use your</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
