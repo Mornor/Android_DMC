@@ -3,6 +3,8 @@ package com.example.celien.drivemycar.utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.HashMap;
+
 public class Tools {
 
     // Save username and password in SharedPreferences
@@ -43,6 +45,17 @@ public class Tools {
         editor.putString("fromDate", fromDate);
         editor.putString("toDate", toDate);
         editor.apply();
+    }
+
+    public static HashMap<String, String> getNotificationData(SharedPreferences pref){
+        HashMap<String, String> notificationData = new HashMap<>();
+        notificationData.put("userSource", pref.getString("userSource", ""));
+        notificationData.put("userTarget", pref.getString("userTarget", ""));
+        notificationData.put("brand", pref.getString("brand", ""));
+        notificationData.put("model", pref.getString("model", ""));
+        notificationData.put("fromDate", pref.getString("fromDate", ""));
+        notificationData.put("toDate", pref.getString("toDate", ""));
+        return notificationData;
     }
 
     public static boolean isInteger(String str){
