@@ -84,7 +84,8 @@
         android:layout_alignTop="@+id/tvFrom"
         android:layout_toEndOf="@+id/tvFrom"
         android:layout_toRightOf="@+id/tvFrom"
-        android:layout_alignLeft="@+id/tvUserSource" />
+        android:layout_alignLeft="@+id/tvUserSource"
+        android:layout_marginLeft="30dp" />
 
     <TextView
         android:id="@+id/tvTimeFrom"
