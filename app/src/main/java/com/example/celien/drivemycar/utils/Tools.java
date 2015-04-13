@@ -26,7 +26,7 @@ public class Tools {
         return usernamePwd;
     }
 
-    // Clear SharedPreferences (typically, clear username/pwd when logout)
+    // Clear SharedPreferences
     public static void clearSharedPref(SharedPreferences pref){
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("username", "");
