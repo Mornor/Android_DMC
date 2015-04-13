@@ -65,6 +65,17 @@
         android:layout_marginTop="10dp" />
 
     <TextView
+        android:id="@+id/tvDateFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvDate"
+        android:layout_alignTop="@id/tvFrom"
+        android:layout_toEndOf="@+id/tvFrom"
+        android:layout_toRightOf="@+id/tvFrom"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
         android:id="@+id/tvAtFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,6 +85,17 @@
         android:layout_toEndOf="@+id/tvFrom"
         android:layout_toRightOf="@+id/tvFrom"
         android:layout_alignLeft="@+id/tvUserSource" />
+
+    <TextView
+        android:id="@+id/tvTimeFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvHour"
+        android:layout_toEndOf="@+id/tvAtFrom"
+        android:layout_alignTop="@+id/tvAtFrom"
+        android:layout_toRightOf="@+id/tvAtFrom"
+        android:layout_marginLeft="20dp" />
 
     <TextView
         android:id="@+id/tvTo"
@@ -86,14 +108,35 @@
         android:layout_marginTop="10dp" />
 
     <TextView
+        android:id="@+id/tvDateTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvDate"
+        android:layout_alignTop="@id/tvTo"
+        android:layout_toRightOf="@+id/tvTo"
+        android:layout_alignLeft="@+id/tvDateFrom"
+        android:layout_toEndOf="@+id/tvTo" />
+
+    <TextView
         android:id="@id/tvAtTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/tvAt"
         android:layout_alignTop="@+id/tvTo"
-        android:layout_alignLeft="@+id/tvAtFrom"
-        />
+        android:layout_alignLeft="@+id/tvAtFrom" />
+
+    <TextView
+        android:id="@+id/tvTimeTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvHour"
+        android:layout_toEndOf="@+id/tvAtTo"
+        android:layout_alignLeft="@+id/tvTimeFrom"
+        android:layout_toRightOf="@+id/tvAtTo"
+        android:layout_alignTop="@id/tvAtTo"/>
 
 </RelativeLayout>
 

@@ -10,13 +10,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.utils.Tools;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 public class TabOperations extends Fragment {
+
+    private TextView tvUserSource;
+    private TextView tvBrand;
+    private TextView tvModel;
+    private TextView tvFromDate;
+    private TextView tvFromTime;
+    private TextView tvToDate;
+    private TextView tvToTime;
 
     @Nullable
     @Override
