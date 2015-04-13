@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,7 +131,7 @@ public class Login extends ActionBarActivity {
                 user.setPhoneNumber(object.getString("phone_number"));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));

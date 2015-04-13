@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
 import com.example.celien.drivemycar.utils.Action;
@@ -22,11 +23,13 @@ import org.json.JSONObject;
 public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private Login loginCaller;
-    private boolean choice; // If choice is true, then the instance of Login caller is used to retrieve the car.
+    private boolean choiceCarFromLogin; // If choice is true, then the instance of Login caller is used to retrieve the car.
+    private boolean choiceCarFromNotificationUser;
     private Register registerCaller;
     private TabSearchCar tabSearchCarCaller;
     private ListSpecificCars listSpecificCarsCaller;
     private Notification notificationCaller;
+    private NotificationUser notificationUserCaller;
 
     private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
     private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
@@ -45,7 +48,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     public HttpAsyncJson(Login loginCaller, boolean choice){
         this.loginCaller = loginCaller;
-        this.choice = choice;
+        this.choiceCarFromLogin = choice;
     }
 
     public HttpAsyncJson(TabSearchCar caller){
@@ -58,6 +61,28 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     public HttpAsyncJson(Register caller){
         this.registerCaller = caller;
+    }
+
+    public HttpAsyncJson(NotificationUser caller){
+            this.notificationUserCaller = caller;
+    }
+
+    public HttpAsyncJson(NotificationUser caller, boolean choice){
+        this.notificationUserCaller = caller;
+        this.choiceCarFromNotificationUser = choice;
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+        if(registerCaller != null)
+            registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
+        if(tabSearchCarCaller != null)
+            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
+        if(listSpecificCarsCaller != null)
+            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
+        //if(notificationUserCaller != null)
+            //notificationUserCaller.setProgressDialog(ProgressDialog.show(notificationCaller, "Please wait...", "Fetching data ..."));
     }
 
     @Override
@@ -123,7 +148,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         if(loginCaller != null){
-            if(choice) {  // If choice, then return the Car JSONArray. (final stuff to return when log in)
+            if(choiceCarFromLogin) {  // If choice, then return the Car JSONArray. (final stuff to return when log in)
                 loginCaller.getProgressDialog().dismiss();
                 loginCaller.onPostExecuteLoadCars(jsonArray);
             }
@@ -152,17 +177,16 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(notificationCaller != null){
             notificationCaller.onPostExecuteLoadNotif(jsonArray);
         }
+        if(notificationUserCaller != null){
+            if(choiceCarFromNotificationUser){
+               // notificationUserCaller.getProgressDialog().dismiss();
+                notificationUserCaller.onPostExecuteLoadCars(jsonArray);
+            }
+            else
+                notificationUserCaller.onPostExecuteLoadUser(jsonArray);
+        }
     }
 
-    @Override
-    protected void onPreExecute() {
-        if(registerCaller != null)
-            registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
-        if(tabSearchCarCaller != null)
-            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
-        if(listSpecificCarsCaller != null)
-            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
-    }
 
     @Override
     protected void onProgressUpdate(Void... values) {
