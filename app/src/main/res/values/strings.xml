@@ -106,7 +106,7 @@
     <string name="tvUserSource">Name</string>
     <string name="tvCanIUse">Can I use your</string>
     <string name="btnValidate">For sure</string>
-    <string name="btnCancel">Not this time</string>
+    <string name="btnCancel">Sorry</string>
 
     <!-- General String-->
     <string name="menuExit">Exit</string>

@@ -145,20 +145,21 @@
         android:layout_height="wrap_content"
         android:text="@string/btnValidate"
         android:layout_marginTop="30dp"
-        android:width="130dp"
-        android:layout_below="@+id/tvDateTo"
-        android:layout_toLeftOf="@id/tvAtTo"
-        android:layout_toStartOf="@id/tvAtTo" />
+        android:width="150dp"
+        android:layout_below="@+id/tvTo"
+        android:layout_marginLeft="10dp" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnCancel"
-        android:width="130dp"
+        android:width="150dp"
         android:layout_alignTop="@+id/btnValidate"
-        android:layout_alignLeft="@+id/tvModel"
-        android:layout_alignStart="@+id/tvModel" />
+        android:layout_toEndOf="@+id/btnValidate"
+        android:layout_toRightOf="@+id/btnValidate"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="30dp" />
 
 </RelativeLayout>
 
