@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.utils.Tools;
@@ -29,6 +31,9 @@ public class TabOperations extends Fragment {
     private TextView tvFromTime;
     private TextView tvToDate;
     private TextView tvToTime;
+    private Button btnValidate;
+    private Button btnCancel;
+
 
     private HashMap<String, String> notificationData;
 
@@ -41,8 +46,11 @@ public class TabOperations extends Fragment {
         this.notificationData = Tools.getNotificationData(getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
         if(notificationData.get("userSource").equals(""))
             Log.e(getClass().getName(), "There is nothing in SharedPref.notifInfo");
-        else
+        else{
             init(rootView);
+            setListeners();
+        }
+
         return rootView;
     }
 
@@ -56,6 +64,8 @@ public class TabOperations extends Fragment {
         tvFromTime   = (TextView)v.findViewById(R.id.tvTimeFrom);
         tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
         tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
+        btnValidate  = (Button)v.findViewById(R.id.btnValidate);
+        btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
         // Init their values
         tvUserSource.setText(notificationData.get("userSource"));
@@ -65,6 +75,29 @@ public class TabOperations extends Fragment {
         tvFromTime.setText(notificationData.get("fromDate").substring(10, notificationData.get("fromDate").length() - 5)+ " h");
         tvToDate.setText(notificationData.get("toDate").substring(0, 9));
         tvToTime.setText(notificationData.get("toDate").substring(10, notificationData.get("toDate").length() - 5)+ " h");
+    }
 
+    private void setListeners(){
+        btnValidate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onClickValidate(v);
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onClickCancel(v);
+            }
+        });
+    }
+
+    public void onClickValidate(View v){
+        Toast.makeText(getActivity(), "Validate", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClickCancel(View v){
+        Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
     }
 }
