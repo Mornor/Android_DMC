@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.core;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -89,6 +90,20 @@ public class ListSpecificCars extends ActionBarActivity {
         else
             new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
+
+    public void onPostExecuteSendRequest(JSONArray array){
+        launchIntentToHome();
+    }
+
+    private void launchIntentToHome(){
+        Intent i = new Intent(this, Home.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        finish();
+        startActivity(i);
+    }
+
 
     // Maintain a dynamic JSONArray of the selected items via checkbox in CustomSpecificCar
     // If boolean is true, add to list
