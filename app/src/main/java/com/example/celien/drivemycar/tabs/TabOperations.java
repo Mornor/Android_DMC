@@ -30,19 +30,23 @@ public class TabOperations extends Fragment {
     private TextView tvToDate;
     private TextView tvToTime;
 
+    private HashMap<String, String> notificationData;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
-        init(rootView);
+
+        // Get the notification data from SharedPref and test is there is indeed something.
+        this.notificationData = Tools.getNotificationData(getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
+        if(notificationData.get("userSource").equals(""))
+            Log.e(getClass().getName(), "There is nothing in SharedPref.notifInfo");
+        else
+            init(rootView);
         return rootView;
     }
 
     private void init(View v){
-        // Get the notification data from SharedPref and test is there is indeed something.
-        HashMap<String, String> notificationData = Tools.getNotificationData(getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
-        if(notificationData.get("userSource").equals(""))
-            Log.e(getClass().getName(), "There is nothing in SharedPref.notifInfo");
 
         // Get the elements on the layout
         tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);

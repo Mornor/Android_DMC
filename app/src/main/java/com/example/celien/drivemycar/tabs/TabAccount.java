@@ -83,7 +83,8 @@ public class TabAccount extends Fragment {
 
     // Logout the user (clear SharedPref) and go to Login activity.
     private void logout(){
-        Tools.clearSharedPref(this.getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        Tools.clearSharedPrefUserLoginData(this.getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE));
+        Tools.clearSharedPrefUserData(this.getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
         Intent i = new Intent(this.getActivity(), Login.class);
         startActivity(i);
         getActivity().finish();

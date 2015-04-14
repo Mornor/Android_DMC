@@ -27,7 +27,7 @@ public class Tools {
     }
 
     // Clear SharedPreferences
-    public static void clearSharedPref(SharedPreferences pref){
+    public static void clearSharedPrefUserLoginData(SharedPreferences pref){
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("username", "");
         editor.putString("password", "");
@@ -56,6 +56,17 @@ public class Tools {
         notificationData.put("fromDate", pref.getString("fromDate", ""));
         notificationData.put("toDate", pref.getString("toDate", ""));
         return notificationData;
+    }
+
+    public static void clearSharedPrefUserData(SharedPreferences pref){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("userSource", "");
+        editor.putString("userTarget", "");
+        editor.putString("brand", "");
+        editor.putString("model", "");
+        editor.putString("fromDate", "");
+        editor.putString("toDate", "");
+        editor.apply();
     }
 
     public static boolean isInteger(String str){
