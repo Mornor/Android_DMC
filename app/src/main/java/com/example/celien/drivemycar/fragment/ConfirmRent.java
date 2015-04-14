@@ -1,7 +1,9 @@
 package com.example.celien.drivemycar.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app. Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.utils.Action;
 
 public class ConfirmRent extends DialogFragment{
 
@@ -65,6 +69,13 @@ public class ConfirmRent extends DialogFragment{
     }
 
     private void sendOdometerValue(){
-        Toast.makeText(this.getActivity(), "Confirm has been pressed", Toast.LENGTH_SHORT).show();
+        String tagRcvd = getTag();
+        Intent i = new Intent();
+        Bundle bdl = new Bundle();
+        bdl.putString("tag", tagRcvd);
+        bdl.putDouble("mileage", Double.valueOf(etMileage.getText().toString()));
+        i.putExtras(bdl);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+        dismiss();
     }
 }

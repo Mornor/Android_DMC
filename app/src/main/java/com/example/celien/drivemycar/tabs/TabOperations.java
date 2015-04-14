@@ -35,8 +35,9 @@ public class TabOperations extends Fragment {
     private Button btnValidate;
     private Button btnCancel;
 
-
     private HashMap<String, String> notificationData;
+
+    public static final int ID_FRAGMENT = 1244; // Random
 
     @Nullable
     @Override
@@ -96,10 +97,26 @@ public class TabOperations extends Fragment {
 
     public void onClickValidate(View v){
         ConfirmRent confirmRent = new ConfirmRent();
-        confirmRent.show(getFragmentManager().beginTransaction(), "sdf");
+        confirmRent.setTargetFragment(this, ID_FRAGMENT);
+        confirmRent.show(getFragmentManager(), "validate");
     }
 
     public void onClickCancel(View v){
         Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onActivityResult(int reqCode, int resCode, Intent data){
+        switch (reqCode){
+            case ID_FRAGMENT :
+                if(resCode == Activity.RESULT_OK){
+                    // Retrieve data from DatePicker
+                    Bundle bdl  = data.getExtras();
+                    double mileage = bdl.getDouble("mileage");
+                    Toast.makeText(this.getActivity(), "Mileage received = " +mileage, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.example.celien.drivemycar.core.ListPersonnalCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -47,6 +48,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private AddCar addCarCaller;
     private ModifyCar modifyCarCaller;
     private ListPersonnalCars listPersonnalCarsCaller;
+    private ConfirmRent confirmRentCaller;
 
     private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
     private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
@@ -78,6 +80,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     public HttpAsync(ListPersonnalCars caller){
         this.listPersonnalCarsCaller = caller;
+    }
+
+    public HttpAsync(ConfirmRent caller){
+        this.confirmRentCaller = caller;
     }
 
     @Override
