@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.utils.Tools;
 
 import org.w3c.dom.Text;
@@ -94,7 +95,8 @@ public class TabOperations extends Fragment {
     }
 
     public void onClickValidate(View v){
-        Toast.makeText(getActivity(), "Validate", Toast.LENGTH_SHORT).show();
+        ConfirmRent confirmRent = new ConfirmRent();
+        confirmRent.show(getFragmentManager().beginTransaction(), "sdf");
     }
 
     public void onClickCancel(View v){

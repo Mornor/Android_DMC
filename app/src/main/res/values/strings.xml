@@ -108,6 +108,9 @@
     <string name="btnValidate">For sure</string>
     <string name="btnCancel">Sorry</string>
 
+    <string name="tvSetOdometer">Set Odomoter (Kms)</string>
+    <string name="btnOk">OK</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
