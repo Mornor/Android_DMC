@@ -109,7 +109,7 @@ public class TabOperations extends Fragment {
         switch (reqCode){
             case ID_FRAGMENT :
                 if(resCode == Activity.RESULT_OK){
-                    // Retrieve data from DatePicker
+                    // Retrieve data from fragment.ConfirmRent
                     Bundle bdl  = data.getExtras();
                     double mileage = bdl.getDouble("mileage");
                     Toast.makeText(this.getActivity(), "Mileage received = " +mileage, Toast.LENGTH_SHORT).show();
