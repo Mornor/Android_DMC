@@ -28,7 +28,6 @@ public class Notification extends Service {
 
     // Notification related
     NotificationCompat.Builder notification;
-    NotificationCompat.InboxStyle inboxStyle;
     private static final int UNIQUE_ID = 45452;
     private static int INTERVAL_IN_MINUTE = 1; // Change this value to change the interval of refreshment.
 
@@ -65,47 +64,14 @@ public class Notification extends Service {
     public void onPostExecuteLoadNotif(JSONArray array){
         // If array.length == 0, then there is no notifications to display
         if(array.length() != 0){
-            // Create the notification
-            notification = new NotificationCompat.Builder(this);
-            notification.setAutoCancel(true);
 
-            // Build the notification
-            notification.setSmallIcon(android.R.drawable.star_on);
-            notification.setWhen(System.currentTimeMillis());
-            notification.setTicker("New DriveMyCar request");
-            try{
-                JSONObject temp = array.getJSONObject(0);
-                notification.setContentTitle("Request from "+temp.getString("userSource"));
-                inboxStyle = new NotificationCompat.InboxStyle();
-                inboxStyle.addLine("Can I use your " +temp.getString("brand")+ " " +temp.getString("model"));
-                inboxStyle.addLine("From " +temp.getString("dateFrom").substring(0, 9) + " at " +temp.getString("dateFrom").substring(10, temp.getString("dateFrom").length() - 5)+ " h");
-                inboxStyle.addLine("To " +temp.getString("dateTo").substring(0, 9) + " at " +temp.getString("dateTo").substring(10, temp.getString("dateTo").length() - 5)+ " h ?");
-
-                // Write notif data into SharedPreferences file
-                Tools.saveNotificationData(getSharedPreferences("notifInfo", Context.MODE_PRIVATE),
-                        temp.getString("userSource"),
-                        username,
-                        temp.getString("brand"),
-                        temp.getString("model"),
-                        temp.getString("dateFrom"),
-                        temp.getString("dateTo"),
-                        temp.getString("id_transaction") );
-
-            } catch(JSONException e){
-                Log.e(e.getClass().getName(), "JSONException", e);
-            }
-
-            notification.setStyle(inboxStyle);
-
-            // When clicked, go to NotificationUser Activity
-            Intent i = new Intent(this, NotificationUser.class);
-            PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
-            notification.setContentIntent(pi);
+            // Create the right notification by using the dispatcher
+            NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
+            notification = dispatcher.createRightNotification(array);
 
             // Issue notification
             NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
             nm.notify(UNIQUE_ID, notification.build());
-
         }
     }
 

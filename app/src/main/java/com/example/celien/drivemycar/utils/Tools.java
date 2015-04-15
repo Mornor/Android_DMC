@@ -3,6 +3,10 @@ package com.example.celien.drivemycar.utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class Tools {
@@ -35,16 +39,21 @@ public class Tools {
     }
 
     // Write all notificication related stuff
-    public static void saveNotificationData(SharedPreferences sharedPreferences, String userSource, String userTarget, String brand, String model, String fromDate, String toDate, String idTransaction){
+    public static void saveNotificationData(SharedPreferences sharedPreferences, JSONArray array, String username){
         SharedPreferences sharePref = sharedPreferences;
         SharedPreferences.Editor editor = sharePref.edit();
-        editor.putString("userSource", userSource);
-        editor.putString("userTarget", userTarget);
-        editor.putString("brand", brand);
-        editor.putString("model", model);
-        editor.putString("fromDate", fromDate);
-        editor.putString("toDate", toDate);
-        editor.putString("id_transaction", idTransaction);
+        try{
+            JSONObject temp = array.getJSONObject(0);
+            editor.putString("userSource", temp.getString("userSource"));
+            editor.putString("userTarget", username);
+            editor.putString("brand", temp.getString("brand"));
+            editor.putString("model", temp.getString("model"));
+            editor.putString("fromDate", temp.getString("dateFrom"));
+            editor.putString("toDate", temp.getString("dateTo"));
+            editor.putString("id_transaction", temp.getString("id_transaction"));
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
         editor.apply();
     }
 

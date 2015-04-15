@@ -41,7 +41,7 @@ public class TabOperations extends Fragment {
     private Button btnCancel;
 
     private User user;
-    private HashMap<String, String> notificationData;
+    private HashMap<String, String> transactionData;
     private ProgressDialog progressDialog;
 
     public static final int ID_FRAGMENT = 1244; // Random
@@ -52,8 +52,8 @@ public class TabOperations extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
 
         // Get the notification data from SharedPref and test is there is indeed something.
-        this.notificationData = Tools.getNotificationData(getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
-        if(notificationData.get("userSource").equals(""))
+        this.transactionData = Tools.getNotificationData(getActivity().getSharedPreferences("transactionData", Context.MODE_PRIVATE));
+        if(transactionData.get("userSource").equals(""))
             Log.e(getClass().getName(), "There is nothing in SharedPref.notifInfo");
         else{
             init(rootView);
@@ -81,13 +81,13 @@ public class TabOperations extends Fragment {
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
         // Init their values
-        tvUserSource.setText(notificationData.get("userSource"));
-        tvBrand.setText(notificationData.get("brand"));
-        tvModel.setText(notificationData.get("model"));
-        tvFromDate.setText(notificationData.get("fromDate").substring(0, 9));
-        tvFromTime.setText(notificationData.get("fromDate").substring(10, notificationData.get("fromDate").length() - 5)+ " h");
-        tvToDate.setText(notificationData.get("toDate").substring(0, 9));
-        tvToTime.setText(notificationData.get("toDate").substring(10, notificationData.get("toDate").length() - 5)+ " h");
+        tvUserSource.setText(transactionData.get("userSource"));
+        tvBrand.setText(transactionData.get("brand"));
+        tvModel.setText(transactionData.get("model"));
+        tvFromDate.setText(transactionData.get("fromDate").substring(0, 9));
+        tvFromTime.setText(transactionData.get("fromDate").substring(10, transactionData.get("fromDate").length() - 5)+ " h");
+        tvToDate.setText(transactionData.get("toDate").substring(0, 9));
+        tvToTime.setText(transactionData.get("toDate").substring(10, transactionData.get("toDate").length() - 5)+ " h");
     }
 
     private void setListeners(){
@@ -132,7 +132,7 @@ public class TabOperations extends Fragment {
     }
 
     private void sendConfirmRequest(double mileage){
-        new HttpAsync(this).execute(Action.CONFIRM_RENT.toString(), String.valueOf(mileage), notificationData.get("id_transaction"));
+        new HttpAsync(this).execute(Action.CONFIRM_RENT.toString(), String.valueOf(mileage), transactionData.get("id_transaction"));
     }
 
     public void onPostExecuteConfirmRent(int responseStatus){
