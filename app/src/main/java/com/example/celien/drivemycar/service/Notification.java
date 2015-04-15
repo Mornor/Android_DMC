@@ -88,7 +88,8 @@ public class Notification extends Service {
                         temp.getString("brand"),
                         temp.getString("model"),
                         temp.getString("dateFrom"),
-                        temp.getString("dateTo") );
+                        temp.getString("dateTo"),
+                        temp.getString("id_transaction") );
 
             } catch(JSONException e){
                 Log.e(e.getClass().getName(), "JSONException", e);

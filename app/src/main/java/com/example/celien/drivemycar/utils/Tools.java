@@ -35,7 +35,7 @@ public class Tools {
     }
 
     // Write all notificication related stuff
-    public static void saveNotificationData(SharedPreferences sharedPreferences, String userSource, String userTarget, String brand, String model, String fromDate, String toDate){
+    public static void saveNotificationData(SharedPreferences sharedPreferences, String userSource, String userTarget, String brand, String model, String fromDate, String toDate, String idTransaction){
         SharedPreferences sharePref = sharedPreferences;
         SharedPreferences.Editor editor = sharePref.edit();
         editor.putString("userSource", userSource);
@@ -44,6 +44,7 @@ public class Tools {
         editor.putString("model", model);
         editor.putString("fromDate", fromDate);
         editor.putString("toDate", toDate);
+        editor.putString("id_transaction", idTransaction);
         editor.apply();
     }
 
@@ -55,6 +56,7 @@ public class Tools {
         notificationData.put("model", pref.getString("model", ""));
         notificationData.put("fromDate", pref.getString("fromDate", ""));
         notificationData.put("toDate", pref.getString("toDate", ""));
+        notificationData.put("id_transaction", pref.getString("id_transaction", ""));
         return notificationData;
     }
 
@@ -66,6 +68,7 @@ public class Tools {
         editor.putString("model", "");
         editor.putString("fromDate", "");
         editor.putString("toDate", "");
+        editor.putString("id_transaction", "");
         editor.apply();
     }
 

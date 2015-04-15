@@ -13,6 +13,7 @@ import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.apache.http.HttpEntity;
@@ -48,14 +49,14 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private AddCar addCarCaller;
     private ModifyCar modifyCarCaller;
     private ListPersonnalCars listPersonnalCarsCaller;
-    private ConfirmRent confirmRentCaller;
+    private TabOperations tabOperationsCaller;
 
     private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
-    private final static String RETRIEVE_DATA_URL    = "http://chat.ngrok.com/android_messages";
     private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
     private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
     private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
     private final static String DELETE_CAR_URL       = "http://cafca.ngrok.com/android/delete_car";
+    private final static String CONFIRM_RENT_URL     = "http://cafca.ngrok.com/android/confirm_rent";
 
     // Default constructor
     public HttpAsync(){}
@@ -82,8 +83,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.listPersonnalCarsCaller = caller;
     }
 
-    public HttpAsync(ConfirmRent caller){
-        this.confirmRentCaller = caller;
+    public HttpAsync(TabOperations caller){
+        this.tabOperationsCaller = caller;
     }
 
     @Override
@@ -99,6 +100,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             modifyCarCaller.setModifyCar(ProgressDialog.show(modifyCarCaller, "Please wait ...", "Modifying car..."));
         if(listPersonnalCarsCaller != null)
             listPersonnalCarsCaller.setProgressDialog(ProgressDialog.show(listPersonnalCarsCaller, "Please wait ...", "Deleting car..."));
+        if(tabOperationsCaller != null)
+            tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Confirm rent..."));
     }
 
     /**
@@ -117,7 +120,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return modifyCar();
         else if(params[0].equals(Action.DELETE_CAR.toString()))
             return deleteCar();
-        return null;
+        else if(params[0].equals(Action.CONFIRM_RENT.toString()))
+            return confirmRent(params[1], params[2]); // [1] = Mileage at start (Str), [2] = id_transaction
+        else
+            return null;
     }
 
     @Override
@@ -144,7 +150,28 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             listPersonnalCarsCaller.getProgressDialog().dismiss();
             listPersonnalCarsCaller.onPostExecuteDeleteCar(object);
         }
+        if(tabOperationsCaller != null){
+            tabOperationsCaller.getProgressDialog().dismiss();
+            tabOperationsCaller.onPostExecuteConfirmRent((int) object);
+        }
 
+    }
+
+    private int confirmRent(String mileage, String idTransaction){
+        int success = -1;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(CONFIRM_RENT_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            list.add(new BasicNameValuePair("mileage", mileage));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
     }
 
     private int deleteCar(){

@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.tabs;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
+import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Tools;
 
 import org.w3c.dom.Text;
@@ -35,7 +40,9 @@ public class TabOperations extends Fragment {
     private Button btnValidate;
     private Button btnCancel;
 
+    private User user;
     private HashMap<String, String> notificationData;
+    private ProgressDialog progressDialog;
 
     public static final int ID_FRAGMENT = 1244; // Random
 
@@ -57,6 +64,10 @@ public class TabOperations extends Fragment {
     }
 
     private void init(View v){
+
+        // Get the current user
+        Home homeActivity = (Home)getActivity();
+        user = homeActivity.getUser();
 
         // Get the elements on the layout
         tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);
@@ -112,11 +123,28 @@ public class TabOperations extends Fragment {
                     // Retrieve data from fragment.ConfirmRent
                     Bundle bdl  = data.getExtras();
                     double mileage = bdl.getDouble("mileage");
-                    Toast.makeText(this.getActivity(), "Mileage received = " +mileage, Toast.LENGTH_SHORT).show();
+                    sendConfirmRequest(mileage);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void sendConfirmRequest(double mileage){
+        new HttpAsync(this).execute(Action.CONFIRM_RENT.toString(), String.valueOf(mileage), notificationData.get("id_transaction"));
+    }
+
+    public void onPostExecuteConfirmRent(int responseStatus){
+        Log.d("Response from server ", String.valueOf(responseStatus));
+    }
+
+    /*Getters and Setter*/
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
     }
 }
