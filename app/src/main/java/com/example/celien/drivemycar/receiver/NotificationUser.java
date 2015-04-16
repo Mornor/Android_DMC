@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/*** This class create a User when the notification has been clicked and launch an Intent
+/*** This class re-create a User when the notification has been clicked (by sent request to DB and getting back the answer)and launch an Intent
  * to Home activity. **/
 public class NotificationUser extends Activity{
 
@@ -90,10 +90,10 @@ public class NotificationUser extends Activity{
         }
 
         user.setCars(cars);
-        launchIntentToHome();
+        launchIntentToTransactionTab();
     }
 
-    private void launchIntentToHome(){
+    private void launchIntentToTransactionTab(){
         Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);

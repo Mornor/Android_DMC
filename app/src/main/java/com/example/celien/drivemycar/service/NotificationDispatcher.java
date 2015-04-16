@@ -63,9 +63,10 @@ public class NotificationDispatcher {
             JSONObject temp = array.getJSONObject(0);
             notification.setContentTitle(temp.getString("userSource")+ " confirmed your request" );
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine("Of course, you can rent my " +temp.getString("brand")+ " " +temp.getString("model"));
+            inboxStyle.addLine("Of course, you can rent my");
+            inboxStyle.addLine(temp.getString("brand")+ " " +temp.getString("model"));
             inboxStyle.addLine("From " +temp.getString("dateFrom").substring(0, 9) + " at " +temp.getString("dateFrom").substring(10, temp.getString("dateFrom").length() - 5)+ " h");
-            inboxStyle.addLine("To " +temp.getString("dateTo").substring(0, 9) + " at " +temp.getString("dateTo").substring(10, temp.getString("dateTo").length() - 5)+ " h ?");
+            inboxStyle.addLine("To " +temp.getString("dateTo").substring(0, 9) + " at " +temp.getString("dateTo").substring(10, temp.getString("dateTo").length() - 5));
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
