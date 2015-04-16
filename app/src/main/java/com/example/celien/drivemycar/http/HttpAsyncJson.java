@@ -11,6 +11,7 @@ import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,13 +31,6 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     private ListSpecificCars listSpecificCarsCaller;
     private Notification notificationCaller;
     private NotificationUser notificationUserCaller;
-
-    private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
-    private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
-    private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
-    private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
-    private static final String LOAD_SPECIFIC_CARS_URL  = "http://cafca.ngrok.com/android/get_specific_cars";
-    private static final String GET_NOTIFS_URL          = "http://cafca.ngrok.com/android/get_notifs";
 
     public HttpAsyncJson(Notification caller){
         this.notificationCaller = caller;
@@ -104,37 +98,37 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private JSONArray getNotifs(String username){
         JsonParser parser = new JsonParser();
-        return parser.getNotifications(username, GET_NOTIFS_URL);
+        return parser.getNotifications(username, Constants.GET_NOTIFS_URL);
     }
 
     private JSONArray getBrands(){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makeGetHttpRequest(LOAD_ALL_CARS_BRAND);
+        JSONArray result = parser.makeGetHttpRequest(Constants.LOAD_ALL_CARS_BRAND);
         return result;
     }
 
     private JSONArray checkUsernameUnique(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(CHECK_USER_UNIQUE_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.CHECK_USER_UNIQUE_URL, username);
         return result;
     }
 
     private JSONArray loadCars(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_CARS_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_CARS_URL, username);
         return result;
     }
 
     private JSONArray loadUser(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_USER_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_USER_URL, username);
         return result;
     }
 
 
     private JSONArray getSpecificCars(){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS_URL, "car",
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_SPECIFIC_CARS_URL, "car",
                 listSpecificCarsCaller.getBrand(),
                 listSpecificCarsCaller.getEnergy(),
                 listSpecificCarsCaller.getMaxCons(),

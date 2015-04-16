@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
 
 import org.json.JSONArray;
 
@@ -16,8 +17,6 @@ import java.util.List;
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
-
-    private static final String SAVE_REQUEST_URL = "http://cafca.ngrok.com/android/set_request";
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
@@ -52,7 +51,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         // 0 -> "owner":"celien", "brand":"bmw", "model":"335i"
         JsonParser parser = new JsonParser();
         JSONArray result = parser.saveRequest(
-                SAVE_REQUEST_URL,
+                Constants.SAVE_REQUEST_URL,
                 listSpecificCarsCaller.getSelectedItems(),
                 listSpecificCarsCaller.getUser().getUsername(),
                 listSpecificCarsCaller.getDateFrom().toString(),
