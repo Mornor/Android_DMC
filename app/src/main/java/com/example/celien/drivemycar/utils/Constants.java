@@ -3,9 +3,9 @@ package com.example.celien.drivemycar.utils;
 
 public class Constants {
 
-    private final static String ngrokTunnel = ".ngrok.com";
+    private final static String ngrokTunnel = ".ngrok.io";
     private final static String localTunnel = ".localtunnel.me";
-    private final static String tunnelToUse = localTunnel;
+    private final static String tunnelToUse = ngrokTunnel;
 
     /*Url to use to access to Play! server*/
     public final static String SAVE_USER_URL            = "https://cafca"+tunnelToUse+"/register";
@@ -14,6 +14,7 @@ public class Constants {
     public final static String MODIFY_CAR_URL           = "https://cafca"+tunnelToUse+"/android/modify_car";
     public final static String DELETE_CAR_URL           = "https://cafca"+tunnelToUse+"/android/delete_car";
     public final static String CONFIRM_RENT_URL         = "https://cafca"+tunnelToUse+"/android/confirm_rent";
+    public static final String REFFUTE_RENT_URL         = "https://cafca"+tunnelToUse+"/android/refute_rent";
     public static final String LOAD_USER_URL            = "https://cafca"+tunnelToUse+"/android/get_user";
     public static final String LOAD_CARS_URL            = "https://cafca"+tunnelToUse+"/android/get_cars";
     public static final String CHECK_USER_UNIQUE_URL    = "https://cafca"+tunnelToUse+"/android/username_unique";

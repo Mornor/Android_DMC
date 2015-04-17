@@ -38,6 +38,8 @@ public class NotificationDispatcher {
                     return createNotificationAskForACar(array);
                 case NotificationTypeConstants.OWNER_CONFIRMED_RENT:
                     return createNotificationOwnerConfirmed(array);
+                case NotificationTypeConstants.OWNER_REFUTED_RENT:
+                    return createNotificationOwnerRefuted(array);
             }
 
         }catch (JSONException e){
@@ -112,6 +114,27 @@ public class NotificationDispatcher {
         notification.setContentIntent(pi);
 
         Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), array, currentUsername);
+
+        return notification;
+    }
+
+    private NotificationCompat.Builder createNotificationOwnerRefuted(JSONArray array){
+        // Create the notification
+        notification = new NotificationCompat.Builder(notifCaller);
+        notification.setAutoCancel(true);
+
+        // Build the notification
+        notification.setSmallIcon(android.R.drawable.star_on);
+        notification.setWhen(System.currentTimeMillis());
+        notification.setTicker("New DriveMyCar request");
+        try{
+            JSONObject temp = array.getJSONObject(0);
+           Log.d("Message is ", temp.getString("message"));
+        } catch(JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        notification.setStyle(inboxStyle);
 
         return notification;
     }

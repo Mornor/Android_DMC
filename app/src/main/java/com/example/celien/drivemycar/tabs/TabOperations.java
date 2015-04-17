@@ -113,7 +113,7 @@ public class TabOperations extends Fragment {
     }
 
     public void onClickCancel(View v){
-        Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
+        new HttpAsync(this).execute(Action.REFUTE_RENT.toString(), transactionData.get("id_transaction"));
     }
 
     public void onActivityResult(int reqCode, int resCode, Intent data){

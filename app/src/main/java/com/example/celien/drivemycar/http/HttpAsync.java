@@ -116,6 +116,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return deleteCar();
         else if(params[0].equals(Action.CONFIRM_RENT.toString()))
             return confirmRent(params[1], params[2]); // [1] = Mileage at start (Str), [2] = id_transaction
+        else if(params[0].equals(Action.REFUTE_RENT.toString()))
+            return refuteRent(params[1]);
         else
             return null;
     }
@@ -149,6 +151,22 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             tabOperationsCaller.onPostExecuteConfirmRent((int) object);
         }
 
+    }
+
+    private int refuteRent(String idTransaction){
+        int success = -1;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.REFFUTE_RENT_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
     }
 
     private int confirmRent(String mileage, String idTransaction){
