@@ -129,12 +129,17 @@ public class NotificationDispatcher {
         notification.setTicker("New DriveMyCar request");
         try{
             JSONObject temp = array.getJSONObject(0);
-           Log.d("Message is ", temp.getString("message"));
+            Log.d("Mesage received is ", temp.getString("message"));
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         notification.setStyle(inboxStyle);
+
+        // When click on notification, do absolutely nothing.
+        Intent i = new Intent();
+        PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
+        notification.setContentIntent(pi);
 
         return notification;
     }
