@@ -3,6 +3,8 @@ package com.example.celien.drivemycar.utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.celien.drivemycar.core.AddCar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +80,10 @@ public class Tools {
         editor.putString("toDate", "");
         editor.putString("id_transaction", "");
         editor.apply();
+    }
+
+    public static void killEveryActivity(){
+
     }
 
     public static boolean isInteger(String str){

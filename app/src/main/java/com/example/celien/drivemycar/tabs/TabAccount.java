@@ -85,9 +85,10 @@ public class TabAccount extends Fragment {
     private void logout(){
         Tools.clearSharedPrefUserLoginData(this.getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE));
         Tools.clearSharedPrefUserData(this.getActivity().getSharedPreferences("notifInfo", Context.MODE_PRIVATE));
-        Intent i = new Intent(this.getActivity(), Login.class);
-        startActivity(i);
         getActivity().finish();
+        Intent i = new Intent(this.getActivity(), Login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
     // Lauch the correct intent depends of the users hava cars or not.
