@@ -10,24 +10,17 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
-import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.receiver.NotificationAutoStart;
-import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Notification extends Service {
 
     private String username;
 
-    // Notification related
-    NotificationCompat.Builder notification;
     private static final int UNIQUE_ID = 45452;
     private static int INTERVAL_IN_MINUTE = 1; // Change this value to change the interval of refreshment.
 
@@ -65,13 +58,25 @@ public class Notification extends Service {
         // If array.length == 0, then there is no notifications to display
         if(array.length() != 0){
 
-            // Create the right notification by using the dispatcher
-            NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
-            notification = dispatcher.createRightNotification(array);
+            try{
+                // Get all the notifications in DB and display them
+                for(int i = 0 ; i < array.length() ; i++){
 
-            // Issue notification
-            NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            nm.notify(UNIQUE_ID, notification.build());
+                    // Notification related
+                    NotificationCompat.Builder notification;
+
+                    // Create the right notification by using the dispatcher
+                    NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
+                    notification = dispatcher.createRightNotification(array.getJSONObject(i));
+
+                    // Issue notification
+                    NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(UNIQUE_ID + i, notification.build());
+                }
+            }catch (JSONException e){
+                Log.e(e.getClass().getName(), "JSONException", e);
+            }
+
         }
     }
 

@@ -30,16 +30,15 @@ public class NotificationDispatcher {
     }
 
     // In any case, array.getJsonObject(0).getString("type"), will be the notification type.
-    public NotificationCompat.Builder createRightNotification(JSONArray array){
+    public NotificationCompat.Builder createRightNotification(JSONObject object){
         try{
-            JSONObject temp = array.getJSONObject(0);
-            switch (temp.getString("notificationType")){
+            switch (object.getString("notificationType")){
                 case NotificationTypeConstants.LENDER_ASK_FOR_CAR:
-                    return createNotificationAskForACar(array);
+                    return createNotificationAskForACar(object);
                 case NotificationTypeConstants.OWNER_CONFIRMED_RENT:
-                    return createNotificationOwnerConfirmed(array);
+                    return createNotificationOwnerConfirmed(object);
                 case NotificationTypeConstants.OWNER_REFUTED_RENT:
-                    return createNotificationOwnerRefuted(array);
+                    return createNotificationOwnerRefuted(object);
             }
 
         }catch (JSONException e){
@@ -50,7 +49,7 @@ public class NotificationDispatcher {
         return null;
     }
 
-    private NotificationCompat.Builder createNotificationOwnerConfirmed(JSONArray array){
+    private NotificationCompat.Builder createNotificationOwnerConfirmed(JSONObject notif){
 
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
@@ -62,20 +61,20 @@ public class NotificationDispatcher {
         notification.setTicker("New DriveMyCar request");
 
         try{
-            JSONObject temp = array.getJSONObject(0);
-            notification.setContentTitle(temp.getString("userSource")+ " confirmed your request" );
+            notification.setContentTitle(notif.getString("userSource")+ " confirmed your request" );
             inboxStyle = new NotificationCompat.InboxStyle();
             inboxStyle.addLine("Of course, you can rent my");
-            inboxStyle.addLine(temp.getString("brand")+ " " +temp.getString("model"));
-            inboxStyle.addLine("From " +temp.getString("dateFrom").substring(0, 9) + " at " +temp.getString("dateFrom").substring(10, temp.getString("dateFrom").length() - 5)+ " h");
-            inboxStyle.addLine("To " +temp.getString("dateTo").substring(0, 9) + " at " +temp.getString("dateTo").substring(10, temp.getString("dateTo").length() - 5));
-        }catch(JSONException e){
+            inboxStyle.addLine(notif.getString("brand")+ " " +notif.getString("model"));
+            inboxStyle.addLine("From " +notif.getString("dateFrom").substring(0, 9) + " at " +notif.getString("dateFrom").substring(10, notif.getString("dateFrom").length() - 5)+ " h");
+            inboxStyle.addLine("To " +notif.getString("dateTo").substring(0, 9) + " at " +notif.getString("dateTo").substring(10, notif.getString("dateTo").length() - 5));
+
+        }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         notification.setStyle(inboxStyle);
 
-        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), array, currentUsername);
+        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
 
         // When clicked, go to NotificationUser Activity
         Intent i = new Intent(notifCaller, Home.class);
@@ -85,7 +84,7 @@ public class NotificationDispatcher {
         return notification;
     }
 
-    private NotificationCompat.Builder createNotificationAskForACar(JSONArray array){
+    private NotificationCompat.Builder createNotificationAskForACar(JSONObject notif){
 
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
@@ -96,12 +95,11 @@ public class NotificationDispatcher {
         notification.setWhen(System.currentTimeMillis());
         notification.setTicker("New DriveMyCar request");
         try{
-            JSONObject temp = array.getJSONObject(0);
-            notification.setContentTitle("Request from "+temp.getString("userSource"));
+            notification.setContentTitle("Request from "+notif.getString("userSource"));
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine("Can I use your " +temp.getString("brand")+ " " +temp.getString("model"));
-            inboxStyle.addLine("From " +temp.getString("dateFrom").substring(0, 9) + " at " +temp.getString("dateFrom").substring(10, temp.getString("dateFrom").length() - 5)+ " h");
-            inboxStyle.addLine("To " +temp.getString("dateTo").substring(0, 9) + " at " +temp.getString("dateTo").substring(10, temp.getString("dateTo").length() - 5)+ " h ?");
+            inboxStyle.addLine("Can I use your " +notif.getString("brand")+ " " +notif.getString("model"));
+            inboxStyle.addLine("From " +notif.getString("dateFrom").substring(0, 9) + " at " +notif.getString("dateFrom").substring(10, notif.getString("dateFrom").length() - 5)+ " h");
+            inboxStyle.addLine("To " +notif.getString("dateTo").substring(0, 9) + " at " +notif.getString("dateTo").substring(10, notif.getString("dateTo").length() - 5)+ " h ?");
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
@@ -113,12 +111,12 @@ public class NotificationDispatcher {
         PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
         notification.setContentIntent(pi);
 
-        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), array, currentUsername);
+        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
 
         return notification;
     }
 
-    private NotificationCompat.Builder createNotificationOwnerRefuted(JSONArray array){
+    private NotificationCompat.Builder createNotificationOwnerRefuted(JSONObject notif){
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
         notification.setAutoCancel(true);
@@ -128,8 +126,10 @@ public class NotificationDispatcher {
         notification.setWhen(System.currentTimeMillis());
         notification.setTicker("New DriveMyCar request");
         try{
-            JSONObject temp = array.getJSONObject(0);
-            Log.d("Mesage received is ", temp.getString("message"));
+            notification.setContentTitle("Request from "+notif.getString("userSource"));
+            inboxStyle = new NotificationCompat.InboxStyle();
+            inboxStyle.addLine("Sorry "+currentUsername+", but I can't rent you my");
+            inboxStyle.addLine(notif.get("brand")+ " " +notif.getString("model")+ " this time.");
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

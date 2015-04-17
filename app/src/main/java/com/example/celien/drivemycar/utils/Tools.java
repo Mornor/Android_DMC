@@ -39,18 +39,17 @@ public class Tools {
     }
 
     // Write all notificication related stuff
-    public static void saveNotificationData(SharedPreferences sharedPreferences, JSONArray array, String username){
+    public static void saveNotificationData(SharedPreferences sharedPreferences, JSONObject notif, String username){
         SharedPreferences sharePref = sharedPreferences;
         SharedPreferences.Editor editor = sharePref.edit();
-        try{
-            JSONObject temp = array.getJSONObject(0);
-            editor.putString("userSource", temp.getString("userSource"));
+        try{;
+            editor.putString("userSource", notif.getString("userSource"));
             editor.putString("userTarget", username);
-            editor.putString("brand", temp.getString("brand"));
-            editor.putString("model", temp.getString("model"));
-            editor.putString("fromDate", temp.getString("dateFrom"));
-            editor.putString("toDate", temp.getString("dateTo"));
-            editor.putString("id_transaction", temp.getString("id_transaction"));
+            editor.putString("brand", notif.getString("brand"));
+            editor.putString("model", notif.getString("model"));
+            editor.putString("fromDate", notif.getString("dateFrom"));
+            editor.putString("toDate", notif.getString("dateTo"));
+            editor.putString("id_transaction", notif.getString("id_transaction"));
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
