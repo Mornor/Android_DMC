@@ -44,7 +44,7 @@ public class Tools {
     public static void saveNotificationData(SharedPreferences sharedPreferences, JSONObject notif, String username){
         SharedPreferences sharePref = sharedPreferences;
         SharedPreferences.Editor editor = sharePref.edit();
-        try{;
+        try{
             editor.putString("userSource", notif.getString("userSource"));
             editor.putString("userTarget", username);
             editor.putString("brand", notif.getString("brand"));

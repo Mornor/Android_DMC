@@ -71,12 +71,11 @@ public class Notification extends Service {
 
                     // Issue notification
                     NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                    nm.notify(UNIQUE_ID + i, notification.build());
+                    nm.notify(UNIQUE_ID + i, notification.build()); // Id has to be unique.
                 }
             }catch (JSONException e){
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
-
         }
     }
 
