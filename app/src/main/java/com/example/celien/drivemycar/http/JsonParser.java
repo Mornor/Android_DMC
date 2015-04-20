@@ -138,7 +138,6 @@ public class JsonParser {
             toSendToServer.put(dateToJson);
 
             // Add the choice of exchange or not
-            Log.d("IsExcchaneg : ", String.valueOf(isExchange));
             JSONObject isExchangeJson = new JSONObject();
             isExchangeJson.put("isExchange", isExchange);
             toSendToServer.put(isExchangeJson);
