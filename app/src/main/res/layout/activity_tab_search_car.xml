@@ -254,6 +254,26 @@
             android:layout_alignBottom="@+id/tvAtTo"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
+        <TextView
+            android:id="@+id/tvExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvExchange"
+            android:layout_below="@+id/tvPickDateTo"
+            android:layout_alignLeft="@id/tvFrom"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="20dp" />
+
+        <Switch
+            android:id="@+id/sExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tvExchange"
+            android:layout_toRightOf="@+id/tvExchange"
+            android:layout_alignBottom="@id/tvExchange"
+            android:layout_alignLeft="@+id/tvChooseTimeTo" />
+
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
@@ -261,7 +281,8 @@
             android:text="@string/btnSearch"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/tvChooseTimeTo" />
+            android:layout_below="@id/tvExchange" />
+
 
     </RelativeLayout>
 
