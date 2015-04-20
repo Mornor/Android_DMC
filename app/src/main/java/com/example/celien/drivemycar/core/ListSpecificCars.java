@@ -48,6 +48,7 @@ public class ListSpecificCars extends ActionBarActivity {
     private String timeFrom;
     private String dateTo;
     private String timeTo;
+    private boolean isExchange;
     private Button btnSendRequest;
 
     // Variables sent to the server in order to retrieve the cars which fits the choice of the user (from TabSearchCar).
@@ -141,8 +142,11 @@ public class ListSpecificCars extends ActionBarActivity {
             this.dateFrom   = getIntent().getStringExtra("dateFrom");
             this.timeFrom   = getIntent().getStringExtra("timeFrom");
             this.dateTo     = getIntent().getStringExtra("dateTo");
+            this.isExchange = getIntent().getBooleanExtra("isExchange", false);
             this.timeTo     = getIntent().getStringExtra("timeTo");
         }
+
+        Log.d("Boolean is : ", String.valueOf(this.isExchange));
 
         btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);
     }

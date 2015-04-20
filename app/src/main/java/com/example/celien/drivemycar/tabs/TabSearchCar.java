@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class TabSearchCar extends Fragment {
     private TextView dateTo;
     private TextView timeTo;
     private TextView tvMileage;
+    private Switch sExchange;
     private Button btnSearch;
 
     // Usefull Progress Dialog
@@ -105,6 +107,7 @@ public class TabSearchCar extends Fragment {
         timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
         timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
+        sExchange       = (Switch)v.findViewById(R.id.sExchange);
         btnSearch       = (Button)v.findViewById(R.id.btnSearch);
 
         // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
@@ -139,6 +142,8 @@ public class TabSearchCar extends Fragment {
             i.putExtra("nbSits", "");
         else if(!nbSits.equals(getResources().getString(R.string.hChoose)))
             i.putExtra("nbSits", nbSits);
+
+        i.putExtra("isExchange", sExchange.isChecked());
 
         i.putExtra("energy", energy);
         i.putExtra("dateFrom", dateFromStr);
