@@ -11,9 +11,6 @@ import com.example.celien.drivemycar.utils.Constants;
 
 import org.json.JSONArray;
 
-import java.util.HashMap;
-import java.util.List;
-
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
@@ -55,7 +52,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getSelectedItems(),
                 listSpecificCarsCaller.getUser().getUsername(),
                 listSpecificCarsCaller.getDateFrom().toString(),
-                listSpecificCarsCaller.getDateTo().toString());
+                listSpecificCarsCaller.getDateTo().toString(),
+                listSpecificCarsCaller.isExchange());
         return null;
     }
 }

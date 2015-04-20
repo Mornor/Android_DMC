@@ -117,7 +117,7 @@ public class JsonParser {
     }
 
     /*** Called in ListSpecificCar.saveData()*/
-    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo) {
+    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
         JSONArray toSendToServer = new JSONArray();
         try{
             HttpContext httpContext = new BasicHttpContext();
@@ -136,6 +136,12 @@ public class JsonParser {
             JSONObject dateToJson = new JSONObject();
             dateToJson.put("dateTo", dateTo);
             toSendToServer.put(dateToJson);
+
+            // Add the choice of exchange or not
+            Log.d("IsExcchaneg : ", String.valueOf(isExchange));
+            JSONObject isExchangeJson = new JSONObject();
+            isExchangeJson.put("isExchange", isExchange);
+            toSendToServer.put(isExchangeJson);
 
             // Add every choosen possibilities
             for(int i = 0 ; i < listRequest.size() ; i++){

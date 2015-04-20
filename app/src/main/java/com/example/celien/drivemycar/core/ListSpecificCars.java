@@ -146,8 +146,6 @@ public class ListSpecificCars extends ActionBarActivity {
             this.timeTo     = getIntent().getStringExtra("timeTo");
         }
 
-        Log.d("Boolean is : ", String.valueOf(this.isExchange));
-
         btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);
     }
 
@@ -246,17 +244,21 @@ public class ListSpecificCars extends ActionBarActivity {
         return brand;
     }
 
-    // Return a Timestamp made by concatinating DateFrom and TimeFrom
+    // Return a Timestamp made by concatenating DateFrom and TimeFrom
     public Timestamp getDateFrom() {
        return createTimestampFromString(dateFrom, timeFrom);
     }
 
-    // Return a Timestamp made by concatinating DateTo and TimeTo
+    // Return a Timestamp made by concatenating DateTo and TimeTo
     public Timestamp getDateTo() {
         return createTimestampFromString(dateTo, timeTo);
     }
 
     public List<HashMap<String, String>> getSelectedItems() {
         return selectedItems;
+    }
+
+    public boolean isExchange() {
+        return isExchange;
     }
 }
