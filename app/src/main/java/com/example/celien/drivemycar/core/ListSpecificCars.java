@@ -20,7 +20,6 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomSpecificCar;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
-import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -34,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /*** Class used to display and do some actions on cars which fit the request made by the user in TabSearchCar */
