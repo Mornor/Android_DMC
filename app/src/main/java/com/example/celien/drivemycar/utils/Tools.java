@@ -3,6 +3,14 @@ package com.example.celien.drivemycar.utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.celien.drivemycar.core.AddCar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class Tools {
 
     // Save username and password in SharedPreferences
@@ -24,12 +32,58 @@ public class Tools {
         return usernamePwd;
     }
 
-    // Clear SharedPreferences (typically, clear username/pwd when logout)
-    public static void clearSharedPref(SharedPreferences pref){
+    // Clear SharedPreferences
+    public static void clearSharedPrefUserLoginData(SharedPreferences pref){
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("username", "");
         editor.putString("password", "");
         editor.apply();
+    }
+
+    // Write all notificication related stuff
+    public static void saveNotificationData(SharedPreferences sharedPreferences, JSONObject notif, String username){
+        SharedPreferences sharePref = sharedPreferences;
+        SharedPreferences.Editor editor = sharePref.edit();
+        try{
+            editor.putString("userSource", notif.getString("userSource"));
+            editor.putString("userTarget", username);
+            editor.putString("brand", notif.getString("brand"));
+            editor.putString("model", notif.getString("model"));
+            editor.putString("fromDate", notif.getString("dateFrom"));
+            editor.putString("toDate", notif.getString("dateTo"));
+            editor.putString("id_transaction", notif.getString("id_transaction"));
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+        editor.apply();
+    }
+
+    public static HashMap<String, String> getNotificationData(SharedPreferences pref){
+        HashMap<String, String> notificationData = new HashMap<>();
+        notificationData.put("userSource", pref.getString("userSource", ""));
+        notificationData.put("userTarget", pref.getString("userTarget", ""));
+        notificationData.put("brand", pref.getString("brand", ""));
+        notificationData.put("model", pref.getString("model", ""));
+        notificationData.put("fromDate", pref.getString("fromDate", ""));
+        notificationData.put("toDate", pref.getString("toDate", ""));
+        notificationData.put("id_transaction", pref.getString("id_transaction", ""));
+        return notificationData;
+    }
+
+    public static void clearSharedPrefUserData(SharedPreferences pref){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("userSource", "");
+        editor.putString("userTarget", "");
+        editor.putString("brand", "");
+        editor.putString("model", "");
+        editor.putString("fromDate", "");
+        editor.putString("toDate", "");
+        editor.putString("id_transaction", "");
+        editor.apply();
+    }
+
+    public static void killEveryActivity(){
+
     }
 
     public static boolean isInteger(String str){

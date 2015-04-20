@@ -27,16 +27,26 @@ public class Home extends ActionBarActivity {
     private CharSequence titles[];
     private int nbTabs;
     private User user;
+    private int tabTopOpen; // Come from NotificationUser
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        tabTopOpen = -1;
 
-        // Get the User (Object) from Login page or AddCar page and send it to TabAccount tab.
+        // Get the User (Object)
         User currentUser = (User)getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
+
+        // Get the tab to open if there is one
+        Bundle data = getIntent().getExtras();
+        if(data != null){
+            String tab = data.getString("tabToOpen");
+            if(tab != null)
+                tabTopOpen = Integer.valueOf(tab);
+        }
 
         init();
     }
@@ -51,6 +61,11 @@ public class Home extends ActionBarActivity {
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
         pager = (ViewPager)findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
+
+        // Go to right tab
+        if(tabTopOpen != -1)
+            pager.setCurrentItem(tabTopOpen);
+
         tabs = (SlidingTabLayout)findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {

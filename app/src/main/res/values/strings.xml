@@ -101,12 +101,25 @@
     <string name="tvEstimatedPrice">Est. price</string>
     <string name="tvEstimatedPriceEditable">Price</string>
 
+    <!--- fragment_tab_operations -->
+    <string name="tvRequestFrom">Request from</string>
+    <string name="tvUserSource">Name</string>
+    <string name="tvCanIUse">Can I use your</string>
+    <string name="btnValidate">For sure</string>
+    <string name="btnCancel">Sorry</string>
+
+    <string name="tvSetOdometer">Set Odomoter (Kms)</string>
+    <string name="btnOk">OK</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>
     <string name="title_modify_car">Modify car</string>
     <string name="title_activity_tab_search_car">TabSearchCar</string>
     <string name="action_delete_car">Delete</string>
+    <string name="title_activity_NotificationUser">Notification User</string>
+    <string name="tvDate">Date</string>
+    <string name="tvHour">Time</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -1,11 +1,13 @@
 package com.example.celien.drivemycar.http;
 
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
 
 import org.json.JSONArray;
 
@@ -16,9 +18,6 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
 
-
-    private static final String SAVE_REQUEST_URL = "http://cafca.ngrok.com/android/set_request";
-
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
     }
@@ -26,6 +25,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        if(listSpecificCarsCaller != null)
+            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait...", "Send request..." ));
     }
 
     @Override
@@ -39,6 +40,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         super.onPostExecute(jsonArray);
+        if(listSpecificCarsCaller != null) {
+            listSpecificCarsCaller.getProgressDialog().dismiss();
+            listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
+        }
     }
 
     private JSONArray saveRequest(){
@@ -46,7 +51,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         // 0 -> "owner":"celien", "brand":"bmw", "model":"335i"
         JsonParser parser = new JsonParser();
         JSONArray result = parser.saveRequest(
-                SAVE_REQUEST_URL,
+                Constants.SAVE_REQUEST_URL,
                 listSpecificCarsCaller.getSelectedItems(),
                 listSpecificCarsCaller.getUser().getUsername(),
                 listSpecificCarsCaller.getDateFrom().toString(),

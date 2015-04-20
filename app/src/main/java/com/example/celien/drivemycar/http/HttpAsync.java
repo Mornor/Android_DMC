@@ -10,9 +10,12 @@ import com.example.celien.drivemycar.core.ListPersonnalCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -48,11 +51,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
     private ModifyCar modifyCarCaller;
     private ListPersonnalCars listPersonnalCarsCaller;
 
-    private final static String SAVE_USER_URL        = "http://cafca.ngrok.com/register";
-    private final static String AUTHENTICATE_URL     = "http://cafca.ngrok.com/android/login";
-    private final static String SAVE_CAR_URL         = "http://cafca.ngrok.com/android/save_car";
-    private final static String MODIFY_CAR_URL       = "http://cafca.ngrok.com/android/modify_car";
-    private final static String DELETE_CAR_URL       = "http://cafca.ngrok.com/android/delete_car";
+    private TabOperations tabOperationsCaller;
+
 
     // Default constructor
     public HttpAsync(){}
@@ -79,6 +79,10 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.listPersonnalCarsCaller = caller;
     }
 
+    public HttpAsync(TabOperations caller){
+        this.tabOperationsCaller = caller;
+    }
+
     @Override
     protected void onPreExecute() {
         // Get the current caller class
@@ -92,6 +96,8 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             modifyCarCaller.setModifyCar(ProgressDialog.show(modifyCarCaller, "Please wait ...", "Modifying car..."));
         if(listPersonnalCarsCaller != null)
             listPersonnalCarsCaller.setProgressDialog(ProgressDialog.show(listPersonnalCarsCaller, "Please wait ...", "Deleting car..."));
+        if(tabOperationsCaller != null)
+            tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Confirm rent..."));
     }
 
     /**
@@ -110,7 +116,12 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return modifyCar();
         else if(params[0].equals(Action.DELETE_CAR.toString()))
             return deleteCar();
-        return null;
+        else if(params[0].equals(Action.CONFIRM_RENT.toString()))
+            return confirmRent(params[1], params[2]); // [1] = Mileage at start (Str), [2] = id_transaction
+        else if(params[0].equals(Action.REFUTE_RENT.toString()))
+            return refuteRent(params[1]);
+        else
+            return null;
     }
 
     @Override
@@ -137,7 +148,44 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             listPersonnalCarsCaller.getProgressDialog().dismiss();
             listPersonnalCarsCaller.onPostExecuteDeleteCar(object);
         }
+        if(tabOperationsCaller != null){
+            tabOperationsCaller.getProgressDialog().dismiss();
+            tabOperationsCaller.onPostExecuteConfirmRent((int) object);
+        }
 
+    }
+
+    private int refuteRent(String idTransaction){
+        int success = -1;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.REFFUTE_RENT_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
+    private int confirmRent(String mileage, String idTransaction){
+        int success = -1;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.CONFIRM_RENT_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            list.add(new BasicNameValuePair("mileage", mileage));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse response = httpClient.execute(httpPost);
+            success = response.getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
     }
 
     private int deleteCar(){
@@ -148,7 +196,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(DELETE_CAR_URL);
+            HttpPost httpPost = new HttpPost(Constants.DELETE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("id", String.valueOf(carToDelete.getId())));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
@@ -169,7 +217,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         // Update it into DB.
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(MODIFY_CAR_URL);
+            HttpPost httpPost = new HttpPost(Constants.MODIFY_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("id",            String.valueOf(car.getId())));
             list.add(new BasicNameValuePair("brand",         car.getBrand()));
@@ -198,7 +246,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         // Save the car into Db
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(SAVE_CAR_URL);
+            HttpPost httpPost = new HttpPost(Constants.SAVE_CAR_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username",      addCarCaller.getUser().getUsername()));
             list.add(new BasicNameValuePair("brand",         addCarCaller.getBrand()));
@@ -261,7 +309,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         int responseCode =  0;
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(AUTHENTICATE_URL);
+            HttpPost httpPost = new HttpPost(Constants.AUTHENTICATE_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", loginCaller.getLogin()));
             list.add(new BasicNameValuePair("password", loginCaller.getPassword()));
@@ -280,7 +328,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         int responseCode = 0;
         try{
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(SAVE_USER_URL);
+            HttpPost httpPost = new HttpPost(Constants.SAVE_USER_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("name",         temp.getName()));
             list.add(new BasicNameValuePair("username",     temp.getUsername()));

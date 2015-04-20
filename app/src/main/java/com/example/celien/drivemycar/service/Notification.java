@@ -10,23 +10,17 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
-import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.receiver.NotificationAutoStart;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Notification extends Service {
 
     private String username;
 
-    // Notification related
-    NotificationCompat.Builder notification;
     private static final int UNIQUE_ID = 45452;
     private static int INTERVAL_IN_MINUTE = 1; // Change this value to change the interval of refreshment.
 
@@ -39,7 +33,6 @@ public class Notification extends Service {
         // So, if there is a user who has already logged in before (and not logout)
         if(!userInfo[0].equals("")){
             username = userInfo[0];
-            Log.d("Username is", username);
             HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
             httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username);
         }
@@ -64,31 +57,25 @@ public class Notification extends Service {
     public void onPostExecuteLoadNotif(JSONArray array){
         // If array.length == 0, then there is no notifications to display
         if(array.length() != 0){
-            // Create the notification
-            notification = new NotificationCompat.Builder(this);
-            notification.setAutoCancel(true);
 
-            // Build the notification
-            notification.setSmallIcon(android.R.drawable.star_on);
-            notification.setWhen(System.currentTimeMillis());
-            notification.setTicker("New DriveMyCar request");
             try{
-                JSONObject temp = array.getJSONObject(0);
-                notification.setContentTitle("New request from "+temp.getString("userSource"));
-                notification.setContentText(temp.getString("message"));
-            } catch(JSONException e){
+                // Get all the notifications in DB and display them
+                for(int i = 0 ; i < array.length() ; i++){
+
+                    // Notification related
+                    NotificationCompat.Builder notification;
+
+                    // Create the right notification by using the dispatcher
+                    NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
+                    notification = dispatcher.createRightNotification(array.getJSONObject(i));
+
+                    // Issue notification
+                    NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(UNIQUE_ID + i, notification.build()); // Id has to be unique.
+                }
+            }catch (JSONException e){
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
-
-            // When clicked, go back to Login Activity
-            Intent i = new Intent(this, Login.class);
-            PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
-            notification.setContentIntent(pi);
-
-            // Issue notification
-            NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            nm.notify(UNIQUE_ID, notification.build());
-
         }
     }
 

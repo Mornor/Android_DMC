@@ -7,9 +7,11 @@ import android.util.Log;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.Register;
+import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.tabs.TabSearchCar;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,18 +24,13 @@ import org.json.JSONObject;
 public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private Login loginCaller;
-    private boolean choice; // If choice is true, then the instance of Login caller is used to retrieve the car.
+    private boolean choiceCarFromLogin; // If choice is true, then the instance of Login caller is used to retrieve the car.
+    private boolean choiceCarFromNotificationUser;
     private Register registerCaller;
     private TabSearchCar tabSearchCarCaller;
     private ListSpecificCars listSpecificCarsCaller;
     private Notification notificationCaller;
-
-    private static final String LOAD_USER_URL           = "http://cafca.ngrok.com/android/get_user";
-    private static final String LOAD_CARS_URL           = "http://cafca.ngrok.com/android/get_cars";
-    private static final String CHECK_USER_UNIQUE_URL   = "http://cafca.ngrok.com/android/username_unique";
-    private static final String LOAD_ALL_CARS_BRAND     = "http://cafca.ngrok.com/android/get_all_cars_brand";
-    private static final String LOAD_SPECIFIC_CARS_URL  = "http://cafca.ngrok.com/android/get_specific_cars";
-    private static final String GET_NOTIFS_URL          = "http://cafca.ngrok.com/android/get_notifs";
+    private NotificationUser notificationUserCaller;
 
     public HttpAsyncJson(Notification caller){
         this.notificationCaller = caller;
@@ -45,7 +42,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     public HttpAsyncJson(Login loginCaller, boolean choice){
         this.loginCaller = loginCaller;
-        this.choice = choice;
+        this.choiceCarFromLogin = choice;
     }
 
     public HttpAsyncJson(TabSearchCar caller){
@@ -58,6 +55,28 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     public HttpAsyncJson(Register caller){
         this.registerCaller = caller;
+    }
+
+    public HttpAsyncJson(NotificationUser caller){
+            this.notificationUserCaller = caller;
+    }
+
+    public HttpAsyncJson(NotificationUser caller, boolean choice){
+        this.notificationUserCaller = caller;
+        this.choiceCarFromNotificationUser = choice;
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+        if(registerCaller != null)
+            registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
+        if(tabSearchCarCaller != null)
+            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
+        if(listSpecificCarsCaller != null)
+            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
+        //if(notificationUserCaller != null)
+            //notificationUserCaller.setProgressDialog(ProgressDialog.show(notificationCaller, "Please wait...", "Fetching data ..."));
     }
 
     @Override
@@ -79,37 +98,37 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
     private JSONArray getNotifs(String username){
         JsonParser parser = new JsonParser();
-        return parser.getNotifications(username, GET_NOTIFS_URL);
+        return parser.getNotifications(username, Constants.GET_NOTIFS_URL);
     }
 
     private JSONArray getBrands(){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makeGetHttpRequest(LOAD_ALL_CARS_BRAND);
+        JSONArray result = parser.makeGetHttpRequest(Constants.LOAD_ALL_CARS_BRAND);
         return result;
     }
 
     private JSONArray checkUsernameUnique(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(CHECK_USER_UNIQUE_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.CHECK_USER_UNIQUE_URL, username);
         return result;
     }
 
     private JSONArray loadCars(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_CARS_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_CARS_URL, username);
         return result;
     }
 
     private JSONArray loadUser(String username){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_USER_URL, username);
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_USER_URL, username);
         return result;
     }
 
 
     private JSONArray getSpecificCars(){
         JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(LOAD_SPECIFIC_CARS_URL, "car",
+        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_SPECIFIC_CARS_URL, "car",
                 listSpecificCarsCaller.getBrand(),
                 listSpecificCarsCaller.getEnergy(),
                 listSpecificCarsCaller.getMaxCons(),
@@ -123,7 +142,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         if(loginCaller != null){
-            if(choice) {  // If choice, then return the Car JSONArray. (final stuff to return when log in)
+            if(choiceCarFromLogin) {  // If choice, then return the Car JSONArray. (final stuff to return when log in)
                 loginCaller.getProgressDialog().dismiss();
                 loginCaller.onPostExecuteLoadCars(jsonArray);
             }
@@ -152,17 +171,16 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(notificationCaller != null){
             notificationCaller.onPostExecuteLoadNotif(jsonArray);
         }
+        if(notificationUserCaller != null){
+            if(choiceCarFromNotificationUser){
+               // notificationUserCaller.getProgressDialog().dismiss();
+                notificationUserCaller.onPostExecuteLoadCars(jsonArray);
+            }
+            else
+                notificationUserCaller.onPostExecuteLoadUser(jsonArray);
+        }
     }
 
-    @Override
-    protected void onPreExecute() {
-        if(registerCaller != null)
-            registerCaller.setRing(ProgressDialog.show(registerCaller, "Please wait ...", "Check if username unique ..."));
-        if(tabSearchCarCaller != null)
-            tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
-        if(listSpecificCarsCaller != null)
-            listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
-    }
 
     @Override
     protected void onProgressUpdate(Void... values) {

@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,12 +132,12 @@ public class Login extends ActionBarActivity {
                 user.setPhoneNumber(object.getString("phone_number"));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
 
-        HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiante the 2 instances.
+        HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiate the 2 instances.
         request.execute(Action.LOAD_CARS.toString(), login);
     }
 

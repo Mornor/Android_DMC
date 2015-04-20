@@ -14,6 +14,8 @@ public enum Action {
     LOAD_SPECIFIC_CARS("loadSpecificCars"),
     SAVE_REQUEST("saveRequest"),
     GET_NOTIFS("getNotifications"),
+    CONFIRM_RENT("confirmRent"),
+    REFUTE_RENT("refuteRent"),
     LOAD_CARS("loadCars");
 
     private final String name;
