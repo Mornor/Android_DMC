@@ -116,7 +116,14 @@ public class JsonParser {
         }
     }
 
-    /*** Called in ListSpecificCar.saveData()*/
+    /*** Called in ListSpecificCar.saveData()
+     * listRequest contains the selected user to which the current user wish to rent the car from.
+     * So, list Request is like this :
+     * owner : Thibaut
+     * brand : Porsche
+     * model : 911
+     * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal)
+     * */
     public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
         JSONArray toSendToServer = new JSONArray();
         try{
@@ -124,7 +131,7 @@ public class JsonParser {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
 
-            // Add the username before sending the JSON.
+            // Add the username
             JSONObject usernameJson = new JSONObject();
             usernameJson.put("username", currentUsername);
             toSendToServer.put(usernameJson);

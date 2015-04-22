@@ -33,7 +33,7 @@ public class NotificationDispatcher {
     public NotificationCompat.Builder createRightNotification(JSONObject object){
         try{
             switch (object.getString("notificationType")){
-                case NotificationTypeConstants.LENDER_ASK_FOR_CAR:
+                case NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER:
                     return createNotificationAskForACar(object);
                 case NotificationTypeConstants.OWNER_CONFIRMED_RENT:
                     return createNotificationOwnerConfirmed(object);
