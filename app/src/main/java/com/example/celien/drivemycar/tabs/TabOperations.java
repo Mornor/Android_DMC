@@ -50,16 +50,7 @@ public class TabOperations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
-
-        // Get the notification data from SharedPref and test is there is indeed something.
-        this.transactionData = Tools.getNotificationData(getActivity().getSharedPreferences("transactionData", Context.MODE_PRIVATE));
-        if(transactionData.get("userSource").equals(""))
-            Log.e(getClass().getName(), "There is nothing in SharedPref.notifInfo");
-        else{
-            init(rootView);
-            setListeners();
-        }
-
+        init(rootView);
         return rootView;
     }
 

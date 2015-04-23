@@ -74,7 +74,7 @@ public class NotificationDispatcher {
 
         notification.setStyle(inboxStyle);
 
-        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
+        //Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
 
         // When clicked, go to NotificationUser Activity
         Intent i = new Intent(notifCaller, Home.class);
@@ -108,8 +108,6 @@ public class NotificationDispatcher {
         Intent i = new Intent(notifCaller, NotificationUser.class);
         PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
         notification.setContentIntent(pi);
-
-        Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
 
         return notification;
     }
