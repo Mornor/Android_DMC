@@ -5,7 +5,7 @@ public class Constants {
 
     private final static String ngrokTunnel = ".ngrok.io";
     private final static String localTunnel = ".localtunnel.me";
-    private final static String tunnelToUse = localTunnel;
+    private final static String tunnelToUse = ngrokTunnel;
 
     /*Url to use to access to Play! server*/
     public final static String SAVE_USER_URL            = "https://cafca"+tunnelToUse+"/register";

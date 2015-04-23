@@ -33,8 +33,8 @@ public class NotificationDispatcher {
     public NotificationCompat.Builder createRightNotification(JSONObject object){
         try{
             switch (object.getString("notificationType")){
-                case NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER:
-                    return createNotificationAskForACar(object);
+                case NotificationTypeConstants.CAR_REQUEST:
+                    return createNotificationCarRequest(object);
                 case NotificationTypeConstants.OWNER_CONFIRMED_RENT:
                     return createNotificationOwnerConfirmed(object);
                 case NotificationTypeConstants.OWNER_REFUTED_RENT:
@@ -84,7 +84,7 @@ public class NotificationDispatcher {
         return notification;
     }
 
-    private NotificationCompat.Builder createNotificationAskForACar(JSONObject notif){
+    private NotificationCompat.Builder createNotificationCarRequest(JSONObject notif){
 
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
@@ -97,9 +97,7 @@ public class NotificationDispatcher {
         try{
             notification.setContentTitle("Request from "+notif.getString("userSource"));
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine("Can I use your " +notif.getString("brand")+ " " +notif.getString("model"));
-            inboxStyle.addLine("From " +notif.getString("dateFrom").substring(0, 9) + " at " +notif.getString("dateFrom").substring(10, notif.getString("dateFrom").length() - 5)+ " h");
-            inboxStyle.addLine("To " +notif.getString("dateTo").substring(0, 9) + " at " +notif.getString("dateTo").substring(10, notif.getString("dateTo").length() - 5)+ " h ?");
+            inboxStyle.addLine(notif.getString("message"));
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

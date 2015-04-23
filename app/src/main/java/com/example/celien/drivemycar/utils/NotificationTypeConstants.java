@@ -10,5 +10,8 @@ public class NotificationTypeConstants {
     public static final String OWNER_CONFIRMED_RENT             = "OWNER_CONFIRMED_RENT";
     public static final String OWNER_REFUTED_RENT			    = "OWNER_REFUTED_RENT";
     public static final String TRANSACTION_HAPPENING            = "HAPPENING";
+    public static final String CAR_REQUEST					    = "CAR_REQUEST";
+    public static final String REQUEST_ACCEPTED				    = "REQUEST_ACCEPTED";
+    public static final String REQUEST_REFUTED				    = "REQUEST_REFUTED";
 
 }
