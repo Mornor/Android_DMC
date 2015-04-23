@@ -70,15 +70,6 @@ public class TabOperations extends Fragment {
         tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
-
-        // Init their values
-        tvUserSource.setText(transactionData.get("userSource"));
-        tvBrand.setText(transactionData.get("brand"));
-        tvModel.setText(transactionData.get("model"));
-        tvFromDate.setText(transactionData.get("fromDate").substring(0, 9));
-        tvFromTime.setText(transactionData.get("fromDate").substring(10, transactionData.get("fromDate").length() - 5)+ " h");
-        tvToDate.setText(transactionData.get("toDate").substring(0, 9));
-        tvToTime.setText(transactionData.get("toDate").substring(10, transactionData.get("toDate").length() - 5)+ " h");
     }
 
     private void setListeners(){
