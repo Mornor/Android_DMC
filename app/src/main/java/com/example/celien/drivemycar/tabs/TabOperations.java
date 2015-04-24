@@ -81,7 +81,6 @@ public class TabOperations extends Fragment {
 
         adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
         lv.setAdapter(adapter);
-
     }
 
     /*Getters and Setter*/

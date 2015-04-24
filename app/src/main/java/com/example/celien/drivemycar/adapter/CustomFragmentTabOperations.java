@@ -87,34 +87,17 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     }
 
     private void onClickValidate(){
-        ConfirmRent confirmRent = new ConfirmRent();
-        confirmRent.setTargetFragment(caller, ID_FRAGMENT);
-        confirmRent.show(caller.getFragmentManager(), "validate");
+        int currentNotificationId = 0;
+        try{
+            currentNotificationId = Integer.valueOf(currentJson.getString("idNotification"));
+        } catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+        Log.d("Validate request ", String.valueOf(currentNotificationId));
     }
 
     private void onClickCancel(){
         Toast.makeText(this.getContext(), "Cancel", Toast.LENGTH_SHORT).show();
-    }
-
-    // Retrieve the data from fragment.ConfirmRent which is called when user click on button "for sure"
-    public void onActivityResult(int reqCode, int resCode, Intent data){
-        switch (reqCode){
-            case ID_FRAGMENT :
-                if(resCode == Activity.RESULT_OK){
-                    // Retrieve data from fragment.ConfirmRent
-                    Bundle bdl  = data.getExtras();
-                    double mileage = bdl.getDouble("mileage");
-                    Log.d("Mileage from fragment ", String.valueOf(mileage));
-                    //sendConfirmRequest(mileage);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void sendConfirmRequest(double mileage){
-        Toast.makeText(this.getContext(), "Confirm", Toast.LENGTH_SHORT).show();
     }
 
     public void onPostExecuteConfirmRent(int responseStatus){
