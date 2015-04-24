@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.receiver.NotificationUser;
+import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 
@@ -15,14 +16,14 @@ import org.json.JSONArray;
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
-    private NotificationUser notificationUserCaller;
+    private TabOperations tabOperationsCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
     }
 
-    public HttpAsyncNotif(NotificationUser caller){
-        this.notificationUserCaller = caller;
+    public HttpAsyncNotif(TabOperations caller){
+        this.tabOperationsCaller = caller;
     }
 
     @Override
@@ -49,8 +50,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             listSpecificCarsCaller.getProgressDialog().dismiss();
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
-        if(notificationUserCaller != null){
-            notificationUserCaller.onPostExecuteLoadNotification(jsonArray);
+        if(tabOperationsCaller != null){
+            tabOperationsCaller.onPostExecuteLoadNotification(jsonArray);
         }
     }
 

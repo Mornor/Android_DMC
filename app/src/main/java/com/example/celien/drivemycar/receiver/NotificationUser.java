@@ -30,6 +30,7 @@ public class NotificationUser extends Activity{
     private User user;
     private String username;
     private ProgressDialog progressDialog;
+    private JSONArray arrayOfNotifications;
 
 
     @Override
@@ -68,10 +69,10 @@ public class NotificationUser extends Activity{
         new HttpAsyncJson(this, true).execute(Action.LOAD_CARS.toString(), username);
     }
 
-    public void onPostExecuteLoadCars(JSONArray array){
+    public void onPostExecuteLoadCars(JSONArray array) {
         List<Car> cars = new ArrayList<>();
         try {
-            for(int i = 0 ; i < array.length() ; i++){
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
                 Car temp = new Car();
                 temp.setId(object.getInt("id"));
@@ -91,23 +92,9 @@ public class NotificationUser extends Activity{
         }
 
         user.setCars(cars);
-
-        // Get the notifications in DB
-        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), username, "true");
-    }
-
-    public void onPostExecuteLoadNotification(JSONArray array){
-        try {
-            for(int i = 0 ; i < array.length() ; i++){
-                JSONObject temp = array.getJSONObject(0);
-            }
-        }catch (JSONException e){
-            Log.e(e.getClass().getName(), "JSONException", e);
-        }
-
-
         launchIntentToTransactionTab();
     }
+
 
     private void launchIntentToTransactionTab(){
         Intent i = new Intent(this, Home.class);

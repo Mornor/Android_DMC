@@ -20,10 +20,13 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsync;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Tools;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -41,7 +44,6 @@ public class TabOperations extends Fragment {
     private Button btnCancel;
 
     private User user;
-    private HashMap<String, String> transactionData;
     private ProgressDialog progressDialog;
 
     public static final int ID_FRAGMENT = 1244; // Random
@@ -56,7 +58,7 @@ public class TabOperations extends Fragment {
 
     private void init(View v){
 
-        // Get the current user
+        // Get the current user and the notifications if there is some.
         Home homeActivity = (Home)getActivity();
         user = homeActivity.getUser();
 
@@ -70,6 +72,13 @@ public class TabOperations extends Fragment {
         tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
+
+        // Get the notifications in DB
+        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
+    }
+
+    public void onPostExecuteLoadNotification(JSONArray array){
+        
     }
 
     private void setListeners(){
@@ -95,9 +104,10 @@ public class TabOperations extends Fragment {
     }
 
     public void onClickCancel(View v){
-        new HttpAsync(this).execute(Action.REFUTE_RENT.toString(), transactionData.get("id_transaction"));
+        Toast.makeText(this.getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
     }
 
+    // Retrieve the data from fragment.ConfirmRent which is called when user click on button "for sure"
     public void onActivityResult(int reqCode, int resCode, Intent data){
         switch (reqCode){
             case ID_FRAGMENT :
@@ -114,7 +124,7 @@ public class TabOperations extends Fragment {
     }
 
     private void sendConfirmRequest(double mileage){
-        new HttpAsync(this).execute(Action.CONFIRM_RENT.toString(), String.valueOf(mileage), transactionData.get("id_transaction"));
+        Toast.makeText(this.getActivity(), "Confirm", Toast.LENGTH_SHORT).show();
     }
 
     public void onPostExecuteConfirmRent(int responseStatus){

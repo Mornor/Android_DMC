@@ -15,6 +15,8 @@ import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.tabs.TabAccount;
 
+import org.json.JSONArray;
+
 /**
  * Main page of the app, with sliding tabs.
  */
@@ -40,7 +42,7 @@ public class Home extends ActionBarActivity {
         if(currentUser != null)
             this.user = currentUser;
 
-        // Get the tab to open if there is one
+        // Get the tab to open if there is one, and if there is, get the JSONArray of current's user notification
         Bundle data = getIntent().getExtras();
         if(data != null){
             String tab = data.getString("tabToOpen");
@@ -99,4 +101,5 @@ public class Home extends ActionBarActivity {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
