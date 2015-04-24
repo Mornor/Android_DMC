@@ -27,6 +27,7 @@ import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class TabOperations extends Fragment {
 
     private User user;
     private ProgressDialog progressDialog;
+    private JSONArray notifications;
+    private static boolean notificationInitialized;
 
     public static final int ID_FRAGMENT = 1244; // Random
 
@@ -73,12 +76,22 @@ public class TabOperations extends Fragment {
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
-        // Get the notifications in DB
-        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
+        // Get the notifications in DB only if has not already been initialized
+        Log.d("Message", String.valueOf(notificationInitialized));
+        if(!notificationInitialized){
+            new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
+            Log.d("Message", "Has been sent");
+        }
     }
 
     public void onPostExecuteLoadNotification(JSONArray array){
-        
+        notifications = array;
+        notificationInitialized = true;
+        createListView(array);
+    }
+
+    private void createListView(JSONArray array){
+
     }
 
     private void setListeners(){
