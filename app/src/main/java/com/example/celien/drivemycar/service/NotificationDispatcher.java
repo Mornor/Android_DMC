@@ -97,7 +97,9 @@ public class NotificationDispatcher {
         try{
             notification.setContentTitle("Request from "+notif.getString("userSource"));
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine(notif.getString("message"));
+            inboxStyle.addLine(notif.getString("message").substring(0, 30));
+            inboxStyle.addLine(notif.getString("message").substring(31, 60));
+            inboxStyle.addLine(notif.getString("message").substring(61, notif.getString("message").length()));
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

@@ -1,6 +1,5 @@
 package com.example.celien.drivemycar.models;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,30 +18,30 @@ public class User implements Parcelable{
     private List<Car> cars = new ArrayList<>();
 
     public User(String name, String email, String username, String password, String bankAccount){
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.password = password;
+        this.name        = name;
+        this.email       = email;
+        this.username    = username;
+        this.password    = password;
         this.bankAccount = bankAccount;
     }
 
-    public User(String name, String email, String username, String password, List<Car> cars, String bankAccount){
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.cars = cars;
-        this.bankAccount = bankAccount;
+    public User(String name, String email, String username, String password, List<Car> cars, String bankAccount, int[] idRequests){
+        this.name           = name;
+        this.email          = email;
+        this.username       = username;
+        this.password       = password;
+        this.cars           = cars;
+        this.bankAccount    = bankAccount;
     }
 
     public User(Parcel source){
-        id = source.readInt();
-        name = source.readString();
-        username = source.readString();
-        email = source.readString();
+        id          = source.readInt();
+        name        = source.readString();
+        username    = source.readString();
+        email       = source.readString();
         bankAccount = source.readString();
-        password = source.readString();
-        cars = new ArrayList<Car>();
+        password    = source.readString();
+        cars        = new ArrayList<Car>();
         source.readTypedList(cars, Car.CREATOR);
     }
 
