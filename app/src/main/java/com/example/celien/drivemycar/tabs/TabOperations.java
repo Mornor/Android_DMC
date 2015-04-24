@@ -41,8 +41,6 @@ public class TabOperations extends Fragment {
     private ListAdapter adapter;
     private ListView lv;
 
-    public static final int ID_FRAGMENT = 1244; // Random
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,40 +82,6 @@ public class TabOperations extends Fragment {
         adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
         lv.setAdapter(adapter);
 
-    }
-
-    public void onClickValidate(View v){
-        ConfirmRent confirmRent = new ConfirmRent();
-        confirmRent.setTargetFragment(this, ID_FRAGMENT);
-        confirmRent.show(getFragmentManager(), "validate");
-    }
-
-    public void onClickCancel(View v){
-        Toast.makeText(this.getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
-    }
-
-    // Retrieve the data from fragment.ConfirmRent which is called when user click on button "for sure"
-    public void onActivityResult(int reqCode, int resCode, Intent data){
-        switch (reqCode){
-            case ID_FRAGMENT :
-                if(resCode == Activity.RESULT_OK){
-                    // Retrieve data from fragment.ConfirmRent
-                    Bundle bdl  = data.getExtras();
-                    double mileage = bdl.getDouble("mileage");
-                    sendConfirmRequest(mileage);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void sendConfirmRequest(double mileage){
-        Toast.makeText(this.getActivity(), "Confirm", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onPostExecuteConfirmRent(int responseStatus){
-        Log.d("Response from server ", String.valueOf(responseStatus));
     }
 
     /*Getters and Setter*/

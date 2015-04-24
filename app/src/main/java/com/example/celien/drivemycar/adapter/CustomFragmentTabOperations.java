@@ -1,7 +1,10 @@
 package com.example.celien.drivemycar.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.tabs.TabOperations;
 
 import org.json.JSONException;
@@ -30,6 +34,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private TextView tvToDate;
     private Button btnValidate;
     private Button btnCancel;
+    public static final int ID_FRAGMENT = 1244; // Random
 
 
     public CustomFragmentTabOperations(Context context, List<JSONObject> list, TabOperations caller) {
@@ -82,11 +87,37 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     }
 
     private void onClickValidate(){
-        Toast.makeText(this.getContext(), "Validate", Toast.LENGTH_SHORT).show();
+        ConfirmRent confirmRent = new ConfirmRent();
+        //confirmRent.setTargetFragment(this, ID_FRAGMENT);
+        //confirmRent.show(this.getContext().getFragmentManager(), "validate");
     }
 
     private void onClickCancel(){
         Toast.makeText(this.getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+    }
+
+    // Retrieve the data from fragment.ConfirmRent which is called when user click on button "for sure"
+    public void onActivityResult(int reqCode, int resCode, Intent data){
+        switch (reqCode){
+            case ID_FRAGMENT :
+                if(resCode == Activity.RESULT_OK){
+                    // Retrieve data from fragment.ConfirmRent
+                    Bundle bdl  = data.getExtras();
+                    double mileage = bdl.getDouble("mileage");
+                    sendConfirmRequest(mileage);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void sendConfirmRequest(double mileage){
+        Toast.makeText(this.getContext(), "Confirm", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onPostExecuteConfirmRent(int responseStatus){
+        Log.d("Response from server ", String.valueOf(responseStatus));
     }
 
     @Override
