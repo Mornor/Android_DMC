@@ -28,7 +28,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View customView = inflater.inflate(R.layout.custom_fragment_tab_operations, parent, false);
 
-        return customView; 
+        return customView;
     }
 
     @Override

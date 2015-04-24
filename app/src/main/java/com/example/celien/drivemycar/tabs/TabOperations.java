@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomFragmentTabOperations;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsync;
@@ -30,7 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TabOperations extends Fragment {
 
@@ -48,6 +53,10 @@ public class TabOperations extends Fragment {
     private ProgressDialog progressDialog;
     private JSONArray notifications;
     private static boolean notificationInitialized;
+
+    // ListView related stuff
+    private ListAdapter adapter;
+    private ListView lv;
 
     public static final int ID_FRAGMENT = 1244; // Random
 
@@ -75,6 +84,7 @@ public class TabOperations extends Fragment {
         tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
+        lv           = (ListView)v.findViewById(R.id.lvRequests);
 
         // Get the notifications in DB only if has not already been initialized
         Log.d("Message", String.valueOf(notificationInitialized));
@@ -91,7 +101,20 @@ public class TabOperations extends Fragment {
     }
 
     private void createListView(JSONArray array){
+        List<JSONObject> list = new ArrayList<>();
+        try {
+            for(int i = 0 ; i < array.length() ; i++){
+                JSONObject temp = array.getJSONObject(i);
+                list.add(temp);
+            }
+        } catch (JSONException e) {
+            Log.e(e.getClass().getName(),"JSONException", e);
+        }
 
+        adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
+        lv.setAdapter(adapter);
+
+        setListeners();
     }
 
     private void setListeners(){

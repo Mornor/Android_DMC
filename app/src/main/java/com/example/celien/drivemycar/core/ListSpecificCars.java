@@ -166,7 +166,7 @@ public class ListSpecificCars extends ActionBarActivity {
                 list.add(temp);
             }
         } catch (JSONException e) {
-            Log.e(e.getClass().getName(),"There is no JSONObject in the JSONArray", e);
+            Log.e(e.getClass().getName(),"JSONException", e);
         }
 
         // Create and set the custom listView.
