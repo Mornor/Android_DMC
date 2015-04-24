@@ -2,9 +2,7 @@ package com.example.celien.drivemycar.tabs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
@@ -22,32 +20,17 @@ import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomFragmentTabOperations;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
-import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
-import com.example.celien.drivemycar.utils.Tools;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TabOperations extends Fragment {
-
-    private TextView tvUserSource;
-    private TextView tvBrand;
-    private TextView tvModel;
-    private TextView tvFromDate;
-    private TextView tvFromTime;
-    private TextView tvToDate;
-    private TextView tvToTime;
-    private Button btnValidate;
-    private Button btnCancel;
 
     private User user;
     private ProgressDialog progressDialog;
@@ -75,16 +58,7 @@ public class TabOperations extends Fragment {
         user = homeActivity.getUser();
 
         // Get the elements on the layout
-        tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);
-        tvBrand      = (TextView)v.findViewById(R.id.tvBrand);
-        tvModel      = (TextView)v.findViewById(R.id.tvModel);
-        tvFromDate   = (TextView)v.findViewById(R.id.tvDateFrom);
-        tvFromTime   = (TextView)v.findViewById(R.id.tvTimeFrom);
-        tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
-        tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
-        btnValidate  = (Button)v.findViewById(R.id.btnValidate);
-        btnCancel    = (Button)v.findViewById(R.id.btnCancel);
-        lv           = (ListView)v.findViewById(R.id.lvRequests);
+        lv = (ListView)v.findViewById(R.id.lvRequests);
 
         // Get the notifications in DB only if has not already been initialized
         Log.d("Message", String.valueOf(notificationInitialized));
@@ -114,23 +88,6 @@ public class TabOperations extends Fragment {
         adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
         lv.setAdapter(adapter);
 
-        setListeners();
-    }
-
-    private void setListeners(){
-        btnValidate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                onClickValidate(v);
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                onClickCancel(v);
-            }
-        });
     }
 
     public void onClickValidate(View v){
