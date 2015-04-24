@@ -1,7 +1,6 @@
 package com.example.celien.drivemycar.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app. Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.DialogFragment;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.http.HttpAsync;
-import com.example.celien.drivemycar.utils.Action;
+
 
 public class ConfirmRent extends DialogFragment{
 

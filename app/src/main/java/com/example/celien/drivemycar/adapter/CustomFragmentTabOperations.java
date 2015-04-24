@@ -88,8 +88,8 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
 
     private void onClickValidate(){
         ConfirmRent confirmRent = new ConfirmRent();
-        //confirmRent.setTargetFragment(this, ID_FRAGMENT);
-        //confirmRent.show(this.getContext().getFragmentManager(), "validate");
+        confirmRent.setTargetFragment(caller, ID_FRAGMENT);
+        confirmRent.show(caller.getFragmentManager(), "validate");
     }
 
     private void onClickCancel(){
@@ -104,7 +104,8 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
                     // Retrieve data from fragment.ConfirmRent
                     Bundle bdl  = data.getExtras();
                     double mileage = bdl.getDouble("mileage");
-                    sendConfirmRequest(mileage);
+                    Log.d("Mileage from fragment ", String.valueOf(mileage));
+                    //sendConfirmRequest(mileage);
                 }
                 break;
             default:

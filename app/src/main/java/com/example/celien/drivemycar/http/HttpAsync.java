@@ -96,8 +96,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             modifyCarCaller.setModifyCar(ProgressDialog.show(modifyCarCaller, "Please wait ...", "Modifying car..."));
         if(listPersonnalCarsCaller != null)
             listPersonnalCarsCaller.setProgressDialog(ProgressDialog.show(listPersonnalCarsCaller, "Please wait ...", "Deleting car..."));
-        if(tabOperationsCaller != null)
-            tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Confirm rent..."));
     }
 
     /**
@@ -116,10 +114,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             return modifyCar();
         else if(params[0].equals(Action.DELETE_CAR.toString()))
             return deleteCar();
-        else if(params[0].equals(Action.CONFIRM_RENT.toString()))
-            return confirmRent(params[1], params[2]); // [1] = Mileage at start (Str), [2] = id_transaction
-        else if(params[0].equals(Action.REFUTE_RENT.toString()))
-            return refuteRent(params[1]);
         else
             return null;
     }
@@ -147,10 +141,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         if(listPersonnalCarsCaller != null){
             listPersonnalCarsCaller.getProgressDialog().dismiss();
             listPersonnalCarsCaller.onPostExecuteDeleteCar(object);
-        }
-        if(tabOperationsCaller != null){
-            tabOperationsCaller.getProgressDialog().dismiss();
-            tabOperationsCaller.onPostExecuteConfirmRent((int) object);
         }
 
     }
