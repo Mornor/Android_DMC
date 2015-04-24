@@ -27,9 +27,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private TextView tvBrand;
     private TextView tvModel;
     private TextView tvFromDate;
-    private TextView tvFromTime;
     private TextView tvToDate;
-    private TextView tvToTime;
     private Button btnValidate;
     private Button btnCancel;
 
@@ -50,15 +48,17 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         tvBrand      = (TextView)v.findViewById(R.id.tvBrand);
         tvModel      = (TextView)v.findViewById(R.id.tvModel);
         tvFromDate   = (TextView)v.findViewById(R.id.tvDateFrom);
-        tvFromTime   = (TextView)v.findViewById(R.id.tvTimeFrom);
         tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
-        tvToTime     = (TextView)v.findViewById(R.id.tvTimeTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
         // Set the value of the fields
         try {
-            tvBrand.setText(currentJson.getString("userSource"));
+            tvUserSource.setText(currentJson.getString("userSource"));
+            tvBrand.setText(currentJson.getString("brand"));
+            tvModel.setText(currentJson.getString("model"));
+            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 9)+" at" +currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5)+ "h ");
+            tvToDate.setText(currentJson.getString("toDate").substring(0, 9)+" at" +currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5)+ "h ");
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
