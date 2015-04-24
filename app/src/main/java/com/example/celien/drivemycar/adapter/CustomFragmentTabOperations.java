@@ -34,12 +34,14 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private TextView tvToDate;
     private Button btnValidate;
     private Button btnCancel;
+    private List<JSONObject> list;
     public static final int ID_FRAGMENT = 1244; // Random
 
 
     public CustomFragmentTabOperations(Context context, List<JSONObject> list, TabOperations caller) {
         super(context, R.layout.custom_fragment_tab_operations, list);
         this.caller = caller;
+        this.list = list;
     }
 
     @Override
@@ -72,7 +74,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         btnValidate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                onClickValidate();
+                onClickValidate(currentJson);
             }
         });
 
@@ -86,10 +88,11 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         return v;
     }
 
-    private void onClickValidate(){
+    private void onClickValidate(JSONObject object){
+        Toast.makeText(this.getContext(), "Validate", Toast.LENGTH_SHORT).show();
         int currentNotificationId = 0;
         try{
-            currentNotificationId = Integer.valueOf(currentJson.getString("idNotification"));
+            currentNotificationId = Integer.valueOf(object.getString("idNotification"));
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
@@ -106,16 +109,16 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
 
     @Override
     public int getCount() {
-        return super.getCount();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
+        return list.size();
     }
 
     @Override
     public JSONObject getItem(int position) {
-        return super.getItem(position);
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }
