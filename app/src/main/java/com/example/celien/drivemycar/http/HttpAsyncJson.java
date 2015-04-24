@@ -92,13 +92,13 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         if(params[0].equals(Action.LOAD_SPECIFIC_CARS.toString()))
             return getSpecificCars();
         if(params[0].equals(Action.GET_NOTIFS.toString()))
-            return getNotifs(params[1]);
+            return getNotifs(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
         return null;
     }
 
-    private JSONArray getNotifs(String username){
+    private JSONArray getNotifs(String username, String hasToBeAlreadyRead){
         JsonParser parser = new JsonParser();
-        return parser.getNotifications(username, Constants.GET_NOTIFS_URL);
+        return parser.getNotifications(username, Constants.GET_NOTIFS_URL, hasToBeAlreadyRead);
     }
 
     private JSONArray getBrands(){

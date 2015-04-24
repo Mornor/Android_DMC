@@ -34,7 +34,7 @@ public class Notification extends Service {
         if(!userInfo[0].equals("")){
             username = userInfo[0];
             HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
-            httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username);
+            httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username, "false");
         }
 
         // Do not keep the service in memory if it is stopped

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -90,6 +91,21 @@ public class NotificationUser extends Activity{
         }
 
         user.setCars(cars);
+
+        // Get the notifications in DB
+        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), username, "true");
+    }
+
+    public void onPostExecuteLoadNotification(JSONArray array){
+        try {
+            for(int i = 0 ; i < array.length() ; i++){
+                JSONObject temp = array.getJSONObject(0);
+            }
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+
         launchIntentToTransactionTab();
     }
 

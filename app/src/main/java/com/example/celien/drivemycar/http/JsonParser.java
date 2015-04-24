@@ -176,14 +176,14 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
-    public JSONArray getNotifications(String username, String url){
-        Log.d("Username sent : ", username);
+    public JSONArray getNotifications(String username, String url, String hasToBeAlreadyRead){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("hasToBeRead", hasToBeAlreadyRead));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();

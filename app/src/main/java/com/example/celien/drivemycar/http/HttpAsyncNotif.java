@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.celien.drivemycar.core.ListSpecificCars;
+import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 
@@ -14,9 +15,14 @@ import org.json.JSONArray;
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
+    private NotificationUser notificationUserCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
+    }
+
+    public HttpAsyncNotif(NotificationUser caller){
+        this.notificationUserCaller = caller;
     }
 
     @Override
@@ -30,6 +36,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     protected JSONArray doInBackground(String... params) {
         if(params[0].equals(Action.SAVE_REQUEST.toString()))
             return saveRequest();
+        if(params[0].equals(Action.GET_NOTIFS.toString()))
+            return getNotification(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
         return null;
     }
 
@@ -40,6 +48,9 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         if(listSpecificCarsCaller != null) {
             listSpecificCarsCaller.getProgressDialog().dismiss();
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
+        }
+        if(notificationUserCaller != null){
+            notificationUserCaller.onPostExecuteLoadNotification(jsonArray);
         }
     }
 
@@ -54,6 +65,12 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getDateFrom().toString(),
                 listSpecificCarsCaller.getDateTo().toString(),
                 listSpecificCarsCaller.isExchange());
-        return null;
+        return result;
+    }
+
+    private JSONArray getNotification(String username, String hasToBeRead){
+        JsonParser parser = new JsonParser();
+        JSONArray result = parser.getNotifications(username, Constants.GET_NOTIFS_URL, hasToBeRead);
+        return result;
     }
 }
