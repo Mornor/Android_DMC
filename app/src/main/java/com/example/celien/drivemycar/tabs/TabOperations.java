@@ -60,12 +60,8 @@ public class TabOperations extends Fragment {
         // Get the elements on the layout
         lv = (ListView)v.findViewById(R.id.lvRequests);
 
-        // Get the notifications in DB only if has not already been initialized
-        Log.d("Message", String.valueOf(notificationInitialized));
-        if(!notificationInitialized){
-            new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
-            Log.d("Message", "Has been sent");
-        }
+        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
+
     }
 
     public void onPostExecuteLoadNotification(JSONArray array){
