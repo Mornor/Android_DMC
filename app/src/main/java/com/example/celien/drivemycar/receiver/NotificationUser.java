@@ -30,8 +30,6 @@ public class NotificationUser extends Activity{
     private User user;
     private String username;
     private ProgressDialog progressDialog;
-    private JSONArray arrayOfNotifications;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +43,7 @@ public class NotificationUser extends Activity{
         if (!userInfo[0].equals("")){
             username = userInfo[0];
             // Retrieve the current User
-            HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
-            httpAsyncJson.execute(Action.LOAD_USER.toString(), username);
+            new HttpAsyncJson(this).execute(Action.LOAD_USER.toString(), username);
         }
     }
 
@@ -105,7 +102,6 @@ public class NotificationUser extends Activity{
         finish();
         startActivity(i);
     }
-
 
     /*Getters and Setters*/
     public ProgressDialog getProgressDialog() {

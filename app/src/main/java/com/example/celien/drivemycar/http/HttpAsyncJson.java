@@ -173,7 +173,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
         }
         if(notificationUserCaller != null){
             if(choiceCarFromNotificationUser){
-               // notificationUserCaller.getProgressDialog().dismiss();
+                //notificationUserCaller.getProgressDialog().dismiss();
                 notificationUserCaller.onPostExecuteLoadCars(jsonArray);
             }
             else
