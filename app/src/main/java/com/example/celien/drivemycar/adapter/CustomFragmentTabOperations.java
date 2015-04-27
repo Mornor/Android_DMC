@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,6 +50,9 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View v = inflater.inflate(R.layout.custom_fragment_tab_operations, parent, false);
 
+        // Declare it final, so that I can access it in the btn.OnclickMethod().
+        final int pos = position;
+
         // Get the elements on the layout
         currentJson  = getItem(position);
         tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);
@@ -74,14 +78,14 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         btnValidate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                onClickValidate(currentJson);
+                onClickValidate(getItem(pos));
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                onClickCancel();
+                onClickCancel(getItem(pos));
             }
         });
 
@@ -96,10 +100,10 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
-        Log.d("Validate request ", String.valueOf(currentNotificationId));
+        Log.d("IdNotification ", String.valueOf(currentNotificationId));
     }
 
-    private void onClickCancel(){
+    private void onClickCancel(JSONObject object){
         Toast.makeText(this.getContext(), "Cancel", Toast.LENGTH_SHORT).show();
     }
 
