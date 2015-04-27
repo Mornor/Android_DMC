@@ -35,7 +35,7 @@ public class NotificationDispatcher {
             switch (object.getString("notificationType")){
                 case NotificationTypeConstants.CAR_REQUEST:
                     return createNotificationCarRequest(object);
-                case NotificationTypeConstants.REQUEST_ACCEPTED:
+                case NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER:
                     return createNotificationRequestAccepted(object);
                 default:
                     break;
@@ -44,7 +44,7 @@ public class NotificationDispatcher {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        // Only if errors.
+        // Only occurs if errors.
         return null;
     }
 
