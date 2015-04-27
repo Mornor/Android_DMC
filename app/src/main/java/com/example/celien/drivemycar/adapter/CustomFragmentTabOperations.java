@@ -107,7 +107,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.CONFIRM_RENT.toString());
 
         // Update ListView
-        updateListView(object, true);
+        updateListView(object);
     }
 
     private void onClickCancel(JSONObject object){
@@ -118,13 +118,12 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.REFUTE_RENT.toString());
-        updateListView(object, false);
+        updateListView(object);
     }
 
     /*** Delete item from the List<JSONObject> and update the related ListView row
-     * @param item : item to be deleted (or not)
-     * @param isAccepted : true id accepted, false otherwise**/
-    private void updateListView(JSONObject item, boolean isAccepted){
+     * @param item : item to be deleted (or not)**/
+    private void updateListView(JSONObject item){
         // Remove the object from the list
         list.remove(item);
         this.notifyDataSetChanged();
