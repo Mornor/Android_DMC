@@ -37,11 +37,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private TextView tvBrand;
     private TextView tvModel;
     private TextView tvFromDate;
-    private TextView tvDecision;
-    private TextView tvCanIUse;
     private TextView tvToDate;
-    private TextView tvFrom;
-    private TextView tvTo;
     private Button btnValidate;
     private Button btnCancel;
     private List<JSONObject> list;
@@ -67,10 +63,6 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         tvModel      = (TextView)v.findViewById(R.id.tvModel);
         tvFromDate   = (TextView)v.findViewById(R.id.tvDateFrom);
         tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
-        tvDecision   = (TextView)v.findViewById(R.id.tvDecision);
-        tvCanIUse    = (TextView)v.findViewById(R.id.tvCanIUse);
-        tvFrom       = (TextView)v.findViewById(R.id.tvFrom);
-        tvTo         = (TextView)v.findViewById(R.id.tvTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
@@ -135,29 +127,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private void updateListView(JSONObject item, boolean isAccepted){
         // Remove the object from the list
         list.remove(item);
-
         this.notifyDataSetChanged();
-
-        /*
-        // Update the GUI of the row
-        tvCanIUse.setVisibility(View.INVISIBLE);
-        tvBrand.setVisibility(View.INVISIBLE);
-        tvModel.setVisibility(View.INVISIBLE);
-        tvFromDate.setVisibility(View.INVISIBLE);
-        tvToDate.setVisibility(View.INVISIBLE);
-        tvFrom.setVisibility(View.INVISIBLE);
-        tvTo.setVisibility(View.INVISIBLE);
-
-        if(isAccepted){
-            tvDecision.setText("Accepted");
-            tvDecision.setTextColor(Color.GREEN);
-            tvDecision.setVisibility(View.VISIBLE);
-        }
-        else{
-            tvDecision.setText("Refuted");
-            tvDecision.setTextColor(Color.RED);
-            tvDecision.setVisibility(View.VISIBLE);
-        }*/
     }
 
     @Override
