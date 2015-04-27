@@ -204,7 +204,6 @@ public class JsonParser {
      * @param rentConfirmed : if true, then the owner has accepted the rent. (false, he hasn't)
      * */
     public JSONArray updateRequestState(int idNotification, boolean rentConfirmed, String url){
-        Log.d("Has been", "Called");
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();

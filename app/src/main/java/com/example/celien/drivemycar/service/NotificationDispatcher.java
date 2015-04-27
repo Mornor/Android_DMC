@@ -35,12 +35,11 @@ public class NotificationDispatcher {
             switch (object.getString("notificationType")){
                 case NotificationTypeConstants.CAR_REQUEST:
                     return createNotificationCarRequest(object);
-                case NotificationTypeConstants.OWNER_CONFIRMED_RENT:
-                    return createNotificationOwnerConfirmed(object);
-                case NotificationTypeConstants.OWNER_REFUTED_RENT:
-                    return createNotificationOwnerRefuted(object);
+                case NotificationTypeConstants.REQUEST_ACCEPTED:
+                    return createNotificationRequestAccepted(object);
+                default:
+                    break;
             }
-
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
@@ -49,7 +48,7 @@ public class NotificationDispatcher {
         return null;
     }
 
-    private NotificationCompat.Builder createNotificationOwnerConfirmed(JSONObject notif){
+    private NotificationCompat.Builder createNotificationRequestAccepted(JSONObject notif){
 
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
@@ -61,20 +60,16 @@ public class NotificationDispatcher {
         notification.setTicker("New DriveMyCar request");
 
         try{
-            notification.setContentTitle(notif.getString("userSource")+ " confirmed your request" );
+            notification.setContentTitle("Request from "+notif.getString("userSource"));
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine("Of course, you can rent my");
-            inboxStyle.addLine(notif.getString("brand")+ " " +notif.getString("model"));
-            inboxStyle.addLine("From " +notif.getString("dateFrom").substring(0, 9) + " at " +notif.getString("dateFrom").substring(10, notif.getString("dateFrom").length() - 5)+ " h");
-            inboxStyle.addLine("To " +notif.getString("dateTo").substring(0, 9) + " at " +notif.getString("dateTo").substring(10, notif.getString("dateTo").length() - 5));
-
+            inboxStyle.addLine(notif.getString("message").substring(0, 31));
+            inboxStyle.addLine(notif.getString("message").substring(31, 61));
+            inboxStyle.addLine(notif.getString("message").substring(61, notif.getString("message").length()));
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         notification.setStyle(inboxStyle);
-
-        //Tools.saveNotificationData(notifCaller.getSharedPreferences("transactionData", Context.MODE_PRIVATE), notif, currentUsername);
 
         // When clicked, go to NotificationUser Activity
         Intent i = new Intent(notifCaller, Home.class);
@@ -97,8 +92,8 @@ public class NotificationDispatcher {
         try{
             notification.setContentTitle("Request from "+notif.getString("userSource"));
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine(notif.getString("message").substring(0, 30));
-            inboxStyle.addLine(notif.getString("message").substring(31, 60));
+            inboxStyle.addLine(notif.getString("message").substring(0, 31));
+            inboxStyle.addLine(notif.getString("message").substring(31, 61));
             inboxStyle.addLine(notif.getString("message").substring(61, notif.getString("message").length()));
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
