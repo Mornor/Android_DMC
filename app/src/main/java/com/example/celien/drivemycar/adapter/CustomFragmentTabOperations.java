@@ -101,7 +101,12 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
+
+        // Update the request value into DB
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.CONFIRM_RENT.toString());
+
+        // Update the ListView
+        list.remove(object);
     }
 
     private void onClickCancel(JSONObject object){
@@ -112,10 +117,6 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.REFUTE_RENT.toString());
-    }
-
-    public void onPostExecuteConfirmRent(int responseStatus){
-        Log.d("Response from server ", String.valueOf(responseStatus));
     }
 
     @Override
