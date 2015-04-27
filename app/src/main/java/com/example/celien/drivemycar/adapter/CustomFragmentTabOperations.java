@@ -4,6 +4,7 @@ package com.example.celien.drivemycar.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +22,10 @@ import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -34,12 +37,14 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private TextView tvBrand;
     private TextView tvModel;
     private TextView tvFromDate;
+    private TextView tvDecision;
+    private TextView tvCanIUse;
     private TextView tvToDate;
+    private TextView tvFrom;
+    private TextView tvTo;
     private Button btnValidate;
     private Button btnCancel;
     private List<JSONObject> list;
-    public static final int ID_FRAGMENT = 1244; // Random
-
 
     public CustomFragmentTabOperations(Context context, List<JSONObject> list, TabOperations caller) {
         super(context, R.layout.custom_fragment_tab_operations, list);
@@ -62,6 +67,10 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         tvModel      = (TextView)v.findViewById(R.id.tvModel);
         tvFromDate   = (TextView)v.findViewById(R.id.tvDateFrom);
         tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
+        tvDecision   = (TextView)v.findViewById(R.id.tvDecision);
+        tvCanIUse    = (TextView)v.findViewById(R.id.tvCanIUse);
+        tvFrom       = (TextView)v.findViewById(R.id.tvFrom);
+        tvTo         = (TextView)v.findViewById(R.id.tvTo);
         btnValidate  = (Button)v.findViewById(R.id.btnValidate);
         btnCancel    = (Button)v.findViewById(R.id.btnCancel);
 
@@ -105,8 +114,8 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         // Update the request value into DB
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.CONFIRM_RENT.toString());
 
-        // Update the ListView
-        list.remove(object);
+        // Update ListView
+        updateListView(object, true);
     }
 
     private void onClickCancel(JSONObject object){
@@ -117,6 +126,38 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
         new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.REFUTE_RENT.toString());
+        updateListView(object, false);
+    }
+
+    /*** Delete item from the List<JSONObject> and update the related ListView row
+     * @param item : item to be deleted (or not)
+     * @param isAccepted : true id accepted, false otherwise**/
+    private void updateListView(JSONObject item, boolean isAccepted){
+        // Remove the object from the list
+        list.remove(item);
+
+        this.notifyDataSetChanged();
+
+        /*
+        // Update the GUI of the row
+        tvCanIUse.setVisibility(View.INVISIBLE);
+        tvBrand.setVisibility(View.INVISIBLE);
+        tvModel.setVisibility(View.INVISIBLE);
+        tvFromDate.setVisibility(View.INVISIBLE);
+        tvToDate.setVisibility(View.INVISIBLE);
+        tvFrom.setVisibility(View.INVISIBLE);
+        tvTo.setVisibility(View.INVISIBLE);
+
+        if(isAccepted){
+            tvDecision.setText("Accepted");
+            tvDecision.setTextColor(Color.GREEN);
+            tvDecision.setVisibility(View.VISIBLE);
+        }
+        else{
+            tvDecision.setText("Refuted");
+            tvDecision.setTextColor(Color.RED);
+            tvDecision.setVisibility(View.VISIBLE);
+        }*/
     }
 
     @Override

@@ -23,6 +23,15 @@
         android:layout_marginLeft="20dp" />
 
     <TextView
+        android:id="@+id/tvDecision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRequestFrom"
+        android:layout_alignLeft="@+id/tvRequestFrom"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/tvCanIUse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

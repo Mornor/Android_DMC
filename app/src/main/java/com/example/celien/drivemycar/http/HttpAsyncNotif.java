@@ -68,20 +68,19 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             listSpecificCarsCaller.getProgressDialog().dismiss();
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
-        if(tabOperationsCaller != null){
+        if(tabOperationsCaller != null)
             tabOperationsCaller.onPostExecuteLoadNotification(jsonArray);
-        }
     }
 
-    private JSONArray updateRequestSate(String idNotification, String actionReqested){
+    private JSONArray updateRequestSate(String idNotification, String actionRequested){
         boolean rentConfirmed = false;
-        if(actionReqested.equals(Action.CONFIRM_RENT.toString()))
+        if(actionRequested.equals(Action.CONFIRM_RENT.toString()))
             rentConfirmed = true;
-        else if(actionReqested.equals(Action.REFUTE_RENT.toString()))
+        else if(actionRequested.equals(Action.REFUTE_RENT.toString()))
             rentConfirmed = false;
         JsonParser parser = new JsonParser();
         JSONArray result = parser.updateRequestState(Integer.valueOf(idNotification), rentConfirmed, Constants.UPDATE_REQUEST_URL);
-        return result;
+        return result; // Which is == null
     }
 
     private JSONArray saveRequest(){
