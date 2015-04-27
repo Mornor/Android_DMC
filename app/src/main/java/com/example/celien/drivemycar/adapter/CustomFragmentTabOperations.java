@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.tabs.TabOperations;
+import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,7 +77,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
         }
 
         // Set the button listeners
-        btnValidate.setOnClickListener(new View.OnClickListener(){
+        btnValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickValidate(getItem(pos));
@@ -93,18 +95,23 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     }
 
     private void onClickValidate(JSONObject object){
-        Toast.makeText(this.getContext(), "Validate", Toast.LENGTH_SHORT).show();
-        int currentNotificationId = 0;
+        String currentNotificationId = "";
         try{
-            currentNotificationId = Integer.valueOf(object.getString("idNotification"));
+            currentNotificationId = object.getString("idNotification");
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
-        Log.d("IdNotification ", String.valueOf(currentNotificationId));
+        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.CONFIRM_RENT.toString());
     }
 
     private void onClickCancel(JSONObject object){
-        Toast.makeText(this.getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+        String currentNotificationId = "";
+        try{
+            currentNotificationId = object.getString("idNotification");
+        } catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.REFUTE_RENT.toString());
     }
 
     public void onPostExecuteConfirmRent(int responseStatus){

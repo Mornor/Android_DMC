@@ -22,5 +22,6 @@ public class Constants {
     public static final String LOAD_SPECIFIC_CARS_URL   = "https://cafca"+tunnelToUse+"/android/get_specific_cars";
     public static final String GET_NOTIFS_URL           = "https://cafca"+tunnelToUse+"/android/get_notifs";
     public static final String SAVE_REQUEST_URL         = "https://cafca"+tunnelToUse+"/android/set_request";
+    public static final String UPDATE_REQUEST_URL       = "https://cafca"+tunnelToUse+"/android/update_request";
 
 }
