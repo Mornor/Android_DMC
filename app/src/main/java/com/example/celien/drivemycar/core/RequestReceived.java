@@ -84,7 +84,8 @@ public class RequestReceived extends ActionBarActivity {
     private void createListView(JSONArray array){
         List<JSONObject> list = new ArrayList<>();
         try {
-            for(int i = 0 ; i < array.length() ; i++){
+            // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
+            for(int i = 1 ; i < array.length() ; i++){
                 JSONObject temp = array.getJSONObject(i);
                 list.add(temp);
             }

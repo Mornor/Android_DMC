@@ -56,12 +56,13 @@ public class Notification extends Service {
     // Retrieve the result from the DB (notification of the users) and create an android.Notification.
     public void onPostExecuteLoadNotif(JSONArray array){
             try{
+
                 // If array contains something
                 if(!array.getJSONObject(0).getBoolean("isArrayEmpty")) {
-
                     // Get all the notifications in DB and display them
-                    for (int i = 0; i < array.length(); i++) {
+                    for (int i = 1; i < array.length(); i++) {
 
+                        Log.d("Come ", "In the loop for");
                         // Notification related
                         NotificationCompat.Builder notification;
 
