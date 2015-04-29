@@ -1,13 +1,16 @@
 package com.example.celien.drivemycar.core;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
@@ -24,13 +27,13 @@ import java.util.List;
 
 public class RequestReceived extends ActionBarActivity {
 
-    private JSONArray notifications;
-    private static boolean notificationInitialized;
     private User user;
 
     // ListView related stuff
     private ListAdapter adapter;
     private ListView lv;
+
+    private TextView tvNoRequestsFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +54,31 @@ public class RequestReceived extends ActionBarActivity {
         getSupportActionBar().setTitle("Request(s) Received");
 
         // Get the elements on the layout
-        lv = (ListView)findViewById(R.id.lvRequests);
+        lv                  = (ListView)findViewById(R.id.lvRequests);
+        tvNoRequestsFound   = (TextView)findViewById(R.id.tvNoRequests);
 
         new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
     }
 
     public void onPostExecuteLoadNotification(JSONArray array){
-        notifications = array;
-        notificationInitialized = true;
-        createListView(array);
+        JSONArray notifications = array;
+        boolean isArrayEmpty = false; //
+        try{
+            isArrayEmpty = notifications.getJSONObject(0).getBoolean("isArrayEmpty");
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        // If there is no request in DB
+        if(isArrayEmpty){
+            tvNoRequestsFound.setVisibility(View.VISIBLE);
+            tvNoRequestsFound.setText("No requests found in DB");
+            tvNoRequestsFound.setTextColor(Color.RED);
+        }else{
+            createListView(notifications);
+        }
+
+
     }
 
     private void createListView(JSONArray array){

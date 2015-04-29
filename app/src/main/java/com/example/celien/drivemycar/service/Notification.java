@@ -55,29 +55,30 @@ public class Notification extends Service {
 
     // Retrieve the result from the DB (notification of the users) and create an android.Notification.
     public void onPostExecuteLoadNotif(JSONArray array){
-        // If array.length == 0, then there is no notifications to display
-        if(array.length() != 0){
-
             try{
-                // Get all the notifications in DB and display them
-                for(int i = 0 ; i < array.length() ; i++){
+                // If array contains something
+                if(!array.getJSONObject(0).getBoolean("isArrayEmpty")) {
 
-                    // Notification related
-                    NotificationCompat.Builder notification;
+                    // Get all the notifications in DB and display them
+                    for (int i = 0; i < array.length(); i++) {
 
-                    // Create the right notification by using the dispatcher
-                    NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
-                    notification = dispatcher.createRightNotification(array.getJSONObject(i));
+                        // Notification related
+                        NotificationCompat.Builder notification;
 
-                    // Issue notification
-                    NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                    nm.notify(UNIQUE_ID + i, notification.build()); // Id has to be unique.
+                        // Create the right notification by using the dispatcher
+                        NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
+                        notification = dispatcher.createRightNotification(array.getJSONObject(i));
+
+                        // Issue notification
+                        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        nm.notify(UNIQUE_ID + i, notification.build()); // Id has to be unique.
+                    }
                 }
             }catch (JSONException e){
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
-        }
     }
+
 
     @Override
     public IBinder onBind(Intent intent) {
