@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.tabs.TabOperations;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -24,6 +26,8 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
     private TextView tvTotal;
     private TextView tvNbAccepted;
     private TextView tvNbRefuted;
+    private TextView tvFromDate;
+    private TextView tvToDate;
 
 
     public CustomTabOperation(Context context, List<JSONObject> list, TabOperations caller){
@@ -41,7 +45,18 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         tvTotal         = (TextView)rootView.findViewById(R.id.tvNbRef);
         tvNbAccepted    = (TextView)rootView.findViewById(R.id.tvNbConfEditable);
         tvNbRefuted     = (TextView)rootView.findViewById(R.id.tvNbRefEditable);
+        tvFromDate      = (TextView)rootView.findViewById(R.id.tvFromEditable);
+        tvToDate        = (TextView)rootView.findViewById(R.id.tvToEditable);
 
+        try{
+            tvFromDate.setText(currentJson.getString("dateFrom"));
+            tvToDate.setText(currentJson.getString("dateTo"));
+            tvTotal.setText(currentJson.getString("nbRequestedPeople"));
+            tvNbAccepted.setText(currentJson.getString("nbConfirmed"));
+            tvNbRefuted.setText(currentJson.getString("nbRefuted"));
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
 
         return rootView;
     }
