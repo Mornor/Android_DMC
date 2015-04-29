@@ -15,7 +15,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.adapter.CustomFragmentTabOperations;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
@@ -42,10 +41,11 @@ public class TabOperations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
-        init(rootView);
+        //init(rootView);
         return rootView;
     }
 
+    /*
     private void init(View v){
 
         // Get the current user and the notifications if there is some.
@@ -79,6 +79,8 @@ public class TabOperations extends Fragment {
         adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
         lv.setAdapter(adapter);
     }
+
+    */
 
     /*Getters and Setter*/
     public ProgressDialog getProgressDialog() {

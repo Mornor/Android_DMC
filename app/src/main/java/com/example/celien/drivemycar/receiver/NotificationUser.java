@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.core.Home;
+import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
-import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -94,10 +93,9 @@ public class NotificationUser extends Activity{
 
 
     private void launchIntentToTransactionTab(){
-        Intent i = new Intent(this, Home.class);
+        Intent i = new Intent(this, RequestReceived.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
-        bundle.putString("tabToOpen", "3"); // Open the TabOperations
         i.putExtras(bundle);
         finish();
         startActivity(i);

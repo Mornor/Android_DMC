@@ -2,6 +2,7 @@ package com.example.celien.drivemycar.adapter;
 
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.tabs.TabOperations;
@@ -29,10 +31,10 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
+public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
 
     private JSONObject currentJson;
-    private TabOperations caller;
+    private RequestReceived caller;
     private TextView tvUserSource;
     private TextView tvBrand;
     private TextView tvModel;
@@ -42,7 +44,7 @@ public class CustomFragmentTabOperations extends ArrayAdapter<JSONObject> {
     private Button btnCancel;
     private List<JSONObject> list;
 
-    public CustomFragmentTabOperations(Context context, List<JSONObject> list, TabOperations caller) {
+    public CustomRequestReceived(Context context, List<JSONObject> list, RequestReceived caller) {
         super(context, R.layout.custom_fragment_tab_operations, list);
         this.caller = caller;
         this.list = list;

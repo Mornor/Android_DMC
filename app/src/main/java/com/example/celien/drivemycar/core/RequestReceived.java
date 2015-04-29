@@ -2,6 +2,7 @@ package com.example.celien.drivemycar.core;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +10,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.adapter.CustomFragmentTabOperations;
+import com.example.celien.drivemycar.adapter.CustomRequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
+import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -21,6 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestReceived extends ActionBarActivity {
+
+    private JSONArray notifications;
+    private static boolean notificationInitialized;
+    private User user;
 
     // ListView related stuff
     private ListAdapter adapter;
@@ -35,11 +41,17 @@ public class RequestReceived extends ActionBarActivity {
 
     private void init(){
         // Get the current user and the notifications if there is some.
-        Home homeActivity = (Home)getActivity();
-        user = homeActivity.getUser();
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null)
+            this.user = currentUser;
+
+        // Set the toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Request(s) Received");
 
         // Get the elements on the layout
-        lv = (ListView)v.findViewById(R.id.lvRequests);
+        lv = (ListView)findViewById(R.id.lvRequests);
 
         new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
     }
@@ -61,7 +73,7 @@ public class RequestReceived extends ActionBarActivity {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomFragmentTabOperations(this.getActivity(), list, this);
+        adapter = new CustomRequestReceived(this, list, this);
         lv.setAdapter(adapter);
     }
 

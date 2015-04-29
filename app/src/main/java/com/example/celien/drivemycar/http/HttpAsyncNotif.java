@@ -5,8 +5,9 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.celien.drivemycar.adapter.CustomFragmentTabOperations;
+import com.example.celien.drivemycar.adapter.CustomRequestReceived;
 import com.example.celien.drivemycar.core.ListSpecificCars;
+import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
@@ -27,19 +28,19 @@ import java.util.List;
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
-    private TabOperations tabOperationsCaller;
-    private CustomFragmentTabOperations customFragmentTabOperationsCaller;
+    private RequestReceived requestReceivedCaller;
+    private CustomRequestReceived customRequestReceivedCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
     }
 
-    public HttpAsyncNotif(TabOperations caller){
-        this.tabOperationsCaller = caller;
+    public HttpAsyncNotif(RequestReceived caller){
+        this.requestReceivedCaller = caller;
     }
 
-    public HttpAsyncNotif(CustomFragmentTabOperations caller){
-        this.customFragmentTabOperationsCaller = caller;
+    public HttpAsyncNotif(CustomRequestReceived caller){
+        this.customRequestReceivedCaller = caller;
     }
 
     @Override
@@ -68,8 +69,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             listSpecificCarsCaller.getProgressDialog().dismiss();
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
-        if(tabOperationsCaller != null)
-            tabOperationsCaller.onPostExecuteLoadNotification(jsonArray);
+        if(requestReceivedCaller != null)
+            requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){
