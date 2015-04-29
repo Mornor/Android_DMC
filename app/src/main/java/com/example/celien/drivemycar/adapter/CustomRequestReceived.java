@@ -53,12 +53,12 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View v = inflater.inflate(R.layout.custom_fragment_tab_operations, parent, false);
+        View v = inflater.inflate(R.layout.custom_request_received, parent, false);
 
         // Declare it final, so that I can access it in the btn.OnclickMethod().
         final int pos = position;
 
-        // Get the elements on the layout
+        // Get the elements on the layouts
         currentJson  = getItem(position);
         tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);
         tvBrand      = (TextView)v.findViewById(R.id.tvBrand);
