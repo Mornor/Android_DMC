@@ -16,6 +16,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,16 +53,21 @@
             android:label="@string/title_activity_list_specific_cars" >
         </activity>
 
-        <!--  <receiver android:name=".receiver.NotificationAutoStart">
+        <!--
+        <receiver android:name=".receiver.NotificationAutoStart">
              <intent-filter>
                  <action android:name="android.intent.action.BOOT_COMPLETED"/>
                  <action android:name=".service.Notification"/>
              </intent-filter>
-        </receiver>-->
+        </receiver>
+        -->
 
-        <service android:name=".service.Notification"></service>
+        <service android:name=".service.Notification" />
 
-
+        <activity
+            android:name=".core.RequestReceived"
+            android:label="@string/title_activity_request_received" >
+        </activity>
     </application>
 
 </manifest>
