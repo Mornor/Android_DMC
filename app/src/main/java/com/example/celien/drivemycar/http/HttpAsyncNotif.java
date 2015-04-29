@@ -30,6 +30,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private ListSpecificCars listSpecificCarsCaller;
     private RequestReceived requestReceivedCaller;
     private CustomRequestReceived customRequestReceivedCaller;
+    private TabOperations tabOperationsCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
@@ -43,11 +44,17 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.customRequestReceivedCaller = caller;
     }
 
+    public HttpAsyncNotif(TabOperations caller){
+        this.tabOperationsCaller = caller;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         if(listSpecificCarsCaller != null)
             listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait...", "Send request..." ));
+        if(tabOperationsCaller != null)
+            tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Fetch requests..."));
     }
 
     @Override
@@ -58,6 +65,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             return getNotification(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
         if(params[0].equals(Action.UPDATE_REQUEST_STATE.toString()))
             return updateRequestSate(params[1], params[2]); // String of current IdNotification, and String of the choise (Action.CONFIRM_REQUEST or Action.REFUTE_REQUEST)
+        if(params[0].equals(Action.GET_REQUEST_DATA.toString()))
+            return getRequestData(params[1]);
         return null;
     }
 
@@ -69,8 +78,16 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             listSpecificCarsCaller.getProgressDialog().dismiss();
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
+        if(tabOperationsCaller != null){
+            tabOperationsCaller.getProgressDialog().dismiss();
+            tabOperationsCaller.onPostExecteLoadRequestData(jsonArray);
+        }
         if(requestReceivedCaller != null)
             requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
+    }
+
+    private JSONArray getRequestData(String username){
+        return new JsonParser().getRequestData(username, Constants.GET_REQUEST_DATA);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){

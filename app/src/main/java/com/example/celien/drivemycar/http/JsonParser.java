@@ -220,6 +220,32 @@ public class JsonParser {
         return null;
     }
 
+    /***Get the data of the requests of the User
+     * @param username : Username of the current Android user.
+     * @param url : url of the destination.
+     * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value", "nbrRequestedPeople":"value", "nbrConfirmed":"value", "nbrRefuted":"value"}]*/
+    public JSONArray getRequestData(String username, String url){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", username));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
+
     public static String createJsonStringFromInputStream(InputStream inputStream){
         try{
             BufferedReader reader = new BufferedReader(
@@ -235,8 +261,6 @@ public class JsonParser {
         }
         return json;
     }
-
-
 
     private JSONArray createJsonArrayFromString(String json){
         try{

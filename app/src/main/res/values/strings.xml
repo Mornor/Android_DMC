@@ -108,6 +108,7 @@
     <string name="tvCanIUse">Can I use your</string>
     <string name="btnValidate">For sure</string>
     <string name="btnCancel">Sorry</string>
+    <string name="btnCheckRequestsReceived">Recieved requests</string>
 
     <string name="tvSetOdometer">Set Odomoter (Kms)</string>
     <string name="btnOk">OK</string>
