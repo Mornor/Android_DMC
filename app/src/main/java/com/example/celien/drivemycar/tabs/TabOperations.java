@@ -44,7 +44,7 @@ public class TabOperations extends Fragment {
     }
 
     private void loadUserRequest(){
-        new HttpAsyncNotif(this).execute(user.getUsername());
+        //new HttpAsyncNotif(this).execute(user.getUsername());
     }
 
     public void onPostExecteLoadRequestData(JSONArray array){

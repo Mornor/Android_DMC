@@ -61,8 +61,6 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         return rootView;
     }
 
-
-
     @Override
     public int getCount() {
         return list.size();
