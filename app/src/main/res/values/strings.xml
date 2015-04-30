@@ -108,10 +108,12 @@
     <string name="tvCanIUse">Can I use your</string>
     <string name="btnValidate">For sure</string>
     <string name="btnCancel">Sorry</string>
-    <string name="btnCheckRequestsReceived">Recieved requests</string>
-
+    <string name="btnCheckRequestsReceived">Received requests</string>
     <string name="tvSetOdometer">Set Odomoter (Kms)</string>
     <string name="btnOk">OK</string>
+
+    <!-- activity_accept_owner-->
+    <string name="btnSelectOwner">Select owner</string>
 
     <!-- General String-->
     <string name="menuExit">Exit</string>
@@ -127,5 +129,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_list_specific_cars">ListSpecificCars</string>
     <string name="title_activity_request_received">RequestReceived</string>
+    <string name="title_activity_accept_owner">AcceptOwner</string>
 
 </resources>

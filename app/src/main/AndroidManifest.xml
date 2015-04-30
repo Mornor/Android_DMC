@@ -68,6 +68,10 @@
             android:name=".core.RequestReceived"
             android:label="@string/title_activity_request_received" >
         </activity>
+        <activity
+            android:name=".core.AcceptOwner"
+            android:label="@string/title_activity_accept_owner" >
+        </activity>
     </application>
 
 </manifest>

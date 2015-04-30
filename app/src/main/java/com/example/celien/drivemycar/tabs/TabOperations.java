@@ -49,6 +49,24 @@ public class TabOperations extends Fragment {
         return rootView;
     }
 
+    private void init(View v){
+        // Retrieve the user from tab hosting (Home)
+        Home homeActivity   = (Home)getActivity();
+        user                = homeActivity.getUser();
+
+        btnRequests     = (Button)v.findViewById(R.id.btnCheckRequests);
+        lvRequestStatus = (ListView)v.findViewById(R.id.lvRequestsStatut);
+
+        btnRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lauchIntentToRequestReceived();
+            }
+        });
+
+        loadUserRequestByDate();
+    }
+
     private void loadUserRequestByDate(){
         if(user != null)
             new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername());
@@ -87,25 +105,6 @@ public class TabOperations extends Fragment {
             }
         });
     }
-
-    private void init(View v){
-        // Retrieve the user from tab hosting (Home)
-        Home homeActivity   = (Home)getActivity();
-        user                = homeActivity.getUser();
-
-        btnRequests     = (Button)v.findViewById(R.id.btnCheckRequests);
-        lvRequestStatus = (ListView)v.findViewById(R.id.lvRequestsStatut);
-
-        btnRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lauchIntentToRequestReceived();
-            }
-        });
-
-        loadUserRequestByDate();
-    }
-
 
     private void lauchIntentToRequestReceived(){
         Intent i = new Intent(this.getActivity(), RequestReceived.class);
