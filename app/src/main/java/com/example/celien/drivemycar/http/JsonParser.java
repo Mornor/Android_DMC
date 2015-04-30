@@ -223,8 +223,8 @@ public class JsonParser {
     /***Get the data of the requests of the User
      * @param username : Username of the current Android user.
      * @param url : url of the destination.
-     * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value", "nbRequestedPeople":"value", "nbConfirmed":"value", "nbRefuted":"value"}]*/
-    public JSONArray getRequestData(String username, String url){
+     * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"}]*/
+    public JSONArray getRequestsByDate(String username, String url){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -242,6 +242,7 @@ public class JsonParser {
             e.printStackTrace();
         }
 
+        Log.d("Request", "Executed");
         return createJsonArrayFromString(json);
     }
 

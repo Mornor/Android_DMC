@@ -45,7 +45,7 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     private List<JSONObject> list;
 
     public CustomRequestReceived(Context context, List<JSONObject> list, RequestReceived caller) {
-        super(context, R.layout.custom_fragment_tab_operations, list);
+        super(context, R.layout.custom_request_received, list);
         this.caller = caller;
         this.list = list;
     }

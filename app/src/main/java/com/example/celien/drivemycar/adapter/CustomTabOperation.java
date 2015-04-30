@@ -23,9 +23,6 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
     private JSONObject currentJson;
     private TabOperations caller;
     private List<JSONObject> list;
-    private TextView tvTotal;
-    private TextView tvNbAccepted;
-    private TextView tvNbRefuted;
     private TextView tvFromDate;
     private TextView tvToDate;
 
@@ -42,18 +39,12 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         View rootView = inflater.inflate(R.layout.custom_fragment_tab_operations, parent, false);
 
         currentJson     = getItem(position);
-        tvTotal         = (TextView)rootView.findViewById(R.id.tvNbRef);
-        tvNbAccepted    = (TextView)rootView.findViewById(R.id.tvNbConfEditable);
-        tvNbRefuted     = (TextView)rootView.findViewById(R.id.tvNbRefEditable);
         tvFromDate      = (TextView)rootView.findViewById(R.id.tvFromEditable);
         tvToDate        = (TextView)rootView.findViewById(R.id.tvToEditable);
 
         try{
-            tvFromDate.setText(currentJson.getString("dateFrom"));
-            tvToDate.setText(currentJson.getString("dateTo"));
-            tvTotal.setText(currentJson.getString("nbRequestedPeople"));
-            tvNbAccepted.setText(currentJson.getString("nbConfirmed"));
-            tvNbRefuted.setText(currentJson.getString("nbRefuted"));
+            tvFromDate.setText(currentJson.getString("fromDate"));
+            tvToDate.setText(currentJson.getString("toDate"));
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

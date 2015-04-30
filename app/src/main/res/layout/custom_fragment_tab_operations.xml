@@ -45,57 +45,5 @@
         android:layout_toRightOf="@+id/tvTo"
         android:layout_marginLeft="20dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFromEditable"
-        android:layout_alignLeft="@+id/tvFromEditable"
-        android:layout_alignStart="@+id/tvFromEditable"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/tvNbRequested"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Total"/>
-
-        <TextView
-            android:id="@+id/tvNbReqEditable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/tvConfirmed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accepted"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/tvNbConfEditable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/tvNbRef"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Refuted"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/tvNbRefEditable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginLeft="10dp" />
-
-        </LinearLayout>
-
 
 </RelativeLayout>

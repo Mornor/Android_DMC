@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomTabOperation;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
@@ -30,40 +32,48 @@ public class TabOperations extends Fragment {
 
     private User user;
 
+    private ListAdapter adapter;
     private Button btnRequests;
     private ListView lvRequestStatus;
     private ProgressDialog progressDialog;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
-        loadUserRequest();
-        init(rootView);
+        rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
+        loadUserRequestByDate();
         return rootView;
     }
 
-    private void loadUserRequest(){
-        //new HttpAsyncNotif(this).execute(user.getUsername());
+    private void loadUserRequestByDate(){
+        new HttpAsyncNotif(this).execute(user.getUsername());
     }
 
-    public void onPostExecteLoadRequestData(JSONArray array){
+    public void onPostExecuteLoadRequestByDate(JSONArray array){
         List<JSONObject> list = new ArrayList<>();
         try {
-            // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
-            for(int i = 1 ; i < array.length() ; i++){
-                JSONObject temp = array.getJSONObject(i);
-                list.add(temp);
+
+            if(!array.getJSONObject(0).getBoolean("success"))
+                Log.e("Error", "JSON empty");
+            else {
+                // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
+                for (int i = 1; i < array.length(); i++) {
+                    JSONObject temp = array.getJSONObject(i);
+                    list.add(temp);
+                }
             }
         } catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        adapter = new CustomTabOperation(this.getActivity(), list, this);
+        lvRequestStatus.setAdapter(adapter);
+        init(rootView);
 
     }
 
     private void init(View v){
-
         // Retrieve the user from tab hosting (Home)
         Home homeActivity   = (Home)getActivity();
         user                = homeActivity.getUser();
