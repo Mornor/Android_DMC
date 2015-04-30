@@ -70,7 +70,7 @@ public class TabOperations extends Fragment {
 
     private void loadUserRequestByDate(){
         if(user != null)
-            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername());
+            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE.toString(), user.getUsername());
     }
 
     public void onPostExecuteLoadRequestByDate(JSONArray array){

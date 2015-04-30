@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.accessibility.AccessibilityRecord;
 
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
+import com.example.celien.drivemycar.core.AcceptOwner;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.receiver.NotificationUser;
@@ -34,6 +36,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private CustomRequestReceived customRequestReceivedCaller;
     private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
+    private AcceptOwner acceptOwnerCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
@@ -52,6 +55,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.tabOperationsCaller = caller;
     }
 
+    public HttpAsyncNotif(AcceptOwner caller){
+        this.acceptOwnerCaller = caller;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -68,7 +75,9 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         if(params[0].equals(Action.GET_NOTIFS.toString()))
             return getNotification(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
         if(params[0].equals(Action.UPDATE_REQUEST_STATE.toString()))
-            return updateRequestSate(params[1], params[2]); // String of current IdNotification, and String of the choise (Action.CONFIRM_REQUEST or Action.REFUTE_REQUEST)
+            return updateRequestSate(params[1], params[2]); // String of current IdNotification, and String of the choice (Action.CONFIRM_REQUEST or Action.REFUTE_REQUEST)
+        if(params[0].equals(Action.GET_REQUEST_BY_DATE.toString()))
+            return getRequestByDate(params[1]);
         if(params[0].equals(Action.GET_REQUEST_DATA.toString()))
             return getRequestData(params[1]);
         return null;
@@ -88,10 +97,16 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         }
         if(requestReceivedCaller != null)
             requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
+        if(acceptOwnerCaller != null)
+            acceptOwnerCaller.onPostExecuteLoadRequestData(jsonArray);
+    }
+
+    private JSONArray getRequestByDate(String username){
+        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE);
     }
 
     private JSONArray getRequestData(String username){
-        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE);
+        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_DATA);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){

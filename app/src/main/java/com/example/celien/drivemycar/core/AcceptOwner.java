@@ -7,13 +7,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomAcceptOwner;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AcceptOwner extends ActionBarActivity {
 
@@ -21,6 +29,7 @@ public class AcceptOwner extends ActionBarActivity {
     private JSONObject jsonObject; // Contains just the dates of the requests.
     private ListView lvAgreedOwners;
     private Button btnSelectOwner;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,28 @@ public class AcceptOwner extends ActionBarActivity {
     }
 
     private void loadRequestData(){
+        new HttpAsyncNotif(this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername());
+    }
 
+    public void onPostExecuteLoadRequestData(JSONArray array){
+        List<JSONObject> list = new ArrayList<>();
+        try {
+
+            if(!array.getJSONObject(0).getBoolean("success"))
+                Log.e("Error", "JSON empty");
+            else {
+                // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
+                for (int i = 1; i < array.length(); i++) {
+                    JSONObject temp = array.getJSONObject(i);
+                    list.add(temp);
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        adapter = new CustomAcceptOwner(this, list, this);
+        lvAgreedOwners.setAdapter(adapter);
     }
 
     @Override
