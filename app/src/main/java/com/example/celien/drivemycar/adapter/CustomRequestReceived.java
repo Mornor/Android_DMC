@@ -73,8 +73,8 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
             tvUserSource.setText(currentJson.getString("userSource"));
             tvBrand.setText(currentJson.getString("brand"));
             tvModel.setText(currentJson.getString("model"));
-            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 9)+" at" +currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5)+ "h ");
-            tvToDate.setText(currentJson.getString("toDate").substring(0, 9)+" at" +currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5)+ "h ");
+            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10)+" at" +currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5)+ "h ");
+            tvToDate.setText(currentJson.getString("toDate").substring(0, 10)+" at" +currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5)+ "h ");
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

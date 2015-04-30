@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
@@ -71,6 +73,19 @@ public class TabOperations extends Fragment {
 
         adapter = new CustomTabOperation(this.getActivity(), list, this);
         lvRequestStatus.setAdapter(adapter);
+
+        // Set listener to ListView
+        lvRequestStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                JSONObject jsonObjectClicked = (JSONObject)parent.getItemAtPosition(position);
+                try {
+                    Toast.makeText(getActivity(), jsonObjectClicked.getString("fromDate"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void init(View v){
