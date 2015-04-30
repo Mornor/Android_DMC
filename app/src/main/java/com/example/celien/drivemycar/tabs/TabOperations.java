@@ -19,6 +19,7 @@ import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,12 +43,13 @@ public class TabOperations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
-        loadUserRequestByDate();
+        init(rootView);
         return rootView;
     }
 
     private void loadUserRequestByDate(){
-        new HttpAsyncNotif(this).execute(user.getUsername());
+        if(user != null)
+            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername());
     }
 
     public void onPostExecuteLoadRequestByDate(JSONArray array){
@@ -87,7 +89,10 @@ public class TabOperations extends Fragment {
                 lauchIntentToRequestReceived();
             }
         });
+
+        loadUserRequestByDate();
     }
+
 
     private void lauchIntentToRequestReceived(){
         Intent i = new Intent(this.getActivity(), RequestReceived.class);

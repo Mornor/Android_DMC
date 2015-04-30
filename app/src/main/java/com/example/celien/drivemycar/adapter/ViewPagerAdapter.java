@@ -15,8 +15,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int nbTabs){
         super(fm);
-        this.titles     = titles;
-        this.nbTabs     = nbTabs;
+        this.titles = titles;
+        this.nbTabs = nbTabs;
     }
 
     @Override

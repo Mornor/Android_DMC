@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.http;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
@@ -21,6 +22,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private ListSpecificCars listSpecificCarsCaller;
     private RequestReceived requestReceivedCaller;
     private CustomRequestReceived customRequestReceivedCaller;
+    private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
@@ -44,7 +47,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.customRequestReceivedCaller = caller;
     }
 
-    public HttpAsyncNotif(TabOperations caller){
+    public HttpAsyncNotif(FragmentActivity act, TabOperations caller){
+        this.activity = act;
         this.tabOperationsCaller = caller;
     }
 
@@ -80,6 +84,11 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         }
         if(tabOperationsCaller != null){
             //tabOperationsCaller.getProgressDialog().dismiss();
+            try{
+                Log.d("Boolean ", String.valueOf(jsonArray.getJSONObject(0).getBoolean("success")));
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
             tabOperationsCaller.onPostExecuteLoadRequestByDate(jsonArray);
         }
         if(requestReceivedCaller != null)

@@ -242,7 +242,6 @@ public class JsonParser {
             e.printStackTrace();
         }
 
-        Log.d("Request", "Executed");
         return createJsonArrayFromString(json);
     }
 
