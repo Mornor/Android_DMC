@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <CheckBox
         android:id="@+id/cbSelectedCar"
@@ -13,63 +14,63 @@
         android:id="@+id/tvBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/cbSelectedCar"
-        android:layout_toRightOf="@+id/cbSelectedCar"
         android:layout_alignBottom="@+id/cbSelectedCar"
         android:layout_margin="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tvBrand" />
+        android:layout_toEndOf="@id/cbSelectedCar"
+        android:layout_toRightOf="@+id/cbSelectedCar"
+        android:text="@string/tvBrand"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tvModel"
-        android:text="@string/tvModel"
-        android:layout_toEndOf="@+id/tvBrand"
-        android:layout_toRightOf="@+id/tvBrand"
-        android:layout_alignBottom="@+id/tvBrand"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp" />
+        android:layout_alignBottom="@+id/tvBrand"
+        android:layout_marginLeft="40dp"
+        android:layout_toEndOf="@+id/tvBrand"
+        android:layout_toRightOf="@+id/tvBrand"
+        android:text="@string/tvModel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tvOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvBrand"
         android:layout_below="@+id/tvBrand"
         android:text="@string/tvOwner"
-        android:layout_alignLeft="@+id/tvBrand"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tvOwnerEditable"
-        android:text="@string/tvOwnerEditable"
-        android:layout_toEndOf="@+id/tvOwner"
-        android:layout_toRightOf="@+id/tvOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tvOwner"
         android:layout_alignLeft="@+id/tvModel"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_toEndOf="@+id/tvOwner"
+        android:layout_toRightOf="@+id/tvOwner"
+        android:text="@string/tvOwnerEditable"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tvEstimatedPrice"
-        android:text="@string/tvEstimatedPrice"
-        android:layout_below="@id/tvOwner"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignLeft="@+id/tvOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:layout_alignLeft="@+id/tvOwner"
+        android:layout_below="@id/tvOwner"
+        android:layout_marginTop="5dp"
+        android:text="@string/tvEstimatedPrice"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tvEstimatedPriceEditable"
-        android:text="@string/tvEstimatedPriceEditable"
-        android:layout_toEndOf="@id/tvEstimatedPrice"
-        android:layout_toRightOf="@+id/tvEstimatedPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tvEstimatedPrice"
         android:layout_alignLeft="@+id/tvOwnerEditable"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_toEndOf="@id/tvEstimatedPrice"
+        android:layout_toRightOf="@+id/tvEstimatedPrice"
+        android:text="@string/tvEstimatedPriceEditable"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
