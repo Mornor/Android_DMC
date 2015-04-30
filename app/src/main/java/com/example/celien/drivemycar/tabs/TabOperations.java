@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
+import com.example.celien.drivemycar.core.AcceptOwner;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
@@ -97,13 +98,18 @@ public class TabOperations extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 JSONObject jsonObjectClicked = (JSONObject)parent.getItemAtPosition(position);
-                try {
-                    Toast.makeText(getActivity(), jsonObjectClicked.getString("fromDate"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                launchIntentToAcceptOwner(jsonObjectClicked);
             }
         });
+    }
+
+    private void launchIntentToAcceptOwner(JSONObject object){
+        Intent i = new Intent(this.getActivity(), AcceptOwner.class);
+        Bundle bdl = new Bundle();
+        bdl.putParcelable("user", user);
+        bdl.putString("json", object.toString()); // Have to pass the JSON as a String because no implemented methods.
+        i.putExtras(bdl);
+        startActivity(i);
     }
 
     private void lauchIntentToRequestReceived(){
