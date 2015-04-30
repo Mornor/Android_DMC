@@ -77,8 +77,6 @@ public class RequestReceived extends ActionBarActivity {
         }else{
             createListView(notifications);
         }
-
-
     }
 
     private void createListView(JSONArray array){

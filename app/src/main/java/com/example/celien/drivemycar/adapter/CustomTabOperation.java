@@ -43,8 +43,8 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         tvToDate        = (TextView)rootView.findViewById(R.id.tvToEditable);
 
         try{
-            tvFromDate.setText(currentJson.getString("fromDate"));
-            tvToDate.setText(currentJson.getString("toDate"));
+            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 9));
+            tvToDate.setText(currentJson.getString("toDate").substring(0, 9));
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }

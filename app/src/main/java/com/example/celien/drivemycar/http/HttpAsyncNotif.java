@@ -84,11 +84,6 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         }
         if(tabOperationsCaller != null){
             //tabOperationsCaller.getProgressDialog().dismiss();
-            try{
-                Log.d("Boolean ", String.valueOf(jsonArray.getJSONObject(0).getBoolean("success")));
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
             tabOperationsCaller.onPostExecuteLoadRequestByDate(jsonArray);
         }
         if(requestReceivedCaller != null)

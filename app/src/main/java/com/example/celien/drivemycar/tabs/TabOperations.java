@@ -71,8 +71,6 @@ public class TabOperations extends Fragment {
 
         adapter = new CustomTabOperation(this.getActivity(), list, this);
         lvRequestStatus.setAdapter(adapter);
-        init(rootView);
-
     }
 
     private void init(View v){
