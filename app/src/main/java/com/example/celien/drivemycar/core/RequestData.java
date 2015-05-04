@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class RequestData extends ActionBarActivity {
         tvNbNoAnswer   = (TextView)findViewById(R.id.tvNbNoAnswerEditable);
         btnSelectOwner = (Button)findViewById(R.id.btnSelectOwner);
 
+        btnSelectOwner.setEnabled(false);
         loadRequestData();
     }
 
@@ -80,10 +82,22 @@ public class RequestData extends ActionBarActivity {
             tvNbRequest.setText(array.getJSONObject(1).getString("nbRequestSent"));
             tvNbAccepted.setText(array.getJSONObject(1).getString("nbAccepted"));
             tvNbRefuted.setText(array.getJSONObject(1).getString("nbRefuted"));
-            tvNbNoAnswer.setText(array.getJSONObject(1).getString("nbRefuted"));
+            tvNbNoAnswer.setText(array.getJSONObject(1).getString("nbNoAnswer"));
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
+
+        btnSelectOwner.setEnabled(true);
+        btnSelectOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lauchIntentToSelectOwner();
+            }
+        });
+    }
+
+    private void lauchIntentToSelectOwner(){
+
     }
 
     @Override
@@ -109,7 +123,6 @@ public class RequestData extends ActionBarActivity {
     }
 
     /*Getters and Setters*/
-
     public ProgressDialog getProgressDialog() {
         return progressDialog;
     }
