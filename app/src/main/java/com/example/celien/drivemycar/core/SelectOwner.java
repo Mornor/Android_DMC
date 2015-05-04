@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.adapter.CustomSelectOwner;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -18,6 +19,9 @@ import com.example.celien.drivemycar.utils.Action;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectOwner extends ActionBarActivity {
 
@@ -54,7 +58,7 @@ public class SelectOwner extends ActionBarActivity {
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Request Data");
+        getSupportActionBar().setTitle("Agreed Owners");
 
         // Get the items on the layout
         lv = (ListView)findViewById(R.id.lvOwners);
@@ -67,7 +71,24 @@ public class SelectOwner extends ActionBarActivity {
     }
 
     public void onOnPostAgreedOnwers(JSONArray array){
+        List<JSONObject> list = new ArrayList<>();
+        try {
 
+            if(!array.getJSONObject(0).getBoolean("success"))
+                Log.e("Error", "JSON empty");
+            else {
+                // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
+                for (int i = 1; i < array.length(); i++) {
+                    JSONObject temp = array.getJSONObject(i);
+                    list.add(temp);
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        adapter = new CustomSelectOwner(this, list, this);
+        lv.setAdapter(adapter);
     }
 
     @Override
