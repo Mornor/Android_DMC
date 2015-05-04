@@ -79,7 +79,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         if(params[0].equals(Action.GET_REQUEST_BY_DATE.toString()))
             return getRequestByDate(params[1]);
         if(params[0].equals(Action.GET_REQUEST_DATA.toString()))
-            return getRequestData(params[1]);
+            return getRequestData(params[1], params[2], params[3]); // username, fromDate, toDate
         return null;
     }
 
@@ -105,8 +105,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE);
     }
 
-    private JSONArray getRequestData(String username){
-        return new JsonParser().getRequestData(username, Constants.GET_REQUEST_DATA);
+    private JSONArray getRequestData(String username, String fromDate, String toDate){
+        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){

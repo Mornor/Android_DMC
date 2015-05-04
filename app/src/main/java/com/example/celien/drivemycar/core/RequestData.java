@@ -26,7 +26,9 @@ import java.util.List;
 public class RequestData extends ActionBarActivity {
 
     private User user;
-    private JSONObject jsonObject; // Contains just the dates of the requests.
+    private JSONObject jsonObject; // Contains just the dates of the requests. (fromDate and toDate)
+    private String fromDate;
+    private String toDate;
     private ListView lvAgreedOwners;
     private Button btnSelectOwner;
     private ListAdapter adapter;
@@ -46,6 +48,8 @@ public class RequestData extends ActionBarActivity {
             this.user       = currentUser;
             try {
                 this.jsonObject = new JSONObject(getIntent().getStringExtra("json"));
+                this.fromDate   = this.jsonObject.getString("fromDate");
+                this.toDate     = this.jsonObject.getString("toDate");
             } catch (JSONException e) {
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
@@ -64,7 +68,7 @@ public class RequestData extends ActionBarActivity {
     }
 
     private void loadRequestData(){
-        new HttpAsyncNotif(this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername());
+        new HttpAsyncNotif(this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername(), fromDate, toDate);
     }
 
     public void onPostExecuteLoadRequestData(JSONArray array){

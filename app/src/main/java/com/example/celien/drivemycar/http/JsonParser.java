@@ -251,13 +251,15 @@ public class JsonParser {
      * @param url
      * @return JSONArray like this : [{"requestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
      */
-    public JSONArray getRequestData(String username, String url){
+    public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("fromDate", fromDate));
+            list.add(new BasicNameValuePair("toDate", toDate));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
