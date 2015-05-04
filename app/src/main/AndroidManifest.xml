@@ -76,6 +76,10 @@
             android:name=".core.AcceptOwner"
             android:label="@string/title_activity_accept_owner" >
         </activity>
+        <activity
+            android:name=".core.SelectOwner"
+            android:label="@string/title_activity_select_owner" >
+        </activity>
     </application>
 
 </manifest>

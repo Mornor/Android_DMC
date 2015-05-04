@@ -137,5 +137,6 @@
     <string name="title_activity_request_received">RequestReceived</string>
     <string name="title_activity_accept_owner">AcceptOwner</string>
     <string name="title_activity_request_data">RequestData</string>
+    <string name="title_activity_select_owner">SelectOwner</string>
 
 </resources>
