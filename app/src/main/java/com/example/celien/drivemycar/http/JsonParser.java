@@ -246,12 +246,38 @@ public class JsonParser {
     }
 
 
-    /**
-     * @param username
+    /*** @param username
      * @param url
-     * @return JSONArray like this : [{"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
-     */
+     * @return JSONArray like this : [{"success":"value"}, {"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}] */
     public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("fromDate", fromDate));
+            list.add(new BasicNameValuePair("toDate", toDate));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
+    /*** @param username
+     * @param fromDate
+     * @param toDate
+     * @param url
+     * @return JSONArray like this [{"success":"value"}, {"ownerName":"value", "brand""value", "model""value"}, etc ... ]*/
+    public JSONArray getAgreedOwners(String username, String fromDate, String toDate, String url){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();

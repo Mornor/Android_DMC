@@ -11,7 +11,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,11 +59,11 @@ public class SelectOwner extends ActionBarActivity {
         // Get the items on the layout
         lv = (ListView)findViewById(R.id.lvOwners);
 
-
+        getAgreedOwners();
     }
 
     private void getAgreedOwners(){
-
+        new HttpAsyncNotif(this).execute(Action.GET_AGREED_OWNERS.toString(), user.getUsername(), fromDate, toDate);
     }
 
     public void onOnPostAgreedOnwers(JSONArray array){

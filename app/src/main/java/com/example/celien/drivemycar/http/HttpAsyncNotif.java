@@ -101,6 +101,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             requestDataCaller.getProgressDialog().dismiss();
             requestDataCaller.onPostExecuteLoadRequestData(jsonArray);
         }
+        if(selectOwnerCaller != null){
+            selectOwnerCaller.getProgressDialog().dismiss();
+            selectOwnerCaller.onOnPostAgreedOnwers(jsonArray);
+        }
     }
 
     private JSONArray getRequestByDate(String username){
@@ -112,7 +116,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     }
 
     private JSONArray getAgreedUsers(String username, String fromDate, String toDate){
-        return null;
+       return new JsonParser().getAgreedOwners(username, fromDate, toDate, Constants.GET_AGREED_OWNERS_URL);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){
