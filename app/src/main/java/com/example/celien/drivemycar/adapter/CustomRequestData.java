@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -23,10 +24,11 @@ public class CustomRequestData extends ArrayAdapter<JSONObject> {
     private RequestData caller;
     private List<JSONObject> list;
     private JSONObject currentJson;
-    private TextView tvOwnerName;
-    private TextView tvBrand;
-    private TextView tvModel;
-    private CheckBox cbSelectedOwner;
+    private TextView tvRequestSent;
+    private TextView tvAccepted;
+    private TextView tvRefuted;
+    private TextView tvNoAnswer;
+    private Button btnSelectOwner;
 
     public CustomRequestData(Context ctxt, List<JSONObject> list, RequestData caller){
         super(ctxt, R.layout.custom_request_data, list);
@@ -41,16 +43,18 @@ public class CustomRequestData extends ArrayAdapter<JSONObject> {
 
         // Get the item from layout
         currentJson     = getItem(position);
-        tvOwnerName     = (TextView)v.findViewById(R.id.tvOwnerName);
-        tvBrand         = (TextView)v.findViewById(R.id.tvBrand);
-        tvModel         = (TextView)v.findViewById(R.id.tvModel);
-        cbSelectedOwner = (CheckBox)v.findViewById(R.id.cbSelectedOwner);
+        tvRequestSent   = (TextView)v.findViewById(R.id.tvRequestSentEditable);
+        tvAccepted      = (TextView)v.findViewById(R.id.tvNbAcceptedEditable);
+        tvRefuted       = (TextView)v.findViewById(R.id.tvNbRefutedEditable);
+        tvNoAnswer      = (TextView)v.findViewById(R.id.tvNbNoAnswerEditable);
+        btnSelectOwner  = (Button)v.findViewById(R.id.btnSelectOwner);
 
         // Update value of fields
         try{
-            tvOwnerName.setText(currentJson.getString("owner"));
-            tvBrand.setText(currentJson.getString("brand"));
-            tvModel.setText(currentJson.getString("model"));
+            tvRequestSent.setText(currentJson.getString("requestSent"));
+            tvAccepted.setText(currentJson.getString("nbAccepted"));
+            tvRefuted.setText(currentJson.getString("nbRefuted"));
+            tvNoAnswer.setText(currentJson.getString("nbNoAnswer"));
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
