@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.models.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,6 +25,7 @@ public class SelectOwner extends ActionBarActivity {
     private String toDate;
     private ListView lv;
     private ListAdapter adapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,16 @@ public class SelectOwner extends ActionBarActivity {
 
         // Get the items on the layout
         lv = (ListView)findViewById(R.id.lvOwners);
+
+
+    }
+
+    private void getAgreedOwners(){
+
+    }
+
+    public void onOnPostAgreedOnwers(JSONArray array){
+
     }
 
     @Override
@@ -75,5 +88,14 @@ public class SelectOwner extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*Getters and Setters*/
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
     }
 }

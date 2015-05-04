@@ -23,7 +23,8 @@ public class Constants {
     public static final String GET_NOTIFS_URL           = "https://cafca"+tunnelToUse+"/android/get_notifs";
     public static final String SAVE_REQUEST_URL         = "https://cafca"+tunnelToUse+"/android/set_request";
     public static final String UPDATE_REQUEST_URL       = "https://cafca"+tunnelToUse+"/android/update_request";
-    public static final String GET_REQUEST_BY_DATE      = "https://cafca"+tunnelToUse+"/android/get_request_by_date";
-    public static final String GET_REQUEST_DATA         = "https://cafca"+tunnelToUse+"/android/get_request_data";
+    public static final String GET_REQUEST_BY_DATE_URL  = "https://cafca"+tunnelToUse+"/android/get_request_by_date";
+    public static final String GET_REQUEST_DATA_URL     = "https://cafca"+tunnelToUse+"/android/get_request_data";
+    public static final String GET_AGREED_OWNERS_URL    = "https://cafca"+tunnelToUse+"/android/get_agreed_owners";
 
 }

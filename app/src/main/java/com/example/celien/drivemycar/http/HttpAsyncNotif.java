@@ -4,30 +4,17 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.accessibility.AccessibilityRecord;
 
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.RequestReceived;
-import com.example.celien.drivemycar.receiver.NotificationUser;
+import com.example.celien.drivemycar.core.SelectOwner;
 import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
 
@@ -37,6 +24,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
     private RequestData requestDataCaller;
+    private SelectOwner selectOwnerCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
@@ -59,6 +47,12 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.requestDataCaller = caller;
     }
 
+    public HttpAsyncNotif(SelectOwner caller){
+        this.selectOwnerCaller = caller;
+    }
+
+
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -68,6 +62,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Fetch requests..."));
         if(requestDataCaller != null)
             requestDataCaller.setProgressDialog(ProgressDialog.show(requestDataCaller, "Please wait...", "Fetch requests..."));
+        if(selectOwnerCaller != null)
+            selectOwnerCaller.setProgressDialog(ProgressDialog.show(selectOwnerCaller, "Please wait ...", "Search agreed users ..."));
     }
 
     @Override
@@ -82,6 +78,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             return getRequestByDate(params[1]);
         if(params[0].equals(Action.GET_REQUEST_DATA.toString()))
             return getRequestData(params[1], params[2], params[3]); // username, fromDate, toDate
+        if(params[0].equals(Action.GET_AGREED_OWNERS.toString()))
+            return getAgreedUsers(params[1], params[2], params[3]); // username, fromDate, toDate
         return null;
     }
 
@@ -106,11 +104,15 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     }
 
     private JSONArray getRequestByDate(String username){
-        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE);
+        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE_URL);
     }
 
     private JSONArray getRequestData(String username, String fromDate, String toDate){
-        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA);
+        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA_URL);
+    }
+
+    private JSONArray getAgreedUsers(String username, String fromDate, String toDate){
+        return null;
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){
