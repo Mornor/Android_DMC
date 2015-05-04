@@ -11,16 +11,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.core.AcceptOwner;
+import com.example.celien.drivemycar.core.RequestData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class CustomAcceptOwner extends ArrayAdapter<JSONObject> {
+public class CustomRequestData extends ArrayAdapter<JSONObject> {
 
-    private AcceptOwner caller;
+    private RequestData caller;
     private List<JSONObject> list;
     private JSONObject currentJson;
     private TextView tvOwnerName;
@@ -28,8 +28,8 @@ public class CustomAcceptOwner extends ArrayAdapter<JSONObject> {
     private TextView tvModel;
     private CheckBox cbSelectedOwner;
 
-    public CustomAcceptOwner(Context ctxt, List<JSONObject> list, AcceptOwner caller){
-        super(ctxt, R.layout.custom_accept_owner, list);
+    public CustomRequestData(Context ctxt, List<JSONObject> list, RequestData caller){
+        super(ctxt, R.layout.custom_request_data, list);
         this.caller = caller;
         this.list   = list;
     }
@@ -37,7 +37,7 @@ public class CustomAcceptOwner extends ArrayAdapter<JSONObject> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View v = inflater.inflate(R.layout.custom_accept_owner, parent, false);
+        View v = inflater.inflate(R.layout.custom_request_data, parent, false);
 
         // Get the item from layout
         currentJson     = getItem(position);

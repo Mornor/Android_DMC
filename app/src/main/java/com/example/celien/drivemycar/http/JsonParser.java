@@ -246,6 +246,32 @@ public class JsonParser {
     }
 
 
+    /**
+     * @param username
+     * @param url
+     * @return JSONArray like this : [{"requestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
+     */
+    public JSONArray getRequestData(String username, String url){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", username));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
     public static String createJsonStringFromInputStream(InputStream inputStream){
         try{
             BufferedReader reader = new BufferedReader(

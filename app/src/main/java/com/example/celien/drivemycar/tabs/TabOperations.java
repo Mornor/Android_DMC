@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
-import com.example.celien.drivemycar.core.AcceptOwner;
+import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
@@ -104,7 +104,7 @@ public class TabOperations extends Fragment {
     }
 
     private void launchIntentToAcceptOwner(JSONObject object){
-        Intent i = new Intent(this.getActivity(), AcceptOwner.class);
+        Intent i = new Intent(this.getActivity(), RequestData.class);
         Bundle bdl = new Bundle();
         bdl.putParcelable("user", user);
         bdl.putString("json", object.toString()); // Have to pass the JSON as a String because no implemented methods.

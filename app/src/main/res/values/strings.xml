@@ -115,6 +115,12 @@
     <!-- activity_accept_owner-->
     <string name="btnSelectOwner">Select owner</string>
 
+    <!-- custom_request_data-->
+    <string name="tvNbRequestSent">Request(s) sent</string>
+    <string name="tvNbrequestAccepted">Accepted</string>
+    <string name="tvNbRequestRefuted">Refuted</string>
+    <string name="tvNbRequestNoAnswer">No answer</string>
+
     <!-- General String-->
     <string name="menuExit">Exit</string>
     <string name="menuSettings">Settings</string>

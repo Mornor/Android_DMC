@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+   <TextView
+       android:id="@+id/tvNbRequestSent"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/tvNbRequestSent"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:layout_margin="5dp" />
+
+    <TextView
+        android:id="@+id/tvRequestSentEditable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvNbRequestSent"
+        android:layout_toRightOf="@+id/tvNbRequestSent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBottom="@+id/tvNbRequestSent"
+        android:text="50" />
+
+    <TextView
+        android:id="@+id/tvNbAccepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvNbrequestAccepted"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tvNbRequestSent"
+        android:layout_alignLeft="@+id/tvNbRequestSent"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvNbAcceptedEditable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvNbAccepted"
+        android:layout_toRightOf="@+id/tvNbAccepted"
+        android:layout_alignLeft="@+id/tvRequestSentEditable"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBottom="@+id/tvNbAccepted"
+        android:text="10" />
+
+    <TextView
+        android:id="@+id/tvNbRefuted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvNbRequestRefuted"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tvNbAccepted"
+        android:layout_alignLeft="@+id/tvNbRequestSent"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvNbRefutedEditable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvNbRefuted"
+        android:layout_toRightOf="@+id/tvNbRefuted"
+        android:layout_alignLeft="@+id/tvRequestSentEditable"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBottom="@+id/tvNbRefuted"
+        android:text="12" />
+
+    <TextView
+        android:id="@+id/tvNbNoAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvNbRequestNoAnswer"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tvNbRefuted"
+        android:layout_alignLeft="@+id/tvNbRequestSent"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvNbNoAnswerEditable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvNbNoAnswer"
+        android:layout_toRightOf="@+id/tvNbNoAnswer"
+        android:layout_alignLeft="@+id/tvRequestSentEditable"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBottom="@+id/tvNbNoAnswer"
+        android:text="14" />
+
+    <Button
+        android:id="@+id/btnSelectOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSelectOwner"
+        android:layout_below="@+id/tvNbNoAnswer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+</RelativeLayout>

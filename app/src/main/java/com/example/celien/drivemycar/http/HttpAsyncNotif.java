@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityRecord;
 
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
-import com.example.celien.drivemycar.core.AcceptOwner;
 import com.example.celien.drivemycar.core.ListSpecificCars;
+import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.tabs.TabOperations;
@@ -36,7 +36,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private CustomRequestReceived customRequestReceivedCaller;
     private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
-    private AcceptOwner acceptOwnerCaller;
+    private RequestData requestDataCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
         this.listSpecificCarsCaller = caller;
@@ -55,8 +55,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.tabOperationsCaller = caller;
     }
 
-    public HttpAsyncNotif(AcceptOwner caller){
-        this.acceptOwnerCaller = caller;
+    public HttpAsyncNotif(RequestData caller){
+        this.requestDataCaller = caller;
     }
 
     @Override
@@ -97,8 +97,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         }
         if(requestReceivedCaller != null)
             requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
-        if(acceptOwnerCaller != null)
-            acceptOwnerCaller.onPostExecuteLoadRequestData(jsonArray);
+        if(requestDataCaller != null)
+            requestDataCaller.onPostExecuteLoadRequestData(jsonArray);
     }
 
     private JSONArray getRequestByDate(String username){
@@ -106,7 +106,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     }
 
     private JSONArray getRequestData(String username){
-        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_DATA);
+        return new JsonParser().getRequestData(username, Constants.GET_REQUEST_DATA);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){

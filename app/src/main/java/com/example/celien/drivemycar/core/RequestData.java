@@ -11,7 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.adapter.CustomAcceptOwner;
+import com.example.celien.drivemycar.adapter.CustomRequestData;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcceptOwner extends ActionBarActivity {
+public class RequestData extends ActionBarActivity {
 
     private User user;
     private JSONObject jsonObject; // Contains just the dates of the requests.
@@ -84,7 +84,7 @@ public class AcceptOwner extends ActionBarActivity {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomAcceptOwner(this, list, this);
+        adapter = new CustomRequestData(this, list, this);
         lvAgreedOwners.setAdapter(adapter);
     }
 
