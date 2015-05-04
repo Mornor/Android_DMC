@@ -50,6 +50,13 @@ public class TabOperations extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisible())
+            loadUserRequestByDate();
+    }
+
     private void init(View v){
         // Retrieve the user from tab hosting (Home)
         Home homeActivity   = (Home)getActivity();
@@ -64,8 +71,6 @@ public class TabOperations extends Fragment {
                 lauchIntentToRequestReceived();
             }
         });
-
-        loadUserRequestByDate();
     }
 
     private void loadUserRequestByDate(){

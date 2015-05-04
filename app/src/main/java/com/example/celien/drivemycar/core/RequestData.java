@@ -1,5 +1,6 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,7 @@ public class RequestData extends ActionBarActivity {
     private TextView tvNbAccepted;
     private TextView tvNbRefuted;
     private TextView tvNbNoAnswer;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,6 @@ public class RequestData extends ActionBarActivity {
         try{
             if(!array.getJSONObject(0).getBoolean("success"))
                 Log.e("JSONExcetpion", "JsonReceived is empty");
-            Log.d("JsonObject1 ", array.getJSONObject(1).toString());
             tvNbRequest.setText(array.getJSONObject(1).getString("nbRequestSent"));
             tvNbAccepted.setText(array.getJSONObject(1).getString("nbAccepted"));
             tvNbRefuted.setText(array.getJSONObject(1).getString("nbRefuted"));
@@ -105,5 +106,15 @@ public class RequestData extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*Getters and Setters*/
+
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
     }
 }

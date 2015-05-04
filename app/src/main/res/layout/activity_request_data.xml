@@ -30,8 +30,7 @@
         android:layout_toRightOf="@+id/tvNbRequestSent"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginLeft="20dp"
-        android:layout_alignBottom="@+id/tvNbRequestSent"
-        android:text="50" />
+        android:layout_alignBottom="@+id/tvNbRequestSent" />
 
     <TextView
         android:id="@+id/tvNbAccepted"
@@ -51,8 +50,7 @@
         android:layout_toRightOf="@+id/tvNbAccepted"
         android:layout_alignLeft="@+id/tvRequestSentEditable"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@+id/tvNbAccepted"
-        android:text="10" />
+        android:layout_alignBottom="@+id/tvNbAccepted" />
 
     <TextView
         android:id="@+id/tvNbRefuted"
@@ -72,8 +70,7 @@
         android:layout_toRightOf="@+id/tvNbRefuted"
         android:layout_alignLeft="@+id/tvRequestSentEditable"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@+id/tvNbRefuted"
-        android:text="12" />
+        android:layout_alignBottom="@+id/tvNbRefuted" />
 
     <TextView
         android:id="@+id/tvNbNoAnswer"
@@ -93,16 +90,14 @@
         android:layout_toRightOf="@+id/tvNbNoAnswer"
         android:layout_alignLeft="@+id/tvRequestSentEditable"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@+id/tvNbNoAnswer"
-        android:text="14" />
+        android:layout_alignBottom="@+id/tvNbNoAnswer" />
 
     <Button
         android:id="@+id/btnSelectOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnSelectOwner"
-        android:layout_below="@+id/tvNbNoAnswer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

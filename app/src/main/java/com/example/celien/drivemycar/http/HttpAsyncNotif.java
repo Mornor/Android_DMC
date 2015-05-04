@@ -64,8 +64,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         super.onPreExecute();
         if(listSpecificCarsCaller != null)
             listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait...", "Send request..." ));
-        //if(tabOperationsCaller != null)
-            //tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Fetch requests..."));
+        if(tabOperationsCaller != null)
+            tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Fetch requests..."));
+        if(requestDataCaller != null)
+            requestDataCaller.setProgressDialog(ProgressDialog.show(requestDataCaller, "Please wait...", "Fetch requests..."));
     }
 
     @Override
@@ -92,13 +94,15 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
         if(tabOperationsCaller != null){
-            //tabOperationsCaller.getProgressDialog().dismiss();
+            tabOperationsCaller.getProgressDialog().dismiss();
             tabOperationsCaller.onPostExecuteLoadRequestByDate(jsonArray);
         }
         if(requestReceivedCaller != null)
             requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
-        if(requestDataCaller != null)
+        if(requestDataCaller != null) {
+            requestDataCaller.getProgressDialog().dismiss();
             requestDataCaller.onPostExecuteLoadRequestData(jsonArray);
+        }
     }
 
     private JSONArray getRequestByDate(String username){

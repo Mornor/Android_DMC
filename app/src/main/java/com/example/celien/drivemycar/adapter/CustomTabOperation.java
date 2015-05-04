@@ -13,9 +13,7 @@ import com.example.celien.drivemycar.tabs.TabOperations;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomTabOperation extends ArrayAdapter<JSONObject> {
