@@ -7,11 +7,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.adapter.CustomRequestData;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -20,23 +18,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RequestData extends ActionBarActivity {
 
     private User user;
     private JSONObject jsonObject; // Contains just the dates of the requests. (fromDate and toDate)
     private String fromDate;
     private String toDate;
-    private ListView lvAgreedOwners;
     private Button btnSelectOwner;
-    private ListAdapter adapter;
+    private TextView tvNbRequest;
+    private TextView tvNbAccepted;
+    private TextView tvNbRefuted;
+    private TextView tvNbNoAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accept_owner);
+        setContentView(R.layout.activity_request_data);
         init();
     }
 
@@ -58,11 +55,14 @@ public class RequestData extends ActionBarActivity {
         // Set the toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Select Owner");
+        getSupportActionBar().setTitle("Request Data");
 
         // Retrieve items from layout
+        tvNbRequest    = (TextView)findViewById(R.id.tvRequestSentEditable);
+        tvNbAccepted   = (TextView)findViewById(R.id.tvNbAcceptedEditable);
+        tvNbRefuted    = (TextView)findViewById(R.id.tvNbRefutedEditable);
+        tvNbNoAnswer   = (TextView)findViewById(R.id.tvNbNoAnswerEditable);
         btnSelectOwner = (Button)findViewById(R.id.btnSelectOwner);
-        lvAgreedOwners = (ListView)findViewById(R.id.lvAgreedUsers);
 
         loadRequestData();
     }
@@ -72,30 +72,23 @@ public class RequestData extends ActionBarActivity {
     }
 
     public void onPostExecuteLoadRequestData(JSONArray array){
-        List<JSONObject> list = new ArrayList<>();
-        try {
-
+        try{
             if(!array.getJSONObject(0).getBoolean("success"))
-                Log.e("Error", "JSON empty");
-            else {
-                // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
-                for (int i = 1; i < array.length(); i++) {
-                    JSONObject temp = array.getJSONObject(i);
-                    list.add(temp);
-                }
-            }
-        } catch (JSONException e) {
+                Log.e("JSONExcetpion", "JsonReceived is empty");
+            Log.d("JsonObject1 ", array.getJSONObject(1).toString());
+            tvNbRequest.setText(array.getJSONObject(1).getString("nbRequestSent"));
+            tvNbAccepted.setText(array.getJSONObject(1).getString("nbAccepted"));
+            tvNbRefuted.setText(array.getJSONObject(1).getString("nbRefuted"));
+            tvNbNoAnswer.setText(array.getJSONObject(1).getString("nbRefuted"));
+        }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
-
-        adapter = new CustomRequestData(this, list, this);
-        lvAgreedOwners.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_accept_owner, menu);
+        getMenuInflater().inflate(R.menu.menu_request_data, menu);
         return true;
     }
 

@@ -249,7 +249,7 @@ public class JsonParser {
     /**
      * @param username
      * @param url
-     * @return JSONArray like this : [{"requestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
+     * @return JSONArray like this : [{"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
      */
     public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
         try{

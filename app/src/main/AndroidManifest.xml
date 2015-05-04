@@ -37,6 +37,10 @@
             android:label="@string/title_activity_car_settings" >
         </activity>
         <activity
+            android:name=".core.RequestData"
+            android:label="@string/title_activity_request_data" >
+        </activity>
+        <activity
             android:name=".core.ListPersonnalCars"
             android:label="@string/title_activity_list_personnal_cars" >
         </activity>

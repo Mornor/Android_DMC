@@ -4,13 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <TextView
-       android:id="@+id/tvNbRequestSent"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="@string/tvNbRequestSent"
-       android:textAppearance="?android:attr/textAppearanceMedium"
-       android:layout_margin="5dp" />
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvNbRequestSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:text="@string/tvNbRequestSent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_margin="5dp" />
 
     <TextView
         android:id="@+id/tvRequestSentEditable"

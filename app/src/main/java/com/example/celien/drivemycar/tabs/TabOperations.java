@@ -98,12 +98,12 @@ public class TabOperations extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 JSONObject jsonObjectClicked = (JSONObject)parent.getItemAtPosition(position);
-                launchIntentToAcceptOwner(jsonObjectClicked);
+                launchIntentToRequestData(jsonObjectClicked);
             }
         });
     }
 
-    private void launchIntentToAcceptOwner(JSONObject object){
+    private void launchIntentToRequestData(JSONObject object){
         Intent i = new Intent(this.getActivity(), RequestData.class);
         Bundle bdl = new Bundle();
         bdl.putParcelable("user", user);
