@@ -2,17 +2,57 @@ package com.example.celien.drivemycar.core;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.models.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SelectOwner extends ActionBarActivity {
+
+    private User user;
+    private JSONObject jsonObject; // Contains the 2 dates (fromDate and toDate)
+    private String fromDate;
+    private String toDate;
+    private ListView lv;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_owner);
+        init();
+    }
+
+    private void init(){
+
+        // Get the current user and the json clicked in RequestData (which contains the dates of the wanted request)
+        User currentUser = (User)getIntent().getParcelableExtra("user");
+        if(currentUser != null){
+            this.user = currentUser;
+            try {
+                this.jsonObject = new JSONObject(getIntent().getStringExtra("json"));
+                this.fromDate   = this.jsonObject.getString("fromDate");
+                this.toDate     = this.jsonObject.getString("toDate");
+            } catch (JSONException e) {
+                Log.e(e.getClass().getName(), "JSONException", e);
+            }
+        }
+
+        // Set the toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Request Data");
+
+        // Get the items on the layout
+        lv = (ListView)findViewById(R.id.lvOwners);
     }
 
     @Override

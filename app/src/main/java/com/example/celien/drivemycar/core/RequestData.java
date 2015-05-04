@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.core;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -97,7 +98,12 @@ public class RequestData extends ActionBarActivity {
     }
 
     private void lauchIntentToSelectOwner(){
-
+        Intent i = new Intent(this, SelectOwner.class);
+        Bundle bdl = new Bundle();
+        bdl.putParcelable("user", user);
+        bdl.putString("json", jsonObject.toString()); // Have to pass the JSON as a String because no implemented methods.
+        i.putExtras(bdl);
+        startActivity(i);
     }
 
     @Override

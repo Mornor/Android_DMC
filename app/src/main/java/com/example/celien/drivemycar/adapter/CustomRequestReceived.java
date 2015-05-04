@@ -1,34 +1,19 @@
 package com.example.celien.drivemycar.adapter;
 
-
-import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.RequestReceived;
-import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
-import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class CustomRequestReceived extends ArrayAdapter<JSONObject> {

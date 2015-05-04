@@ -8,4 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.celien.drivemycar.core.SelectOwner">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/lvOwners"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/tool_bar" />
+
 </RelativeLayout>
