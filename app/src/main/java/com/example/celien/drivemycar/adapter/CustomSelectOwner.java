@@ -70,12 +70,11 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     selectedPosition = position;
-                    caller.maintainItemClicked(tvOwnerName.getText().toString(), tvBrand.getText().toString(), tvModel.getText().toString(), true);
+                    caller.maintainItemClicked(getItem(position));
                 }
-                else{
+                else
                     selectedPosition = -1;
-                    caller.maintainItemClicked(null, null, null, false);
-                }
+
                 notifyDataSetChanged();
             }
         });

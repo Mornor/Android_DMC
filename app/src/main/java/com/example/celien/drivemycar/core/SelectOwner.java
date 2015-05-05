@@ -125,18 +125,27 @@ public class SelectOwner extends ActionBarActivity {
     }
 
     public void onPostNotifySelectedOwner(JSONArray array){
-
+        try{
+            if(array.getJSONObject(0).getBoolean("success"))
+                Toast.makeText(this, "Notification successfully sent", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, "Error encountered, please retry", Toast.LENGTH_SHORT).show();
+        }catch(JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
     }
 
     /*** Create and maintain the HashMap with the selected user/brand/model selected in CustomSelectedOwner*/
-    public void maintainItemClicked(String ownerName, String brand, String model, boolean toBeAdded){
-        if(toBeAdded){
-            selectedOwner.put("ownerName", ownerName);
-            selectedOwner.put("brand", brand);
-            selectedOwner.put("model", model);
-        }
-        else
+    public void maintainItemClicked(JSONObject json){
+        try{
+            Log.d("Map added", json.getString("ownerName"));
             selectedOwner.clear();
+            selectedOwner.put("ownerName", json.getString("ownerName"));
+            selectedOwner.put("brand", json.getString("brand"));
+            selectedOwner.put("model", json.getString("model"));
+        }catch (JSONException e) {
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
     }
 
     @Override
