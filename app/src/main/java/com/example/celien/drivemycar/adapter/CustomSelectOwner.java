@@ -18,6 +18,7 @@ import com.example.celien.drivemycar.core.SelectOwner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
@@ -58,6 +59,7 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        // Make only one item selectable at a time.
         if(position == selectedPosition)
             chkBoxSelcedOwner.setChecked(true);
         else
@@ -66,10 +68,14 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
         chkBoxSelcedOwner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if(isChecked){
                     selectedPosition = position;
-                else
+                    caller.maintainItemClicked(tvOwnerName.getText().toString(), tvBrand.getText().toString(), tvModel.getText().toString(), true);
+                }
+                else{
                     selectedPosition = -1;
+                    caller.maintainItemClicked(null, null, null, false);
+                }
                 notifyDataSetChanged();
             }
         });

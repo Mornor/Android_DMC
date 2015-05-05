@@ -7,8 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomSelectOwner;
@@ -21,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SelectOwner extends ActionBarActivity {
@@ -30,8 +34,12 @@ public class SelectOwner extends ActionBarActivity {
     private String fromDate;
     private String toDate;
     private ListView lv;
+    private Button btnSelectOwner;
     private ListAdapter adapter;
     private ProgressDialog progressDialog;
+
+    // HashMap updated via CustomSelectOwner
+    HashMap<String, String> selectedOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +69,11 @@ public class SelectOwner extends ActionBarActivity {
         getSupportActionBar().setTitle("Agreed Owners");
 
         // Get the items on the layout
-        lv = (ListView)findViewById(R.id.lvOwners);
+        lv              = (ListView)findViewById(R.id.lvOwners);
+        btnSelectOwner  = (Button)findViewById(R.id.btnSelectOwner);
+
+        // Init the HashMap of the SelectedOnwers
+        selectedOwner = new HashMap<>();
 
         getAgreedOwners();
     }
@@ -89,7 +101,35 @@ public class SelectOwner extends ActionBarActivity {
 
         adapter = new CustomSelectOwner(this, list, this);
         lv.setAdapter(adapter);
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); // Make the ListView only able to select one single row.
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); // Make the ListView only able to select one single row
+
+        // Set the listener to the button
+        btnSelectOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyOwnerSelected();
+            }
+        });
+    }
+
+    private void notifyOwnerSelected(){
+        if(selectedOwner.size() == 0)
+            Toast.makeText(this, "Please select at least one owner", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(this, "One item has been selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /*** Create and maintain the HashMap with the selected user/brand/model selected in CustomSelectedOwner*/
+    public void maintainItemClicked(String ownerName, String brand, String model, boolean toBeAdded){
+        if(toBeAdded){
+            selectedOwner.put("ownerName", ownerName);
+            selectedOwner.put("brand", brand);
+            selectedOwner.put("model", model);
+        }
+        else
+            selectedOwner.clear();
+
     }
 
     @Override
