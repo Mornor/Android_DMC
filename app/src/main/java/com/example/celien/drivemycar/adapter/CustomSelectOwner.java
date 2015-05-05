@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.celien.drivemycar.R;
@@ -18,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class CustomSelectOwner extends ArrayAdapter<JSONObject> {
+public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
 
     private List<JSONObject> list;
     private SelectOwner caller;
@@ -27,6 +29,7 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject> {
     private TextView tvBrand;
     private TextView tvModel;
     private CheckBox chkBoxSelcedOwner;
+    private int selectedPosition = -1;
 
     public CustomSelectOwner(Context context, List<JSONObject> list, SelectOwner caller){
         super(context, R.layout.custom_select_owner, list);
@@ -35,7 +38,7 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rootView = inflater.inflate(R.layout.custom_select_owner, parent, false);
 
@@ -54,6 +57,22 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject> {
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
+
+        if(position == selectedPosition)
+            chkBoxSelcedOwner.setChecked(true);
+        else
+            chkBoxSelcedOwner.setChecked(false);
+
+        chkBoxSelcedOwner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    selectedPosition = position;
+                else
+                    selectedPosition = -1;
+                notifyDataSetChanged();
+            }
+        });
 
         return rootView;
     }

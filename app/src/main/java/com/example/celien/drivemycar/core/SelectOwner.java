@@ -89,6 +89,7 @@ public class SelectOwner extends ActionBarActivity {
 
         adapter = new CustomSelectOwner(this, list, this);
         lv.setAdapter(adapter);
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); // Make the ListView only able to select one single row.
     }
 
     @Override
