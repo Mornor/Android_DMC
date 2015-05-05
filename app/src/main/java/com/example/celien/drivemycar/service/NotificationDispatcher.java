@@ -16,6 +16,8 @@ import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 import com.example.celien.drivemycar.utils.Tools;
 
 /*** Create the right Notification depending on the server response
+ *
+ * [TODO] TYPCALLY : MAKE THE CODE MUCH MORE EFFICICIENT !
  **/
 public class NotificationDispatcher {
 
@@ -37,6 +39,8 @@ public class NotificationDispatcher {
                     return createNotificationCarRequest(object);
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER:
                     return createNotificationRequestAccepted(object);
+                case NotificationTypeConstants.REQUESTER_CHOSE_SOMEONE_ELSE:
+                    return createNotificationRequesterChoseSomeoneElse(object);
                 default:
                     break;
             }
@@ -46,6 +50,35 @@ public class NotificationDispatcher {
 
         // Only occurs if errors.
         return null;
+    }
+
+    private NotificationCompat.Builder createNotificationRequesterChoseSomeoneElse(JSONObject notif){
+        // Create the notification
+        notification = new NotificationCompat.Builder(notifCaller);
+        notification.setAutoCancel(true);
+
+        // Build the notification
+        notification.setSmallIcon(android.R.drawable.star_on);
+        notification.setWhen(System.currentTimeMillis());
+        notification.setTicker("New DriveMyCar request");
+
+        try{
+            notification.setContentTitle("Notification received");
+            inboxStyle = new NotificationCompat.InboxStyle();
+            inboxStyle.addLine(notif.getString("message").substring(0, 31));
+            inboxStyle.addLine(notif.getString("message").substring(31, notif.getString("message").length()));
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        notification.setStyle(inboxStyle);
+
+        // When clicked, go to NotificationUser Activity
+        Intent i = new Intent();
+        PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
+        notification.setContentIntent(pi);
+
+        return notification;
     }
 
     private NotificationCompat.Builder createNotificationRequestAccepted(JSONObject notif){
