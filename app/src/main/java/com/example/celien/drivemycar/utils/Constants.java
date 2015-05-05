@@ -26,5 +26,6 @@ public class Constants {
     public static final String GET_REQUEST_BY_DATE_URL  = "https://cafca"+tunnelToUse+"/android/get_request_by_date";
     public static final String GET_REQUEST_DATA_URL     = "https://cafca"+tunnelToUse+"/android/get_request_data";
     public static final String GET_AGREED_OWNERS_URL    = "https://cafca"+tunnelToUse+"/android/get_agreed_owners";
+    public static final String NOTIFY_SELECTED_OWNER_URL= "https://cafca"+tunnelToUse+"/android/notify_selected_owner";
 
 }

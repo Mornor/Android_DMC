@@ -2,6 +2,8 @@ package com.example.celien.drivemycar.http;
 
 import android.util.Log;
 
+import com.example.celien.drivemycar.utils.Constants;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -124,12 +126,12 @@ public class JsonParser {
      * model : 911
      * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal)
      * */
-    public JSONArray saveRequest(String url, List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
+    public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
         JSONArray toSendToServer = new JSONArray();
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(Constants.SAVE_REQUEST_URL);
 
             // Add the username
             JSONObject usernameJson = new JSONObject();
@@ -222,13 +224,12 @@ public class JsonParser {
 
     /***Get the data of the requests of the User
      * @param username : Username of the current Android user.
-     * @param url : url of the destination.
      * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"}]*/
-    public JSONArray getRequestsByDate(String username, String url){
+    public JSONArray getRequestsByDate(String username){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_BY_DATE_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
@@ -247,13 +248,12 @@ public class JsonParser {
 
 
     /*** @param username
-     * @param url
      * @return JSONArray like this : [{"success":"value"}, {"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}] */
-    public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
+    public JSONArray getRequestData(String username, String fromDate, String toDate){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_DATA_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
             list.add(new BasicNameValuePair("fromDate", fromDate));
@@ -275,15 +275,40 @@ public class JsonParser {
     /*** @param username
      * @param fromDate
      * @param toDate
-     * @param url
      * @return JSONArray like this [{"success":"value"}, {"ownerName":"value", "brand""value", "model""value"}, etc ... ]*/
-    public JSONArray getAgreedOwners(String username, String fromDate, String toDate, String url){
+    public JSONArray getAgreedOwners(String username, String fromDate, String toDate){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(Constants.GET_AGREED_OWNERS_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("fromDate", fromDate));
+            list.add(new BasicNameValuePair("toDate", toDate));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
+    public JSONArray notifySelectedUser(String username, String ownerName, String brand, String model, String fromDate, String toDate){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.NOTIFY_SELECTED_OWNER_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("ownerName", ownerName));
+            list.add(new BasicNameValuePair("brand", brand));
+            list.add(new BasicNameValuePair("model", model));
             list.add(new BasicNameValuePair("fromDate", fromDate));
             list.add(new BasicNameValuePair("toDate", toDate));
             httpPost.setEntity(new UrlEncodedFormEntity(list));

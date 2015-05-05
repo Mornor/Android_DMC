@@ -79,7 +79,7 @@ public class SelectOwner extends ActionBarActivity {
     }
 
     private void getAgreedOwners(){
-        new HttpAsyncNotif(this).execute(Action.GET_AGREED_OWNERS.toString(), user.getUsername(), fromDate, toDate);
+        new HttpAsyncNotif(this, false).execute(Action.GET_AGREED_OWNERS.toString(), user.getUsername(), fromDate, toDate);
     }
 
     public void onOnPostAgreedOnwers(JSONArray array){
@@ -116,8 +116,16 @@ public class SelectOwner extends ActionBarActivity {
         if(selectedOwner.size() == 0)
             Toast.makeText(this, "Please select at least one owner", Toast.LENGTH_SHORT).show();
         else{
-            Toast.makeText(this, "One item has been selected", Toast.LENGTH_SHORT).show();
+            new HttpAsyncNotif(this, true).execute(Action.NOTIFY_SELECTED_ONWER.toString(), user.getUsername(),
+                    selectedOwner.get("ownerName"),
+                    selectedOwner.get("brand"),
+                    selectedOwner.get("model"),
+                    fromDate, toDate);
         }
+    }
+
+    public void onPostNotifySelectedOwner(JSONArray array){
+
     }
 
     /*** Create and maintain the HashMap with the selected user/brand/model selected in CustomSelectedOwner*/
@@ -129,7 +137,6 @@ public class SelectOwner extends ActionBarActivity {
         }
         else
             selectedOwner.clear();
-
     }
 
     @Override

@@ -24,6 +24,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
     private RequestData requestDataCaller;
+
+    // If true, then we notify th selected owner from selectedOnwerCaller.
+    // If false, we need to send tequest from selectedOnwer to displayt the agreed owners.
+    private boolean notifySelectedOwner;
     private SelectOwner selectOwnerCaller;
 
     public HttpAsyncNotif(ListSpecificCars caller){
@@ -47,10 +51,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         this.requestDataCaller = caller;
     }
 
-    public HttpAsyncNotif(SelectOwner caller){
+    public HttpAsyncNotif(SelectOwner caller, boolean notifySelectedOwner){
         this.selectOwnerCaller = caller;
+        this.notifySelectedOwner = notifySelectedOwner;
     }
-
 
 
     @Override
@@ -62,8 +66,10 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Fetch requests..."));
         if(requestDataCaller != null)
             requestDataCaller.setProgressDialog(ProgressDialog.show(requestDataCaller, "Please wait...", "Fetch requests..."));
-        if(selectOwnerCaller != null)
-            selectOwnerCaller.setProgressDialog(ProgressDialog.show(selectOwnerCaller, "Please wait ...", "Search agreed users ..."));
+        if(selectOwnerCaller != null && !notifySelectedOwner)
+            selectOwnerCaller.setProgressDialog(ProgressDialog.show(selectOwnerCaller, "Please wait...", "Search agreed users..."));
+        if(selectOwnerCaller != null && notifySelectedOwner)
+            selectOwnerCaller.setProgressDialog(ProgressDialog.show(selectOwnerCaller, "Please wait...", "Notifying owner..."));
     }
 
     @Override
@@ -80,6 +86,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             return getRequestData(params[1], params[2], params[3]); // username, fromDate, toDate
         if(params[0].equals(Action.GET_AGREED_OWNERS.toString()))
             return getAgreedUsers(params[1], params[2], params[3]); // username, fromDate, toDate
+        if(params[0].equals(Action.NOTIFY_SELECTED_ONWER.toString()))
+            return notifySelectedUser(params[1], params[2], params[3], params[4], params[5], params[6]); // username, ownerName, brand, model, fromDate, toDate
         return null;
     }
 
@@ -101,22 +109,30 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
             requestDataCaller.getProgressDialog().dismiss();
             requestDataCaller.onPostExecuteLoadRequestData(jsonArray);
         }
-        if(selectOwnerCaller != null){
+        if(selectOwnerCaller != null && !notifySelectedOwner){
             selectOwnerCaller.getProgressDialog().dismiss();
             selectOwnerCaller.onOnPostAgreedOnwers(jsonArray);
+        }
+        if(selectOwnerCaller != null && notifySelectedOwner){
+            selectOwnerCaller.getProgressDialog().dismiss();
+            selectOwnerCaller.onPostNotifySelectedOwner(jsonArray);
         }
     }
 
     private JSONArray getRequestByDate(String username){
-        return new JsonParser().getRequestsByDate(username, Constants.GET_REQUEST_BY_DATE_URL);
+        return new JsonParser().getRequestsByDate(username);
     }
 
     private JSONArray getRequestData(String username, String fromDate, String toDate){
-        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA_URL);
+        return new JsonParser().getRequestData(username, fromDate, toDate);
     }
 
     private JSONArray getAgreedUsers(String username, String fromDate, String toDate){
-       return new JsonParser().getAgreedOwners(username, fromDate, toDate, Constants.GET_AGREED_OWNERS_URL);
+       return new JsonParser().getAgreedOwners(username, fromDate, toDate);
+    }
+
+    private JSONArray notifySelectedUser(String username, String ownerName, String brand, String model, String fromDate, String toDate){
+        return new JsonParser().notifySelectedUser(username, ownerName, brand, model, fromDate, toDate);
     }
 
     private JSONArray updateRequestSate(String idNotification, String actionRequested){
@@ -135,7 +151,6 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         // 0 -> "owner":"celien", "brand":"bmw", "model":"335i"
         JsonParser parser = new JsonParser();
         JSONArray result = parser.saveRequest(
-                Constants.SAVE_REQUEST_URL,
                 listSpecificCarsCaller.getSelectedItems(),
                 listSpecificCarsCaller.getUser().getUsername(),
                 listSpecificCarsCaller.getDateFrom().toString(),
