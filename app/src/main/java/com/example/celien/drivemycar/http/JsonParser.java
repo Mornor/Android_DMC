@@ -219,6 +219,28 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
+    public JSONArray setOdometer(String mileage, String idTransaction){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.SET_ODOMETER_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("mileage", mileage));
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
     /*** Update the request status linked to the notification
      * Called in HttpAsynNotif.updateRequestSate
      * @param idNotification : the notification linked

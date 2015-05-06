@@ -28,4 +28,5 @@ public class Constants {
     public static final String GET_AGREED_OWNERS_URL     = "https://cafca"+tunnelToUse+"/android/get_agreed_owners";
     public static final String NOTIFY_SELECTED_OWNER_URL = "https://cafca"+tunnelToUse+"/android/notify_selected_owner";
     public static final String GET_TRANSACTIONS_URL      = "https://cafca"+tunnelToUse+"/android/get_transactions";
+    public static final String SET_ODOMETER_URL          = "https://cafca"+tunnelToUse+"/android/set_odometer";
 }

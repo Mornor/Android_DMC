@@ -13,6 +13,7 @@ public enum Action {
     GET_BRAND("getBrand"),
     GET_TRANSACTIONS("getTransactions"),
     LOAD_SPECIFIC_CARS("loadSpecificCars"),
+    SET_ODOMETER("setOdometer"),
     SAVE_REQUEST("saveRequest"),
     GET_NOTIFS("getNotifications"),
     GET_REQUEST_BY_DATE("getRequestByDate"),
