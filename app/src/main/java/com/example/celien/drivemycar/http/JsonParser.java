@@ -180,7 +180,7 @@ public class JsonParser {
             try{
                 HttpContext httpContext = new BasicHttpContext();
                 DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_BY_DATE_URL);
+                HttpPost httpPost = new HttpPost(Constants.GET_TRANSACTIONS_URL);
                 List<NameValuePair> list = new ArrayList<>();
                 list.add(new BasicNameValuePair("username", username));
                 httpPost.setEntity(new UrlEncodedFormEntity(list));
