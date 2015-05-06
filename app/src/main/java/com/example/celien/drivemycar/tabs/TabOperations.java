@@ -13,10 +13,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
+import com.example.celien.drivemycar.core.AcceptedRequest;
 import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
@@ -38,6 +38,7 @@ public class TabOperations extends Fragment {
 
     private ListAdapter adapter;
     private Button btnRequests;
+    private Button btnRequestAccepted;
     private ListView lvRequestStatus;
     private ProgressDialog progressDialog;
     private View rootView;
@@ -62,20 +63,39 @@ public class TabOperations extends Fragment {
         Home homeActivity   = (Home)getActivity();
         user                = homeActivity.getUser();
 
-        btnRequests     = (Button)v.findViewById(R.id.btnCheckRequests);
-        lvRequestStatus = (ListView)v.findViewById(R.id.lvRequestsStatut);
+        btnRequests         = (Button)v.findViewById(R.id.btnCheckRequests);
+        btnRequestAccepted  = (Button)v.findViewById(R.id.btnCheckRequestAccepted);
+        lvRequestStatus     = (ListView)v.findViewById(R.id.lvRequestsStatut);
 
+        // Set the listeners
         btnRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lauchIntentToRequestReceived();
             }
         });
+
+        btnRequestAccepted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchIntentToRequestAccepted();
+            }
+        });
+
+
     }
 
     private void loadUserRequestByDate(){
         if(user != null)
             new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE.toString(), user.getUsername());
+    }
+
+    private void launchIntentToRequestAccepted(){
+        Intent i = new Intent(this.getActivity(), AcceptedRequest.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     public void onPostExecuteLoadRequestByDate(JSONArray array){

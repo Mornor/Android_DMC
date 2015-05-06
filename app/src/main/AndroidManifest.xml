@@ -80,6 +80,10 @@
             android:name=".core.SelectOwner"
             android:label="@string/title_activity_select_owner" >
         </activity>
+        <activity
+            android:name=".core.AcceptedRequest"
+            android:label="@string/title_activity_accepted_request" >
+        </activity>
     </application>
 
 </manifest>

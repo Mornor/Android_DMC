@@ -138,7 +138,6 @@ public class SelectOwner extends ActionBarActivity {
     /*** Create and maintain the HashMap with the selected user/brand/model selected in CustomSelectedOwner*/
     public void maintainItemClicked(JSONObject json){
         try{
-            Log.d("Map added", json.getString("ownerName"));
             selectedOwner.clear();
             selectedOwner.put("ownerName", json.getString("ownerName"));
             selectedOwner.put("brand", json.getString("brand"));

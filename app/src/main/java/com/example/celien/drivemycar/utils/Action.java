@@ -11,6 +11,7 @@ public enum Action {
     CHECK_USERNAME("checkUsername"),
     DELETE_CAR("deleteCar"),
     GET_BRAND("getBrand"),
+    GET_TRANSACTIONS("getTransactions"),
     LOAD_SPECIFIC_CARS("loadSpecificCars"),
     SAVE_REQUEST("saveRequest"),
     GET_NOTIFS("getNotifications"),

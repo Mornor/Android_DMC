@@ -109,6 +109,7 @@
     <string name="btnValidate">For sure</string>
     <string name="btnCancel">Sorry</string>
     <string name="btnCheckRequestsReceived">Received requests</string>
+    <string name="btnCheckRequestAccepted">Accepted request</string>
     <string name="tvSetOdometer">Set Odomoter (Kms)</string>
     <string name="btnOk">OK</string>
 
@@ -138,5 +139,6 @@
     <string name="title_activity_accept_owner">AcceptOwner</string>
     <string name="title_activity_request_data">RequestData</string>
     <string name="title_activity_select_owner">SelectOwner</string>
+    <string name="title_activity_accepted_request">AcceptedRequest</string>
 
 </resources>
