@@ -95,7 +95,10 @@ public class AcceptedRequest extends ActionBarActivity {
     }
 
     private void launchConfirmRentDialog(JSONObject object){
-        ConfirmRent confirmRent = ConfirmRent.newInstance();
+        ConfirmRent confirmRent = new ConfirmRent();
+        Bundle bdl = new Bundle();
+        bdl.putString("json", object.toString());
+        confirmRent.setArguments(bdl);
         confirmRent.show(getSupportFragmentManager(), "");
     }
 

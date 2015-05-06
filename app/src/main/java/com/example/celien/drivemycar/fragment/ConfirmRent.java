@@ -5,6 +5,7 @@ import android.app. Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,16 @@ import android.widget.EditText;
 
 import com.example.celien.drivemycar.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class ConfirmRent extends DialogFragment{
 
     private EditText etMileage;
     private Button btnConfirm;
     private Button btnCancel;
+    private JSONObject objectReceived;
 
 
     @Override
@@ -38,12 +43,17 @@ public class ConfirmRent extends DialogFragment{
         return rootView;
     }
 
-    public static ConfirmRent newInstance(){
-        ConfirmRent cr = new ConfirmRent();
-        return cr;
-    }
-
     private void init(View v){
+
+        // Get the Bundle data from AcceptedRequest Activity.
+        Bundle rcvd = getArguments();
+        if(rcvd != null)
+            try {
+                objectReceived = new JSONObject(rcvd.getString("json"));
+            } catch (JSONException e) {
+                Log.e(e.getClass().getName(), "JSONException", e);
+            }
+
         etMileage  = (EditText)v.findViewById(R.id.etSetOdometer);
         btnConfirm = (Button)v.findViewById(R.id.btnOk);
         btnCancel  = (Button)v.findViewById(R.id.btnCancel);
