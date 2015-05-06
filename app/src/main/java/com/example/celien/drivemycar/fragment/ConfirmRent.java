@@ -38,6 +38,11 @@ public class ConfirmRent extends DialogFragment{
         return rootView;
     }
 
+    public static ConfirmRent newInstance(){
+        ConfirmRent cr = new ConfirmRent();
+        return cr;
+    }
+
     private void init(View v){
         etMileage  = (EditText)v.findViewById(R.id.etSetOdometer);
         btnConfirm = (Button)v.findViewById(R.id.btnOk);

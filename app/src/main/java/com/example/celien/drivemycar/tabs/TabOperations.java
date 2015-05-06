@@ -81,8 +81,6 @@ public class TabOperations extends Fragment {
                 launchIntentToRequestAccepted();
             }
         });
-
-
     }
 
     private void loadUserRequestByDate(){
