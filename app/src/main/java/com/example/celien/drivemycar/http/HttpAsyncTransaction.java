@@ -41,6 +41,6 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
     }
 
     private JSONArray getTransactions(String username){
-        return null;
+        return new JsonParser().getTransactions(username);
     }
 }
