@@ -115,7 +115,7 @@ public class TabOperations extends Fragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomTabOperation(this.getActivity(), list, this);
+        adapter = new CustomTabOperation(this.getActivity(), list);
         lvRequestStatus.setAdapter(adapter);
 
         // Set listener to ListView

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// TODO : Make the code of this class much more efficient (URL in parameter)
+
 public class JsonParser {
 
     static InputStream inputStream;
@@ -43,10 +45,8 @@ public class JsonParser {
         json        = "";
     }
 
-    /**
-     * @param url : Url of the website
-     * @return JsonObject returned by the URL called
-     */
+    /*** @param url : Url of the website
+     * @return JsonObject returned by the URL called */
     public JSONArray makeGetHttpRequest(String url){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -63,8 +63,7 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
-    /***
-     * @param url
+    /** @param url
      * @param params : default, params[0] == current username
      * @return JSONArray with the one send bach by Play! */
     public JSONArray makePostHttpRequest(String url, String... params){
@@ -124,8 +123,7 @@ public class JsonParser {
      * owner : Thibaut
      * brand : Porsche
      * model : 911
-     * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal)
-     * */
+     * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal) */
     public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
         JSONArray toSendToServer = new JSONArray();
         try{
@@ -178,6 +176,27 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
+    public JSONArray getTransactions(String username){
+            try{
+                HttpContext httpContext = new BasicHttpContext();
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_BY_DATE_URL);
+                List<NameValuePair> list = new ArrayList<>();
+                list.add(new BasicNameValuePair("username", username));
+                httpPost.setEntity(new UrlEncodedFormEntity(list));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                inputStream = httpEntity.getContent();
+                json = createJsonStringFromInputStream(inputStream);
+            }catch (ClientProtocolException e){
+                e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return createJsonArrayFromString(json);
+    }
+
     public JSONArray getNotifications(String username, String url, String hasToBeAlreadyRead){
         try{
             HttpContext httpContext = new BasicHttpContext();
@@ -203,8 +222,7 @@ public class JsonParser {
     /*** Update the request status linked to the notification
      * Called in HttpAsynNotif.updateRequestSate
      * @param idNotification : the notification linked
-     * @param rentConfirmed : if true, then the owner has accepted the rent. (false, he hasn't)
-     * */
+     * @param rentConfirmed : if true, then the owner has accepted the rent. (false, he hasn't)*/
     public JSONArray updateRequestState(int idNotification, boolean rentConfirmed, String url){
         try{
             HttpContext httpContext = new BasicHttpContext();

@@ -19,16 +19,14 @@ import java.util.List;
 public class CustomTabOperation extends ArrayAdapter<JSONObject> {
 
     private JSONObject currentJson;
-    private TabOperations caller;
     private List<JSONObject> list;
     private TextView tvFromDate;
     private TextView tvToDate;
 
 
-    public CustomTabOperation(Context context, List<JSONObject> list, TabOperations caller){
+    public CustomTabOperation(Context context, List<JSONObject> list){
         super(context, R.layout.custom_fragment_tab_operations, list);
         this.list = list;
-        this.caller = caller;
     }
 
     @Override
