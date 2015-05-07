@@ -43,6 +43,8 @@ public class NotificationDispatcher {
                     return createNotificationRequesterChoseSomeoneElse(object);
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES:
                     return createNotificationRequestAcceptedBothSides(object);
+                case NotificationTypeConstants.ONWER_SET_ODOMETER:
+                    return createNotificationOwnerSetOdometer(object);
                 default:
                     break;
             }
@@ -52,6 +54,35 @@ public class NotificationDispatcher {
 
         // Only occurs if errors.
         return null;
+    }
+
+    private NotificationCompat.Builder createNotificationOwnerSetOdometer(JSONObject notif){
+        // Create the notification
+        notification = new NotificationCompat.Builder(notifCaller);
+        notification.setAutoCancel(true);
+
+        // Build the notification
+        notification.setSmallIcon(android.R.drawable.star_on);
+        notification.setWhen(System.currentTimeMillis());
+        notification.setTicker("New DriveMyCar request");
+
+        try{
+            notification.setContentTitle("Notification received");
+            inboxStyle = new NotificationCompat.InboxStyle();
+            inboxStyle.addLine(notif.getString("message").substring(0, 29));
+            inboxStyle.addLine(notif.getString("message").substring(29, notif.getString("message").length()));
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        notification.setStyle(inboxStyle);
+
+        // When clicked, go to NotificationUser Activity
+        Intent i = new Intent();
+        PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
+        notification.setContentIntent(pi);
+
+        return notification;
     }
 
     private NotificationCompat.Builder createNotificationRequestAcceptedBothSides(JSONObject notif){
