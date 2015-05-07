@@ -121,12 +121,20 @@ public class TabOperations extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 JSONObject jsonObjectClicked = (JSONObject)parent.getItemAtPosition(position);
-                launchIntentToRequestData(jsonObjectClicked);
+                launchNextStep(jsonObjectClicked);
             }
         });
     }
 
-    private void launchIntentToRequestData(JSONObject object){
+    /** Next step is either show some request data or to set the odomoter (when the car has been driven)
+     * To know which step has to be launched, we have to query the DB to check if the transaction exist or not
+     * If it exist, next step is to set the odometer
+     * If not, next step is to show the request data */
+    private void launchNextStep(JSONObject object){
+
+
+
+        // Lauch intent to request data
         Intent i = new Intent(this.getActivity(), RequestData.class);
         Bundle bdl = new Bundle();
         bdl.putParcelable("user", user);

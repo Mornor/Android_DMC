@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.ListSpecificCars;
-import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.fragment.DatePicker;
 import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
@@ -38,7 +35,6 @@ import com.example.celien.drivemycar.utils.Action;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 

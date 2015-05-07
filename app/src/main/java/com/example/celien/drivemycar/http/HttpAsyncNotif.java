@@ -124,7 +124,7 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     }
 
     private JSONArray getRequestData(String username, String fromDate, String toDate){
-        return new JsonParser().getRequestData(username, fromDate, toDate);
+        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA_URL);
     }
 
     private JSONArray getAgreedUsers(String username, String fromDate, String toDate){

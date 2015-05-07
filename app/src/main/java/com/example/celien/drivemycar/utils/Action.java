@@ -21,6 +21,7 @@ public enum Action {
     UPDATE_REQUEST_STATE("udpateRequestState"),
     CONFIRM_RENT("confirmRent"),
     NOTIFY_SELECTED_ONWER("notifiySelectedOwner"),
+    CHECK_TRANSACTIION_STATUS("checkTransactionStatus"),
     GET_AGREED_OWNERS("getAgreedOwners"),
     REFUTE_RENT("refuteRent"),
     LOAD_CARS("loadCars");

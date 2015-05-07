@@ -288,12 +288,14 @@ public class JsonParser {
 
 
     /*** @param username
-     * @return JSONArray like this : [{"success":"value"}, {"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}] */
-    public JSONArray getRequestData(String username, String fromDate, String toDate){
+     * @return JSONArray like this if called from RequestData : [{"success":"value"}, {"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
+     * or just [{"success":"value"}] if called from TabOperation*/
+
+    public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_DATA_URL);
+            HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
             list.add(new BasicNameValuePair("fromDate", fromDate));
