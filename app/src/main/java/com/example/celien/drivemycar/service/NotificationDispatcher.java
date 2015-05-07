@@ -1,19 +1,16 @@
 package com.example.celien.drivemycar.service;
 
 import android.app.*;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.receiver.NotificationUser;
 import com.example.celien.drivemycar.utils.NotificationTypeConstants;
-import com.example.celien.drivemycar.utils.Tools;
 
 /*** Create the right Notification depending on the server response
  *
