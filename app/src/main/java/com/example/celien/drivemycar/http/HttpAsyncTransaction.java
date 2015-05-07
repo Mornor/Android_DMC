@@ -66,6 +66,10 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
             confirmRentCaller.getProgressDialog().dismiss();
             confirmRentCaller.onPostExecute(array);
         }
+        if(activityFromOperationsCaller != null){
+            tabOperationsCaller.getProgressDialog().dismiss();
+            tabOperationsCaller.onPostCheckTransactionStatus(array);
+        }
     }
 
     private JSONArray checkTransactionStatus(String username, String fromDate, String toDate){

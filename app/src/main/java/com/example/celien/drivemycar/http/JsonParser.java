@@ -289,7 +289,8 @@ public class JsonParser {
 
     /*** @param username
      * @return JSONArray like this if called from RequestData : [{"success":"value"}, {"nbRequestSent":"value", "nbAccepted":"value", "nbRefuted":"value", "nbNoAnswer":"value"}]
-     * or just [{"success":"value"}] if called from TabOperation*/
+     * or [{"success":"value"}, {"id":"value", {"brand":"value", {"model":"value"}, ...}}] if called from TabOperation
+     * etc ... See Tools.convertTransactionToJson in Play Server*/
 
     public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
         try{

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
@@ -21,8 +22,11 @@ import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
+import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Constants;
+import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +46,8 @@ public class TabOperations extends Fragment {
     private ListView lvRequestStatus;
     private ProgressDialog progressDialog;
     private View rootView;
+
+    private JSONObject object;
 
     @Nullable
     @Override
@@ -120,20 +126,33 @@ public class TabOperations extends Fragment {
         lvRequestStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JSONObject jsonObjectClicked = (JSONObject)parent.getItemAtPosition(position);
+                JSONObject jsonObjectClicked = (JSONObject) parent.getItemAtPosition(position);
                 launchNextStep(jsonObjectClicked);
             }
         });
     }
 
-    /** Next step is either show some request data or to set the odomoter (when the car has been driven)
-     * To know which step has to be launched, we have to query the DB to check if the transaction exist or not
-     * If it exist, next step is to set the odometer
-     * If not, next step is to show the request data */
-    private void launchNextStep(JSONObject object){
+    public void onPostCheckTransactionStatus(JSONArray array){
+        int idTransaction = 0;
+        String transactionStatus = "";
+        try{
+            if(!array.getJSONObject(0).getBoolean("success"))
+                Log.e("Error", "There is no such transaction in DB");
+            else{
+                idTransaction       = Integer.valueOf(array.getJSONObject(1).getString("id"));
+                transactionStatus   = array.getJSONObject(1).getString("status");
+            }
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
 
+        if(transactionStatus.equals(NotificationTypeConstants.ONWER_SET_ODOMETER))
+            Toast.makeText(this.getActivity(), "Do the dialog stuff with id " +String.valueOf(idTransaction), Toast.LENGTH_SHORT).show();
+        else
+            launchIntentToRequestData();
+    }
 
-
+    private void launchIntentToRequestData(){
         // Lauch intent to request data
         Intent i = new Intent(this.getActivity(), RequestData.class);
         Bundle bdl = new Bundle();
@@ -141,6 +160,24 @@ public class TabOperations extends Fragment {
         bdl.putString("json", object.toString()); // Have to pass the JSON as a String because no implemented methods.
         i.putExtras(bdl);
         startActivity(i);
+    }
+
+    /** Next step is either show some request data or to set the odomoter (when the car has been driven)
+     * To know which step has to be launched, we have to query the DB to check if the transaction exist or not
+     * If it exist, next step is to set the odometer
+     * If not, next step is to show the request data */
+    private void launchNextStep(JSONObject object){
+        this.object = object;
+        String fromDate = "";
+        String toDate = "";
+        try{
+            fromDate = object.getString("fromDate");
+            toDate   = object.getString("toDate");
+        }catch(JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTIION_STATUS.toString(), user.getUsername(), fromDate, toDate);
     }
 
     private void lauchIntentToRequestReceived(){
