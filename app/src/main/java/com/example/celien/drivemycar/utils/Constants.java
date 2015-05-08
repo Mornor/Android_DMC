@@ -30,4 +30,5 @@ public class Constants {
     public static final String GET_TRANSACTIONS_URL         = "https://cafca"+tunnelToUse+"/android/get_transactions";
     public static final String SET_ODOMETER_URL             = "https://cafca"+tunnelToUse+"/android/set_odometer";
     public static final String GET_TRANSACTION_STATE_URL    = "https://cafca"+tunnelToUse+"/android/get_transaction";
+    public static final String COMPUTE_AMOUNT_TO_PAY_URL    = "https://cafca"+tunnelToUse+"/android/compute_amount_to_pay";
 }

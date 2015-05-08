@@ -106,8 +106,8 @@ public class RequesterConfirmRent extends DialogFragment {
         if(etSetMileage.getText().toString().isEmpty() || etSetConso.getText().toString().isEmpty())
             Toast.makeText(this.getActivity(), "Please set the value of the fields", Toast.LENGTH_SHORT).show();
         else{
-            // "false" parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
-            new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false", etSetConso.getText().toString());
+            // "false" in execute parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
+            new HttpAsyncTransaction(this, false).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false", etSetConso.getText().toString());
         }
     }
 
@@ -116,12 +116,40 @@ public class RequesterConfirmRent extends DialogFragment {
             if(array.getJSONObject(0).getBoolean("success")) {
                 Toast.makeText(getActivity(), "Odometer is successfully set", Toast.LENGTH_SHORT).show();
                 dismissDialog();
+                getAmountToPay();
             }
             else
                 Toast.makeText(getActivity(), "Error, please try again", Toast.LENGTH_SHORT).show();
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
+    }
+
+    public void onPostComputeAmountToPay(JSONArray array){
+        double amountToPay = 0.0;
+        String ownerName = "";
+        try{
+            if(!array.getJSONObject(0).getBoolean("success"))
+                Log.e("Error", "Error with JSON received");
+            else {
+                amountToPay = array.getJSONObject(1).getDouble("amountToPay");
+                ownerName   = array.getJSONObject(2).getString("ownerName");
+            }
+        }catch(JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
+        }
+
+        Paiement p = new Paiement();
+        Bundle bdl = new Bundle();
+        bdl.putString("ownerName", ownerName);
+        bdl.putDouble("amountToPay", amountToPay);
+        p.setArguments(bdl);
+        p.show(getFragmentManager(), "4554");
+
+    }
+
+    private void getAmountToPay(){
+        new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
     }
 
     private void dismissDialog(){

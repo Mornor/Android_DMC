@@ -219,6 +219,25 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
+    public JSONArray computeAmountToPay(String idTransaction){
+        try{
+            HttpContext httpContext = new BasicHttpContext();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(Constants.COMPUTE_AMOUNT_TO_PAY_URL);
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            httpPost.setEntity(new UrlEncodedFormEntity(list));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            json = createJsonStringFromInputStream(inputStream);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return createJsonArrayFromString(json);
+    }
+
     public JSONArray setOdometer(String mileage, String idTransaction, String isOwner, String avgCons){
         try{
             HttpContext httpContext = new BasicHttpContext();

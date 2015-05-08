@@ -22,6 +22,7 @@ public enum Action {
     CONFIRM_RENT("confirmRent"),
     NOTIFY_SELECTED_ONWER("notifiySelectedOwner"),
     CHECK_TRANSACTIION_STATUS("checkTransactionStatus"),
+    COMPUTE_AMOUNT_TO_PAY("computeAmountToPay"),
     GET_AGREED_OWNERS("getAgreedOwners"),
     REFUTE_RENT("refuteRent"),
     LOAD_CARS("loadCars");

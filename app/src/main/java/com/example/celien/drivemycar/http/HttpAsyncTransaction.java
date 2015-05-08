@@ -20,6 +20,7 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
     private FragmentActivity activityFromOperationsCaller;
     private TabOperations tabOperationsCaller;
     private RequesterConfirmRent requesterConfirmRentCaller;
+    private boolean isPaiementRequested; // If true, then launch a request into DB to compute the amount to pay;
 
     public HttpAsyncTransaction(AcceptedRequest caller){
         this.acceptedRequestCaller = caller;
@@ -34,8 +35,9 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         this.tabOperationsCaller = caller;
     }
 
-    public HttpAsyncTransaction(RequesterConfirmRent caller){
+    public HttpAsyncTransaction(RequesterConfirmRent caller, boolean isPaiementRequested){
         this.requesterConfirmRentCaller = caller;
+        this.isPaiementRequested = isPaiementRequested;
     }
 
     @Override
@@ -47,8 +49,10 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
             ownerConfirmRentCaller.setProgressDialog(ProgressDialog.show(ownerConfirmRentCaller.getActivity(), "Please wait...", "Set odometer..."));
         if(tabOperationsCaller != null)
             tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Check status of transaction..."));
-        if(requesterConfirmRentCaller != null)
+        if(requesterConfirmRentCaller != null && !isPaiementRequested)
             requesterConfirmRentCaller.setProgressDialog(ProgressDialog.show(requesterConfirmRentCaller.getActivity(), "Please wait...", "Set the odometer value..."));
+        if(requesterConfirmRentCaller != null && isPaiementRequested)
+            requesterConfirmRentCaller.setProgressDialog(ProgressDialog.show(requesterConfirmRentCaller.getActivity(), "Please wait...", "Compute amount to pay..."));
     }
 
     @Override
@@ -59,6 +63,8 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
             return setOdometer(params[1], params[2], params[3], params[4]);  // Mileage, idTransaction, isOnwer, avgCons;
         if(params[0].equals(Action.CHECK_TRANSACTIION_STATUS.toString()))
             return checkTransactionStatus(params[1], params[2], params[3]); // username, fromDate, toDate
+        if(params[0].equals(Action.COMPUTE_AMOUNT_TO_PAY.toString()))
+            return computeAmountToPay(params[1]); // idTransaction
         return null;
     }
 
@@ -77,10 +83,18 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
             tabOperationsCaller.getProgressDialog().dismiss();
             tabOperationsCaller.onPostCheckTransactionStatus(array);
         }
-        if(requesterConfirmRentCaller != null){
+        if(requesterConfirmRentCaller != null && !isPaiementRequested){
             requesterConfirmRentCaller.getProgressDialog().dismiss();
             requesterConfirmRentCaller.onPostSetOdometer(array);
         }
+        if(requesterConfirmRentCaller != null && isPaiementRequested){
+            requesterConfirmRentCaller.getProgressDialog().dismiss();
+            requesterConfirmRentCaller.onPostComputeAmountToPay(array);
+        }
+    }
+
+    private JSONArray computeAmountToPay(String idTransaction){
+        return new JsonParser().computeAmountToPay(idTransaction);
     }
 
     private JSONArray checkTransactionStatus(String username, String fromDate, String toDate){
