@@ -19,24 +19,33 @@
         android:width="120dp"
         android:inputType="numberDecimal"
         android:layout_below="@+id/tvSetOdometer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/tvSetConso"
         android:text="Please, set the fuel consumption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSetOdometer"
+        android:layout_below="@+id/etSetOdometer"
         android:layout_alignLeft="@+id/tvSetOdometer"
-        />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/etSetConso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/tvSetConso"
+        android:layout_centerHorizontal="true"
+        android:width="120dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/etSetOdometer" >
+        android:layout_below="@id/etSetConso" >
 
         <Button
             android:id="@+id/btnOk"

@@ -21,6 +21,7 @@ import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
+import com.example.celien.drivemycar.fragment.RequesterConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
@@ -132,21 +133,23 @@ public class TabOperations extends Fragment {
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
-        int idTransaction = 0;
-        String transactionStatus = "";
+        String transactionStatus = NotificationTypeConstants.ONWER_SET_ODOMETER;
+        JSONObject transactionData = new JSONObject();
         try{
             if(!array.getJSONObject(0).getBoolean("success"))
                 Log.e("Error", "There is no such transaction in DB");
-            else{
-                idTransaction       = Integer.valueOf(array.getJSONObject(1).getString("id"));
-                transactionStatus   = array.getJSONObject(1).getString("status");
-            }
+            else
+                transactionData = array.getJSONObject(1);
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         if(transactionStatus.equals(NotificationTypeConstants.ONWER_SET_ODOMETER)){
-            OwnerConfirmRent cr = new OwnerConfirmRent();
+            RequesterConfirmRent cr = new RequesterConfirmRent();
+            Bundle bdl = new Bundle();
+            bdl.putString("json", transactionData.toString());
+            cr.setArguments(bdl);
+            cr.show(getFragmentManager(), "");
         }
         else
             launchIntentToRequestData();
