@@ -1,6 +1,5 @@
 package com.example.celien.drivemycar.core;
 
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.widget.ListView;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
-import com.example.celien.drivemycar.fragment.ConfirmRent;
+import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
@@ -95,11 +94,11 @@ public class AcceptedRequest extends ActionBarActivity {
     }
 
     private void launchConfirmRentDialog(JSONObject object){
-        ConfirmRent confirmRent = new ConfirmRent();
+        OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
         Bundle bdl = new Bundle();
         bdl.putString("json", object.toString());
-        confirmRent.setArguments(bdl);
-        confirmRent.show(getSupportFragmentManager(), "");
+        ownerConfirmRent.setArguments(bdl);
+        ownerConfirmRent.show(getSupportFragmentManager(), "");
     }
 
     @Override

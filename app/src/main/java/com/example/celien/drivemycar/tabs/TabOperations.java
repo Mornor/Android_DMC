@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
@@ -21,11 +20,11 @@ import com.example.celien.drivemycar.core.AcceptedRequest;
 import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
+import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
-import com.example.celien.drivemycar.utils.Constants;
 import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 
 import org.json.JSONArray;
@@ -146,14 +145,14 @@ public class TabOperations extends Fragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        if(transactionStatus.equals(NotificationTypeConstants.ONWER_SET_ODOMETER))
-            Toast.makeText(this.getActivity(), "Do the dialog stuff with id " +String.valueOf(idTransaction), Toast.LENGTH_SHORT).show();
+        if(transactionStatus.equals(NotificationTypeConstants.ONWER_SET_ODOMETER)){
+            OwnerConfirmRent cr = new OwnerConfirmRent();
+        }
         else
             launchIntentToRequestData();
     }
 
     private void launchIntentToRequestData(){
-        // Lauch intent to request data
         Intent i = new Intent(this.getActivity(), RequestData.class);
         Bundle bdl = new Bundle();
         bdl.putParcelable("user", user);

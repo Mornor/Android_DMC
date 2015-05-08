@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.celien.drivemycar.core.AcceptedRequest;
-import com.example.celien.drivemycar.fragment.ConfirmRent;
+import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
@@ -16,7 +16,7 @@ import org.json.JSONArray;
 public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
 
     private AcceptedRequest acceptedRequestCaller;
-    private ConfirmRent confirmRentCaller;
+    private OwnerConfirmRent ownerConfirmRentCaller;
     private FragmentActivity activityFromOperationsCaller;
     private TabOperations tabOperationsCaller;
 
@@ -24,8 +24,8 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         this.acceptedRequestCaller = caller;
     }
 
-    public HttpAsyncTransaction(ConfirmRent caller){
-        this.confirmRentCaller = caller;
+    public HttpAsyncTransaction(OwnerConfirmRent caller){
+        this.ownerConfirmRentCaller = caller;
     }
 
     public HttpAsyncTransaction(FragmentActivity activity, TabOperations caller){
@@ -38,8 +38,8 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         super.onPreExecute();
         if(acceptedRequestCaller != null)
             acceptedRequestCaller.setProgressDialog(ProgressDialog.show(acceptedRequestCaller, "Please wait...", "Search transaction"));
-        if(confirmRentCaller != null)
-            confirmRentCaller.setProgressDialog(ProgressDialog.show(confirmRentCaller.getActivity(), "Please wait...", "Set odometer..."));
+        if(ownerConfirmRentCaller != null)
+            ownerConfirmRentCaller.setProgressDialog(ProgressDialog.show(ownerConfirmRentCaller.getActivity(), "Please wait...", "Set odometer..."));
         if(tabOperationsCaller != null)
             tabOperationsCaller.setProgressDialog(ProgressDialog.show(tabOperationsCaller.getActivity(), "Please wait...", "Check status of transaction..."));
     }
@@ -62,9 +62,9 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
             acceptedRequestCaller.getProgressDialog().dismiss();
             acceptedRequestCaller.onPostExecuteGetTransaction(array);
         }
-        if(confirmRentCaller != null){
-            confirmRentCaller.getProgressDialog().dismiss();
-            confirmRentCaller.onPostExecute(array);
+        if(ownerConfirmRentCaller != null){
+            ownerConfirmRentCaller.getProgressDialog().dismiss();
+            ownerConfirmRentCaller.onPostExecute(array);
         }
         if(activityFromOperationsCaller != null){
             tabOperationsCaller.getProgressDialog().dismiss();

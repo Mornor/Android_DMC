@@ -23,10 +23,8 @@ import com.example.celien.drivemycar.utils.Action;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-
-public class ConfirmRent extends DialogFragment{
+public class OwnerConfirmRent extends DialogFragment{
 
     private EditText etMileage;
     private TextView tvSetOdometer;

@@ -3,14 +3,12 @@ package com.example.celien.drivemycar.http;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.ListPersonnalCars;
 import com.example.celien.drivemycar.core.Login;
 import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
-import com.example.celien.drivemycar.fragment.ConfirmRent;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.tabs.TabOperations;
