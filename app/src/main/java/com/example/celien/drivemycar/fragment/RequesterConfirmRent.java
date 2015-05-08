@@ -144,6 +144,7 @@ public class RequesterConfirmRent extends DialogFragment {
         bdl.putString("ownerName", ownerName);
         bdl.putDouble("amountToPay", amountToPay);
         p.setArguments(bdl);
+        // BUGGY LINE
         p.show(getActivity().getSupportFragmentManager(), "4554");*/
 
     }
