@@ -4,6 +4,7 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.example.celien.drivemycar.core.AcceptedRequest;
 import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
@@ -57,7 +58,7 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         if(params[0].equals(Action.GET_TRANSACTIONS.toString()))
             return getTransactions(params[1]); // username
         if(params[0].equals(Action.SET_ODOMETER.toString()))
-            return setOdometer(params[1], params[2], params[3]);  // Mileage, idTransaction, isOnwer;
+            return setOdometer(params[1], params[2], params[3], params[4]);  // Mileage, idTransaction, isOnwer, avgCons;
         if(params[0].equals(Action.CHECK_TRANSACTIION_STATUS.toString()))
             return checkTransactionStatus(params[1], params[2], params[3]); // username, fromDate, toDate
         return null;
@@ -88,8 +89,8 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_TRANSACTION_STATE_URL);
     }
 
-    private JSONArray setOdometer(String mileage, String idTransaction, String isOwner){
-        return new JsonParser().setOdometer(mileage, idTransaction, isOwner);
+    private JSONArray setOdometer(String mileage, String idTransaction, String isOwner, String avgCons){
+        return new JsonParser().setOdometer(mileage, idTransaction, isOwner, avgCons);
     }
 
     private JSONArray getTransactions(String username){

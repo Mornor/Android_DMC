@@ -219,7 +219,7 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
-    public JSONArray setOdometer(String mileage, String idTransaction, String isOwner){
+    public JSONArray setOdometer(String mileage, String idTransaction, String isOwner, String avgCons){
         try{
             HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -228,6 +228,7 @@ public class JsonParser {
             list.add(new BasicNameValuePair("mileage", mileage));
             list.add(new BasicNameValuePair("idTransaction", idTransaction));
             list.add(new BasicNameValuePair("isOwner", isOwner));
+            list.add(new BasicNameValuePair("avgCons", avgCons));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();

@@ -103,18 +103,18 @@ public class RequesterConfirmRent extends DialogFragment {
     }
 
     private void setOdometer(){
-        if(etSetMileage.getText().toString().isEmpty())
+        if(etSetMileage.getText().toString().isEmpty() || etSetConso.getText().toString().isEmpty())
             Toast.makeText(this.getActivity(), "Please set the value of the fields", Toast.LENGTH_SHORT).show();
         else{
-            // Last parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
-            new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false");
+            // "false" parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
+            new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false", etSetConso.getText().toString());
         }
     }
 
     public void onPostSetOdometer(JSONArray array){
         try{
             if(array.getJSONObject(0).getBoolean("success")) {
-                Toast.makeText(getActivity(), "Odometer is succesfully set", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Odometer is successfully set", Toast.LENGTH_SHORT).show();
                 dismissDialog();
             }
             else
