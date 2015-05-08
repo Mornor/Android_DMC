@@ -4,8 +4,6 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-
 import com.example.celien.drivemycar.core.AcceptedRequest;
 import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.fragment.RequesterConfirmRent;
