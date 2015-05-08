@@ -16,9 +16,6 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 
-import org.w3c.dom.Text;
-
-
 public class Paiement extends DialogFragment {
 
     @NonNull

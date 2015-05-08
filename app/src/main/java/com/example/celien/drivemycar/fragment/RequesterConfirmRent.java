@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -139,12 +138,13 @@ public class RequesterConfirmRent extends DialogFragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        /*
         Paiement p = new Paiement();
         Bundle bdl = new Bundle();
         bdl.putString("ownerName", ownerName);
         bdl.putDouble("amountToPay", amountToPay);
         p.setArguments(bdl);
-        p.show(getFragmentManager(), "4554");
+        p.show(getActivity().getSupportFragmentManager(), "4554");*/
 
     }
 
