@@ -19,6 +19,7 @@ import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.utils.Action;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -107,6 +108,19 @@ public class RequesterConfirmRent extends DialogFragment {
         else{
             // Last parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
             new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false");
+        }
+    }
+
+    public void onPostSetOdometer(JSONArray array){
+        try{
+            if(array.getJSONObject(0).getBoolean("success")) {
+                Toast.makeText(getActivity(), "Odometer is succesfully set", Toast.LENGTH_SHORT).show();
+                dismissDialog();
+            }
+            else
+                Toast.makeText(getActivity(), "Error, please try again", Toast.LENGTH_SHORT).show();
+        }catch (JSONException e){
+            Log.e(e.getClass().getName(), "JSONException", e);
         }
     }
 

@@ -80,6 +80,7 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         }
         if(requesterConfirmRentCaller != null){
             requesterConfirmRentCaller.getProgressDialog().dismiss();
+            requesterConfirmRentCaller.onPostSetOdometer(array);
         }
     }
 
