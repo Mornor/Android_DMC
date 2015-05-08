@@ -74,10 +74,10 @@ public class RequesterConfirmRent extends DialogFragment {
         btnCancel       = (Button)v.findViewById(R.id.btnCancel);
 
         // Set value of TextView based on Json Received
-        tvSetConso.setText("Please, set the final mileage of the " +brand+ " " +model+ " of " +ownerName+". " +
+        tvSetMileage.setText("Please, set the final mileage of the " + brand + " " + model + " of " + ownerName + ". " +
                 "Just to remind you, the car had "
-                +startMileage+ " kms when you took it");
-        tvSetMileage.setText("Indicate below the average consumption of fuel");
+                + startMileage + " kms when you took it");
+        tvSetConso.setText("Indicate below the average consumption of fuel");
 
         // Set the listeners
         btnOk.setOnClickListener(new View.OnClickListener() {
