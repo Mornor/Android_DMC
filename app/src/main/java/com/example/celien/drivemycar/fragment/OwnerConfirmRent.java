@@ -113,7 +113,8 @@ public class OwnerConfirmRent extends DialogFragment{
     }
 
     private void sendOdometerValue(){
-        new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etMileage.getText().toString(), idTransaction);
+        // Last parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
+        new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etMileage.getText().toString(), idTransaction, "true");
     }
 
     /*Getters and Setters*/

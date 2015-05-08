@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -11,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+import com.example.celien.drivemycar.http.HttpAsyncNotif;
+import com.example.celien.drivemycar.http.HttpAsyncTransaction;
+import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +30,7 @@ public class RequesterConfirmRent extends DialogFragment {
     private EditText etSetMileage;
     private Button btnOk;
     private Button btnCancel;
+    private ProgressDialog progressDialog;
 
     // Some useful data from the Transaction Json;
     private JSONObject transaction; // Contains data of the current Transaction.
@@ -96,10 +102,24 @@ public class RequesterConfirmRent extends DialogFragment {
     }
 
     private void setOdometer(){
-
+        if(etSetMileage.getText().toString().isEmpty())
+            Toast.makeText(this.getActivity(), "Please set the value of the fields", Toast.LENGTH_SHORT).show();
+        else{
+            // Last parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
+            new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false");
+        }
     }
 
     private void dismissDialog(){
         dismiss();
+    }
+
+    /*Getters and Setter*/
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
     }
 }
