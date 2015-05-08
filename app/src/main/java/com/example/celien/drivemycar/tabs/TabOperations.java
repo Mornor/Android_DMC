@@ -133,13 +133,16 @@ public class TabOperations extends Fragment {
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
-        String transactionStatus = NotificationTypeConstants.ONWER_SET_ODOMETER;
+        String transactionStatus = "";
         JSONObject transactionData = new JSONObject();
         try{
             if(!array.getJSONObject(0).getBoolean("success"))
                 Log.e("Error", "There is no such transaction in DB");
-            else
+            else{
                 transactionData = array.getJSONObject(1);
+                transactionStatus = array.getJSONObject(1).getString("status");
+            }
+
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
