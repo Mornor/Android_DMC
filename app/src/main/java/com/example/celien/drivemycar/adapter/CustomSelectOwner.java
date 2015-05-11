@@ -7,18 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.core.RequestReceived;
 import com.example.celien.drivemycar.core.SelectOwner;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 
 public class CustomSelectOwner extends ArrayAdapter<JSONObject>{

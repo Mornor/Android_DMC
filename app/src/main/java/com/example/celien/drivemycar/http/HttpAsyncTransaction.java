@@ -1,6 +1,5 @@
 package com.example.celien.drivemycar.http;
 
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
@@ -10,7 +9,6 @@ import com.example.celien.drivemycar.fragment.RequesterConfirmRent;
 import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
-
 import org.json.JSONArray;
 
 public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {

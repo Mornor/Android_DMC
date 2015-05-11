@@ -13,11 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.utils.Action;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,9 +1,7 @@
 package com.example.celien.drivemycar.fragment;
 
-import android.app.Activity;
 import android.app. Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,11 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.utils.Action;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

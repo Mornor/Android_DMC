@@ -7,13 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.tabs.TabOperations;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.List;
 
 public class CustomTabOperation extends ArrayAdapter<JSONObject> {

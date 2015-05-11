@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
-
-import com.example.celien.drivemycar.R;
-import com.example.celien.drivemycar.tabs.TabSearchCar;
-
 import java.util.Calendar;
 
 

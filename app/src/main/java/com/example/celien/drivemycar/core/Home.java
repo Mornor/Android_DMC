@@ -1,21 +1,15 @@
 package com.example.celien.drivemycar.core;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
 import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.tabs.TabAccount;
-
-import org.json.JSONArray;
 
 /**
  * Main page of the app, with sliding tabs.

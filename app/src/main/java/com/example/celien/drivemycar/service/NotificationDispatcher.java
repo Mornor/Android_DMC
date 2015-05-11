@@ -14,7 +14,7 @@ import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 
 /*** Create the right Notification depending on the server response
  *
- * [TODO] TYPCALLY : MAKE THE CODE MUCH MORE EFFICICIENT !
+ * [TODO] TYPICALLY : MAKE THE CODE MUCH MORE EFFICICIENT !
  **/
 public class NotificationDispatcher {
 

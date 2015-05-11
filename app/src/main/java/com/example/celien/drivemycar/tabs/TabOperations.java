@@ -20,7 +20,6 @@ import com.example.celien.drivemycar.core.AcceptedRequest;
 import com.example.celien.drivemycar.core.RequestData;
 import com.example.celien.drivemycar.core.Home;
 import com.example.celien.drivemycar.core.RequestReceived;
-import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.fragment.RequesterConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.AddCar;
 import com.example.celien.drivemycar.core.Home;
