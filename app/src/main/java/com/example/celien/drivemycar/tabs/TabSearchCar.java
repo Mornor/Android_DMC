@@ -147,7 +147,7 @@ public class TabSearchCar extends Fragment {
         i.putExtra("dateTo", dateToStr);
         i.putExtra("timeTo", timeToStr);
 
-        // Add some test on date and time fields (which are mandatory)
+        // Add some test on date and time fields (which are mandatory, for the app not to crash)
         if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
             Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
         else

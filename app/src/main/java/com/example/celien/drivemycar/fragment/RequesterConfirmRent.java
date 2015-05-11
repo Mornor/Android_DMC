@@ -145,29 +145,29 @@ public class RequesterConfirmRent extends DialogFragment {
         Log.d("Rcvd ", String.valueOf(amountToPay));
         Log.d("Rcvd ", ownerName);
 
-        // Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
 
         if(getActivity() == null)
             Log.d("Rcvd ", "Act is null");
 
-        /*
+
         Paiement p = new Paiement();
         Bundle bdl = new Bundle();
         bdl.putString("ownerName", ownerName);
         bdl.putDouble("amountToPay", amountToPay);
         p.setArguments(bdl);
         // BUGGY LINE
-       FragmentManager f = getActivity().getFragmentManager();
-        if(p == null)
-            Log.d("Exception ", "p is null");
-        if(f == null)
-            Log.d("Exception ", "f is null");
+       FragmentManager f = getActivity().getSupportFragmentManager();
+       if(p == null)
+           Log.d("Exception ", "p is null");
+       if(f == null)
+           Log.d("Exception ", "f is null");
 
         try {
             p.show(f, "4554");
         }catch(NullPointerException e){
             Log.d("Exception  ", e.toString());
-        }*/
+        }
 
     }
 
