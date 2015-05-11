@@ -1,12 +1,10 @@
 package com.example.celien.drivemycar.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
+
+import java.lang.reflect.Field;
 
 public class Paiement extends DialogFragment {
 
@@ -77,6 +77,22 @@ public class Paiement extends DialogFragment {
 
     private void dismissDialog(){
         dismiss();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

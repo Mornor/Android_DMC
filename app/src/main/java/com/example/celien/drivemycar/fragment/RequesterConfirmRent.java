@@ -1,10 +1,13 @@
 package com.example.celien.drivemycar.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
+import com.example.celien.drivemycar.http.JsonParser;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -138,6 +142,14 @@ public class RequesterConfirmRent extends DialogFragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        Log.d("Rcvd ", String.valueOf(amountToPay));
+        Log.d("Rcvd ", ownerName);
+
+        // Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
+
+        if(getActivity() == null)
+            Log.d("Rcvd ", "Act is null");
+
         /*
         Paiement p = new Paiement();
         Bundle bdl = new Bundle();
@@ -145,12 +157,57 @@ public class RequesterConfirmRent extends DialogFragment {
         bdl.putDouble("amountToPay", amountToPay);
         p.setArguments(bdl);
         // BUGGY LINE
-        p.show(getActivity().getSupportFragmentManager(), "4554");*/
+       FragmentManager f = getActivity().getFragmentManager();
+        if(p == null)
+            Log.d("Exception ", "p is null");
+        if(f == null)
+            Log.d("Exception ", "f is null");
+
+        try {
+            p.show(f, "4554");
+        }catch(NullPointerException e){
+            Log.d("Exception  ", e.toString());
+        }*/
 
     }
 
+    private class GetAmountToPay extends AsyncTask<String, Void, JSONArray>{
+
+        private RequesterConfirmRent requesterConfirmRentCaller;
+
+        public GetAmountToPay(RequesterConfirmRent caller){
+            this.requesterConfirmRentCaller = caller;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if(requesterConfirmRentCaller != null)
+                requesterConfirmRentCaller.setProgressDialog(ProgressDialog.show(requesterConfirmRentCaller.getActivity(), "Please wait...", "Compute amount to pay..."));
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            if(params[0].equals(Action.COMPUTE_AMOUNT_TO_PAY.toString()))
+                return computeAmountToPay(params[1]); // idTransaction
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray array) {
+            if(requesterConfirmRentCaller != null){
+                requesterConfirmRentCaller.onPostComputeAmountToPay(array);
+            }
+        }
+
+        private JSONArray computeAmountToPay(String idTransaction){
+            return new JsonParser().computeAmountToPay(idTransaction);
+        }
+    }
+
     private void getAmountToPay(){
-        new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
+        //new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
+        new GetAmountToPay(this).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
     }
 
     private void dismissDialog(){
