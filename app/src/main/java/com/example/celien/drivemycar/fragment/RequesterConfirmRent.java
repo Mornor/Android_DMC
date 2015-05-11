@@ -118,7 +118,6 @@ public class RequesterConfirmRent extends DialogFragment {
         try{
             if(array.getJSONObject(0).getBoolean("success")) {
                 Toast.makeText(getActivity(), "Odometer is successfully set", Toast.LENGTH_SHORT).show();
-                dismissDialog();
                 getAmountToPay();
             }
             else
@@ -145,12 +144,10 @@ public class RequesterConfirmRent extends DialogFragment {
         Log.d("Rcvd ", String.valueOf(amountToPay));
         Log.d("Rcvd ", ownerName);
 
-        //Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
 
-        if(getActivity() == null)
-            Log.d("Rcvd ", "Act is null");
-
-
+        dismissDialog();
+/*
         Paiement p = new Paiement();
         Bundle bdl = new Bundle();
         bdl.putString("ownerName", ownerName);
@@ -165,49 +162,16 @@ public class RequesterConfirmRent extends DialogFragment {
 
         try {
             p.show(f, "4554");
+            dismissDialog();
         }catch(NullPointerException e){
             Log.d("Exception  ", e.toString());
-        }
+        }*/
 
     }
 
-    private class GetAmountToPay extends AsyncTask<String, Void, JSONArray>{
-
-        private RequesterConfirmRent requesterConfirmRentCaller;
-
-        public GetAmountToPay(RequesterConfirmRent caller){
-            this.requesterConfirmRentCaller = caller;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if(requesterConfirmRentCaller != null)
-                requesterConfirmRentCaller.setProgressDialog(ProgressDialog.show(requesterConfirmRentCaller.getActivity(), "Please wait...", "Compute amount to pay..."));
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            if(params[0].equals(Action.COMPUTE_AMOUNT_TO_PAY.toString()))
-                return computeAmountToPay(params[1]); // idTransaction
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray array) {
-            if(requesterConfirmRentCaller != null){
-                requesterConfirmRentCaller.onPostComputeAmountToPay(array);
-            }
-        }
-
-        private JSONArray computeAmountToPay(String idTransaction){
-            return new JsonParser().computeAmountToPay(idTransaction);
-        }
-    }
 
     private void getAmountToPay(){
-        //new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
-        new GetAmountToPay(this).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
+        new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
     }
 
     private void dismissDialog(){
