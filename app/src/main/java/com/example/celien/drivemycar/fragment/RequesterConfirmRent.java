@@ -1,13 +1,10 @@
 package com.example.celien.drivemycar.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
-import com.example.celien.drivemycar.http.JsonParser;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
@@ -140,9 +136,6 @@ public class RequesterConfirmRent extends DialogFragment {
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
-
-        Log.d("Rcvd ", String.valueOf(amountToPay));
-        Log.d("Rcvd ", ownerName);
 
         Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
 
