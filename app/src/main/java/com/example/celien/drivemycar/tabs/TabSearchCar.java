@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.core.Home;
@@ -140,13 +141,17 @@ public class TabSearchCar extends Fragment {
             i.putExtra("nbSits", nbSits);
 
         i.putExtra("isExchange", sExchange.isChecked());
-
         i.putExtra("energy", energy);
         i.putExtra("dateFrom", dateFromStr);
         i.putExtra("timeFrom", timeFromStr);
         i.putExtra("dateTo", dateToStr);
         i.putExtra("timeTo", timeToStr);
-        startActivity(i);
+
+        // Add some test on date and time fields (which are mandatory)
+        if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
+            Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
+        else
+            startActivity(i);
     }
 
     private void setListeners(){
