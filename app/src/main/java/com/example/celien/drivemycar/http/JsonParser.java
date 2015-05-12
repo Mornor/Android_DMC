@@ -5,7 +5,6 @@ import com.example.celien.drivemycar.utils.Constants;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -52,15 +51,13 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
         return createJsonArrayFromString(json);
     }
 
-    /** @param url
+    /** @param url : The url of the webservice
      * @param params : default, params[0] == current username
      * @return JSONArray with the one send bach by Play! */
     public JSONArray makePostHttpRequest(String url, String... params){
@@ -85,8 +82,6 @@ public class JsonParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 inputStream = httpEntity.getContent();
                 json = createJsonStringFromInputStream(inputStream);
-            }catch (ClientProtocolException e){
-               e.printStackTrace();
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -105,8 +100,6 @@ public class JsonParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 inputStream = httpEntity.getContent();
                 json = createJsonStringFromInputStream(inputStream);
-            }catch (ClientProtocolException e){
-                e.printStackTrace();
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -121,7 +114,7 @@ public class JsonParser {
      * brand : Porsche
      * model : 911
      * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal) */
-    public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange, int idSelectedCar) {
+    public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange, int idSelectedCar, double mileage) {
         JSONArray toSendToServer = new JSONArray();
         try{
             HttpContext httpContext = new BasicHttpContext();
@@ -151,7 +144,12 @@ public class JsonParser {
             idCarToExchange.put("idCarToExchange", idSelectedCar);
             toSendToServer.put(idCarToExchange);
 
-            // Add every choosen possibilities
+            // Add the mileage of the current user's cars in case of exchange
+            JSONObject mileageOfCar = new JSONObject();
+            mileageOfCar.put("mileageCarToExchange", mileage);
+            toSendToServer.put(mileageOfCar);
+
+            // Add every chosen possibilities
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
                 temp.put("owner", listRequest.get(i).get("owner"));
@@ -186,8 +184,6 @@ public class JsonParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 inputStream = httpEntity.getContent();
                 json = createJsonStringFromInputStream(inputStream);
-            }catch (ClientProtocolException e){
-                e.printStackTrace();
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -208,8 +204,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -251,8 +245,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -296,8 +288,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -325,8 +315,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -352,8 +340,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -378,8 +364,6 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -392,7 +376,7 @@ public class JsonParser {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(inputStream, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line = "";
             while((line = reader.readLine()) != null)
                 sb.append(line + "\n");
             inputStream.close();

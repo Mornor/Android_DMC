@@ -1,15 +1,19 @@
 package com.example.celien.drivemycar.core;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,6 +56,7 @@ public class ListSpecificCars extends ActionBarActivity {
     private Timestamp from;
     private Timestamp to;
 
+    private double mileage;
     private ListAdapter adapter;
     private ListView lv;
     private ProgressDialog progressDialog;
@@ -71,7 +76,7 @@ public class ListSpecificCars extends ActionBarActivity {
         // Can't click on the button until cars are shown.
         btnSendRequest.setEnabled(true);
 
-        btnSendRequest.setOnClickListener(new View.OnClickListener(){
+        btnSendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setRequest();
@@ -82,8 +87,36 @@ public class ListSpecificCars extends ActionBarActivity {
     private void setRequest(){
         if(selectedItems.size() == 0)
             Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
-        else
-            new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+        // Before sending the request to play, ask for current mileage of the car only if an exchange is wanted
+        else{
+            if(isExchange)
+                askMileageInCaseOfExchange();
+            else
+                new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+        }
+    }
+
+    private void askMileageInCaseOfExchange(){
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        new AlertDialog.Builder(this)
+                .setTitle("Please, set the mileage of your car")
+                .setView(input)
+                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListSpecificCars.this.setMileage(Double.valueOf(input.getText().toString()));
+                        saveRequest();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        }).show();
+    }
+
+    private void saveRequest() {
+        new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
     }
 
     public void onPostExecuteSendRequest(JSONArray array){
@@ -261,5 +294,13 @@ public class ListSpecificCars extends ActionBarActivity {
 
     public boolean isExchange() {
         return isExchange;
+    }
+
+    public double getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(double mileage) {
+        this.mileage = mileage;
     }
 }

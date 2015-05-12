@@ -3,6 +3,8 @@ package com.example.celien.drivemycar.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+
 import com.example.celien.drivemycar.adapter.CustomRequestReceived;
 import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.core.RequestData;
@@ -152,7 +154,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getDateFrom().toString(),
                 listSpecificCarsCaller.getDateTo().toString(),
                 listSpecificCarsCaller.isExchange(),
-                listSpecificCarsCaller.getIdSelectedCar());
+                listSpecificCarsCaller.getIdSelectedCar(),
+                listSpecificCarsCaller.getMileage());
     }
 
     private JSONArray getNotification(String username, String hasToBeRead){
