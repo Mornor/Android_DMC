@@ -174,7 +174,6 @@ public class JsonParser {
 
     public JSONArray getTransactions(String username){
             try{
-                HttpContext httpContext = new BasicHttpContext();
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(Constants.GET_TRANSACTIONS_URL);
                 List<NameValuePair> list = new ArrayList<>();
@@ -193,7 +192,6 @@ public class JsonParser {
 
     public JSONArray getNotifications(String username, String url, String hasToBeAlreadyRead){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
@@ -213,7 +211,6 @@ public class JsonParser {
 
     public JSONArray computeAmountToPay(String idTransaction){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.COMPUTE_AMOUNT_TO_PAY_URL);
             List<NameValuePair> list = new ArrayList<>();
@@ -232,7 +229,6 @@ public class JsonParser {
 
     public JSONArray setOdometer(String mileage, String idTransaction, String isOwner, String avgCons){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.SET_ODOMETER_URL);
             List<NameValuePair> list = new ArrayList<>();
@@ -258,14 +254,13 @@ public class JsonParser {
      * @param rentConfirmed : if true, then the owner has accepted the rent. (false, he hasn't)*/
     public JSONArray updateRequestState(int idNotification, boolean rentConfirmed, String url){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("idNotification", String.valueOf(idNotification)));
             list.add(new BasicNameValuePair("confirmedRent", String.valueOf(rentConfirmed)));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            httpClient.execute(httpPost);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -278,7 +273,6 @@ public class JsonParser {
      * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"}]*/
     public JSONArray getRequestsByDate(String username){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_BY_DATE_URL);
             List<NameValuePair> list = new ArrayList<>();
@@ -303,7 +297,6 @@ public class JsonParser {
 
     public JSONArray getRequestData(String username, String fromDate, String toDate, String url){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> list = new ArrayList<>();
@@ -323,12 +316,11 @@ public class JsonParser {
     }
 
     /*** @param username
-     * @param fromDate
-     * @param toDate
+     * @param fromDate : the date from the car is rent
+     * @param toDate : the date to the car is rent
      * @return JSONArray like this [{"success":"value"}, {"ownerName":"value", "brand""value", "model""value"}, etc ... ]*/
     public JSONArray getAgreedOwners(String username, String fromDate, String toDate){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.GET_AGREED_OWNERS_URL);
             List<NameValuePair> list = new ArrayList<>();
@@ -349,7 +341,6 @@ public class JsonParser {
 
     public JSONArray notifySelectedUser(String username, String ownerName, String brand, String model, String fromDate, String toDate){
         try{
-            HttpContext httpContext = new BasicHttpContext();
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.NOTIFY_SELECTED_OWNER_URL);
             List<NameValuePair> list = new ArrayList<>();
