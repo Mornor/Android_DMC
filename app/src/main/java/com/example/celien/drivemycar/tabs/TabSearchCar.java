@@ -64,7 +64,6 @@ public class TabSearchCar extends Fragment {
     // Usefull variables
     private String[] brands;
     private AlertDialog alert;
-    private int idSelectedCar;
     private String dateFromStr;
     private String timeFromStr;
     private String dateToStr;
@@ -73,6 +72,7 @@ public class TabSearchCar extends Fragment {
     private String brand;
     private String fuelCons;
     private String nbSits;
+    private Intent i; // Have to declare it as a global class var because it is launch from different places depending on the exchange or not;
     private String mileage;
 
     // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
@@ -120,7 +120,7 @@ public class TabSearchCar extends Fragment {
     // If we arrived there, we already know that period's stuff are picked up, we can now go to
     // ListSpecificCar and make the request to the server in this class
     private void launchIntentToSpecificCars(){
-        Intent i = new Intent(getActivity(), ListSpecificCars.class);
+        i = new Intent(getActivity(), ListSpecificCars.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
@@ -158,8 +158,6 @@ public class TabSearchCar extends Fragment {
             if(sExchange.isChecked()){
                 alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
                 alert.show();
-                i.putExtra("idSelectedCar", idSelectedCar);
-                startActivity(i);
             }
             else
                 startActivity(i);
@@ -398,14 +396,14 @@ public class TabSearchCar extends Fragment {
     }
 
     private void getIdOfSelectedCar(String brandModel){
-        alert.dismiss();
         String[] brandModelArray = brandModel.split(" ");
         int pos = -1;
         for(int i = 0 ; i < user.getCars().size() ; i++)
             if(user.getCars().get(i).getBrand().equals(brandModelArray[0]) && user.getCars().get(i).getModel().equals(brandModelArray[1]))
                 pos = i;
-        this.idSelectedCar = user.getCars().get(pos).getId();
-        Log.d("Id selected is ", String.valueOf(this.idSelectedCar));
+        i.putExtra("idSelectedCar", user.getCars().get(pos).getId());
+        alert.dismiss();
+        startActivity(i);
     }
 
     private void setBrandText(String brand){
