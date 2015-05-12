@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,13 @@ import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.fragment.DatePicker;
 import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
+import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 
 public class TabSearchCar extends Fragment {
@@ -150,8 +151,24 @@ public class TabSearchCar extends Fragment {
         // Add some test on date and time fields (which are mandatory, for the app not to crash)
         if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
             Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
-        else
-            startActivity(i);
+
+        // Check if it is an exchange or not.
+        else{
+            if(sExchange.isChecked()){
+                alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
+                alert.show();
+            }
+            else
+                startActivity(i);
+        }
+
+    }
+
+    private String[] getStringArrayOfUserCar(){
+        String[] result = new String[user.getCars().size()];
+        for(int i = 0 ; i < user.getCars().size() ; i++)
+            result[i] = user.getCars().get(i).getBrand()+ " " +user.getCars().get(i).getModel();
+        return result;
     }
 
     private void setListeners(){
@@ -345,27 +362,32 @@ public class TabSearchCar extends Fragment {
 
         // length == 0, then there are no cars in DB.
         if(brands.length == 0)
-            alert = buildBrandDialog("No available car so far").create();
+            alert = buildDialog("No available car so far", brands, true).create();
         else
-            alert = buildBrandDialog("Pick up a brand").create();
+            alert = buildDialog("Pick up a brand", brands, true).create();
         alert.show();
     }
 
-    private AlertDialog.Builder buildBrandDialog(String title){
+    /** @param isBrand : if true, then we setText of the brandTextField
+     * if false : case of an exchange, user have to choose one of this car to exchange. */
+    private AlertDialog.Builder buildDialog(String title, final String[] list, final boolean isBrand){
         AlertDialog.Builder brandDialog = new AlertDialog.Builder(TabSearchCar.this.getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = (View) inflater.inflate(R.layout.brand_dialog, null);
         brandDialog.setView(v);
         brandDialog.setTitle(title);
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, brands);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
         lvBrand.setAdapter(adapter);
         lvBrand.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Object clickedCar = parent.getItemAtPosition(position);
-                        setBrandText(clickedCar.toString());
+                        if (isBrand)
+                            setBrandText(clickedCar.toString());
+                        else
+                            Log.d("Action to take", "now");
                     }
                 }
         );
