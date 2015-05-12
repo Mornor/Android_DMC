@@ -105,8 +105,12 @@ public class ListSpecificCars extends ActionBarActivity {
                 .setPositiveButton("Set", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ListSpecificCars.this.setMileage(Double.valueOf(input.getText().toString()));
-                        saveRequest();
+                        if (input.getText().toString().isEmpty())
+                            Toast.makeText(ListSpecificCars.this.getParent(), "Please, set your mileage", Toast.LENGTH_SHORT).show();
+                        else {
+                            ListSpecificCars.this.setMileage(Double.valueOf(input.getText().toString()));
+                            saveRequest();
+                        }
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
