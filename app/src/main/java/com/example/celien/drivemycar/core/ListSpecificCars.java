@@ -43,6 +43,7 @@ public class ListSpecificCars extends ActionBarActivity {
     private String timeFrom;
     private String dateTo;
     private String timeTo;
+    private int idSelectedCar; // In case of an exchange, represent the Id of the Car the User wish to exchange.
     private boolean isExchange;
     private Button btnSendRequest;
 
@@ -137,8 +138,10 @@ public class ListSpecificCars extends ActionBarActivity {
             this.dateFrom   = getIntent().getStringExtra("dateFrom");
             this.timeFrom   = getIntent().getStringExtra("timeFrom");
             this.dateTo     = getIntent().getStringExtra("dateTo");
-            this.isExchange = getIntent().getBooleanExtra("isExchange", false);
+            this.isExchange = getIntent().getBooleanExtra("isExchange", false); // false as a default value if nothin has been found in the Intent.
             this.timeTo     = getIntent().getStringExtra("timeTo");
+            if(this.isExchange)
+                this.idSelectedCar = getIntent().getIntExtra("idSelectedCar", -1); // -1 as a default value; 
         }
 
         btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);

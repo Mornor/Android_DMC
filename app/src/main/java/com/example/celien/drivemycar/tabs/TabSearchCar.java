@@ -64,6 +64,7 @@ public class TabSearchCar extends Fragment {
     // Usefull variables
     private String[] brands;
     private AlertDialog alert;
+    private int idSelectedCar;
     private String dateFromStr;
     private String timeFromStr;
     private String dateToStr;
@@ -77,7 +78,7 @@ public class TabSearchCar extends Fragment {
     // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
     private HashMap<String, TextView> hmTextView;
 
-    // Calls variable (usefull for the DatePicker and TimePicker)
+    // Calls variable (useful for the DatePicker and TimePicker)
     public static final int DATE_PICKER_FRAGMENT = 1;
     public static final int TIME_PICKER_FRAGMENT = 2;
 
@@ -157,6 +158,8 @@ public class TabSearchCar extends Fragment {
             if(sExchange.isChecked()){
                 alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
                 alert.show();
+                i.putExtra("idSelectedCar", idSelectedCar);
+                startActivity(i);
             }
             else
                 startActivity(i);
@@ -387,11 +390,22 @@ public class TabSearchCar extends Fragment {
                         if (isBrand)
                             setBrandText(clickedCar.toString());
                         else
-                            Log.d("Action to take", "now");
+                            getIdOfSelectedCar(clickedCar.toString());
                     }
                 }
         );
         return brandDialog;
+    }
+
+    private void getIdOfSelectedCar(String brandModel){
+        alert.dismiss();
+        String[] brandModelArray = brandModel.split(" ");
+        int pos = -1;
+        for(int i = 0 ; i < user.getCars().size() ; i++)
+            if(user.getCars().get(i).getBrand().equals(brandModelArray[0]) && user.getCars().get(i).getModel().equals(brandModelArray[1]))
+                pos = i;
+        this.idSelectedCar = user.getCars().get(pos).getId();
+        Log.d("Id selected is ", String.valueOf(this.idSelectedCar));
     }
 
     private void setBrandText(String brand){
