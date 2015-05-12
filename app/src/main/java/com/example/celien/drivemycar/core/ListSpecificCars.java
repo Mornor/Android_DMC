@@ -74,12 +74,12 @@ public class ListSpecificCars extends ActionBarActivity {
         btnSendRequest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                saveData();
+                setRequest();
             }
         });
     }
 
-    private void saveData(){
+    private void setRequest(){
         if(selectedItems.size() == 0)
             Toast.makeText(this, "Please, select at least 1 item", Toast.LENGTH_SHORT).show();
         else
@@ -143,16 +143,15 @@ public class ListSpecificCars extends ActionBarActivity {
             if(this.isExchange)
                 this.idSelectedCar = getIntent().getIntExtra("idSelectedCar", -1); // -1 as a default value;
         }
-        
+
         btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);
     }
 
     private void getRequestedCars(){
-        HttpAsyncJson request = new HttpAsyncJson(this);
-        request.execute(Action.LOAD_SPECIFIC_CARS.toString());
+        new HttpAsyncJson(this).execute(Action.LOAD_SPECIFIC_CARS.toString());
     }
 
-    // Create an ArrayList<JSONObject> from the JSONArray received from HttpAsyncJsons
+    // Create an ArrayList<JSONObject> from the JSONArray received from HttpAsyncJson
     // The JSONArray received is constructed with the following model :
     // [{"brand":"Bmw","model":"335i","owner":"Celien"}]
     // Then, it create the CustomListView (customSpecificCar) with the within items
@@ -216,6 +215,10 @@ public class ListSpecificCars extends ActionBarActivity {
     /*Getters and Setter*/
     public ProgressDialog getProgressDialog() {
         return progressDialog;
+    }
+
+    public int getIdSelectedCar() {
+        return idSelectedCar;
     }
 
     public void setProgressDialog(ProgressDialog progressDialog) {

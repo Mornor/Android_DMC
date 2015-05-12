@@ -67,7 +67,7 @@ public class JsonParser {
 
         // If we search a specific car, then we specify the following paramaters:
         // params[1] -> Brand, params[2] -> Energy (Petrol, Diesel ...), params[3] -> MaxCons
-        // params[4] -> Nbsits, params[5] -> fromDate, params[6} -> toDate
+        // params[4] -> Nbsits, params[5] -> fromDate, params[6} -> toDate, params[7] -> username
         if(params[0].equals("car")){
             try{
                 DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -121,7 +121,7 @@ public class JsonParser {
      * brand : Porsche
      * model : 911
      * currentUsername is the username of the one who wants the car (the one who is currently using the Android terminal) */
-    public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange) {
+    public JSONArray saveRequest(List<HashMap<String, String>> listRequest, String currentUsername, String dateFrom, String dateTo, boolean isExchange, int idSelectedCar) {
         JSONArray toSendToServer = new JSONArray();
         try{
             HttpContext httpContext = new BasicHttpContext();
@@ -146,6 +146,11 @@ public class JsonParser {
             isExchangeJson.put("isExchange", isExchange);
             toSendToServer.put(isExchangeJson);
 
+            // Add the id of the selected car (in case of an exchange, it is the id of the car the user want to exchange)
+            JSONObject idCarToExchange = new JSONObject();
+            idCarToExchange.put("idCarToExchange", idSelectedCar);
+            toSendToServer.put(idCarToExchange);
+
             // Add every choosen possibilities
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
@@ -162,12 +167,8 @@ public class JsonParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
             json = createJsonStringFromInputStream(inputStream);
-        }catch (ClientProtocolException e){
+        } catch (IOException | JSONException e){
             e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (JSONException e){
-            Log.e(e.getClass().getName(), "JSONException", e);
         }
 
         return createJsonArrayFromString(json);

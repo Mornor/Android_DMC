@@ -73,8 +73,6 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
             tabSearchCarCaller.setSearchBrandCar(ProgressDialog.show(tabSearchCarCaller.getActivity(), "Please wait ...", "Search available brands ..."));
         if(listSpecificCarsCaller != null)
             listSpecificCarsCaller.setProgressDialog(ProgressDialog.show(listSpecificCarsCaller, "Please wait ...", "Searching requested cars ..."));
-        //if(notificationUserCaller != null)
-            //notificationUserCaller.setProgressDialog(ProgressDialog.show(notificationCaller, "Please wait...", "Fetching data ..."));
     }
 
     @Override
@@ -125,8 +123,7 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
 
 
     private JSONArray getSpecificCars(){
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_SPECIFIC_CARS_URL, "car",
+        return new JsonParser().makePostHttpRequest(Constants.LOAD_SPECIFIC_CARS_URL, "car",
                 listSpecificCarsCaller.getBrand(),
                 listSpecificCarsCaller.getEnergy(),
                 listSpecificCarsCaller.getMaxCons(),
@@ -134,7 +131,6 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getDateFrom().toString(),
                 listSpecificCarsCaller.getDateTo().toString(),
                 listSpecificCarsCaller.getUser().getUsername());
-        return result;
     }
 
     @Override
