@@ -14,6 +14,7 @@ public class Car implements Parcelable {
     private double c02_cons;
     private double htva_price;
     private double leasing_price;
+    private double mileage;
 
     public Car(){}
 
@@ -34,6 +35,7 @@ public class Car implements Parcelable {
         dest.writeDouble(c02_cons);
         dest.writeDouble(htva_price);
         dest.writeDouble(leasing_price);
+        dest.writeDouble(mileage);
     }
 
     public static final Creator<Car> CREATOR = new Creator<Car>() {
@@ -50,6 +52,7 @@ public class Car implements Parcelable {
             car.c02_cons        = source.readDouble();
             car.htva_price      = source.readDouble();
             car.leasing_price   = source.readDouble();
+            car.mileage         = source.readDouble();
             return car;
         }
 
@@ -138,5 +141,13 @@ public class Car implements Parcelable {
 
     public void setNbSits(int nbSits) {
         this.nbSits = nbSits;
+    }
+
+    public double getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(double mileage) {
+        this.mileage = mileage;
     }
 }

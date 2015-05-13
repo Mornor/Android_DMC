@@ -139,15 +139,17 @@ public class JsonParser {
             isExchangeJson.put("isExchange", isExchange);
             toSendToServer.put(isExchangeJson);
 
-            // Add the id of the selected car (in case of an exchange, it is the id of the car the user want to exchange)
-            JSONObject idCarToExchange = new JSONObject();
-            idCarToExchange.put("idCarToExchange", idSelectedCar);
-            toSendToServer.put(idCarToExchange);
+            if(isExchange){
+                // Add the id of the selected car (in case of an exchange, it is the id of the car the user want to exchange)
+                JSONObject idCarToExchange = new JSONObject();
+                idCarToExchange.put("idCarToExchange", idSelectedCar);
+                toSendToServer.put(idCarToExchange);
 
-            // Add the mileage of the current user's cars in case of exchange
-            JSONObject mileageOfCar = new JSONObject();
-            mileageOfCar.put("mileageCarToExchange", mileage);
-            toSendToServer.put(mileageOfCar);
+                // Add the mileage of the current user's cars in case of exchange
+                JSONObject mileageOfCar = new JSONObject();
+                mileageOfCar.put("mileageCarToExchange", mileage);
+                toSendToServer.put(mileageOfCar);
+            }
 
             // Add every chosen possibilities
             for(int i = 0 ; i < listRequest.size() ; i++){

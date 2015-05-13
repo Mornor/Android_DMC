@@ -104,7 +104,7 @@ public class Login extends ActionBarActivity {
     /*Here I check if the user is authorized*/
     public void onPostExecuteAuthenticate(Object object){
         int responseAuth = (int) object;
-        if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticate and exist)
+        if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticated and exist)
             HttpAsyncJson request = new HttpAsyncJson(this);
             request.execute(Action.LOAD_USER.toString(), login);
         }
@@ -153,6 +153,7 @@ public class Login extends ActionBarActivity {
                 temp.setC02_cons(object.getDouble("co2_cons"));
                 temp.setHtva_price(object.getDouble("htva_price"));
                 temp.setLeasing_price(object.getDouble("leasing_price"));
+                temp.setMileage(object.getDouble("mileage"));
                 cars.add(temp);
             }
         } catch (JSONException e) {

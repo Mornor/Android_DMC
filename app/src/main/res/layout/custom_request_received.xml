@@ -96,14 +96,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/tvDate" />
 
+    <TextView
+        android:id="@+id/tvInCaseOfExchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDateTo"
+        android:layout_alignLeft="@+id/tvTo"
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/btnValidate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnValidate"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:width="150dp"
-        android:layout_below="@+id/tvTo"
+        android:layout_below="@+id/tvInCaseOfExchange"
         android:layout_marginLeft="10dp" />
 
     <Button

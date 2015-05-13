@@ -191,7 +191,7 @@ public class NotificationDispatcher {
             String message = notif.getString("message");
             inboxStyle.addLine(message.substring(0, 31));
             inboxStyle.addLine(message.substring(31, 59));
-            if(message.length() < 81)
+            if(message.length() < 95)
                 inboxStyle.addLine(message.substring(59, message.length()));
             else {
                 inboxStyle.addLine(message.substring(59, 89));

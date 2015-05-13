@@ -242,6 +242,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             list.add(new BasicNameValuePair("c02_cons",      addCarCaller.getC02Cons()));
             list.add(new BasicNameValuePair("htva_price",    addCarCaller.getHtvaPrice()));
             list.add(new BasicNameValuePair("leasing_price", addCarCaller.getLeasingPrice()));
+            list.add(new BasicNameValuePair("mileage",       "0.0"));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse response = httpClient.execute(httpPost);
             success = response.getStatusLine().getStatusCode();

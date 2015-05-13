@@ -24,8 +24,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     private TabOperations tabOperationsCaller;
     private RequestData requestDataCaller;
 
-    // If true, then we notify th selected owner from selectedOnwerCaller.
-    // If false, we need to send tequest from selectedOnwer to displayt the agreed owners.
+    // If true, then we notify th selected owner from selectedOwnerCaller.
+    // If false, we need to send request from selectedOwner to display the agreed owners.
     private boolean notifySelectedOwner;
     private SelectOwner selectOwnerCaller;
 

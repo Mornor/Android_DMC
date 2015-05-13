@@ -47,7 +47,7 @@ public class ListSpecificCars extends ActionBarActivity {
     private String timeFrom;
     private String dateTo;
     private String timeTo;
-    private int idSelectedCar; // In case of an exchange, represent the Id of the Car the User wish to exchange.
+    private int idSelectedCar; // In case of an exchange, represent the Id of the Car the User wish to exchange. (bind with DB)
     private boolean isExchange;
     private Button btnSendRequest;
 
@@ -304,7 +304,12 @@ public class ListSpecificCars extends ActionBarActivity {
         return mileage;
     }
 
+    // Also set the mileage of the User's car
     public void setMileage(double mileage) {
+        for(int i = 0 ; i < user.getCars().size() ; i++) {
+            if (user.getCars().get(i).getId() == idSelectedCar)
+                user.getCars().get(i).setMileage(mileage);
+        }
         this.mileage = mileage;
     }
 }

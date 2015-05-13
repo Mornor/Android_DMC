@@ -23,6 +23,8 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     private TextView tvUserSource;
     private TextView tvBrand;
     private TextView tvModel;
+    private TextView tvInCaseOfExchange;
+    private TextView tvCanI;
     private TextView tvFromDate;
     private TextView tvToDate;
     private Button btnValidate;
@@ -44,22 +46,31 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
         final int pos = position;
 
         // Get the elements on the layouts
-        currentJson  = getItem(position);
-        tvUserSource = (TextView)v.findViewById(R.id.tvUserSource);
-        tvBrand      = (TextView)v.findViewById(R.id.tvBrand);
-        tvModel      = (TextView)v.findViewById(R.id.tvModel);
-        tvFromDate   = (TextView)v.findViewById(R.id.tvDateFrom);
-        tvToDate     = (TextView)v.findViewById(R.id.tvDateTo);
-        btnValidate  = (Button)v.findViewById(R.id.btnValidate);
-        btnCancel    = (Button)v.findViewById(R.id.btnCancel);
+        currentJson         = getItem(position);
+        tvUserSource        = (TextView)v.findViewById(R.id.tvUserSource);
+        tvBrand             = (TextView)v.findViewById(R.id.tvBrand);
+        tvModel             = (TextView)v.findViewById(R.id.tvModel);
+        tvFromDate          = (TextView)v.findViewById(R.id.tvDateFrom);
+        tvInCaseOfExchange  = (TextView)v.findViewById(R.id.tvInCaseOfExchange);
+        tvToDate            = (TextView)v.findViewById(R.id.tvDateTo);
+        tvCanI              = (TextView)v.findViewById(R.id.tvCanIUse);
+        btnValidate         = (Button)v.findViewById(R.id.btnValidate);
+        btnCancel           = (Button)v.findViewById(R.id.btnCancel);
 
         // Set the value of the fields
         try {
+            if(currentJson.getBoolean("isExchange")) {
+                tvCanI.setText("Would you like to exchange your ");
+                tvInCaseOfExchange.setVisibility(View.VISIBLE);
+                //tvInCaseOfExchange.setText("with my "+currentJson.getString("requesterCarBrand")+ " " +currentJson.getString("requesterCarModel")+ " (with "+currentJson.getDouble("requesterCarMileage")+ " Kms)");
+            }
+            else
+                tvCanI.setText("Can I rent your ");
             tvUserSource.setText(currentJson.getString("userSource"));
             tvBrand.setText(currentJson.getString("brand"));
             tvModel.setText(currentJson.getString("model"));
-            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10)+" at" +currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5)+ "h ");
-            tvToDate.setText(currentJson.getString("toDate").substring(0, 10)+" at" +currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5)+ "h ");
+            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10) + " at" + currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5) + "h ");
+            tvToDate.setText(currentJson.getString("toDate").substring(0, 10) + " at" + currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5) + "h ");
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
