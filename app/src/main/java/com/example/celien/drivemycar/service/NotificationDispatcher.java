@@ -2,6 +2,7 @@ package com.example.celien.drivemycar.service;
 
 import android.app.*;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -174,6 +175,8 @@ public class NotificationDispatcher {
 
     private NotificationCompat.Builder createNotificationCarRequest(JSONObject notif){
 
+        double mileageSetByUserWhenExchange = -1;
+
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
         notification.setAutoCancel(true);
@@ -203,6 +206,7 @@ public class NotificationDispatcher {
 
         // When clicked, go to NotificationUser Activity
         Intent i = new Intent(notifCaller, NotificationUser.class);
+        Bundle bdl = new Bundle();
         PendingIntent pi = PendingIntent.getActivity(notifCaller, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); // Give the phone access to the app
         notification.setContentIntent(pi);
 

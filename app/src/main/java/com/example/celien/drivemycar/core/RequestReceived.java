@@ -50,7 +50,7 @@ public class RequestReceived extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Request(s) Received");
 
-        // Get the elements on the layout
+        // Get the elements from the layout
         lv                  = (ListView)findViewById(R.id.lvRequests);
         tvNoRequestsFound   = (TextView)findViewById(R.id.tvNoRequests);
 
