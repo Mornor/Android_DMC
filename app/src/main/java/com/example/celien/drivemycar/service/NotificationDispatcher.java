@@ -185,9 +185,16 @@ public class NotificationDispatcher {
         try{
             notification.setContentTitle("Notification received");
             inboxStyle = new NotificationCompat.InboxStyle();
-            inboxStyle.addLine(notif.getString("message").substring(0, 31));
-            inboxStyle.addLine(notif.getString("message").substring(31, 61));
-            inboxStyle.addLine(notif.getString("message").substring(61, notif.getString("message").length()));
+            String message = notif.getString("message");
+            inboxStyle.addLine(message.substring(0, 31));
+            inboxStyle.addLine(message.substring(31, 59));
+            if(message.length() < 81)
+                inboxStyle.addLine(message.substring(59, message.length()));
+            else {
+                inboxStyle.addLine(message.substring(59, 89));
+                inboxStyle.addLine(message.substring(89, 109));
+                inboxStyle.addLine(message.substring(109, message.length()));
+            }
         } catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
