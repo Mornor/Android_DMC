@@ -175,10 +175,10 @@ public class ListSpecificCars extends ActionBarActivity {
             this.dateFrom   = getIntent().getStringExtra("dateFrom");
             this.timeFrom   = getIntent().getStringExtra("timeFrom");
             this.dateTo     = getIntent().getStringExtra("dateTo");
-            this.isExchange = getIntent().getBooleanExtra("isExchange", false); // false as a default value if nothin has been found in the Intent.
+            this.isExchange = getIntent().getBooleanExtra("isExchange", false); // false as a default value if nothing has been found in the Intent.
             this.timeTo     = getIntent().getStringExtra("timeTo");
             if(this.isExchange)
-                this.idSelectedCar = getIntent().getIntExtra("idSelectedCar", -1); // -1 as a default value;
+                this.idSelectedCar = getIntent().getIntExtra("idSelectedCar", -1); // -1 as a default value. Id of the car of the user;
         }
 
         btnSendRequest = (Button)findViewById(R.id.btnSendRequestToSelectedPeople);
