@@ -75,7 +75,7 @@ public class SelectOwner extends ActionBarActivity {
     }
 
     private void getAgreedOwners(){
-        new HttpAsyncNotif(this, false).execute(Action.GET_AGREED_OWNERS.toString(), user.getUsername(), fromDate, toDate);
+        new HttpAsyncNotif(this, false).execute(Action.GET_AGREED_OWNERS);
     }
 
     public void onOnPostAgreedOnwers(JSONArray array){
@@ -112,11 +112,7 @@ public class SelectOwner extends ActionBarActivity {
         if(selectedOwner.size() == 0)
             Toast.makeText(this, "Please select at least one owner", Toast.LENGTH_SHORT).show();
         else{
-            new HttpAsyncNotif(this, true).execute(Action.NOTIFY_SELECTED_ONWER.toString(), user.getUsername(),
-                    selectedOwner.get("ownerName"),
-                    selectedOwner.get("brand"),
-                    selectedOwner.get("model"),
-                    fromDate, toDate);
+            new HttpAsyncNotif(this, true).execute(Action.NOTIFY_SELECTED_ONWER);
         }
     }
 
@@ -183,5 +179,21 @@ public class SelectOwner extends ActionBarActivity {
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public HashMap<String, String> getSelectedOwner() {
+        return selectedOwner;
     }
 }

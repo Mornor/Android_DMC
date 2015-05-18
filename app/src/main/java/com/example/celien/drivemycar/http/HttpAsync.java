@@ -31,7 +31,7 @@ import java.util.List;
  * 2nd Parameter : Types of parameter passed in onProgressUpdate() --> Executed on the Main Thread.
  * 3rd Parameter : Types of parameter passed in onPostExecute() and parameter returned by doInBackground().
  */
-public class HttpAsync extends AsyncTask<String, Void, Object>{
+public class HttpAsync extends AsyncTask<Action, Void, Object>{
 
     private String name;
     private Register registerCaller;
@@ -78,16 +78,16 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     /** @return JSONArray which is passed to onPostExecute(); */
     @Override
-    protected Object doInBackground(String... params) {
-        if(params[0].equals(Action.SAVE_USER.toString()))
+    protected Object doInBackground(Action... params) {
+        if(params[0].equals(Action.SAVE_USER))
             return saveNewUser();
-        else if(params[0].equals(Action.AUTHENTICATE.toString()))
+        else if(params[0].equals(Action.AUTHENTICATE))
             return authenticate();
-        else if(params[0].equals(Action.SAVE_CAR.toString()))
+        else if(params[0].equals(Action.SAVE_CAR))
             return saveNewCar();
-        else if(params[0].equals(Action.MODIFY_CAR.toString()))
+        else if(params[0].equals(Action.MODIFY_CAR))
             return modifyCar();
-        else if(params[0].equals(Action.DELETE_CAR.toString()))
+        else if(params[0].equals(Action.DELETE_CAR))
             return deleteCar();
         else
             return null;

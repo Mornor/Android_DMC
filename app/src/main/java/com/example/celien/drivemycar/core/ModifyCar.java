@@ -194,7 +194,7 @@ public class ModifyCar  extends ActionBarActivity {
                 if(checkFields()){
                     setFieldsValues();
                     HttpAsync request = new HttpAsync(ModifyCar.this);
-                    request.execute(Action.MODIFY_CAR.toString());
+                    request.execute(Action.MODIFY_CAR);
                 }
             }
         });

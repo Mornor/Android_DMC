@@ -20,6 +20,7 @@ import org.json.JSONException;
 public class Notification extends Service {
 
     private String username;
+    private boolean mode;
 
     private static final int UNIQUE_ID = 45452;
     private static int INTERVAL_IN_MINUTE = 1; // Change this value to change the interval of refreshment.
@@ -33,8 +34,8 @@ public class Notification extends Service {
         // So, if there is a user who has already logged in before (and not logout)
         if(!userInfo[0].equals("")){
             username = userInfo[0];
-            HttpAsyncJson httpAsyncJson = new HttpAsyncJson(this);
-            httpAsyncJson.execute(Action.GET_NOTIFS.toString(), username, "false");
+            mode = false;
+            new HttpAsyncJson(this).execute(Action.GET_NOTIFS);
         }
 
         // Do not keep the service in memory if it is stopped
@@ -84,5 +85,14 @@ public class Notification extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    /*Getters and Setter*/
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean getMode(){
+        return mode;
     }
 }

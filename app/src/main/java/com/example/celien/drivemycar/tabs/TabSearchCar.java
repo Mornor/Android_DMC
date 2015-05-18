@@ -175,7 +175,7 @@ public class TabSearchCar extends Fragment {
             @Override
             public void onClick(View v) {
                 HttpAsyncJson request = new HttpAsyncJson(TabSearchCar.this);
-                request.execute(Action.GET_BRAND.toString());
+                request.execute(Action.GET_BRAND);
             }
         });
 

@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * Class used when the request send back a Json reponse
  */
 
-public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsyncJson extends AsyncTask<Action, Void, JSONArray>{
 
     private Login loginCaller;
     private boolean choiceCarFromLogin; // If choice is true, then the instance of Login caller is used to retrieve the car.
@@ -76,49 +76,41 @@ public class HttpAsyncJson extends AsyncTask<String, Void, JSONArray>{
     }
 
     @Override
-    protected JSONArray doInBackground(String... params) {
-        if(params[0].equals(Action.LOAD_USER.toString()))
-            return loadUser(params[1]); // param[1] contain the username.
-        if(params[0].equals(Action.LOAD_CARS.toString()))
-            return loadCars(params[1]); // also contains the username.
-        if(params[0].equals(Action.CHECK_USERNAME.toString()))
-            return checkUsernameUnique(params[1]);
-        if(params[0].equals(Action.GET_BRAND.toString()))
+    protected JSONArray doInBackground(Action... params) {
+        if(params[0].equals(Action.LOAD_USER))
+            return loadUser();
+        if(params[0].equals(Action.LOAD_CARS))
+            return loadCars();
+        if(params[0].equals(Action.CHECK_USERNAME))
+            return checkUsernameUnique();
+        if(params[0].equals(Action.GET_BRAND))
             return getBrands();
-        if(params[0].equals(Action.LOAD_SPECIFIC_CARS.toString()))
+        if(params[0].equals(Action.LOAD_SPECIFIC_CARS))
             return getSpecificCars();
-        if(params[0].equals(Action.GET_NOTIFS.toString()))
-            return getNotifs(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
+        if(params[0].equals(Action.GET_NOTIFS))
+            return getNotifs();
         return null;
     }
 
-    private JSONArray getNotifs(String username, String hasToBeAlreadyRead){
-        JsonParser parser = new JsonParser();
-        return parser.getNotifications(username, Constants.GET_NOTIFS_URL, hasToBeAlreadyRead);
+    // Username and String to say that we have or not take into account that the notification has been read or not.
+    private JSONArray getNotifs(){
+        return new JsonParser().getNotifications(notificationCaller.getUsername(), Constants.GET_NOTIFS_URL, String.valueOf(notificationCaller.getMode()));
     }
 
     private JSONArray getBrands(){
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.makeGetHttpRequest(Constants.LOAD_ALL_CARS_BRAND);
-        return result;
+        return new JsonParser().makeGetHttpRequest(Constants.LOAD_ALL_CARS_BRAND);
     }
 
-    private JSONArray checkUsernameUnique(String username){
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(Constants.CHECK_USER_UNIQUE_URL, username);
-        return result;
+    private JSONArray checkUsernameUnique(){
+        return new JsonParser().makePostHttpRequest(Constants.CHECK_USER_UNIQUE_URL, registerCaller.getUsername());
     }
 
-    private JSONArray loadCars(String username){
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_CARS_URL, username);
-        return result;
+    private JSONArray loadCars(){
+        return new JsonParser().makePostHttpRequest(Constants.LOAD_CARS_URL, (loginCaller != null) ? loginCaller.getLogin() : notificationUserCaller.getUsername());
     }
 
-    private JSONArray loadUser(String username){
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.makePostHttpRequest(Constants.LOAD_USER_URL, username);
-        return result;
+    private JSONArray loadUser(){
+        return new JsonParser().makePostHttpRequest(Constants.LOAD_USER_URL, (loginCaller != null) ? loginCaller.getLogin() : notificationUserCaller.getUsername());
     }
 
 

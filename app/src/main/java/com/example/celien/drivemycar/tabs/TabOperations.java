@@ -46,6 +46,9 @@ public class TabOperations extends Fragment {
     private ProgressDialog progressDialog;
     private View rootView;
 
+    private String fromDate;
+    private String toDate;
+
     private JSONObject object;
 
     @Nullable
@@ -90,7 +93,7 @@ public class TabOperations extends Fragment {
 
     private void loadUserRequestByDate(){
         if(user != null)
-            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE.toString(), user.getUsername());
+            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
     }
 
     private void launchIntentToRequestAccepted(){
@@ -172,8 +175,6 @@ public class TabOperations extends Fragment {
      * If not, next step is to show the request data */
     private void launchNextStep(JSONObject object){
         this.object = object;
-        String fromDate = "";
-        String toDate = "";
         try{
             fromDate = object.getString("fromDate");
             toDate   = object.getString("toDate");
@@ -181,7 +182,7 @@ public class TabOperations extends Fragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTIION_STATUS.toString(), user.getUsername(), fromDate, toDate);
+        new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
     }
 
     private void lauchIntentToRequestReceived(){
@@ -199,5 +200,17 @@ public class TabOperations extends Fragment {
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
     }
 }

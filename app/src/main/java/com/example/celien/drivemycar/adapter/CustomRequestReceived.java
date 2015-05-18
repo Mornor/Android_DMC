@@ -19,6 +19,8 @@ import java.util.List;
 public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
 
     private List<JSONObject> list;
+    private Action choice; // Refute or Confirm
+    private String currentNotificationId;
 
     public CustomRequestReceived(Context context, List<JSONObject> list, RequestReceived caller) {
         super(context, R.layout.custom_request_received, list);
@@ -82,15 +84,15 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     }
 
     private void onClickValidate(JSONObject object){
-        String currentNotificationId = "";
         try{
             currentNotificationId = object.getString("idNotification");
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        choice = Action.CONFIRM_RENT;
         // Update the request value into DB
-        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.CONFIRM_RENT.toString());
+        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE);
 
         // Update ListView
         updateListView(object);
@@ -103,7 +105,7 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
         } catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
-        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE.toString(), currentNotificationId, Action.REFUTE_RENT.toString());
+        new HttpAsyncNotif(this).execute(Action.UPDATE_REQUEST_STATE);
         updateListView(object);
     }
 
@@ -128,5 +130,14 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    /*Getters and Setters*/
+    public Action getChoice() {
+        return choice;
+    }
+
+    public String getCurrentNotificationId() {
+        return currentNotificationId;
     }
 }

@@ -11,7 +11,7 @@ import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 import org.json.JSONArray;
 
-public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
+public class HttpAsyncTransaction extends AsyncTask<Action, Void, JSONArray> {
 
     private AcceptedRequest acceptedRequestCaller;
     private OwnerConfirmRent ownerConfirmRentCaller;
@@ -54,15 +54,15 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
     }
 
     @Override
-    protected JSONArray doInBackground(String... params) {
-        if(params[0].equals(Action.GET_TRANSACTIONS.toString()))
-            return getTransactions(params[1]); // username
-        if(params[0].equals(Action.SET_ODOMETER.toString()))
-            return setOdometer(params[1], params[2], params[3], params[4]);  // Mileage, idTransaction, isOnwer, avgCons;
-        if(params[0].equals(Action.CHECK_TRANSACTIION_STATUS.toString()))
-            return checkTransactionStatus(params[1], params[2], params[3]); // username, fromDate, toDate
-        if(params[0].equals(Action.COMPUTE_AMOUNT_TO_PAY.toString()))
-            return computeAmountToPay(params[1]); // idTransaction
+    protected JSONArray doInBackground(Action... params) {
+        if(params[0].equals(Action.GET_TRANSACTIONS))
+            return getTransactions();
+        if(params[0].equals(Action.SET_ODOMETER))
+            return setOdometer();
+        if(params[0].equals(Action.CHECK_TRANSACTION_STATUS))
+            return checkTransactionStatus();
+        if(params[0].equals(Action.COMPUTE_AMOUNT_TO_PAY))
+            return computeAmountToPay(); // idTransaction
         return null;
     }
 
@@ -91,19 +91,22 @@ public class HttpAsyncTransaction extends AsyncTask<String, Void, JSONArray> {
         }
     }
 
-    private JSONArray computeAmountToPay(String idTransaction){
-        return new JsonParser().computeAmountToPay(idTransaction);
+    private JSONArray computeAmountToPay(){
+        return new JsonParser().computeAmountToPay(requesterConfirmRentCaller.getIdTransaction());
     }
 
-    private JSONArray checkTransactionStatus(String username, String fromDate, String toDate){
-        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_TRANSACTION_STATE_URL);
+    private JSONArray checkTransactionStatus(){
+        return new JsonParser().getRequestData(tabOperationsCaller.getUser().getUsername(), tabOperationsCaller.getFromDate(), tabOperationsCaller.getToDate(), Constants.GET_TRANSACTION_STATE_URL);
     }
 
-    private JSONArray setOdometer(String mileage, String idTransaction, String isOwner, String avgCons){
-        return new JsonParser().setOdometer(mileage, idTransaction, isOwner, avgCons);
+    private JSONArray setOdometer(){
+        if(ownerConfirmRentCaller != null)
+            return new JsonParser().setOdometer(ownerConfirmRentCaller.getMileage(), ownerConfirmRentCaller.getIdTransaction(), String.valueOf(ownerConfirmRentCaller.isOwner()), ownerConfirmRentCaller.getNullValueOfOdometer());
+        else
+            return new JsonParser().setOdometer(requesterConfirmRentCaller.getMileage(), requesterConfirmRentCaller.getIdTransaction(), String.valueOf(requesterConfirmRentCaller.isOwner()), requesterConfirmRentCaller.getConso());
     }
 
-    private JSONArray getTransactions(String username){
-        return new JsonParser().getTransactions(username);
+    private JSONArray getTransactions(){
+        return new JsonParser().getTransactions(acceptedRequestCaller.getUser().getUsername());
     }
 }

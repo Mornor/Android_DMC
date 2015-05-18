@@ -116,7 +116,7 @@ public class Login extends ActionBarActivity {
         if(!isConnected)
             createAndShowResult("No internet connection", "Retry");
         else
-            new HttpAsync(this).execute(Action.AUTHENTICATE.toString());
+            new HttpAsync(this).execute(Action.AUTHENTICATE);
      }
 
     /*Here I check if the user is authorized*/
@@ -124,7 +124,7 @@ public class Login extends ActionBarActivity {
         int responseAuth = (int) object;
         if(responseAuth == 200){ // HTTP 1.0/200 -> OK (So, the user is well authenticated and exist)
             HttpAsyncJson request = new HttpAsyncJson(this);
-            request.execute(Action.LOAD_USER.toString(), login);
+            request.execute(Action.LOAD_USER);
         }
         else
             createAndShowResult("Wrong password or username", "Retry");
@@ -151,7 +151,7 @@ public class Login extends ActionBarActivity {
         Tools.saveUsernamePwd(user.getUsername(), password, getSharedPreferences("userInfo", Context.MODE_PRIVATE));
 
         HttpAsyncJson request = new HttpAsyncJson(this, true); // Send true in order to differentiate the 2 instances.
-        request.execute(Action.LOAD_CARS.toString(), login);
+        request.execute(Action.LOAD_CARS);
     }
 
     /*Here, I get the List<Car> of the user (no cars mean array is empty)*/

@@ -85,7 +85,7 @@ public class ListSpecificCars extends ActionBarActivity {
             if(isExchange)
                 askMileageInCaseOfExchange();
             else
-                new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+                new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST);
         }
     }
 
@@ -113,7 +113,7 @@ public class ListSpecificCars extends ActionBarActivity {
     }
 
     private void saveRequest() {
-        new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST.toString());
+        new HttpAsyncNotif(this).execute(Action.SAVE_REQUEST);
     }
 
     public void onPostExecuteSendRequest(JSONArray array){
@@ -178,7 +178,7 @@ public class ListSpecificCars extends ActionBarActivity {
     }
 
     private void getRequestedCars(){
-        new HttpAsyncJson(this).execute(Action.LOAD_SPECIFIC_CARS.toString());
+        new HttpAsyncJson(this).execute(Action.LOAD_SPECIFIC_CARS);
     }
 
     // Create an ArrayList<JSONObject> from the JSONArray received from HttpAsyncJson

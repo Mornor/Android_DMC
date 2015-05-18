@@ -57,7 +57,7 @@ public class AcceptedRequest extends ActionBarActivity {
     }
 
     private void getTransactions(){
-        new HttpAsyncTransaction(this).execute(Action.GET_TRANSACTIONS.toString(), user.getUsername());
+        new HttpAsyncTransaction(this).execute(Action.GET_TRANSACTIONS);
     }
 
     public void onPostExecuteGetTransaction(JSONArray array){
@@ -127,5 +127,9 @@ public class AcceptedRequest extends ActionBarActivity {
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

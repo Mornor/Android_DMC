@@ -126,7 +126,7 @@ public class AddCar extends ActionBarActivity {
                 if(checkFields()){
                     setFieldsValues();
                     HttpAsync httpAsync = new HttpAsync(AddCar.this); // Anonymous inner class contain a ref to the instance of the class they are created in
-                    httpAsync.execute(Action.SAVE_CAR.toString());
+                    httpAsync.execute(Action.SAVE_CAR);
                 }
             }
         });

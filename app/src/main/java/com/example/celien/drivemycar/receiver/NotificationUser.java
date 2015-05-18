@@ -39,7 +39,7 @@ public class NotificationUser extends Activity{
         if (!userInfo[0].equals("")){
             username = userInfo[0];
             // Retrieve the current User
-            new HttpAsyncJson(this).execute(Action.LOAD_USER.toString(), username);
+            new HttpAsyncJson(this).execute(Action.LOAD_USER);
         }
     }
 
@@ -59,7 +59,7 @@ public class NotificationUser extends Activity{
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        new HttpAsyncJson(this, true).execute(Action.LOAD_CARS.toString(), username);
+        new HttpAsyncJson(this, true).execute(Action.LOAD_CARS);
     }
 
     public void onPostExecuteLoadCars(JSONArray array) {
@@ -105,5 +105,9 @@ public class NotificationUser extends Activity{
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

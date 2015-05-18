@@ -71,7 +71,7 @@ public class RequestData extends ActionBarActivity {
     }
 
     private void loadRequestData(){
-        new HttpAsyncNotif(this).execute(Action.GET_REQUEST_DATA.toString(), user.getUsername(), fromDate, toDate);
+        new HttpAsyncNotif(this).execute(Action.GET_REQUEST_DATA);
     }
 
     public void onPostExecuteLoadRequestData(JSONArray array){
@@ -133,5 +133,17 @@ public class RequestData extends ActionBarActivity {
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
     }
 }

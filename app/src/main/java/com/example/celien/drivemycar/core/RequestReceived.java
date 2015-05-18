@@ -50,7 +50,7 @@ public class RequestReceived extends ActionBarActivity {
         lv                  = (ListView)findViewById(R.id.lvRequests);
         tvNoRequestsFound   = (TextView)findViewById(R.id.tvNoRequests);
 
-        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS.toString(), user.getUsername(), "true");
+        new HttpAsyncNotif(this).execute(Action.GET_NOTIFS);
     }
 
     public void onPostExecuteLoadNotification(JSONArray array){
@@ -107,5 +107,14 @@ public class RequestReceived extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*Getters and Setters*/
+    public User getUser() {
+        return user;
+    }
+
+    public boolean getMode(){
+        return true;
     }
 }

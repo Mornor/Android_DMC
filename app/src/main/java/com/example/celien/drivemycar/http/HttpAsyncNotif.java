@@ -15,7 +15,7 @@ import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 import org.json.JSONArray;
 
-public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
+public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
 
     private ListSpecificCars listSpecificCarsCaller;
     private RequestReceived requestReceivedCaller;
@@ -72,21 +72,21 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
     }
 
     @Override
-    protected JSONArray doInBackground(String... params) {
-        if(params[0].equals(Action.SAVE_REQUEST.toString()))
+    protected JSONArray doInBackground(Action... params) {
+        if(params[0].equals(Action.SAVE_REQUEST))
             return saveRequest();
-        if(params[0].equals(Action.GET_NOTIFS.toString()))
-            return getNotification(params[1], params[2]); // Username and String to say that we have or not take into account that the notification has been read or not.
-        if(params[0].equals(Action.UPDATE_REQUEST_STATE.toString()))
-            return updateRequestSate(params[1], params[2]); // String of current IdNotification, and String of the choice (Action.CONFIRM_REQUEST or Action.REFUTE_REQUEST)
-        if(params[0].equals(Action.GET_REQUEST_BY_DATE.toString()))
-            return getRequestByDate(params[1]);
-        if(params[0].equals(Action.GET_REQUEST_DATA.toString()))
-            return getRequestData(params[1], params[2], params[3]); // username, fromDate, toDate
-        if(params[0].equals(Action.GET_AGREED_OWNERS.toString()))
-            return getAgreedUsers(params[1], params[2], params[3]); // username, fromDate, toDate
-        if(params[0].equals(Action.NOTIFY_SELECTED_ONWER.toString()))
-            return notifySelectedUser(params[1], params[2], params[3], params[4], params[5], params[6]); // username, ownerName, brand, model, fromDate, toDate
+        if(params[0].equals(Action.GET_NOTIFS))
+            return getNotification();
+        if(params[0].equals(Action.UPDATE_REQUEST_STATE))
+            return updateRequestSate();
+        if(params[0].equals(Action.GET_REQUEST_BY_DATE))
+            return getRequestByDate();
+        if(params[0].equals(Action.GET_REQUEST_DATA))
+            return getRequestData();
+        if(params[0].equals(Action.GET_AGREED_OWNERS))
+            return getAgreedUsers();
+        if(params[0].equals(Action.NOTIFY_SELECTED_ONWER))
+            return notifySelectedUser();
         return null;
     }
 
@@ -118,31 +118,32 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
         }
     }
 
-    private JSONArray getRequestByDate(String username){
-        return new JsonParser().getRequestsByDate(username);
+    private JSONArray getRequestByDate(){
+        return new JsonParser().getRequestsByDate(tabOperationsCaller.getUser().getUsername());
     }
 
-    private JSONArray getRequestData(String username, String fromDate, String toDate){
-        return new JsonParser().getRequestData(username, fromDate, toDate, Constants.GET_REQUEST_DATA_URL);
+    private JSONArray getRequestData(){
+        return new JsonParser().getRequestData(requestDataCaller.getUser().getUsername(), requestDataCaller.getFromDate(), requestDataCaller.getToDate(), Constants.GET_REQUEST_DATA_URL);
     }
 
-    private JSONArray getAgreedUsers(String username, String fromDate, String toDate){
-       return new JsonParser().getAgreedOwners(username, fromDate, toDate);
+    private JSONArray getAgreedUsers(){
+       return new JsonParser().getAgreedOwners(selectOwnerCaller.getUser().getUsername(), selectOwnerCaller.getFromDate(), selectOwnerCaller.getToDate());
     }
 
-    private JSONArray notifySelectedUser(String username, String ownerName, String brand, String model, String fromDate, String toDate){
-        return new JsonParser().notifySelectedUser(username, ownerName, brand, model, fromDate, toDate);
+    private JSONArray notifySelectedUser(){
+        return new JsonParser().notifySelectedUser(selectOwnerCaller.getUser().getUsername(), selectOwnerCaller.getSelectedOwner().get("ownerName"),
+                selectOwnerCaller.getSelectedOwner().get("brand"),
+                selectOwnerCaller.getSelectedOwner().get("model"),
+                selectOwnerCaller.getFromDate(), selectOwnerCaller.getToDate());
     }
 
-    private JSONArray updateRequestSate(String idNotification, String actionRequested){
+    private JSONArray updateRequestSate(){
         boolean rentConfirmed = false;
-        if(actionRequested.equals(Action.CONFIRM_RENT.toString()))
+        if(customRequestReceivedCaller.getChoice().equals(Action.CONFIRM_RENT))
             rentConfirmed = true;
-        else if(actionRequested.equals(Action.REFUTE_RENT.toString()))
+        else if(customRequestReceivedCaller.getChoice().equals(Action.REFUTE_RENT.toString()))
             rentConfirmed = false;
-        JsonParser parser = new JsonParser();
-        JSONArray result = parser.updateRequestState(Integer.valueOf(idNotification), rentConfirmed, Constants.UPDATE_REQUEST_URL);
-        return result; // Which is == null
+        return new JsonParser().updateRequestState(Integer.valueOf(customRequestReceivedCaller.getCurrentNotificationId()), rentConfirmed, Constants.UPDATE_REQUEST_URL);
     }
 
     private JSONArray saveRequest(){
@@ -158,7 +159,8 @@ public class HttpAsyncNotif extends AsyncTask<String, Void, JSONArray>{
                 listSpecificCarsCaller.getMileage());
     }
 
-    private JSONArray getNotification(String username, String hasToBeRead){
-        return new JsonParser().getNotifications(username, Constants.GET_NOTIFS_URL, hasToBeRead);
+    // Username and String to say that we have or not take into account that the notification has been read or not.
+    private JSONArray getNotification(){
+        return new JsonParser().getNotifications(requestReceivedCaller.getUser().getUsername(), Constants.GET_NOTIFS_URL, String.valueOf(requestReceivedCaller.getMode()));
     }
 }

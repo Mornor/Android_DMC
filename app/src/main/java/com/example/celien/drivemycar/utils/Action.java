@@ -3,38 +3,27 @@ package com.example.celien.drivemycar.utils;
 
 public enum Action {
 
-    SAVE_USER("saveUser"),
-    AUTHENTICATE("authenticate"),
-    SAVE_CAR("saveCar"),
-    MODIFY_CAR("modifyCar"),
-    LOAD_USER("loadUser"),
-    CHECK_USERNAME("checkUsername"),
-    DELETE_CAR("deleteCar"),
-    GET_BRAND("getBrand"),
-    GET_TRANSACTIONS("getTransactions"),
-    LOAD_SPECIFIC_CARS("loadSpecificCars"),
-    SET_ODOMETER("setOdometer"),
-    SAVE_REQUEST("saveRequest"),
-    GET_NOTIFS("getNotifications"),
-    GET_REQUEST_BY_DATE("getRequestByDate"),
-    GET_REQUEST_DATA("getRequestData"),
-    UPDATE_REQUEST_STATE("udpateRequestState"),
-    CONFIRM_RENT("confirmRent"),
-    NOTIFY_SELECTED_ONWER("notifiySelectedOwner"),
-    CHECK_TRANSACTIION_STATUS("checkTransactionStatus"),
-    COMPUTE_AMOUNT_TO_PAY("computeAmountToPay"),
-    GET_AGREED_OWNERS("getAgreedOwners"),
-    REFUTE_RENT("refuteRent"),
-    LOAD_CARS("loadCars");
-
-    private final String name;
-
-    Action(final String name){
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
+    SAVE_USER,
+    AUTHENTICATE,
+    SAVE_CAR,
+    MODIFY_CAR,
+    LOAD_USER,
+    CHECK_USERNAME,
+    DELETE_CAR,
+    GET_BRAND,
+    GET_TRANSACTIONS,
+    LOAD_SPECIFIC_CARS,
+    SET_ODOMETER,
+    SAVE_REQUEST,
+    GET_NOTIFS,
+    GET_REQUEST_BY_DATE,
+    GET_REQUEST_DATA,
+    UPDATE_REQUEST_STATE,
+    CONFIRM_RENT,
+    NOTIFY_SELECTED_ONWER,
+    CHECK_TRANSACTION_STATUS,
+    COMPUTE_AMOUNT_TO_PAY,
+    GET_AGREED_OWNERS,
+    REFUTE_RENT,
+    LOAD_CARS
 }

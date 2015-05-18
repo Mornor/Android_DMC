@@ -155,7 +155,7 @@ public class ListPersonnalCars extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         HttpAsync request = new HttpAsync(ListPersonnalCars.this);
-                        request.execute(Action.DELETE_CAR.toString());
+                        request.execute(Action.DELETE_CAR);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

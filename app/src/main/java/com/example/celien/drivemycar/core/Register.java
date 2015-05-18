@@ -95,7 +95,7 @@ public class Register extends ActionBarActivity {
 
     private void checkUsernameUnique(String username){
         HttpAsyncJson request = new HttpAsyncJson(this);
-        request.execute(Action.CHECK_USERNAME.toString(), username);
+        request.execute(Action.CHECK_USERNAME);
     }
 
     /*Last step, result is returned by onPostExecute in HttpAsynJson*/
@@ -106,7 +106,7 @@ public class Register extends ActionBarActivity {
             tvError.setText("");
             HttpAsync httpAsync = new HttpAsync(this);
             temp = new User(name, mail, username, password, bankAccount);
-            httpAsync.execute(Action.SAVE_USER.toString());
+            httpAsync.execute(Action.SAVE_USER);
         }
 
     }
@@ -205,5 +205,9 @@ public class Register extends ActionBarActivity {
 
     public void setRing(ProgressDialog ring){
         this.ring = ring;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

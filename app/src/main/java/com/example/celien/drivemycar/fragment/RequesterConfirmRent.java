@@ -28,6 +28,8 @@ public class RequesterConfirmRent extends DialogFragment {
 
     private String brand;
     private String model;
+    private String mileage;
+    private String conso;
     private double startMileage;
     private String ownerName;
     private int idTransaction;
@@ -97,8 +99,9 @@ public class RequesterConfirmRent extends DialogFragment {
         if(etSetMileage.getText().toString().isEmpty() || etSetConso.getText().toString().isEmpty())
             Toast.makeText(this.getActivity(), "Please set the value of the fields", Toast.LENGTH_SHORT).show();
         else{
-            // "false" in execute parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
-            new HttpAsyncTransaction(this, false).execute(Action.SET_ODOMETER.toString(), etSetMileage.getText().toString(), String.valueOf(idTransaction), "false", etSetConso.getText().toString());
+            mileage = etSetMileage.getText().toString();
+            conso   = etSetConso.getText().toString();
+            new HttpAsyncTransaction(this, false).execute(Action.SET_ODOMETER);
         }
     }
 
@@ -136,7 +139,7 @@ public class RequesterConfirmRent extends DialogFragment {
 
 
     private void getAmountToPay(){
-        new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY.toString(), String.valueOf(idTransaction));
+        new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY);
     }
 
     private void dismissDialog(){
@@ -151,4 +154,23 @@ public class RequesterConfirmRent extends DialogFragment {
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
     }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public String getIdTransaction() {
+        return String.valueOf(idTransaction);
+    }
+
+    public String getConso() {
+        return conso;
+    }
+
+    // "false" is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
+    public boolean isOwner(){
+        return false;
+    }
+
+
 }

@@ -33,6 +33,7 @@ public class OwnerConfirmRent extends DialogFragment{
     private String idTransaction;
     private String driverName;
     private ProgressDialog progressDialog;
+    private String mileage;
 
 
     @NonNull
@@ -110,7 +111,9 @@ public class OwnerConfirmRent extends DialogFragment{
 
     private void sendOdometerValue(){
         // "true" parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
-        new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER.toString(), etMileage.getText().toString(), idTransaction, "true", "0.0");
+        mileage = etMileage.getText().toString();
+
+        new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER);
     }
 
     /*Getters and Setters*/
@@ -120,5 +123,21 @@ public class OwnerConfirmRent extends DialogFragment{
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public boolean isOwner() {
+        return true;
+    }
+
+    public String getIdTransaction() {
+        return idTransaction;
+    }
+
+    public String getNullValueOfOdometer(){
+        return "0.0";
     }
 }
