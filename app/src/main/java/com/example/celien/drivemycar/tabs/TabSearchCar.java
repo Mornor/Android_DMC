@@ -348,7 +348,7 @@ public class TabSearchCar extends Fragment {
         np.show();
     }
 
-    // Array receive contains all the brand in array.getJSONObject(0)
+    // Array received contains all the brand in array.getJSONObject(0)
     // For example, to get the first brand : array.getJSONObject(0).getString("1");
     public void onPostExecuteSearchBrand(JSONArray array){
         try {

@@ -152,13 +152,16 @@ public class JsonParser {
             }
 
             // Add every chosen possibilities
+            JSONArray array = new JSONArray();
             for(int i = 0 ; i < listRequest.size() ; i++){
                 JSONObject temp = new JSONObject();
                 temp.put("owner", listRequest.get(i).get("owner"));
                 temp.put("brand", listRequest.get(i).get("brand"));
                 temp.put("model", listRequest.get(i).get("model"));
-                toSendToServer.put(temp);
+                array.put(temp);
             }
+            toSendToServer.put(array);
+
             StringEntity se = new StringEntity(toSendToServer.toString());
             httpPost.setEntity(se);
             httpPost.setHeader("Accept", "application/json");
