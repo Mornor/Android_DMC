@@ -11,17 +11,9 @@ import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
 import com.example.celien.drivemycar.models.User;
 
-/**
- * Main page of the app, with sliding tabs.
- */
+/** Main page of the app, host sliding tabs. */
 public class Home extends ActionBarActivity {
 
-    private Toolbar toolbar;
-    private ViewPagerAdapter pagerAdapter;
-    private ViewPager pager;
-    private SlidingTabLayout tabs;
-    private CharSequence titles[];
-    private int nbTabs;
     private User user;
     private int tabTopOpen; // Come from NotificationUser
 
@@ -50,19 +42,19 @@ public class Home extends ActionBarActivity {
     private void init(){
 
         // Init parameters
-        nbTabs = 3;
-        titles = new CharSequence[]{"Account", "Rent", "Transaction"};
-        toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        int nbTabs = 3;
+        CharSequence[] titles           = new CharSequence[]{"Account", "Rent", "Transaction"};
+        Toolbar toolbar                 = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
-        pager = (ViewPager)findViewById(R.id.pager);
+        ViewPagerAdapter pagerAdapter   = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
+        ViewPager pager                 = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
         // Go to right tab
         if(tabTopOpen != -1)
             pager.setCurrentItem(tabTopOpen);
 
-        tabs = (SlidingTabLayout)findViewById(R.id.tabs);
+        SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override

@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +39,6 @@ public class Login extends ActionBarActivity {
     private TextView tvNyr; // Not Yet Register
     private EditText etLogin;
     private EditText etPassword;
-    private TextView tvError;
     private ProgressDialog pbLogin;
     private String login;
     private String password;
@@ -72,7 +74,16 @@ public class Login extends ActionBarActivity {
         btnLogin    = (Button)findViewById(R.id.btnLogin);
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
-        tvError     = (TextView)findViewById(R.id.tvError);
+
+        // Test if the android is connected to the Internet
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()){
+            tvNyr.setText("No internet connection. Please connect your phone to the internet");
+            tvNyr.setTextColor(Color.RED);
+            btnLogin.setEnabled(false);
+            tvNyr.setEnabled(false);
+        }
     }
 
     // Set the listener for the TextView.

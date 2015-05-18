@@ -51,14 +51,7 @@ public class ListSpecificCars extends ActionBarActivity {
     private boolean isExchange;
     private Button btnSendRequest;
 
-    // Variables sent to the server in order to retrieve the cars which fits the choice of the user (from TabSearchCar).
-    // But I also use the previous vars.
-    private Timestamp from;
-    private Timestamp to;
-
     private double mileage;
-    private ListAdapter adapter;
-    private ListView lv;
     private ProgressDialog progressDialog;
     private List<HashMap<String, String>> selectedItems;
 
@@ -66,7 +59,7 @@ public class ListSpecificCars extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_specific_cars);
-        selectedItems = new ArrayList<HashMap<String, String>>();
+        selectedItems = new ArrayList<>();
         init();
         getRequestedCars();
     }
@@ -165,7 +158,7 @@ public class ListSpecificCars extends ActionBarActivity {
         getSupportActionBar().setTitle("Search result");
 
         // Get the User (Object).
-        User currentUser = (User)getIntent().getParcelableExtra("user");
+        User currentUser = getIntent().getParcelableExtra("user");
         if(currentUser != null){
             this.user       = currentUser;
             this.brand      = getIntent().getStringExtra("brand");
@@ -204,8 +197,8 @@ public class ListSpecificCars extends ActionBarActivity {
         }
 
         // Create and set the custom listView.
-        adapter = new CustomSpecificCar(this, list, this);
-        lv = (ListView) findViewById(R.id.lvCars);
+        ListAdapter adapter = new CustomSpecificCar(this, list, this);
+        ListView lv         = (ListView) findViewById(R.id.lvCars);
         lv.setAdapter(adapter);
 
         setListeners();
