@@ -1,6 +1,7 @@
 package com.example.celien.drivemycar.core;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -124,7 +125,7 @@ public class SelectOwner extends ActionBarActivity {
     public void onPostNotifySelectedOwner(JSONArray array){
         try{
             if(array.getJSONObject(0).getBoolean("success"))
-                Toast.makeText(this, "Notification successfully sent", Toast.LENGTH_SHORT).show();
+                launchIntentToHome();
             else
                 Toast.makeText(this, "Error encountered, please retry", Toast.LENGTH_SHORT).show();
         }catch(JSONException e){
@@ -142,6 +143,16 @@ public class SelectOwner extends ActionBarActivity {
         }catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
+    }
+
+    private void launchIntentToHome(){
+        Toast.makeText(this, "Notification successfully sent", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, Home.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
+        finish();
+        startActivity(i);
     }
 
     @Override
