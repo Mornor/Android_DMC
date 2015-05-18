@@ -22,8 +22,6 @@ import com.example.celien.drivemycar.utils.Action;
 
 public class Register extends ActionBarActivity {
 
-    // Items on activity_register
-    private Button btnRegister;
     private TextView tvError;
     private EditText etName;
     private EditText etUsername;
@@ -62,7 +60,6 @@ public class Register extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Registration");
 
-        btnRegister         = (Button)findViewById(R.id.btnRegister);
         tvError             = (TextView)findViewById(R.id.tvError);
         etBankAccount       = (EditText)findViewById(R.id.etBankAccount);
         etName              = (EditText)findViewById(R.id.etName);
@@ -91,10 +88,9 @@ public class Register extends ActionBarActivity {
         }
 
         // If confirmation succeed
-        else if(!formError){
-            // Check if username is unique.
+        else
             checkUsernameUnique(username);
-        }
+
     }
 
     private void checkUsernameUnique(String username){

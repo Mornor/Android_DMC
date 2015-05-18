@@ -1,15 +1,6 @@
 package com.example.celien.drivemycar.utils;
 
 import android.content.SharedPreferences;
-import android.util.Log;
-
-import com.example.celien.drivemycar.core.AddCar;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 public class Tools {
 
@@ -52,9 +43,6 @@ public class Tools {
         editor.apply();
     }
 
-    public static void killEveryActivity(){
-
-    }
 
     public static boolean isInteger(String str){
         if (str == null) {

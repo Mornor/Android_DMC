@@ -28,12 +28,10 @@ import java.util.List;
 public class SelectOwner extends ActionBarActivity {
 
     private User user;
-    private JSONObject jsonObject; // Contains the 2 dates (fromDate and toDate)
     private String fromDate;
     private String toDate;
     private ListView lv;
     private Button btnSelectOwner;
-    private ListAdapter adapter;
     private ProgressDialog progressDialog;
 
     // HashMap updated via CustomSelectOwner
@@ -49,13 +47,13 @@ public class SelectOwner extends ActionBarActivity {
     private void init(){
 
         // Get the current user and the json clicked in RequestData (which contains the dates of the wanted request)
-        User currentUser = (User)getIntent().getParcelableExtra("user");
+        User currentUser = getIntent().getParcelableExtra("user");
         if(currentUser != null){
             this.user = currentUser;
             try {
-                this.jsonObject = new JSONObject(getIntent().getStringExtra("json"));
-                this.fromDate   = this.jsonObject.getString("fromDate");
-                this.toDate     = this.jsonObject.getString("toDate");
+                JSONObject jsonObject = new JSONObject(getIntent().getStringExtra("json"));
+                this.fromDate   = jsonObject.getString("fromDate");
+                this.toDate     = jsonObject.getString("toDate");
             } catch (JSONException e) {
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
@@ -97,7 +95,7 @@ public class SelectOwner extends ActionBarActivity {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomSelectOwner(this, list, this);
+        ListAdapter adapter = new CustomSelectOwner(this, list, this);
         lv.setAdapter(adapter);
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); // Make the ListView only able to select one single row
 

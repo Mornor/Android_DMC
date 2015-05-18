@@ -27,7 +27,7 @@ public class ModifyCar  extends ActionBarActivity {
     private User user;
     private Car car;
 
-    // Items on activity
+    // Items from layout.
     private EditText etBrand;
     private EditText etModel;
     private EditText etLicencePlate;
@@ -38,18 +38,6 @@ public class ModifyCar  extends ActionBarActivity {
     private TextView tvHtvaPrice;
     private TextView tvLeasePrice;
     private Button btnSaveCar;
-
-    // Value of the item
-    private String brand;
-    private String model;
-    private String licencePlate;
-    private String nbSits;
-    private String fuel;
-    private String fuelCons;
-    private String c02Cons;
-    private String htvaPrice;
-    private String leasingPrice;
-
     private ProgressDialog modifyCar;
 
     @Override
@@ -106,25 +94,15 @@ public class ModifyCar  extends ActionBarActivity {
     }
 
     private void setFieldsValues(){
-        brand           = etBrand.getText().toString().trim();
-        model           = etModel.getText().toString().trim();
-        licencePlate    = etLicencePlate.getText().toString().trim();
-        fuel            = spFuel.getSelectedItem().toString();
-        nbSits          = tvNbsits.getText().toString().trim();
-        fuelCons        = tvFuelCons.getText().toString().trim();
-        c02Cons         = tvCo2Cons.getText().toString().trim();
-        leasingPrice    = tvLeasePrice.getText().toString().trim();
-        htvaPrice       = tvHtvaPrice.getText().toString().trim();
-
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setLicencePlate(licencePlate);
-        car.setFuel(fuel);
-        car.setNbSits(Integer.valueOf(nbSits));
-        car.setAvg_cons(Double.valueOf(fuelCons));
-        car.setC02_cons(Double.valueOf(c02Cons));
-        car.setHtva_price(Double.valueOf(htvaPrice));
-        car.setLeasing_price(Double.valueOf(leasingPrice));
+        car.setBrand(etBrand.getText().toString().trim());
+        car.setModel(etModel.getText().toString().trim());
+        car.setLicencePlate(etLicencePlate.getText().toString().trim());
+        car.setFuel(spFuel.getSelectedItem().toString());
+        car.setNbSits(Integer.valueOf(tvNbsits.getText().toString().trim()));
+        car.setAvg_cons(Double.valueOf(tvFuelCons.getText().toString().trim()));
+        car.setC02_cons(Double.valueOf(tvCo2Cons.getText().toString().trim()));
+        car.setHtva_price(Double.valueOf(tvHtvaPrice.getText().toString().trim()));
+        car.setLeasing_price(Double.valueOf(tvLeasePrice.getText().toString().trim()));
     }
 
     private boolean checkFields(){

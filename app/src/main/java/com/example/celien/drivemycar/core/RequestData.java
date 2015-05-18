@@ -42,7 +42,7 @@ public class RequestData extends ActionBarActivity {
     private void init(){
 
         // Get the current user and the json clicked in TabOperations (which contains the dates of the wanted request)
-        User currentUser = (User)getIntent().getParcelableExtra("user");
+        User currentUser = getIntent().getParcelableExtra("user");
         if(currentUser != null){
             this.user       = currentUser;
             try {

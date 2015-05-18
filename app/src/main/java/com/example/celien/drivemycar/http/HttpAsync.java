@@ -9,7 +9,6 @@ import com.example.celien.drivemycar.core.ModifyCar;
 import com.example.celien.drivemycar.core.Register;
 import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
-import com.example.celien.drivemycar.tabs.TabOperations;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.Constants;
 import org.apache.http.HttpEntity;
@@ -20,7 +19,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.InputStream;
@@ -36,21 +34,11 @@ import java.util.List;
 public class HttpAsync extends AsyncTask<String, Void, Object>{
 
     private String name;
-    private String message;
-    private JSONArray json;
-
     private Register registerCaller;
     private Login loginCaller;
     private AddCar addCarCaller;
     private ModifyCar modifyCarCaller;
     private ListPersonnalCars listPersonnalCarsCaller;
-
-    private TabOperations tabOperationsCaller;
-
-
-    // Default constructor
-    public HttpAsync(){}
-
 
     // Only simple way to retrieve the caller.
     public HttpAsync(Register caller){
@@ -73,10 +61,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
         this.listPersonnalCarsCaller = caller;
     }
 
-    public HttpAsync(TabOperations caller){
-        this.tabOperationsCaller = caller;
-    }
-
     @Override
     protected void onPreExecute() {
         // Get the current caller class
@@ -92,10 +76,7 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             listPersonnalCarsCaller.setProgressDialog(ProgressDialog.show(listPersonnalCarsCaller, "Please wait ...", "Deleting car..."));
     }
 
-    /**
-     * @param params
-     * @return JSONArray which is passed to onPostExecute();
-     */
+    /** @return JSONArray which is passed to onPostExecute(); */
     @Override
     protected Object doInBackground(String... params) {
         if(params[0].equals(Action.SAVE_USER.toString()))
@@ -137,39 +118,6 @@ public class HttpAsync extends AsyncTask<String, Void, Object>{
             listPersonnalCarsCaller.onPostExecuteDeleteCar(object);
         }
 
-    }
-
-    private int refuteRent(String idTransaction){
-        int success = -1;
-        try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(Constants.REFFUTE_RENT_URL);
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("idTransaction", idTransaction));
-            httpPost.setEntity(new UrlEncodedFormEntity(list));
-            HttpResponse response = httpClient.execute(httpPost);
-            success = response.getStatusLine().getStatusCode();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return success;
-    }
-
-    private int confirmRent(String mileage, String idTransaction){
-        int success = -1;
-        try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(Constants.CONFIRM_RENT_URL);
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("idTransaction", idTransaction));
-            list.add(new BasicNameValuePair("mileage", mileage));
-            httpPost.setEntity(new UrlEncodedFormEntity(list));
-            HttpResponse response = httpClient.execute(httpPost);
-            success = response.getStatusLine().getStatusCode();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return success;
     }
 
     private int deleteCar(){

@@ -13,8 +13,6 @@ public class Constants {
     public final static String SAVE_CAR_URL                 = "https://cafca"+tunnelToUse+"/android/save_car";
     public final static String MODIFY_CAR_URL               = "https://cafca"+tunnelToUse+"/android/modify_car";
     public final static String DELETE_CAR_URL               = "https://cafca"+tunnelToUse+"/android/delete_car";
-    public final static String CONFIRM_RENT_URL             = "https://cafca"+tunnelToUse+"/android/confirm_rent";
-    public static final String REFFUTE_RENT_URL             = "https://cafca"+tunnelToUse+"/android/refute_rent";
     public static final String LOAD_USER_URL                = "https://cafca"+tunnelToUse+"/android/get_user";
     public static final String LOAD_CARS_URL                = "https://cafca"+tunnelToUse+"/android/get_cars";
     public static final String CHECK_USER_UNIQUE_URL        = "https://cafca"+tunnelToUse+"/android/username_unique";

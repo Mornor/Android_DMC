@@ -29,7 +29,7 @@ public enum Action {
 
     private final String name;
 
-    private Action(final String name){
+    Action(final String name){
         this.name = name;
     }
 

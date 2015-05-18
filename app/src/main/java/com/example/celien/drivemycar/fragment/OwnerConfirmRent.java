@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.fragment;
 import android.app. Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +24,8 @@ import org.json.JSONObject;
 public class OwnerConfirmRent extends DialogFragment{
 
     private EditText etMileage;
-    private TextView tvSetOdometer;
     private Button btnConfirm;
     private Button btnCancel;
-    private JSONObject objectReceived;
     private String brand;
     private String model;
     private String fromDate;
@@ -36,6 +35,7 @@ public class OwnerConfirmRent extends DialogFragment{
     private ProgressDialog progressDialog;
 
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog =  super.onCreateDialog(savedInstanceState);
@@ -58,7 +58,7 @@ public class OwnerConfirmRent extends DialogFragment{
         Bundle rcvd = getArguments();
         if(rcvd != null)
             try {
-                objectReceived  = new JSONObject(rcvd.getString("json"));
+                JSONObject objectReceived = new JSONObject(rcvd.getString("json"));
                 brand           = objectReceived.getString("brand");
                 model           = objectReceived.getString("model");
                 fromDate        = objectReceived.getString("fromDate");
@@ -69,10 +69,10 @@ public class OwnerConfirmRent extends DialogFragment{
                 Log.e(e.getClass().getName(), "JSONException", e);
             }
 
-        etMileage       = (EditText)v.findViewById(R.id.etSetOdometer);
-        tvSetOdometer   = (TextView)v.findViewById(R.id.tvSetOdometer);
-        btnConfirm      = (Button)v.findViewById(R.id.btnOk);
-        btnCancel       = (Button)v.findViewById(R.id.btnCancel);
+        etMileage               = (EditText)v.findViewById(R.id.etSetOdometer);
+        TextView tvSetOdometer  = (TextView) v.findViewById(R.id.tvSetOdometer);
+        btnConfirm              = (Button)v.findViewById(R.id.btnOk);
+        btnCancel               = (Button)v.findViewById(R.id.btnCancel);
 
         tvSetOdometer.setText("Before the rent of your " + brand + " " + model + " to " + driverName + " from " + fromDate.substring(0, 10) + " to " + toDate.substring(0, 10) + ", please indicate the current mileage below (KMs):");
     }

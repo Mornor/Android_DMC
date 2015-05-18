@@ -25,11 +25,7 @@ import java.util.List;
 public class RequestReceived extends ActionBarActivity {
 
     private User user;
-
-    // ListView related stuff
-    private ListAdapter adapter;
     private ListView lv;
-
     private TextView tvNoRequestsFound;
 
     @Override
@@ -41,7 +37,7 @@ public class RequestReceived extends ActionBarActivity {
 
     private void init(){
         // Get the current user and the notifications if there is some.
-        User currentUser = (User)getIntent().getParcelableExtra("user");
+        User currentUser = getIntent().getParcelableExtra("user");
         if(currentUser != null)
             this.user = currentUser;
 
@@ -58,10 +54,9 @@ public class RequestReceived extends ActionBarActivity {
     }
 
     public void onPostExecuteLoadNotification(JSONArray array){
-        JSONArray notifications = array;
-        boolean isArrayEmpty = false; //
+        boolean isArrayEmpty = false;
         try{
-            isArrayEmpty = notifications.getJSONObject(0).getBoolean("isArrayEmpty");
+            isArrayEmpty = array.getJSONObject(0).getBoolean("isArrayEmpty");
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
@@ -72,7 +67,7 @@ public class RequestReceived extends ActionBarActivity {
             tvNoRequestsFound.setText("No requests found in DB");
             tvNoRequestsFound.setTextColor(Color.RED);
         }else{
-            createListView(notifications);
+            createListView(array);
         }
     }
 
@@ -88,7 +83,7 @@ public class RequestReceived extends ActionBarActivity {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomRequestReceived(this, list, this);
+        ListAdapter adapter = new CustomRequestReceived(this, list, this);
         lv.setAdapter(adapter);
     }
 

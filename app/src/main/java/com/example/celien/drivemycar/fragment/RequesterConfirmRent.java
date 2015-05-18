@@ -22,16 +22,10 @@ import org.json.JSONObject;
 
 public class RequesterConfirmRent extends DialogFragment {
 
-    private TextView tvSetMileage;
-    private TextView tvSetConso;
     private EditText etSetConso;
     private EditText etSetMileage;
-    private Button btnOk;
-    private Button btnCancel;
     private ProgressDialog progressDialog;
 
-    // Some useful data from the Transaction Json;
-    private JSONObject transaction; // Contains data of the current Transaction.
     private String brand;
     private String model;
     private double startMileage;
@@ -59,7 +53,7 @@ public class RequesterConfirmRent extends DialogFragment {
         Bundle rcvd = getArguments();
         if(rcvd != null)
             try {
-                transaction     = new JSONObject(rcvd.getString("json"));
+                JSONObject transaction = new JSONObject(rcvd.getString("json"));
                 brand           = transaction.getString("brand");
                 model           = transaction.getString("model");
                 ownerName       = transaction.getString("ownerName");
@@ -70,12 +64,12 @@ public class RequesterConfirmRent extends DialogFragment {
             }
 
         // Get the items from the Layout
-        tvSetConso      = (TextView)v.findViewById(R.id.tvSetConso);
-        tvSetMileage    = (TextView)v.findViewById(R.id.tvSetOdometer);
-        etSetConso      = (EditText)v.findViewById(R.id.etSetConso);
-        etSetMileage    = (EditText)v.findViewById(R.id.etSetOdometer);
-        btnOk           = (Button)v.findViewById(R.id.btnOk);
-        btnCancel       = (Button)v.findViewById(R.id.btnCancel);
+        TextView tvSetConso     = (TextView) v.findViewById(R.id.tvSetConso);
+        TextView tvSetMileage   = (TextView) v.findViewById(R.id.tvSetOdometer);
+        etSetConso              = (EditText)v.findViewById(R.id.etSetConso);
+        etSetMileage            = (EditText)v.findViewById(R.id.etSetOdometer);
+        Button btnOk            = (Button) v.findViewById(R.id.btnOk);
+        Button btnCancel        = (Button) v.findViewById(R.id.btnCancel);
 
         // Set value of TextView based on Json Received
         tvSetMileage.setText("Please, set the final mileage of the " + brand + " " + model + " of " + ownerName + ". " +
@@ -138,26 +132,6 @@ public class RequesterConfirmRent extends DialogFragment {
         Toast.makeText(this.getActivity(), "You have to pay "+amountToPay+"e to " +ownerName, Toast.LENGTH_LONG).show();
 
         dismissDialog();
-/*
-        Paiement p = new Paiement();
-        Bundle bdl = new Bundle();
-        bdl.putString("ownerName", ownerName);
-        bdl.putDouble("amountToPay", amountToPay);
-        p.setArguments(bdl);
-        // BUGGY LINE
-       FragmentManager f = getActivity().getSupportFragmentManager();
-       if(p == null)
-           Log.d("Exception ", "p is null");
-       if(f == null)
-           Log.d("Exception ", "f is null");
-
-        try {
-            p.show(f, "4554");
-            dismissDialog();
-        }catch(NullPointerException e){
-            Log.d("Exception  ", e.toString());
-        }*/
-
     }
 
 

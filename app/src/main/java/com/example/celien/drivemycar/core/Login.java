@@ -42,6 +42,7 @@ public class Login extends ActionBarActivity {
     private ProgressDialog pbLogin;
     private String login;
     private String password;
+    private boolean isConnected;
 
     // The current user (if this one exist)
     User user;
@@ -78,7 +79,8 @@ public class Login extends ActionBarActivity {
         // Test if the android is connected to the Internet
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()){
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(!isConnected){
             tvNyr.setText("No internet connection. Please connect your phone to the internet");
             tvNyr.setTextColor(Color.RED);
             btnLogin.setEnabled(false);
@@ -108,8 +110,13 @@ public class Login extends ActionBarActivity {
     }
 
     public void onClickLogin(){
-        HttpAsync httpAsync = new HttpAsync(this);
-        httpAsync.execute(Action.AUTHENTICATE.toString());
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(!isConnected)
+            createAndShowResult("No internet connection", "Retry");
+        else
+            new HttpAsync(this).execute(Action.AUTHENTICATE.toString());
      }
 
     /*Here I check if the user is authorized*/

@@ -31,7 +31,6 @@ import com.example.celien.drivemycar.core.ListSpecificCars;
 import com.example.celien.drivemycar.fragment.DatePicker;
 import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
-import com.example.celien.drivemycar.models.Car;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
 
@@ -73,7 +72,6 @@ public class TabSearchCar extends Fragment {
     private String fuelCons;
     private String nbSits;
     private Intent i; // Have to declare it as a global class var because it is launch from different places depending on the exchange or not;
-    private String mileage;
 
     // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
     private HashMap<String, TextView> hmTextView;
@@ -261,7 +259,6 @@ public class TabSearchCar extends Fragment {
         energy          = spEnergy.getSelectedItem().toString();
         fuelCons        = tvConsoFuel.getText().toString();
         nbSits          = tvNbSitsChoose.getText().toString();
-        mileage         = tvMileage.getText().toString();
         dateFromStr     = dateFrom.getText().toString();
         dateToStr       = dateTo.getText().toString();
         timeFromStr     = timeFrom.getText().toString();
@@ -374,11 +371,11 @@ public class TabSearchCar extends Fragment {
     private AlertDialog.Builder buildDialog(String title, final String[] list, final boolean isBrand){
         AlertDialog.Builder brandDialog = new AlertDialog.Builder(TabSearchCar.this.getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = (View) inflater.inflate(R.layout.brand_dialog, null);
+        View v = inflater.inflate(R.layout.brand_dialog, null);
         brandDialog.setView(v);
         brandDialog.setTitle(title);
         ListView lvBrand = (ListView)v.findViewById(R.id.listView1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, list);
         lvBrand.setAdapter(adapter);
         lvBrand.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -418,13 +415,5 @@ public class TabSearchCar extends Fragment {
 
     public void setSearchBrandCar(ProgressDialog searchBrandCar) {
         this.searchBrandCar = searchBrandCar;
-    }
-
-    public ProgressDialog getSearchCorrespondingCar() {
-        return searchCorrespondingCar;
-    }
-
-    public void setSearchCorrespondingCar(ProgressDialog searchCorrespondingCar) {
-        this.searchCorrespondingCar = searchCorrespondingCar;
     }
 }
