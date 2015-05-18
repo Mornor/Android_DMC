@@ -18,22 +18,10 @@ import java.util.List;
 
 public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
 
-    private JSONObject currentJson;
-    private RequestReceived caller;
-    private TextView tvUserSource;
-    private TextView tvBrand;
-    private TextView tvModel;
-    private TextView tvInCaseOfExchange;
-    private TextView tvCanI;
-    private TextView tvFromDate;
-    private TextView tvToDate;
-    private Button btnValidate;
-    private Button btnCancel;
     private List<JSONObject> list;
 
     public CustomRequestReceived(Context context, List<JSONObject> list, RequestReceived caller) {
         super(context, R.layout.custom_request_received, list);
-        this.caller = caller;
         this.list = list;
     }
 
@@ -46,16 +34,16 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
         final int pos = position;
 
         // Get the elements on the layouts
-        currentJson         = getItem(position);
-        tvUserSource        = (TextView)v.findViewById(R.id.tvUserSource);
-        tvBrand             = (TextView)v.findViewById(R.id.tvBrand);
-        tvModel             = (TextView)v.findViewById(R.id.tvModel);
-        tvFromDate          = (TextView)v.findViewById(R.id.tvDateFrom);
-        tvInCaseOfExchange  = (TextView)v.findViewById(R.id.tvInCaseOfExchange);
-        tvToDate            = (TextView)v.findViewById(R.id.tvDateTo);
-        tvCanI              = (TextView)v.findViewById(R.id.tvCanIUse);
-        btnValidate         = (Button)v.findViewById(R.id.btnValidate);
-        btnCancel           = (Button)v.findViewById(R.id.btnCancel);
+        JSONObject currentJson      = getItem(position);
+        TextView tvUserSource       = (TextView) v.findViewById(R.id.tvUserSource);
+        TextView tvBrand            = (TextView) v.findViewById(R.id.tvBrand);
+        TextView tvModel            = (TextView) v.findViewById(R.id.tvModel);
+        TextView tvFromDate         = (TextView) v.findViewById(R.id.tvDateFrom);
+        TextView tvInCaseOfExchange = (TextView) v.findViewById(R.id.tvInCaseOfExchange);
+        TextView tvToDate           = (TextView) v.findViewById(R.id.tvDateTo);
+        TextView tvCanI             = (TextView) v.findViewById(R.id.tvCanIUse);
+        Button btnValidate          = (Button) v.findViewById(R.id.btnValidate);
+        Button btnCancel            = (Button) v.findViewById(R.id.btnCancel);
 
         // Set the value of the fields
         try {
@@ -83,7 +71,7 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener(){
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickCancel(getItem(pos));

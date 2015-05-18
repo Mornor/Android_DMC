@@ -17,9 +17,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
+
     ListSpecificCars caller;
-    private  JSONObject currentJson;
-    private CheckBox cbSelectedCar;
     private List<JSONObject> list;
 
     public CustomSpecificCar(Context ctxt, List<JSONObject> list, ListSpecificCars caller){
@@ -35,8 +34,8 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
         View customView = inflater.inflate(R.layout.custom_specific_car_row, parent, false);
 
         // Set the reference of the layout
-        currentJson                       = getItem(position);
-        cbSelectedCar                     = (CheckBox)customView.findViewById(R.id.cbSelectedCar);
+        JSONObject currentJson            = getItem(position);
+        CheckBox cbSelectedCar            = (CheckBox) customView.findViewById(R.id.cbSelectedCar);
         TextView tvBrand                  = (TextView)customView.findViewById(R.id.tvBrand);
         TextView tvModel                  = (TextView)customView.findViewById(R.id.tvModel);
         TextView tvOwnerEditable          = (TextView)customView.findViewById(R.id.tvOwnerEditable);
@@ -54,7 +53,7 @@ public class CustomSpecificCar extends ArrayAdapter<JSONObject>{
         cbSelectedCar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if (isChecked)
                     caller.updateClickedUsername(getItem(position), true); // Add to the List
                 else
                     caller.updateClickedUsername(getItem(position), false); // Delete from the List

@@ -14,11 +14,7 @@ import java.util.List;
 
 public class CustomTabOperation extends ArrayAdapter<JSONObject> {
 
-    private JSONObject currentJson;
     private List<JSONObject> list;
-    private TextView tvFromDate;
-    private TextView tvToDate;
-
 
     public CustomTabOperation(Context context, List<JSONObject> list){
         super(context, R.layout.custom_fragment_tab_operations, list);
@@ -30,9 +26,9 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rootView = inflater.inflate(R.layout.custom_fragment_tab_operations, parent, false);
 
-        currentJson     = getItem(position);
-        tvFromDate      = (TextView)rootView.findViewById(R.id.tvFromEditable);
-        tvToDate        = (TextView)rootView.findViewById(R.id.tvToEditable);
+        JSONObject currentJson  = getItem(position);
+        TextView tvFromDate     = (TextView) rootView.findViewById(R.id.tvFromEditable);
+        TextView tvToDate       = (TextView) rootView.findViewById(R.id.tvToEditable);
 
         try{
             tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10));

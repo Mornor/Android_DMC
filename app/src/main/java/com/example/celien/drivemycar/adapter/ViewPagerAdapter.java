@@ -23,14 +23,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public Fragment getItem(int position) {
         switch (position){
             case 0 :
-                TabAccount tabAccount = new TabAccount();
-                return tabAccount;
+                return new TabAccount();
             case 1 :
-                TabSearchCar tabSearchCar = new TabSearchCar();
-                return tabSearchCar;
+                return new TabSearchCar();
             case 2 :
-                TabOperations tabOperations = new TabOperations();
-                return tabOperations;
+                return new TabOperations();
         }
 
         return null; // Should never occurs
@@ -45,22 +42,4 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
-
-
-    /*Getters and Setters*/
-    public CharSequence[] getTitles() {
-        return titles;
     }
-
-    public void setTitles(CharSequence[] titles) {
-        this.titles = titles;
-    }
-
-    public int getNbTabs() {
-        return nbTabs;
-    }
-
-    public void setNbTabs(int nbTabs) {
-        this.nbTabs = nbTabs;
-    }
-}

@@ -19,11 +19,6 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
 
     private List<JSONObject> list;
     private SelectOwner caller;
-    private JSONObject currentJson;
-    private TextView tvOwnerName;
-    private TextView tvBrand;
-    private TextView tvModel;
-    private CheckBox chkBoxSelcedOwner;
     private int selectedPosition = -1;
 
     public CustomSelectOwner(Context context, List<JSONObject> list, SelectOwner caller){
@@ -38,11 +33,11 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
         View rootView = inflater.inflate(R.layout.custom_select_owner, parent, false);
 
         // Retrieve items;
-        currentJson         = getItem(position);
-        tvOwnerName         = (TextView)rootView.findViewById(R.id.tvOwnerName);
-        tvBrand             = (TextView)rootView.findViewById(R.id.tvBrand);
-        tvModel             = (TextView)rootView.findViewById(R.id.tvModel);
-        chkBoxSelcedOwner   = (CheckBox)rootView.findViewById(R.id.cbSelectedOwner);
+        JSONObject currentJson      = getItem(position);
+        TextView tvOwnerName        = (TextView) rootView.findViewById(R.id.tvOwnerName);
+        TextView tvBrand            = (TextView) rootView.findViewById(R.id.tvBrand);
+        TextView tvModel            = (TextView) rootView.findViewById(R.id.tvModel);
+        CheckBox chkBoxSelcedOwner  = (CheckBox) rootView.findViewById(R.id.cbSelectedOwner);
 
         // Set values of the fields
         try{
@@ -62,11 +57,10 @@ public class CustomSelectOwner extends ArrayAdapter<JSONObject>{
         chkBoxSelcedOwner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     selectedPosition = position;
                     caller.maintainItemClicked(getItem(position));
-                }
-                else
+                } else
                     selectedPosition = -1;
 
                 notifyDataSetChanged();
