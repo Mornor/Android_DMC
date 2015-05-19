@@ -33,7 +33,7 @@ public class NotificationDispatcher {
                     return buildNotification(object, "News from request", "Not selected", new Intent());
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES:
                     return buildNotification(object, "News from request", "Please, set your odometer", new Intent());
-                case NotificationTypeConstants.ONWER_SET_ODOMETER:
+                case NotificationTypeConstants.OWNER_SET_ODOMETER:
                     return buildNotification(object, "News from request", "New status", new Intent());
                 default:
                     break;
@@ -96,13 +96,13 @@ public class NotificationDispatcher {
                     inboxStyle.addLine(message.substring(59, message.length()));
                     break;
 
-                case NotificationTypeConstants.ONWER_SET_ODOMETER:
+                case NotificationTypeConstants.OWNER_SET_ODOMETER:
                     inboxStyle.addLine(message.substring(0, 29));
                     inboxStyle.addLine(message.substring(29, message.length()));
                     break;
 
                 default:
-                    Log.e(this.getClass().getName(), "Not notification type found");
+                    Log.e(this.getClass().getName(), "No notification type found");
                     break;
             }
 
