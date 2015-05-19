@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
@@ -149,6 +150,7 @@ public class TabOperations extends Fragment {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
+        // If owner has set the odometer, the next step is to set the final odomoeter (after the car has been driven).
         if(transactionStatus.equals(NotificationTypeConstants.ONWER_SET_ODOMETER)){
             RequesterConfirmRent cr = new RequesterConfirmRent();
             Bundle bdl = new Bundle();
@@ -156,6 +158,13 @@ public class TabOperations extends Fragment {
             cr.setArguments(bdl);
             cr.show(getFragmentManager(), "");
         }
+
+        // If driver has set the odomoter, then the transaction is over.
+        if(transactionStatus.equals(NotificationTypeConstants.DRIVER_SET_ODOMETER)){
+            Toast.makeText(this.getActivity(), "This transaction is over", Toast.LENGTH_LONG).show();
+        }
+
+        // Else, the only possibility left is that the driver (the requester) has to choose an agreed owner.
         else
             launchIntentToRequestData();
     }
@@ -169,7 +178,7 @@ public class TabOperations extends Fragment {
         startActivity(i);
     }
 
-    /** Next step is either show some request data or to set the odomoter (when the car has been driven)
+    /** Next step is either show some request data or to set the odomoter (when the car has been driven) or show that the transaction is over.
      * To know which step has to be launched, we have to query the DB to check if the transaction exist or not
      * If it exist, next step is to set the odometer
      * If not, next step is to show the request data */
