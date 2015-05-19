@@ -97,7 +97,7 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     }
 
     private void onClickCancel(JSONObject object){
-        String currentNotificationId = "";
+        choice = Action.REFUTE_RENT;
         try{
             currentNotificationId = object.getString("idNotification");
         } catch (JSONException e){
