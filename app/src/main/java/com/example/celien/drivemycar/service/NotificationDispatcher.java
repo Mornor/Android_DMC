@@ -15,7 +15,7 @@ import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 
 /*** Create the right Notification depending on the server response
  *
- * [TODO] TYPICALLY : MAKE THE CODE MUCH MORE EFFICICIENT !
+ * [TODO] TYPICALLY : MAKE THE CODE MUCH MORE EFFICIENT!
  **/
 public class NotificationDispatcher {
 
@@ -174,8 +174,6 @@ public class NotificationDispatcher {
     }
 
     private NotificationCompat.Builder createNotificationCarRequest(JSONObject notif){
-
-        double mileageSetByUserWhenExchange = -1;
 
         // Create the notification
         notification = new NotificationCompat.Builder(notifCaller);
