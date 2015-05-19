@@ -33,28 +33,6 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/tvBrand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvBrand"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/tvCanIUse"
-        android:layout_alignLeft="@+id/tvUserSource"
-        android:layout_toRightOf="@+id/tvCanIUse"
-        android:layout_toEndOf="@+id/tvCanIUse" />
-
-    <TextView
-        android:id="@+id/tvModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tvModel"
-        android:layout_toEndOf="@+id/tvBrand"
-        android:layout_toRightOf="@+id/tvBrand"
-        android:layout_alignTop="@+id/tvBrand"
-        android:layout_marginLeft="20dp" />
-
-    <TextView
         android:id="@+id/tvFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

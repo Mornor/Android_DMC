@@ -83,7 +83,7 @@ public class RequestReceived extends ActionBarActivity {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        ListAdapter adapter = new CustomRequestReceived(this, list, this);
+        ListAdapter adapter = new CustomRequestReceived(this, list);
         lv.setAdapter(adapter);
     }
 

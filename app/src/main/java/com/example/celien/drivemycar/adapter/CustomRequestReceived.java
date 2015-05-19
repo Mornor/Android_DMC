@@ -22,7 +22,7 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
     private Action choice; // Refute or Confirm
     private String currentNotificationId;
 
-    public CustomRequestReceived(Context context, List<JSONObject> list, RequestReceived caller) {
+    public CustomRequestReceived(Context context, List<JSONObject> list) {
         super(context, R.layout.custom_request_received, list);
         this.list = list;
     }
@@ -49,18 +49,16 @@ public class CustomRequestReceived extends ArrayAdapter<JSONObject> {
 
         // Set the value of the fields
         try {
-            if(currentJson.getBoolean("isExchange")) {
-                tvCanI.setText("Would you like to exchange your ");
-                tvInCaseOfExchange.setVisibility(View.VISIBLE);
-                //tvInCaseOfExchange.setText("with my "+currentJson.getString("requesterCarBrand")+ " " +currentJson.getString("requesterCarModel")+ " (with "+currentJson.getDouble("requesterCarMileage")+ " Kms)");
-            }
-            else
-                tvCanI.setText("Can I rent your ");
             tvUserSource.setText(currentJson.getString("userSource"));
-            tvBrand.setText(currentJson.getString("brand"));
-            tvModel.setText(currentJson.getString("model"));
             tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10) + " at" + currentJson.getString("fromDate").substring(10, currentJson.getString("fromDate").toString().length() - 5) + "h ");
             tvToDate.setText(currentJson.getString("toDate").substring(0, 10) + " at" + currentJson.getString("toDate").substring(10, currentJson.getString("toDate").toString().length() - 5) + "h ");
+            if(currentJson.getBoolean("isExchange")) {
+                tvCanI.setText("Would you like to exchange your " +currentJson.getString("brand")+ " " +currentJson.getString("model"));
+                tvInCaseOfExchange.setVisibility(View.VISIBLE);
+                tvInCaseOfExchange.setText("with his/her "+currentJson.getString("requesterCarBrand")+ " " +currentJson.getString("requesterCarModel")+ " ("+currentJson.getDouble("requesterCarMileage")+ " Kms)");
+            }
+            else
+                tvCanI.setText("Can I rent your " +currentJson.getString("brand")+ " " +currentJson.getString("model"));
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
