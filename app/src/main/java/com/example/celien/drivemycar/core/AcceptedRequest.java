@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.CustomTabOperation;
 import com.example.celien.drivemycar.fragment.OwnerConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.NotificationTypeConstants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,12 +94,25 @@ public class AcceptedRequest extends ActionBarActivity {
         });
     }
 
+    /*Launch the confirm rent Dialog only if it is necessary for the owner to se the odometer*/
     private void launchConfirmRentDialog(JSONObject object){
-        OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
-        Bundle bdl = new Bundle();
-        bdl.putString("json", object.toString());
-        ownerConfirmRent.setArguments(bdl);
-        ownerConfirmRent.show(getSupportFragmentManager(), "");
+        String status = "";
+        try {
+            status = object.getString("status");
+        } catch (JSONException e) {
+            Log.e(e.getClass().getName(), "There is not status field", e);
+        }
+
+        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY)){
+            OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
+            Bundle bdl = new Bundle();
+            bdl.putString("json", object.toString());
+            ownerConfirmRent.setArguments(bdl);
+            ownerConfirmRent.show(getSupportFragmentManager(), "");
+        }
+
+        else
+            Toast.makeText(this.getParent(), "Nothing left to do with this one", Toast.LENGTH_SHORT).show();
     }
 
     @Override
