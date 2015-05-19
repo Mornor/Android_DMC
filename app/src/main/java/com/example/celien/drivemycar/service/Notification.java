@@ -68,7 +68,7 @@ public class Notification extends Service {
                         NotificationCompat.Builder notification;
 
                         // Create the right notification by using the dispatcher
-                        NotificationDispatcher dispatcher = new NotificationDispatcher(this, username);
+                        NotificationDispatcher dispatcher = new NotificationDispatcher(this);
                         notification = dispatcher.createRightNotification(array.getJSONObject(i));
 
                         // Issue notification
