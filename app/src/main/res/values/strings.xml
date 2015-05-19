@@ -96,11 +96,8 @@
     <string name="btnSendRequestToSelectedPeople">Send request to the selected people</string>
 
     <!-- custom_specific_car_row -->
-    <string name="tvOwner">Owner:</string>
-    <string name="tvOwnerEditable">Owner username</string>
-    <string name="tvModel">Model</string>
+    <string name="tvOwner">Owner</string>
     <string name="tvEstimatedPrice">Est. price</string>
-    <string name="tvEstimatedPriceEditable">Price</string>
 
     <!--- fragment_tab_operations -->
     <string name="tvRequestFrom">Request from</string>

@@ -41,7 +41,6 @@
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/tvBrand"
         android:layout_toRightOf="@+id/tvBrand"
-        android:text="@string/tvModel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
