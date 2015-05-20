@@ -112,7 +112,7 @@ public class AcceptedRequest extends ActionBarActivity {
         }
 
         else
-            Toast.makeText(this.getParent(), "Nothing left to do with this one", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nothing left to do with this one", Toast.LENGTH_SHORT).show();
     }
 
     @Override
