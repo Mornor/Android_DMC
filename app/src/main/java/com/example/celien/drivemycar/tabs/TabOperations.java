@@ -3,7 +3,6 @@ package com.example.celien.drivemycar.tabs;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -41,12 +40,8 @@ public class TabOperations extends Fragment {
 
     private User user;
 
-    private ListAdapter adapter;
-    private Button btnRequests;
-    private Button btnRequestAccepted;
     private ListView lvRequestStatus;
     private ProgressDialog progressDialog;
-    private View rootView;
 
     private String fromDate;
     private String toDate;
@@ -56,7 +51,7 @@ public class TabOperations extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
         init(rootView);
         return rootView;
     }
@@ -74,9 +69,9 @@ public class TabOperations extends Fragment {
         Home homeActivity   = (Home)getActivity();
         user                = homeActivity.getUser();
 
-        btnRequests         = (Button)v.findViewById(R.id.btnCheckRequests);
-        btnRequestAccepted  = (Button)v.findViewById(R.id.btnCheckRequestAccepted);
-        lvRequestStatus     = (ListView)v.findViewById(R.id.lvRequestsStatut);
+        Button btnRequests          = (Button) v.findViewById(R.id.btnCheckRequests);
+        Button btnRequestAccepted   = (Button) v.findViewById(R.id.btnCheckRequestAccepted);
+        lvRequestStatus             = (ListView)v.findViewById(R.id.lvRequestsStatut);
 
         // Set the listeners
         btnRequests.setOnClickListener(new View.OnClickListener() {
@@ -99,16 +94,8 @@ public class TabOperations extends Fragment {
             new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
     }
 
-    private void launchIntentToRequestAccepted(){
-        Intent i = new Intent(this.getActivity(), AcceptedRequest.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("user", user);
-        i.putExtras(bundle);
-        startActivity(i);
-    }
-
     public void onPostExecuteLoadRequestByDate(JSONArray array){
-        List<JSONObject> list = new ArrayList<>();
+        List<JSONObject> requestByDate = new ArrayList<>();
         try {
 
             if(!array.getJSONObject(0).getBoolean("success"))
@@ -117,14 +104,14 @@ public class TabOperations extends Fragment {
                 // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
                 for (int i = 1; i < array.length(); i++) {
                     JSONObject temp = array.getJSONObject(i);
-                    list.add(temp);
+                    requestByDate.add(temp);
                 }
             }
         } catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        adapter = new CustomTabOperation(this.getActivity(), list);
+        ListAdapter adapter = new CustomTabOperation(this.getActivity(), requestByDate);
         lvRequestStatus.setAdapter(adapter);
 
         // Set listener to ListView
@@ -179,6 +166,14 @@ public class TabOperations extends Fragment {
         bdl.putParcelable("user", user);
         bdl.putString("json", object.toString()); // Have to pass the JSON as a String because no implemented methods.
         i.putExtras(bdl);
+        startActivity(i);
+    }
+
+    private void launchIntentToRequestAccepted(){
+        Intent i = new Intent(this.getActivity(), AcceptedRequest.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        i.putExtras(bundle);
         startActivity(i);
     }
 
