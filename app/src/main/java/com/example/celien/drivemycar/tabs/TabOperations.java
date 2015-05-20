@@ -3,6 +3,7 @@ package com.example.celien.drivemycar.tabs;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -59,6 +60,7 @@ public class TabOperations extends Fragment {
         init(rootView);
         return rootView;
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

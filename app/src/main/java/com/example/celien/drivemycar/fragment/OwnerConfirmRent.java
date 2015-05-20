@@ -99,6 +99,7 @@ public class OwnerConfirmRent extends DialogFragment{
             if(array.getJSONObject(0).getBoolean("success")){
                 Toast.makeText(this.getActivity(), "Odometer value set!", Toast.LENGTH_SHORT).show();
                 dismiss();
+
             }
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
@@ -110,9 +111,7 @@ public class OwnerConfirmRent extends DialogFragment{
     }
 
     private void sendOdometerValue(){
-        // "true" parameter is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
         mileage = etMileage.getText().toString();
-
         new HttpAsyncTransaction(this).execute(Action.SET_ODOMETER);
     }
 

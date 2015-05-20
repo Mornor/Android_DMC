@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.adapter.ViewPagerAdapter;
 import com.example.celien.drivemycar.googletabs.SlidingTabLayout;
@@ -16,6 +17,7 @@ public class Home extends ActionBarActivity {
 
     private User user;
     private int tabTopOpen; // Come from NotificationUser
+    private ViewPager pager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class Home extends ActionBarActivity {
         Toolbar toolbar                 = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         ViewPagerAdapter pagerAdapter   = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
-        ViewPager pager                 = (ViewPager) findViewById(R.id.pager);
+        pager                           = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
         // Go to right tab
