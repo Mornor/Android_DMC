@@ -193,8 +193,7 @@ public class ModifyCar  extends ActionBarActivity {
             public void onClick(View v) {
                 if(checkFields()){
                     setFieldsValues();
-                    HttpAsync request = new HttpAsync(ModifyCar.this);
-                    request.execute(Action.MODIFY_CAR);
+                    new HttpAsync(ModifyCar.this).execute(Action.MODIFY_CAR);
                 }
             }
         });
