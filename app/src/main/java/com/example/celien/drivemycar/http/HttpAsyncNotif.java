@@ -161,6 +161,6 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
 
     // Username and String to say that we have or not take into account that the notification has been read or not.
     private JSONArray getNotification(){
-        return new JsonParser().getNotifications(requestReceivedCaller.getUser().getUsername(), Constants.GET_NOTIFS_URL, String.valueOf(requestReceivedCaller.getMode()));
+        return new JsonParser().getNotifications(requestReceivedCaller.getUser().getUsername(), Constants.GET_NOTIFS_URL, String.valueOf(requestReceivedCaller.haveToBeAlreadyRead()));
     }
 }

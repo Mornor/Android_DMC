@@ -28,7 +28,7 @@ public class NotificationDispatcher {
                 case NotificationTypeConstants.CAR_REQUEST:
                     return buildNotification(object, "New car request", "Rent/Exchange request", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER:
-                    return buildNotification(object, "News from request", "Request accepted", new Intent(notifCaller, Home.class));
+                    return buildNotification(object, "News from request", "Request accepted", new Intent());
                 case NotificationTypeConstants.REQUESTER_CHOSE_SOMEONE_ELSE:
                     return buildNotification(object, "News from request", "Not selected", new Intent());
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES:

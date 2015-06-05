@@ -114,7 +114,8 @@ public class RequestReceived extends ActionBarActivity {
         return user;
     }
 
-    public boolean getMode(){
+    // Notification is already read (that way, we do not limit the query to read not read notifications).
+    public boolean haveToBeAlreadyRead(){
         return true;
     }
 }
