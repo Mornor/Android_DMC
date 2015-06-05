@@ -48,6 +48,8 @@ public class TabOperations extends Fragment {
 
     private JSONObject object;
 
+    private boolean hasBeenDisplayed = false;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class TabOperations extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisible())
+        if(isVisible() && !hasBeenDisplayed)
             loadUserRequestByDate();
     }
 
@@ -122,6 +124,8 @@ public class TabOperations extends Fragment {
                 launchNextStep(jsonObjectClicked);
             }
         });
+
+        hasBeenDisplayed = true;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
