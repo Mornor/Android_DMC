@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".core.Login"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,39 +23,43 @@
         </activity>
         <activity
             android:name=".receiver.NotificationUser"
-            android:label="@string/title_activity_NotificationUser" >
+            android:label="@string/title_activity_NotificationUser"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.Register"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.Home"
-            android:label="@string/title_activity_home" >
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.AddCar"
-            android:label="@string/title_activity_car_settings" >
+            android:label="@string/title_activity_car_settings"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.RequestData"
-            android:label="@string/title_activity_request_data" >
+            android:label="@string/title_activity_request_data"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.ListPersonnalCars"
-            android:label="@string/title_activity_list_personnal_cars" >
+            android:label="@string/title_activity_list_personnal_cars"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.ModifyCar"
-            android:label="@string/title_modify_car" >
-        </activity>
-        <activity
-            android:name=".tabs.TabSearchCar"
-            android:label="@string/title_activity_tab_search_car" >
+            android:label="@string/title_modify_car"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".core.ListSpecificCars"
-            android:label="@string/title_activity_list_specific_cars" >
+            android:label="@string/title_activity_list_specific_cars"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!--
