@@ -40,12 +40,69 @@
         android:layout_centerHorizontal="true"
         android:width="120dp" />
 
+    <TextView
+        android:id="@+id/tvTankFillWithOwnCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSetConso"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignLeft="@+id/tvSetOdometer"
+        android:text="Tank fill with your own card" />
+
+    <EditText
+        android:id="@+id/etTankFillWithOwnCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTankFillWithOwnCard"
+        android:layout_centerHorizontal="true"
+        android:inputType="number"
+        android:width="120dp" />
+
+    <TextView
+        android:id="@+id/tvTankFillWithCardOfOtherDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etTankFillWithOwnCard"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignLeft="@+id/tvSetOdometer"
+        android:text="Tank fill with other's fuel card" />
+
+    <EditText
+        android:id="@+id/etTankFillWithCardOfOtherDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTankFillWithCardOfOtherDriver"
+        android:layout_centerHorizontal="true"
+        android:inputType="number"
+        android:width="120dp" />
+
+    <TextView
+        android:id="@+id/tvHighwayToll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etTankFillWithCardOfOtherDriver"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignLeft="@+id/tvSetOdometer"
+        android:text="Highway toll" />
+
+    <EditText
+        android:id="@+id/etHighwayToll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvHighwayToll"
+        android:layout_centerHorizontal="true"
+        android:inputType="number"
+        android:width="120dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/etSetConso" >
+        android:layout_below="@id/etHighwayToll" >
 
         <Button
             android:id="@+id/btnOk"
