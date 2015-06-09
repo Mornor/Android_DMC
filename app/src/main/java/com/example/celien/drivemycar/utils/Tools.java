@@ -1,6 +1,11 @@
 package com.example.celien.drivemycar.utils;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Tools {
 
@@ -43,6 +48,18 @@ public class Tools {
         editor.apply();
     }
 
+    public static Timestamp StringAndroidToTimestamp(String s){
+        String toConvert = s.substring(0, s.length() - 2);
+        Timestamp timestamp = null;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date parsedDate = dateFormat.parse(toConvert);
+            timestamp = new Timestamp(parsedDate.getTime());
+        }catch(Exception e){
+            Log.d("Exception date = ", e.toString());
+        }
+        return timestamp;
+    }
 
     public static boolean isInteger(String str){
         if (str == null) {

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +34,13 @@ import com.example.celien.drivemycar.fragment.TimePicker;
 import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 public class TabSearchCar extends Fragment {
@@ -151,6 +155,9 @@ public class TabSearchCar extends Fragment {
         if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
             Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
 
+        //if(!checkDateRightOrder(dateFromStr, dateToStr))
+            //Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();
+
         // Check if it is an exchange or not.
         else{
             if(sExchange.isChecked()){
@@ -161,6 +168,22 @@ public class TabSearchCar extends Fragment {
                 startActivity(i);
         }
 
+    }
+
+    private boolean checkDateRightOrder(String dateFrom, String dateTo){
+        Timestamp dateFromTimestamp = Tools.StringAndroidToTimestamp(dateFrom);
+        Timestamp dateToTimestamp   = Tools.StringAndroidToTimestamp(dateTo);
+
+        /*Time now = new Time();
+        now.setToNow();
+        Timestamp todayTimestamp = Tools.StringAndroidToTimestamp(now.format("%Y_%m_%d_%H_%M_%S"));*/
+
+       // if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
+         //   return false;
+        if(dateFromTimestamp.after(dateToTimestamp))
+            return false;
+        else
+            return true;
     }
 
     private String[] getStringArrayOfUserCar(){
