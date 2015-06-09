@@ -25,6 +25,7 @@ import com.example.celien.drivemycar.fragment.RequesterConfirmRent;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.http.HttpAsyncTransaction;
 import com.example.celien.drivemycar.models.User;
+import com.example.celien.drivemycar.service.Notification;
 import com.example.celien.drivemycar.utils.Action;
 import com.example.celien.drivemycar.utils.NotificationTypeConstants;
 
@@ -157,8 +158,7 @@ public class TabOperations extends Fragment {
             Toast.makeText(this.getActivity(), "This transaction is over", Toast.LENGTH_LONG).show();
         }
 
-
-        else if(transactionStatus.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER)){
+        else if(transactionStatus.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) || transactionStatus.equals(NotificationTypeConstants.REQUEST_REFUTED_BY_OWNER)){
             launchIntentToRequestData();
         }
 
