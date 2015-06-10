@@ -184,7 +184,9 @@ public class TabSearchCar extends Fragment {
         String timeToday = now.hour+ " : "+now.minute+ " h";
         Timestamp todayTimestamp = Tools.createTimestampFromString(dateToday, timeToday);
 
-       if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
+        if(dateFromTimestamp.equals(dateToTimestamp))
+            return false;
+        if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
             return false;
         if(dateFromTimestamp.after(dateToTimestamp))
             return false;
