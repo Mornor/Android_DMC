@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -48,17 +49,22 @@ public class Tools {
         editor.apply();
     }
 
-    public static Timestamp StringAndroidToTimestamp(String s){
-        //String toConvert = s.substring(0, s.length() - 2);
-        Timestamp timestamp = null;
-        try{
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date parsedDate = dateFormat.parse(s);
-            timestamp = new Timestamp(parsedDate.getTime());
+
+
+    public static Timestamp createTimestampFromString(String dateStr, String timeStr){
+        Timestamp tp = null;
+        String timeWithoutSpace = timeStr.replaceAll("\\s", "");
+        String timeFromToUse = timeWithoutSpace.substring(0, timeWithoutSpace.length()-1);
+
+        try {
+            String dateFromConc = dateStr +" "+timeFromToUse;
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date date = dateFormat.parse(dateFromConc);
+            tp = new Timestamp(date.getTime());
         }catch(Exception e){
-            Log.d("Exception date = ", e.toString());
+            e.printStackTrace();
         }
-        return timestamp;
+        return tp;
     }
 
     public static boolean isInteger(String str){

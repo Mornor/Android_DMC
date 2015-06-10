@@ -23,6 +23,8 @@ import com.example.celien.drivemycar.http.HttpAsyncJson;
 import com.example.celien.drivemycar.http.HttpAsyncNotif;
 import com.example.celien.drivemycar.models.User;
 import com.example.celien.drivemycar.utils.Action;
+import com.example.celien.drivemycar.utils.Tools;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -226,21 +228,6 @@ public class ListSpecificCars extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Timestamp createTimestampFromString(String dateStr, String timeStr){
-        Timestamp tp = null;
-        String timeWithoutSpace = timeStr.replaceAll("\\s", "");
-        String timeFromToUse = timeWithoutSpace.substring(0, timeWithoutSpace.length()-1);
-
-        try {
-            String dateFromConc = dateStr +" "+timeFromToUse;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            Date date = dateFormat.parse(dateFromConc);
-            tp = new Timestamp(date.getTime());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return tp;
-    }
 
     /*Getters and Setter*/
     public ProgressDialog getProgressDialog() {
@@ -277,12 +264,12 @@ public class ListSpecificCars extends ActionBarActivity {
 
     // Return a Timestamp made by concatenating DateFrom and TimeFrom
     public Timestamp getDateFrom() {
-       return createTimestampFromString(dateFrom, timeFrom);
+       return Tools.createTimestampFromString(dateFrom, timeFrom);
     }
 
     // Return a Timestamp made by concatenating DateTo and TimeTo
     public Timestamp getDateTo() {
-        return createTimestampFromString(dateTo, timeTo);
+        return Tools.createTimestampFromString(dateTo, timeTo);
     }
 
     public List<HashMap<String, String>> getSelectedItems() {

@@ -157,41 +157,38 @@ public class TabSearchCar extends Fragment {
 
         else{
             // Check if the dates are corrects (time speaking). Have to do it here because we are sure dates are set.
-           /* if(!checkDateRightOrder(dateFromStr, dateToStr))
-                Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();*/
+            if(!checkDateRightOrder(dateFromStr, timeFromStr, dateToStr, timeToStr))
+                Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();
 
-            // Check if it is an exchange or not.
-            if(sExchange.isChecked()){
-                alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
-                alert.show();
+            // Check if it is an exchange or not. (so, at this point, we are sure date are set in a correct way.)
+            else{
+                if(sExchange.isChecked()){
+                    alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
+                    alert.show();
+                }else{
+                    startActivity(i);
+                }
             }
-            else
-                startActivity(i);
+
         }
 
     }
 
-    private boolean checkDateRightOrder(String dateFrom, String dateTo){
-        Timestamp dateFromTimestamp = Tools.StringAndroidToTimestamp(dateFrom);
-        Timestamp dateToTimestamp   = Tools.StringAndroidToTimestamp(dateTo);
-
-        Log.d("dateFromString", dateFrom);
-        Log.d("dateToString ", dateTo);
-
-        Log.d("dateFromTimestamp ", dateFromTimestamp.toString());
-        Log.d("dateToTimestamps ", dateToTimestamp.toString());
+    private boolean checkDateRightOrder(String dateFrom, String timeFrom, String dateTo, String timeTo){
+        Timestamp dateFromTimestamp = Tools.createTimestampFromString(dateFrom, timeFrom);
+        Timestamp dateToTimestamp   = Tools.createTimestampFromString(dateTo, timeTo);
 
         /*Time now = new Time();
         now.setToNow();
         Timestamp todayTimestamp = Tools.StringAndroidToTimestamp(now.format("%Y_%m_%d_%H_%M_%S"));
 
        if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
-            return false;
+            return false; */
         if(dateFromTimestamp.after(dateToTimestamp))
             return false;
         else
-            return true;*/
-        return false;
+            return true;
+        //return false;
     }
 
     private String[] getStringArrayOfUserCar(){
@@ -354,7 +351,7 @@ public class TabSearchCar extends Fragment {
         // Get the number pickers and the buttons
         final EditText unit         = (EditText)np.findViewById(R.id.etUnit);
         Button btnSet               = (Button)np.findViewById(R.id.btnSet);
-        Button btnCancel            = (Button)np.findViewById(R.id.btnCancel);
+        Button btnCancel = (Button) np.findViewById(R.id.btnCancel);
 
         // Set the listeners
         btnSet.setOnClickListener(new View.OnClickListener() {
