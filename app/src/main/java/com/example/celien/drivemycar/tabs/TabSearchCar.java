@@ -155,11 +155,12 @@ public class TabSearchCar extends Fragment {
         if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
             Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
 
-        //if(!checkDateRightOrder(dateFromStr, dateToStr))
-            //Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();
-
-        // Check if it is an exchange or not.
         else{
+            // Check if the dates are corrects (time speaking). Have to do it here because we are sure dates are set.
+           /* if(!checkDateRightOrder(dateFromStr, dateToStr))
+                Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();*/
+
+            // Check if it is an exchange or not.
             if(sExchange.isChecked()){
                 alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
                 alert.show();
@@ -174,16 +175,23 @@ public class TabSearchCar extends Fragment {
         Timestamp dateFromTimestamp = Tools.StringAndroidToTimestamp(dateFrom);
         Timestamp dateToTimestamp   = Tools.StringAndroidToTimestamp(dateTo);
 
+        Log.d("dateFromString", dateFrom);
+        Log.d("dateToString ", dateTo);
+
+        Log.d("dateFromTimestamp ", dateFromTimestamp.toString());
+        Log.d("dateToTimestamps ", dateToTimestamp.toString());
+
         /*Time now = new Time();
         now.setToNow();
-        Timestamp todayTimestamp = Tools.StringAndroidToTimestamp(now.format("%Y_%m_%d_%H_%M_%S"));*/
+        Timestamp todayTimestamp = Tools.StringAndroidToTimestamp(now.format("%Y_%m_%d_%H_%M_%S"));
 
-       // if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
-         //   return false;
+       if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
+            return false;
         if(dateFromTimestamp.after(dateToTimestamp))
             return false;
         else
-            return true;
+            return true;*/
+        return false;
     }
 
     private String[] getStringArrayOfUserCar(){

@@ -49,11 +49,11 @@ public class Tools {
     }
 
     public static Timestamp StringAndroidToTimestamp(String s){
-        String toConvert = s.substring(0, s.length() - 2);
+        //String toConvert = s.substring(0, s.length() - 2);
         Timestamp timestamp = null;
         try{
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date parsedDate = dateFormat.parse(toConvert);
+            Date parsedDate = dateFormat.parse(s);
             timestamp = new Timestamp(parsedDate.getTime());
         }catch(Exception e){
             Log.d("Exception date = ", e.toString());

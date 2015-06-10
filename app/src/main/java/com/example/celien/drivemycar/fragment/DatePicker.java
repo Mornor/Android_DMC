@@ -16,7 +16,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar c    = Calendar.getInstance();
         int year            = c.get(Calendar.YEAR);
-        int month           = c.get(Calendar.MONTH) + 1; // because January is considered as 0.
+        int month           = c.get(Calendar.MONTH); // because January is considered as 0.
         int day             = c.get(Calendar.DAY_OF_MONTH);
 
         return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -30,7 +30,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
         Bundle bdl = new Bundle();
         bdl.putString("tag", tagRcvd);
         bdl.putInt("year", year);
-        bdl.putInt("month", monthOfYear);
+        bdl.putInt("month", monthOfYear + 1);
         bdl.putInt("day", dayOfMonth);
         i.putExtras(bdl);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
