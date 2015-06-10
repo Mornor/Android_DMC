@@ -152,14 +152,14 @@ public class TabSearchCar extends Fragment {
 
         // Add some test on date and time fields (which are mandatory, for the app not to crash)
         if(dateFrom.getText().toString().equals("Pick date") || dateTo.getText().toString().equals("PickDate") || timeFrom.getText().toString().equals("Choose time") || timeTo.getText().toString().equals("Choose time"))
-            Toast.makeText(getActivity(), "Please, set the dates fields correctly", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please, set the date fields correctly", Toast.LENGTH_SHORT).show();
 
         else{
             // Check if the dates are corrects (time speaking). Have to do it here because we are sure dates are set.
             if(!checkDateRightOrder(dateFromStr, timeFromStr, dateToStr, timeToStr))
                 Toast.makeText(getActivity(), "Time span is not allowed", Toast.LENGTH_SHORT).show();
 
-            // Check if it is an exchange or not. (so, at this point, we are sure date are set in a correct way.)
+            // Check if it is an exchange or not (at this point, we are sure date are set in a correct way).
             else{
                 if(sExchange.isChecked()){
                     alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
@@ -168,9 +168,7 @@ public class TabSearchCar extends Fragment {
                     startActivity(i);
                 }
             }
-
         }
-
     }
 
     private boolean checkDateRightOrder(String dateFrom, String timeFrom, String dateTo, String timeTo){
