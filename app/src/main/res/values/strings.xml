@@ -79,7 +79,7 @@
     <string name="tvMaxCons">max</string>
     <string name="tvCons">Consumption</string>
     <string name="hChoose">Choose...</string>
-    <string name="tvNbSit">Number of sits</string>
+    <string name="tvNbSit">Number of seats</string>
     <string name="tvCarDetails">Car specifications</string>
     <string name="tvPeriod">Period</string>
     <string name="tvFrom">From</string>

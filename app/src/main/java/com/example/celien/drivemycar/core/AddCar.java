@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.celien.drivemycar.R;
 import com.example.celien.drivemycar.http.HttpAsync;
 import com.example.celien.drivemycar.models.User;
@@ -123,7 +125,7 @@ public class AddCar extends ActionBarActivity {
         btnSaveCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkFields()){
+                if (checkFields()) {
                     setFieldsValues();
                     HttpAsync httpAsync = new HttpAsync(AddCar.this); // Anonymous inner class contain a ref to the instance of the class they are created in
                     httpAsync.execute(Action.SAVE_CAR);
@@ -206,8 +208,12 @@ public class AddCar extends ActionBarActivity {
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                field.setText(unit.getText().toString());
-                np.dismiss();
+                if(unit.getText().toString().trim().isEmpty())
+                    showToast();
+                else {
+                    field.setText(unit.getText().toString());
+                    np.dismiss();
+                }
             }
         });
 
@@ -222,6 +228,9 @@ public class AddCar extends ActionBarActivity {
         np.show();
     }
 
+    private void showToast(){
+        Toast.makeText(this, "Please, set a value", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

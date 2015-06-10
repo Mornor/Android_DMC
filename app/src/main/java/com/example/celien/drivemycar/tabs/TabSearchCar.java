@@ -59,11 +59,10 @@ public class TabSearchCar extends Fragment {
     private Switch sExchange;
     private Button btnSearch;
 
-    // Usefull Progress Dialog
+    // Useful Progress Dialog
     private ProgressDialog searchBrandCar;
-    private ProgressDialog searchCorrespondingCar;
 
-    // Usefull variables
+    // Useful variables
     private String[] brands;
     private AlertDialog alert;
     private String dateFromStr;
