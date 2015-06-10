@@ -158,7 +158,7 @@ public class TabSearchCar extends Fragment {
         else{
             // Check if the dates are corrects (time speaking). Have to do it here because we are sure dates are set.
             if(!checkDateRightOrder(dateFromStr, timeFromStr, dateToStr, timeToStr))
-                Toast.makeText(getActivity(), "Timespan is not allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Time span is not allowed", Toast.LENGTH_SHORT).show();
 
             // Check if it is an exchange or not. (so, at this point, we are sure date are set in a correct way.)
             else{
@@ -178,17 +178,19 @@ public class TabSearchCar extends Fragment {
         Timestamp dateFromTimestamp = Tools.createTimestampFromString(dateFrom, timeFrom);
         Timestamp dateToTimestamp   = Tools.createTimestampFromString(dateTo, timeTo);
 
-        /*Time now = new Time();
+        Time now = new Time();
         now.setToNow();
-        Timestamp todayTimestamp = Tools.StringAndroidToTimestamp(now.format("%Y_%m_%d_%H_%M_%S"));
+        int currentMonth = now.month+1;
+        String dateToday = now.year+"-"+currentMonth+"-"+now.monthDay;
+        String timeToday = now.hour+ " : "+now.minute+ " h";
+        Timestamp todayTimestamp = Tools.createTimestampFromString(dateToday, timeToday);
 
        if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
-            return false; */
+            return false;
         if(dateFromTimestamp.after(dateToTimestamp))
             return false;
         else
             return true;
-        //return false;
     }
 
     private String[] getStringArrayOfUserCar(){

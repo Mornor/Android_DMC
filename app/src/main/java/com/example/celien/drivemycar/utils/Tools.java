@@ -50,6 +50,19 @@ public class Tools {
     }
 
 
+    public static Timestamp StringAndroidToTimestamp(String s){
+        Timestamp timestamp = null;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date parsedDate = dateFormat.parse(s);
+            timestamp = new Timestamp(parsedDate.getTime());
+        }catch(Exception e){
+            Log.d("Exception date = ", e.toString());
+        }
+        return timestamp;
+    }
+
+
 
     public static Timestamp createTimestampFromString(String dateStr, String timeStr){
         Timestamp tp = null;
