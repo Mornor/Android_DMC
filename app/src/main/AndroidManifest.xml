@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.celien.drivemycar" >
+    package="be.iba.carswop" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".core.Login"
+            android:name="be.iba.carswop.core.Login"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -22,42 +22,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".receiver.NotificationUser"
+            android:name="be.iba.carswop.receiver.NotificationUser"
             android:label="@string/title_activity_NotificationUser"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.Register"
+            android:name="be.iba.carswop.core.Register"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.Home"
+            android:name="be.iba.carswop.core.Home"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.AddCar"
+            android:name="be.iba.carswop.core.AddCar"
             android:label="@string/title_activity_car_settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.RequestData"
+            android:name="be.iba.carswop.core.RequestData"
             android:label="@string/title_activity_request_data"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.ListPersonnalCars"
+            android:name="be.iba.carswop.core.ListPersonnalCars"
             android:label="@string/title_activity_list_personnal_cars"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.ModifyCar"
+            android:name="be.iba.carswop.core.ModifyCar"
             android:label="@string/title_modify_car"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".core.ListSpecificCars"
+            android:name="be.iba.carswop.core.ListSpecificCars"
             android:label="@string/title_activity_list_specific_cars"
             android:screenOrientation="portrait" >
         </activity>
@@ -71,22 +71,22 @@
         </receiver>
         -->
 
-        <service android:name=".service.Notification" />
+        <service android:name="be.iba.carswop.service.Notification" />
 
         <activity
-            android:name=".core.RequestReceived"
+            android:name="be.iba.carswop.core.RequestReceived"
             android:label="@string/title_activity_request_received" >
         </activity>
         <activity
-            android:name=".core.AcceptOwner"
+            android:name="be.iba.carswop.core.AcceptOwner"
             android:label="@string/title_activity_accept_owner" >
         </activity>
         <activity
-            android:name=".core.SelectOwner"
+            android:name="be.iba.carswop.core.SelectOwner"
             android:label="@string/title_activity_select_owner" >
         </activity>
         <activity
-            android:name=".core.AcceptedRequest"
+            android:name="be.iba.carswop.core.AcceptedRequest"
             android:label="@string/title_activity_accepted_request" >
         </activity>
     </application>

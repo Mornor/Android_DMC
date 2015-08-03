@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.celien.drivemycar.core.AddCar">
+    tools:context="be.iba.carswop.core.AddCar">
 
     <item android:id="@+id/action_delete_car"
         android:title="@string/action_delete_car"
