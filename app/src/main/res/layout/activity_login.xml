@@ -27,7 +27,7 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/login_cars" />
 
     <EditText
@@ -38,7 +38,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-110dp"
         android:width="200dp"
-        android:background="@color/black"
         android:hint="@string/etLogin"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey" />
@@ -51,7 +50,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:width="200dp"
-        android:background="@color/black"
         android:hint="@string/etPassword"
         android:inputType="textPassword"
         android:textColor="@color/grey"
