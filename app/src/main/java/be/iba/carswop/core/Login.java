@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -42,6 +43,7 @@ public class Login extends ActionBarActivity {
     private String login;
     private String password;
     private boolean isConnected;
+    private TextView tvMoto;
 
     // The current user (if this one exist)
     User user;
@@ -69,6 +71,7 @@ public class Login extends ActionBarActivity {
         btnRegister = (Button)findViewById(R.id.btnRegister);
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
+        tvMoto      = (TextView)findViewById(R.id.tvMoto);
 
         // Test if the android is connected to the Internet
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
