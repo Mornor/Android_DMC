@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +35,7 @@ import java.util.List;
 public class Login extends ActionBarActivity {
 
     private Button btnLogin;
-    private TextView tvNyr; // Not Yet Register
+    private Button btnRegister;
     private EditText etLogin;
     private EditText etPassword;
     private ProgressDialog pbLogin;
@@ -65,14 +64,9 @@ public class Login extends ActionBarActivity {
             onClickLogin();
         }
 
-        // Set the toolbar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Drive My Car");
-
         // Get the items on activity_login
-        tvNyr       = (TextView)findViewById(R.id.tvNyr);
         btnLogin    = (Button)findViewById(R.id.btnLogin);
+        btnRegister = (Button)findViewById(R.id.btnRegister);
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
 
@@ -80,20 +74,14 @@ public class Login extends ActionBarActivity {
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        if(!isConnected){
-            tvNyr.setText("No internet connection. Please connect your phone to the internet");
-            tvNyr.setTextColor(Color.RED);
-            btnLogin.setEnabled(false);
-            tvNyr.setEnabled(false);
-        }
+
     }
 
     // Set the listener for the TextView.
     private void setListeners(){
-        tvNyr.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the home activity
                 Intent i = new Intent(v.getContext(), Register.class);
                 startActivity(i);
             }

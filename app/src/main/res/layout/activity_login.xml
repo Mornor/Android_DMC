@@ -1,12 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_height="match_parent"
+    android:background="@color/grey">
 
     <EditText
         android:id="@+id/etLogin"
@@ -36,26 +31,16 @@
         android:layout_below="@+id/etPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/btnLogin" />
+        android:background="@drawable/login_loginbtn" />
 
-    <TextView
-        android:id="@+id/tvError"
+    <Button
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/ColorPrimary" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/register" />
 
-    <TextView
-        android:id="@+id/tvNyr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/tvNyr"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/blueRegister" />
 
 </RelativeLayout>
