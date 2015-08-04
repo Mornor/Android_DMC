@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ColorPrimary">#e62117</color>
+    <color name="ColorPrimary">#79BC1E</color>
     <color name="ColorPrimaryDark">#c31c13</color>
     <color name="tabsScrollColor">#8a140e</color>
-    <color name="blueRegister">#0266C8</color>
     <color name="black">#323232</color>
     <color name="grey">#858585</color>
     <color name="paleGreen">#C2C930</color>

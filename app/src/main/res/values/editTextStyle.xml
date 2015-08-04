@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="editTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="editTextLogin" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="colorControlNormal">@color/paleGreen</item>
+        <item name="colorControlActivated">@color/paleGreen</item>
+        <item name="colorControlHighlight">@color/paleGreen</item>
+    </style>
+
+    <style name="editTextOther" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="colorControlNormal">@color/grey</item>
         <item name="colorControlActivated">@color/paleGreen</item>
         <item name="colorControlHighlight">@color/paleGreen</item>
     </style>

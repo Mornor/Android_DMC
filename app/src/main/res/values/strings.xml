@@ -25,6 +25,8 @@
     <string name="etConfirmPassword">Confirm Password</string>
     <string name="btnRegister">Register</string>
     <string name="title_activity_tab_account">TabAccount</string>
+    <string name="tvPrivateData">Only visible during transactions</string>
+    <string name="tvMandatory">Mandatory</string>
 
     <!-- tab_personnal_space -->
     <string name="tvUsername">Username</string>

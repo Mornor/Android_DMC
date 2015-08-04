@@ -14,7 +14,7 @@
         <activity
             android:name="be.iba.carswop.core.Login"
             android:label="@string/app_name"
-            android:theme="@style/editTextStyle"
+            android:theme="@style/editTextLogin"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +30,7 @@
         <activity
             android:name="be.iba.carswop.core.Register"
             android:label="@string/title_activity_register"
+            android:theme="@style/editTextOther"
             android:screenOrientation="portrait" >
         </activity>
         <activity
