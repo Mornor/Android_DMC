@@ -8,9 +8,67 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/tool_bar"
         android:text="@string/tvUsername"
-        android:layout_margin="10dp" />
+        android:textColor="@color/boldGreen"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp" />
+
+    <ImageView
+        android:id="@+id/ivStar0"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/star3"
+        android:layout_below="@+id/tvUsername"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toLeftOf="@+id/ivStar1"
+        android:layout_toStartOf="@+id/ivStar1"/>
+
+    <ImageView
+        android:id="@+id/ivStar1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/star3"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_above="@+id/tvMail"
+        android:layout_toLeftOf="@+id/ivStar2"
+        android:layout_toStartOf="@+id/ivStar2" />
+
+    <ImageView
+        android:id="@+id/ivStar2"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/star3"
+        android:layout_alignTop="@+id/ivStar1"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toLeftOf="@+id/ivStar3"
+        android:layout_toStartOf="@+id/ivStar3" />
+
+    <ImageView
+        android:id="@+id/ivStar3"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/star3"
+        android:layout_alignTop="@+id/ivStar2"
+        android:layout_toLeftOf="@+id/ivStar4"
+        android:layout_toStartOf="@+id/ivStar4"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp" />
+
+    <ImageView
+        android:id="@+id/ivStar4"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/star3"
+        android:layout_alignTop="@+id/ivStar3"
+        android:layout_alignRight="@+id/tvUsername"
+        android:layout_alignEnd="@+id/tvUsername" />
 
     <TextView
         android:id="@+id/tvMail"
@@ -18,18 +76,17 @@
         android:layout_height="wrap_content"
         android:text="@string/tvMail"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/tvUsername"
+        android:layout_below="@+id/ivStar0"
         android:layout_margin="10dp" />
 
     <ImageView
         android:id="@+id/ivAvatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/avatar"
+        android:src="@drawable/icon_userpic"
         android:layout_alignBottom="@+id/tvMail"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tool_bar"
         android:layout_marginRight="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="10dp" />
@@ -54,6 +111,7 @@
         android:layout_toRightOf="@+id/ivMyCar"
         android:layout_toEndOf="@+id/ivMyCar"
         android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="25dp" />
 
     <ImageView
@@ -63,6 +121,7 @@
         android:layout_below="@+id/line1"
         android:src="@drawable/my_car"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="-4dp" />
 
     <View
@@ -83,7 +142,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/line2"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/tvEditableRanking"
@@ -103,6 +163,7 @@
         android:layout_below="@+id/tvRanking"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:clickable="true" />
 
@@ -114,6 +175,7 @@
         android:layout_below="@+id/tvSettings"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
