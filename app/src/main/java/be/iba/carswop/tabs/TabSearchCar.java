@@ -57,6 +57,7 @@ public class TabSearchCar extends Fragment {
     private TextView timeTo;
     private TextView tvMileage;
     private TextView tvRentOrSwop;
+    private TextView tvCarDetails;
     private boolean isSwop; // True if swop wanted.
     private Button btnSearch;
     private Button btnRent;
@@ -110,6 +111,7 @@ public class TabSearchCar extends Fragment {
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
         timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
         tvRentOrSwop    = (TextView)v.findViewById(R.id.tvRentOrSwop);
+        tvCarDetails    = (TextView)v.findViewById(R.id.tvCarDetails);
         btnSearch       = (Button)v.findViewById(R.id.btnSearch);
         btnRent         = (Button)v.findViewById(R.id.btnRent);
         btnSwop         = (Button)v.findViewById(R.id.btnSwop);
