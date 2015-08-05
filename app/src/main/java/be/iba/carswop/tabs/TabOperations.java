@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import be.iba.carswop.R;
@@ -31,6 +32,7 @@ import be.iba.carswop.utils.NotificationTypeConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class TabOperations extends Fragment {
 
     private String fromDate;
     private String toDate;
+    private TextView tvReceivedOrSent;
+    private boolean isReceived; // True if yes.
 
     private JSONObject object;
 
@@ -71,24 +75,32 @@ public class TabOperations extends Fragment {
         Home homeActivity   = (Home)getActivity();
         user                = homeActivity.getUser();
 
-        Button btnRequests          = (Button) v.findViewById(R.id.btnCheckRequests);
-        Button btnRequestAccepted   = (Button) v.findViewById(R.id.btnCheckRequestAccepted);
+        Button btnReceived          = (Button)v.findViewById(R.id.btnReceived);
+        Button btnSent              = (Button)v.findViewById(R.id.btnSent);
+        tvReceivedOrSent            = (TextView)v.findViewById(R.id.tvReceivedOrSent);
         lvRequestStatus             = (ListView)v.findViewById(R.id.lvRequestsStatut);
 
         // Set the listeners
-        btnRequests.setOnClickListener(new View.OnClickListener() {
+        btnReceived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lauchIntentToRequestReceived();
+                //lauchIntentToRequestReceived();
+                updateReceivedOrSent(true, "RECEIVED");
             }
         });
 
-        btnRequestAccepted.setOnClickListener(new View.OnClickListener() {
+        btnSent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchIntentToRequestAccepted();
+                //launchIntentToRequestSent();
+                updateReceivedOrSent(false, "SENT");
             }
         });
+    }
+
+    private void updateReceivedOrSent(boolean isReceived, String choice){
+        this.isReceived = isReceived;
+        tvReceivedOrSent.setText(choice);
     }
 
     private void loadUserRequestByDate(){
@@ -172,7 +184,7 @@ public class TabOperations extends Fragment {
         startActivity(i);
     }
 
-    private void launchIntentToRequestAccepted(){
+    private void launchIntentToRequestSent(){
         Intent i = new Intent(this.getActivity(), AcceptedRequest.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);

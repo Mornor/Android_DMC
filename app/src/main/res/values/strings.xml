@@ -105,6 +105,8 @@
 
     <!--- fragment_tab_operations -->
     <string name="tvRequestFrom">Request from</string>
+    <string name="tvTransactionDetails">Check the requests I </string>
+    <string name="tvReceivedOrSent">RECEIVED</string>
     <string name="tvUserSource">Name</string>
     <string name="tvCanIUse">Can I use your</string>
     <string name="btnValidate">For sure</string>

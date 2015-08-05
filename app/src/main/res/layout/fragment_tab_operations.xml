@@ -3,40 +3,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llHeader">
+
+        <TextView
+            android:id="@+id/tvTransactionDetails"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="55"
+            android:background="@color/tabsScrollColor"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="@string/tvTransactionDetails"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvReceivedOrSent"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="45"
+            android:background="@color/tabsScrollColor"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/tvReceivedOrSent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/boldGreen"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/llHeader" >
 
         <ListView
             android:id="@+id/lvRequestsStatut"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="5" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginBottom="-1dp">
 
             <Button
-                android:id="@+id/btnCheckRequests"
-                android:layout_width="match_parent"
+                android:id="@+id/btnReceived"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:height="10dp"
-                android:text="@string/btnCheckRequestsReceived" />
+                android:background="@color/boldGreen"
+                android:text="RECEIVED"
+                android:textColor="@color/tabsScrollColor" />
 
             <Button
-                android:id="@+id/btnCheckRequestAccepted"
-                android:layout_width="match_parent"
+                android:id="@+id/btnSent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:height="10dp"
-                android:text="@string/btnCheckRequestAccepted" />
+                android:background="@color/tabsScrollColor"
+                android:text="SENT"
+                android:textColor="@color/boldGreen" />
 
         </LinearLayout>
 
