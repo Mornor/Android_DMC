@@ -1,164 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvCarDetails"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:background="@color/tabsScrollColor"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
             android:text="@string/tvCarDetails"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvRentOrSwop"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/tvCarDetails"
+            android:layout_toRightOf="@+id/tvCarDetails"
+            android:background="@color/tabsScrollColor"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/tvRentOrSwop"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/boldGreen"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvBrand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_below="@id/tvCarDetails"
-            android:text="@string/tvBrand"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp" />
+            android:text="@string/tvBrand"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvBrandChoose"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvBrand"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_toEndOf="@+id/tvBrand"
             android:layout_toRightOf="@+id/tvBrand"
-            android:layout_alignBottom="@+id/tvBrand"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:editable="false"
             android:hint="@string/hChoose"
-            android:layout_marginLeft="30dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvEnergy"
             android:layout_width="60sp"
             android:layout_height="wrap_content"
-            android:text="@string/tvEnergy"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@+id/tvBrand"
             android:layout_alignLeft="@+id/tvBrand"
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@+id/tvBrand"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="0dp" />
+            android:text="@string/tvEnergy"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
             android:id="@+id/spFuelList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/fuel_array"
-            android:prompt="@string/chooseFuel"
-            android:layout_below="@+id/tvBrandChoose"
             android:layout_alignLeft="@+id/tvBrandChoose"
             android:layout_alignStart="@+id/tvBrandChoose"
-            android:layout_marginTop="30dp" />
+            android:layout_below="@+id/tvBrandChoose"
+            android:layout_marginTop="30dp"
+            android:entries="@array/fuel_array"
+            android:prompt="@string/chooseFuel" />
 
         <TextView
             android:id="@+id/tvFuelCons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvFuelCons"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/spFuelList"
             android:layout_alignLeft="@+id/tvBrand"
-            android:layout_marginTop="30dp" />
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@id/spFuelList"
+            android:layout_marginTop="30dp"
+            android:text="@string/tvFuelCons"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvMaxConsFuel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvMaxCons"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_toEndOf="@+id/tvFuelCons"
-            android:layout_toRightOf="@+id/tvFuelCons"
             android:layout_alignBottom="@+id/tvFuelCons"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/tvFuelCons"
+            android:layout_toRightOf="@+id/tvFuelCons"
+            android:text="@string/tvMaxCons"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvUnitFuel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvUnitFuel"
             android:layout_alignBottom="@+id/tvMaxConsFuel"
+            android:layout_marginBottom="2dp"
             android:layout_toEndOf="@+id/tvMaxConsFuel"
             android:layout_toRightOf="@+id/tvMaxConsFuel"
-            android:layout_marginBottom="2dp" />
+            android:text="@string/tvUnitFuel" />
 
         <TextView
             android:id="@+id/tvNbSit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvNbSit"
-            android:layout_below="@+id/tvFuelCons"
             android:layout_alignLeft="@+id/tvBrand"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@+id/tvFuelCons"
+            android:layout_marginTop="20dp"
+            android:text="@string/tvNbSit"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvNbSitsChoose"
-            android:editable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvNbSit"
+            android:layout_alignLeft="@+id/tvMaxConsFuel"
+            android:layout_alignStart="@+id/tvMaxConsFuel"
+            android:layout_alignTop="@+id/tvNbSit"
             android:layout_toEndOf="@+id/tvNbSit"
             android:layout_toRightOf="@+id/tvNbSit"
-            android:layout_alignLeft="@+id/tvMaxConsFuel"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:editable="false"
             android:hint="@string/hChoose"
-            android:layout_alignBottom="@+id/tvNbSit"
-            android:layout_alignTop="@+id/tvNbSit" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvEstimatedMileage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNbSit"
             android:layout_alignLeft="@id/tvBrand"
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@id/tvNbSit"
+            android:layout_marginTop="20dp"
             android:text="@string/tvEstimatedMileage"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvChooseMileage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hChoose"
-            android:layout_toEndOf="@+id/tvEstimatedMileage"
-            android:layout_toRightOf="@+id/tvEstimatedMileage"
             android:layout_alignBottom="@+id/tvEstimatedMileage"
             android:layout_alignLeft="@+id/tvNbSitsChoose"
+            android:layout_alignStart="@+id/tvNbSitsChoose"
+            android:layout_toEndOf="@+id/tvEstimatedMileage"
+            android:layout_toRightOf="@+id/tvEstimatedMileage"
+            android:text="@string/hChoose"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvKms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvKms"
-            android:layout_toEndOf="@+id/tvChooseMileage"
-            android:layout_toRightOf="@+id/tvChooseMileage"
             android:layout_alignBottom="@+id/tvChooseMileage"
             android:layout_marginLeft="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/tvChooseMileage"
+            android:layout_toRightOf="@+id/tvChooseMileage"
+            android:text="@string/tvKms"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
             android:id="@+id/line1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/tvEstimatedMileage"
-            android:background="@android:color/darker_gray"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/tvPeriod"
@@ -166,80 +192,88 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/line1"
             android:layout_centerHorizontal="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="10dp"
             android:text="@string/tvPeriod"
-            android:layout_marginTop="10dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvFrom"
-            android:layout_below="@id/tvPeriod"
             android:layout_alignLeft="@+id/tvBrand"
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@id/tvPeriod"
+            android:text="@string/tvFrom"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvPickDateFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvFrom"
             android:layout_alignLeft="@+id/tvFrom"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tvPickDate"
+            android:layout_alignStart="@+id/tvFrom"
+            android:layout_below="@id/tvFrom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp" />
+            android:text="@string/tvPickDate"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvAtFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvAt"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignBottom="@+id/tvPickDateFrom"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_toEndOf="@+id/tvPickDateFrom"
             android:layout_toRightOf="@+id/tvPickDateFrom"
-            android:layout_alignBottom="@+id/tvPickDateFrom"
-            android:layout_marginLeft="30dp" />
+            android:text="@string/tvAt"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvChooseTimeFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvTime"
-            android:layout_toEndOf="@+id/tvAtFrom"
-            android:layout_toRightOf="@+id/tvAtFrom"
             android:layout_alignBottom="@+id/tvAtFrom"
             android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tvAtFrom"
+            android:layout_toRightOf="@+id/tvAtFrom"
+            android:text="@string/tvTime"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvTo"
-            android:layout_below="@+id/tvPickDateFrom"
             android:layout_alignLeft="@+id/tvBrand"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:layout_alignStart="@+id/tvBrand"
+            android:layout_below="@+id/tvPickDateFrom"
+            android:layout_marginTop="20dp"
+            android:text="@string/tvTo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvPickDateTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTo"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_alignLeft="@+id/tvPickDateFrom"
+            android:layout_alignStart="@+id/tvPickDateFrom"
+            android:layout_below="@+id/tvTo"
+            android:layout_marginTop="10dp"
             android:text="@string/tvPickDate"
-            android:layout_marginTop="10dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/tvAtTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvPickDateTo"
+            android:layout_alignLeft="@+id/tvAtFrom"
+            android:layout_alignStart="@+id/tvAtFrom"
             android:layout_toEndOf="@+id/tvPickDateFrom"
             android:layout_toRightOf="@+id/tvPickDateFrom"
-            android:layout_alignLeft="@+id/tvAtFrom"
-            android:layout_alignBottom="@+id/tvPickDateTo"
             android:text="@string/tvAt"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -247,11 +281,12 @@
             android:id="@+id/tvChooseTimeTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvTime"
+            android:layout_alignBottom="@+id/tvAtTo"
+            android:layout_alignLeft="@+id/tvChooseTimeFrom"
+            android:layout_alignStart="@+id/tvChooseTimeFrom"
             android:layout_toEndOf="@+id/tvAtTo"
             android:layout_toRightOf="@+id/tvAtTo"
-            android:layout_alignLeft="@+id/tvChooseTimeFrom"
-            android:layout_alignBottom="@+id/tvAtTo"
+            android:text="@string/tvTime"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
@@ -259,34 +294,35 @@
             android:id="@+id/tvExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvExchange"
-            android:layout_below="@+id/tvPickDateTo"
             android:layout_alignLeft="@id/tvFrom"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:layout_alignStart="@+id/tvFrom"
+            android:layout_below="@+id/tvPickDateTo"
+            android:layout_marginTop="20dp"
+            android:text="@string/tvExchange"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Switch
             android:id="@+id/sExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tvExchange"
-            android:layout_toRightOf="@+id/tvExchange"
             android:layout_alignBottom="@id/tvExchange"
-            android:layout_alignLeft="@+id/tvChooseTimeTo" />
+            android:layout_alignLeft="@+id/tvChooseTimeTo"
+            android:layout_alignStart="@+id/tvChooseTimeTo"
+            android:layout_toEndOf="@id/tvExchange"
+            android:layout_toRightOf="@+id/tvExchange" />
 
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btnSearch"
+            android:layout_below="@id/tvExchange"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/tvExchange" />
+            android:text="@string/btnSearch" />
 
 
     </RelativeLayout>
 
 
-
-    </ScrollView>
+</ScrollView>
 
