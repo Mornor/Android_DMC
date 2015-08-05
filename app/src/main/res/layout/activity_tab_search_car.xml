@@ -24,8 +24,8 @@
         <TextView
             android:id="@+id/tvRentOrSwop"
             android:layout_width="0dp"
-            android:layout_weight="60"
             android:layout_height="30dp"
+            android:layout_weight="60"
             android:background="@color/tabsScrollColor"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
@@ -49,11 +49,14 @@
                 android:id="@+id/tvBrand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/tvBrand"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/tvBrand"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_marginTop="15dp"
+                android:layout_alignLeft="@+id/line1"
+                android:layout_alignStart="@+id/line1" />
 
             <TextView
                 android:id="@+id/tvBrandChoose"
@@ -77,7 +80,7 @@
                 android:layout_below="@+id/tvBrand"
                 android:layout_marginLeft="0dp"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/tvEnergy"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -88,7 +91,7 @@
                 android:layout_alignLeft="@+id/tvBrandChoose"
                 android:layout_alignStart="@+id/tvBrandChoose"
                 android:layout_below="@+id/tvBrandChoose"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:entries="@array/fuel_array"
                 android:prompt="@string/chooseFuel" />
 
@@ -99,7 +102,7 @@
                 android:layout_alignLeft="@+id/tvBrand"
                 android:layout_alignStart="@+id/tvBrand"
                 android:layout_below="@id/spFuelList"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/tvFuelCons"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -195,25 +198,16 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:background="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/tvPeriod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line1"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/tvPeriod"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:background="@color/boldGreen" />
 
             <TextView
                 android:id="@+id/tvFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tvBrand"
+                android:layout_marginTop="15dp"
                 android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@id/tvPeriod"
+                android:layout_below="@id/line1"
                 android:text="@string/tvFrom"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -306,7 +300,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvChooseTimeTo"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/btnSearch" />
 
 
