@@ -2,6 +2,7 @@ package be.iba.carswop.tabs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -21,13 +22,6 @@ import be.iba.carswop.utils.Tools;
 
 public class TabAccount extends Fragment {
 
-    private TextView tvUsername;
-    private TextView tvMail;
-    private TextView tvSettings;
-    private TextView tvLogout;
-    private TextView tvEditableRanking;
-    private ImageView ivMyCar;
-    private TextView tvMyCar;
     private User user;
 
     @Override
@@ -38,44 +32,60 @@ public class TabAccount extends Fragment {
     }
 
     private void init(View v){
-        tvUsername          = (TextView)v.findViewById(R.id.tvUsername);
-        tvMail              = (TextView)v.findViewById(R.id.tvMail);
-        tvSettings          = (TextView)v.findViewById(R.id.tvSettings);
-        tvLogout            = (TextView)v.findViewById(R.id.tvLogout);
-        tvEditableRanking   = (TextView)v.findViewById(R.id.tvEditableRanking);
-        tvMyCar             = (TextView)v.findViewById(R.id.tvMyCar);
-        ivMyCar             = (ImageView)v.findViewById(R.id.ivMyCar);
+        TextView tvUsername     = (TextView) v.findViewById(R.id.tvUsername);
+        TextView tvMail         = (TextView) v.findViewById(R.id.tvMail);
+        TextView tvMyCars       = (TextView) v.findViewById(R.id.tvMyCars);
+        TextView tvSettings     = (TextView) v.findViewById(R.id.tvSettings);
+        TextView tvLogout       = (TextView) v.findViewById(R.id.tvLogout);
+        ImageView ivMyCars      = (ImageView) v.findViewById(R.id.ivMyCars);
+        ImageView ivSettings    = (ImageView) v.findViewById(R.id.ivSettings);
+        ImageView ivLogout      = (ImageView) v.findViewById(R.id.ivLogout);
 
         Home homeActivity = (Home)getActivity();
         user = homeActivity.getUser();
         tvUsername.setText(user.getUsername());
         tvMail.setText(user.getEmail());
 
-        tvSettings.setOnClickListener(new View.OnClickListener(){
+
+        tvMyCars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Settings", Toast.LENGTH_SHORT).show();
+                launchIntentToCarSettings();
             }
         });
 
-        tvLogout.setOnClickListener(new View.OnClickListener(){
+        ivMyCars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                launchIntentToCarSettings();
+            }
+        });
+
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ivSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        tvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 logout();
             }
         });
 
-        tvMyCar.setOnClickListener(new View.OnClickListener(){
+        ivLogout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               launchIntentToCarSettings();
-            }
-        });
-
-        ivMyCar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                launchIntentToCarSettings();
+            public void onClick(View view) {
+                logout();
             }
         });
     }
@@ -90,7 +100,7 @@ public class TabAccount extends Fragment {
         startActivity(i);
     }
 
-    // Lauch the correct intent depends of the users hava cars or not.
+    // Launch the correct intent depends of the users have cars or not.
     private void launchIntentToCarSettings(){
 
         // If user have no car

@@ -75,16 +75,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvMail"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_below="@+id/ivStar0"
-        android:layout_margin="10dp" />
+        android:textColor="@color/boldGreen"
+        android:layout_alignRight="@+id/ivStar4"
+        android:layout_alignEnd="@+id/ivStar4" />
+
+    <TextView
+        android:id="@+id/tvNbSwops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvMail"
+        android:layout_alignRight="@+id/ivStar4"
+        android:layout_alignEnd="@+id/ivStar4"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Swops - 0"
+        android:textColor="@color/boldGreen" />
 
     <ImageView
         android:id="@+id/ivAvatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/icon_userpic"
-        android:layout_alignBottom="@+id/tvMail"
+        android:layout_alignBottom="@+id/tvNbSwops"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="17dp"
@@ -96,86 +110,78 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/ivAvatar"
-        android:background="@android:color/darker_gray"
+        android:background="@color/boldGreen"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="20dp" />
-
-    <TextView
-        android:id="@+id/tvMyCar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvMyCar"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/line1"
-        android:layout_toRightOf="@+id/ivMyCar"
-        android:layout_toEndOf="@+id/ivMyCar"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="10dp" />
 
     <ImageView
-        android:id="@+id/ivMyCar"
+        android:id="@+id/ivMyCars"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_below="@+id/line1"
-        android:src="@drawable/my_car"
+        android:src="@drawable/icon_mycars"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignStart="@+id/line1"
+        android:layout_alignLeft="@+id/line1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/tvMyCars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvMyCar"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/ivMyCars"
+        android:textColor="@color/boldGreen"
+        android:layout_marginTop="-30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="-4dp" />
+        android:layout_alignLeft="@+id/ivMyCars"
+        android:layout_alignStart="@+id/ivMyCars" />
 
-    <View
-        android:id="@+id/line2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/ivMyCar"
-        android:background="@android:color/darker_gray"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="3dp" />
-
-    <TextView
-        android:id="@+id/tvRanking"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:text="@string/tvRanking"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/line2"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
-
-    <TextView
-        android:id="@+id/tvEditableRanking"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:text="@string/tvEditableRanking"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@+id/tvRanking"
-        android:layout_toRightOf="@+id/tvRanking"
-        android:layout_toEndOf="@+id/tvRanking" />
+    <ImageView
+        android:id="@+id/ivSettings"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/icon_settings"
+        android:layout_marginTop="8dp"
+        android:layout_alignTop="@+id/ivMyCars"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/tvSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvSettings"
-        android:layout_below="@+id/tvRanking"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true" />
+        android:textColor="@color/boldGreen"
+        android:layout_alignBottom="@+id/tvMyCars"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/ivLogout"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="7dp"
+        android:layout_alignTop="@+id/ivMyCars"
+        android:layout_alignRight="@+id/line1"
+        android:layout_alignEnd="@+id/line1"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/icon_logout" />
 
     <TextView
         android:id="@+id/tvLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvLogout"
-        android:layout_below="@+id/tvSettings"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/boldGreen"
+        android:layout_alignTop="@+id/tvMyCars"
+        android:layout_alignRight="@+id/ivAvatar"
+        android:layout_alignEnd="@+id/ivAvatar" />
+
 
 </RelativeLayout>

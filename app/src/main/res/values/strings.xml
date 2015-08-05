@@ -35,7 +35,7 @@
     <string name="tvEditableRanking">4/100</string>
     <string name="tvSettings">Settings</string>
     <string name="tvLogout">Logout</string>
-    <string name="tvMyCar">My car(s)</string>
+    <string name="tvMyCar">My cars</string>
 
     <!-- Home -->
     <string name="title_activity_home">Home</string>
