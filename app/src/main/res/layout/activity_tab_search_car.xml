@@ -300,33 +300,11 @@
                 android:text="@string/tvTime"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
-            <TextView
-                android:id="@+id/tvExchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/tvFrom"
-                android:layout_alignStart="@+id/tvFrom"
-                android:layout_below="@+id/tvPickDateTo"
-                android:layout_marginTop="20dp"
-                android:text="@string/tvExchange"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Switch
-                android:id="@+id/sExchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/tvExchange"
-                android:layout_alignLeft="@+id/tvChooseTimeTo"
-                android:layout_alignStart="@+id/tvChooseTimeTo"
-                android:layout_toEndOf="@id/tvExchange"
-                android:layout_toRightOf="@+id/tvExchange" />
-
             <Button
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvExchange"
+                android:layout_below="@id/tvChooseTimeTo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:text="@string/btnSearch" />

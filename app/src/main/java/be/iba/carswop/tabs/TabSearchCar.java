@@ -56,8 +56,11 @@ public class TabSearchCar extends Fragment {
     private TextView dateTo;
     private TextView timeTo;
     private TextView tvMileage;
-    private Switch sExchange;
+    private TextView tvRentOrSwop;
+    private boolean isSwop; // True if swop wanted.
     private Button btnSearch;
+    private Button btnRent;
+    private Button btnSwop;
 
     // Useful Progress Dialog
     private ProgressDialog searchBrandCar;
@@ -106,8 +109,11 @@ public class TabSearchCar extends Fragment {
         timeFrom        = (TextView)v.findViewById(R.id.tvChooseTimeFrom);
         dateTo          = (TextView)v.findViewById(R.id.tvPickDateTo);
         timeTo          = (TextView)v.findViewById(R.id.tvChooseTimeTo);
-        sExchange       = (Switch)v.findViewById(R.id.sExchange);
+        tvRentOrSwop    = (TextView)v.findViewById(R.id.tvRentOrSwop);
         btnSearch       = (Button)v.findViewById(R.id.btnSearch);
+        btnRent         = (Button)v.findViewById(R.id.btnRent);
+        btnSwop         = (Button)v.findViewById(R.id.btnSwop);
+        isSwop = false;
 
         // Create a HashMap to get an easy access on Date and Time TextView (efficiency matters)
         hmTextView = new HashMap<>();
@@ -142,7 +148,7 @@ public class TabSearchCar extends Fragment {
         else if(!nbSits.equals(getResources().getString(R.string.hChoose)))
             i.putExtra("nbSits", nbSits);
 
-        i.putExtra("isExchange", sExchange.isChecked());
+        i.putExtra("isExchange", isSwop);
         i.putExtra("energy", energy);
         i.putExtra("dateFrom", dateFromStr);
         i.putExtra("timeFrom", timeFromStr);
@@ -160,7 +166,7 @@ public class TabSearchCar extends Fragment {
 
             // Check if it is an exchange or not (at this point, we are sure date are set in a correct way).
             else{
-                if(sExchange.isChecked()){
+                if(isSwop){
                     alert = buildDialog("Choose the car you want to exchange", getStringArrayOfUserCar(), false).create();
                     alert.show();
                 }else{
@@ -264,6 +270,25 @@ public class TabSearchCar extends Fragment {
                     launchIntentToSpecificCars();
             }
         });
+
+        btnSwop.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                updateChoiceRentOrSwop(true, "SWOP");
+            }
+        });
+
+        btnRent.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                updateChoiceRentOrSwop(false, "RENT");
+            }
+        });
+    }
+
+    private void updateChoiceRentOrSwop(boolean isSwop, String choice){
+        this.isSwop = isSwop;
+        tvRentOrSwop.setText(choice);
     }
 
     private boolean checkFields(){
