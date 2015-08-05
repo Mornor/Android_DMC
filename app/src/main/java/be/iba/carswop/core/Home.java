@@ -48,7 +48,7 @@ public class Home extends ActionBarActivity {
         CharSequence[] titles           = new CharSequence[]{"Account", "Rent", "Transaction"};
         Toolbar toolbar                 = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        ViewPagerAdapter pagerAdapter   = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs);
+        ViewPagerAdapter pagerAdapter   = new ViewPagerAdapter(getSupportFragmentManager(), titles, nbTabs, this);
         pager                           = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
@@ -64,6 +64,7 @@ public class Home extends ActionBarActivity {
                 return getResources().getColor(R.color.tabsScrollColor);
             }
         });
+        tabs.setCustomTabView(R.layout.custom_tool_bar, 0);
         tabs.setViewPager(pager);
     }
 

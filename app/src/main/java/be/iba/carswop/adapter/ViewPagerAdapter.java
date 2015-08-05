@@ -1,9 +1,15 @@
 package be.iba.carswop.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 
+import be.iba.carswop.R;
 import be.iba.carswop.tabs.TabAccount;
 import be.iba.carswop.tabs.TabOperations;
 import be.iba.carswop.tabs.TabSearchCar;
@@ -12,11 +18,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private CharSequence titles[];
     private int nbTabs;
+    private Context currentContext;
+    private int[] imageResId = {R.drawable.icon_myaccount, R.drawable.icon_rent, R.drawable.icon_transaction};
 
-    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int nbTabs) {
+
+    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int nbTabs, Context context) {
         super(fm);
         this.titles = titles;
         this.nbTabs = nbTabs;
+        this.currentContext = context;
     }
 
     @Override
@@ -40,6 +50,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        Drawable image = currentContext.getResources().getDrawable(imageResId[position]);
+        image.setBounds(0, 0, 50, 50);
+        SpannableString sb = new SpannableString(" ");
+        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sb;
+        // return titles[position];
     }
 }
