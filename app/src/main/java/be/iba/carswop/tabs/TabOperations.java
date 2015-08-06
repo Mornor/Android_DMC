@@ -43,7 +43,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private User user;
 
     private ListView lvRequestStatus;
-
+    private ProgressDialog dialog;
     private String fromDate;
     private String toDate;
     private TextView tvReceivedOrSent;
@@ -72,6 +72,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         tvReceivedOrSent            = (TextView)v.findViewById(R.id.tvReceivedOrSent);
         lvRequestStatus             = (ListView)v.findViewById(R.id.lvRequestsStatut);
         swipeRefreshLayout          = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefresh);
+        isReceived                  = true;
 
         // Set the listeners
         btnReceived.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +101,20 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     // Method called when the user swipe down to refresh the ListView.
     @Override
     public void onRefresh() {
-        fetchTransactions();
+        if(isReceived)
+            fetchReceivedTransactions();
+        else
+            fetchSentTransactions();
     }
 
-    private void fetchTransactions(){
+    private void fetchReceivedTransactions(){
         swipeRefreshLayout.setRefreshing(true);
         loadUserRequestByDate();
+    }
+
+    private void fetchSentTransactions(){
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(this.getActivity(), "Sent", Toast.LENGTH_SHORT).show();
     }
 
     private void updateReceivedOrSent(boolean isReceived, String choice){
@@ -239,5 +248,11 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         return toDate;
     }
 
+    public ProgressDialog getProgressDialog() {
+        return dialog;
+    }
 
+    public void setProgressDialog(ProgressDialog dialog) {
+        this.dialog = dialog;
+    }
 }
