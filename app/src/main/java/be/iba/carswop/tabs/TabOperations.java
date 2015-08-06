@@ -33,7 +33,6 @@ import be.iba.carswop.utils.NotificationTypeConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private User user;
 
     private ListView lvRequestStatus;
-    private ProgressDialog progressDialog;
 
     private String fromDate;
     private String toDate;
@@ -54,7 +52,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private JSONObject object;
 
-    private boolean hasBeenDisplayed = false;
+    //private boolean hasBeenDisplayed = false;
 
     @Nullable
     @Override
@@ -62,14 +60,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         View rootView = inflater.inflate(R.layout.fragment_tab_operations, container, false);
         init(rootView);
         return rootView;
-    }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        //if(isVisible() && !hasBeenDisplayed)
-            //loadUserRequestByDate();
     }
 
     private void init(View v){
@@ -87,7 +77,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnReceived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //lauchIntentToRequestReceived();
                 updateReceivedOrSent(true, "RECEIVED");
             }
         });
@@ -95,7 +84,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnSent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //launchIntentToRequestSent();
                 updateReceivedOrSent(false, "SENT");
             }
         });
@@ -104,8 +92,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                fetchTransactions();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -161,7 +148,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         });
 
-        hasBeenDisplayed = true;
+        //hasBeenDisplayed = true;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
@@ -238,15 +225,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         bundle.putParcelable("user", user);
         i.putExtras(bundle);
         startActivity(i);
-    }
-
-    /*Getters and Setters*/
-    public ProgressDialog getProgressDialog() {
-        return progressDialog;
-    }
-
-    public void setProgressDialog(ProgressDialog progressDialog) {
-        this.progressDialog = progressDialog;
     }
 
     public User getUser() {
