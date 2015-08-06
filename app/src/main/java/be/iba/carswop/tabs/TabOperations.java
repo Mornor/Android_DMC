@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TabOperations extends Fragment {
+public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private User user;
 
@@ -48,6 +49,7 @@ public class TabOperations extends Fragment {
     private String fromDate;
     private String toDate;
     private TextView tvReceivedOrSent;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isReceived; // True if yes.
 
     private JSONObject object;
@@ -66,8 +68,8 @@ public class TabOperations extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisible() && !hasBeenDisplayed)
-            loadUserRequestByDate();
+        //if(isVisible() && !hasBeenDisplayed)
+            //loadUserRequestByDate();
     }
 
     private void init(View v){
@@ -79,6 +81,7 @@ public class TabOperations extends Fragment {
         Button btnSent              = (Button)v.findViewById(R.id.btnSent);
         tvReceivedOrSent            = (TextView)v.findViewById(R.id.tvReceivedOrSent);
         lvRequestStatus             = (ListView)v.findViewById(R.id.lvRequestsStatut);
+        swipeRefreshLayout          = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefresh);
 
         // Set the listeners
         btnReceived.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +99,26 @@ public class TabOperations extends Fragment {
                 updateReceivedOrSent(false, "SENT");
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                fetchTransactions();
+            }
+        });
+    }
+
+    // Method called when the user swipe down to refresh the ListView.
+    @Override
+    public void onRefresh() {
+        fetchTransactions();
+    }
+
+    private void fetchTransactions(){
+        swipeRefreshLayout.setRefreshing(true);
+        loadUserRequestByDate();
     }
 
     private void updateReceivedOrSent(boolean isReceived, String choice){
@@ -127,6 +150,7 @@ public class TabOperations extends Fragment {
 
         ListAdapter adapter = new CustomTabOperation(this.getActivity(), requestByDate);
         lvRequestStatus.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(false);
 
         // Set listener to ListView
         lvRequestStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -236,4 +260,6 @@ public class TabOperations extends Fragment {
     public String getToDate() {
         return toDate;
     }
+
+
 }
