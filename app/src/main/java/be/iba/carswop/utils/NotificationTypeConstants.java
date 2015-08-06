@@ -13,5 +13,6 @@ public class NotificationTypeConstants {
     public static final String OWNER_SET_ODOMETER 				= "OWNER_SET_ODOMETER";
     public static final String DRIVER_SET_ODOMETER				= "DRIVER_SET_ODOMETER";
     public static final String DRIVER_WAITING_FOR_OWNER_KEY		= "DRIVER_WAITING_FOR_OWNER_KEY";
+    public static final String WAITING_FOR_ANSWER_OF_OWNER 		= "WAITING_FOR_ANSWER_OF_OWNER";
 }
 

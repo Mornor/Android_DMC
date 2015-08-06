@@ -291,6 +291,7 @@ public class JsonParser {
             e.printStackTrace();
         }
 
+        Log.d("Json ", createJsonArrayFromString(json).toString());
         return createJsonArrayFromString(json);
     }
 

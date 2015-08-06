@@ -49,10 +49,10 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private TextView tvReceivedOrSent;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isReceived; // True if yes.
+    private List<JSONObject> requestByDate = new ArrayList<>();
+    private ListAdapter adapter;
 
     private JSONObject object;
-
-    //private boolean hasBeenDisplayed = false;
 
     @Nullable
     @Override
@@ -78,6 +78,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnReceived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearListView();
                 updateReceivedOrSent(true, "RECEIVED");
             }
         });
@@ -85,6 +86,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnSent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearListView();
                 updateReceivedOrSent(false, "SENT");
             }
         });
@@ -98,6 +100,12 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         });
     }
 
+    private void clearListView(){
+        for(int i = 0 ; i < requestByDate.size() ; i++)
+            requestByDate.remove(i);
+        lvRequestStatus.setAdapter(adapter);
+    }
+
     // Method called when the user swipe down to refresh the ListView.
     @Override
     public void onRefresh() {
@@ -108,13 +116,15 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     private void fetchReceivedTransactions(){
-        swipeRefreshLayout.setRefreshing(true);
-        loadUserRequestByDate();
+        swipeRefreshLayout.setRefreshing(false);
+        //loadReceivedTransactions();
     }
 
     private void fetchSentTransactions(){
-        swipeRefreshLayout.setRefreshing(false);
-        Toast.makeText(this.getActivity(), "Sent", Toast.LENGTH_SHORT).show();
+        swipeRefreshLayout.setRefreshing(true);
+        clearListView();
+        if(user != null)
+            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
     }
 
     private void updateReceivedOrSent(boolean isReceived, String choice){
@@ -122,13 +132,12 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         tvReceivedOrSent.setText(choice);
     }
 
-    private void loadUserRequestByDate(){
+    private void loadReceivedTransactions(){
         if(user != null)
             new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
     }
 
     public void onPostExecuteLoadRequestByDate(JSONArray array){
-        List<JSONObject> requestByDate = new ArrayList<>();
         try {
 
             if(!array.getJSONObject(0).getBoolean("success"))
@@ -144,7 +153,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        ListAdapter adapter = new CustomTabOperation(this.getActivity(), requestByDate);
+        adapter = new CustomTabOperation(this.getActivity(), requestByDate);
         lvRequestStatus.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
 
@@ -156,8 +165,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
                 launchNextStep(jsonObjectClicked);
             }
         });
-
-        //hasBeenDisplayed = true;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
@@ -218,14 +225,18 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
      * If not, next step is to show the request data */
     private void launchNextStep(JSONObject object){
         this.object = object;
+        String status = "";
         try{
             fromDate = object.getString("fromDate");
             toDate   = object.getString("toDate");
+            status   = object.getString("status");
         }catch(JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
+        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER))
+            Toast.makeText(this.getActivity(), "Status : Request has been sent", Toast.LENGTH_LONG).show();
+        //new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
     }
 
     private void lauchIntentToRequestReceived(){
