@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import be.iba.carswop.R;
-import be.iba.carswop.core.RequestReceived;
+import be.iba.carswop.core.Home;
 import be.iba.carswop.http.HttpAsyncJson;
 import be.iba.carswop.models.Car;
 import be.iba.carswop.models.User;
@@ -85,12 +85,12 @@ public class NotificationUser extends Activity{
         }
 
         user.setCars(cars);
-        launchIntentToTransactionTab();
+        launchIntentToHome();
     }
 
 
-    private void launchIntentToTransactionTab(){
-        Intent i = new Intent(this, RequestReceived.class);
+    private void launchIntentToHome(){
+        Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
         i.putExtras(bundle);

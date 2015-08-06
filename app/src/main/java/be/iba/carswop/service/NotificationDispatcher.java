@@ -25,15 +25,15 @@ public class NotificationDispatcher {
         try{
             switch (object.getString("notificationType")){
                 case NotificationTypeConstants.CAR_REQUEST:
-                    return buildNotification(object, "New car request", "Rent/Exchange request", new Intent(notifCaller, NotificationUser.class));
+                    return buildNotification(object, "New car request", "Rent/Swop request", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER:
-                    return buildNotification(object, "News from request", "Request accepted", new Intent());
+                    return buildNotification(object, "News from request", "Request accepted", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.REQUESTER_CHOSE_SOMEONE_ELSE:
-                    return buildNotification(object, "News from request", "Not selected", new Intent());
+                    return buildNotification(object, "News from request", "Not selected", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES:
-                    return buildNotification(object, "News from request", "Please, set your odometer", new Intent());
+                    return buildNotification(object, "News from request", "Please, set your odometer", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.OWNER_SET_ODOMETER:
-                    return buildNotification(object, "News from request", "New status", new Intent());
+                    return buildNotification(object, "News from request", "New status", new Intent(notifCaller, NotificationUser.class));
                 default:
                     break;
             }
