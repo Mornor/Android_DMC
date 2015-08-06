@@ -21,6 +21,7 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
     private CustomRequestReceived customRequestReceivedCaller;
     private FragmentActivity activity;
     private TabOperations tabOperationsCaller;
+    private boolean sent; // Come from tabOperationsCaller. If true, we want to retrieve the sent request by the user (if false, retrieve the received ones)
     private RequestData requestDataCaller;
 
     // If true, then we notify th selected owner from selectedOwnerCaller.
@@ -40,9 +41,10 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
         this.customRequestReceivedCaller = caller;
     }
 
-    public HttpAsyncNotif(FragmentActivity act, TabOperations caller){
+    public HttpAsyncNotif(FragmentActivity act, TabOperations caller, boolean sent){
         this.activity = act;
         this.tabOperationsCaller = caller;
+        this.sent = sent;
     }
 
     public HttpAsyncNotif(RequestData caller){
@@ -76,7 +78,7 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
             return getNotification();
         if(params[0].equals(Action.UPDATE_REQUEST_STATE))
             return updateRequestSate();
-        if(params[0].equals(Action.GET_REQUEST_BY_DATE))
+        if(params[0].equals(Action.GET_REQUESTS_BY_DATE))
             return getRequestByDate();
         if(params[0].equals(Action.GET_REQUEST_DATA))
             return getRequestData();
@@ -96,7 +98,7 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
             listSpecificCarsCaller.onPostExecuteSendRequest(jsonArray);
         }
         if(tabOperationsCaller != null)
-            tabOperationsCaller.onPostExecuteLoadRequestByDate(jsonArray);
+            tabOperationsCaller.onPostExecuteLoadSentRequestByDate(jsonArray);
         if(requestReceivedCaller != null)
             requestReceivedCaller.onPostExecuteLoadNotification(jsonArray);
         if(requestDataCaller != null) {
@@ -114,7 +116,7 @@ public class HttpAsyncNotif extends AsyncTask<Action, Void, JSONArray>{
     }
 
     private JSONArray getRequestByDate(){
-        return new JsonParser().getRequestsByDate(tabOperationsCaller.getUser().getUsername());
+        return new JsonParser().getRequestsByDate(tabOperationsCaller.getUser().getUsername(), sent);
     }
 
     private JSONArray getRequestData(){

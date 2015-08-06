@@ -275,13 +275,15 @@ public class JsonParser {
 
     /***Get the data of the requests of the User
      * @param username : Username of the current Android user.
+     * @param sent  : if true, retrieve the sent request by the user (if false, retrieve the received ones)
      * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"}]*/
-    public JSONArray getRequestsByDate(String username){
+    public JSONArray getRequestsByDate(String username, boolean sent){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(Constants.GET_REQUEST_BY_DATE_URL);
+            HttpPost httpPost = new HttpPost(Constants.GET_REQUESTS_BY_DATE_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("sent", String.valueOf(sent)));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();

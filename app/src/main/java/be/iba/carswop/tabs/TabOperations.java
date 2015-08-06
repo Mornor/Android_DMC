@@ -124,7 +124,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout.setRefreshing(true);
         clearListView();
         if(user != null)
-            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
+            new HttpAsyncNotif(getActivity(), this, true).execute(Action.GET_REQUESTS_BY_DATE);
     }
 
     private void updateReceivedOrSent(boolean isReceived, String choice){
@@ -133,11 +133,11 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     private void loadReceivedTransactions(){
-        if(user != null)
-            new HttpAsyncNotif(getActivity(), this).execute(Action.GET_REQUEST_BY_DATE);
+        //if(user != null)
+            //new HttpAsyncNotif(getActivity(), this).execute(Action.GET_RECEIVED_REQUESTS_BY_DATE);
     }
 
-    public void onPostExecuteLoadRequestByDate(JSONArray array){
+    public void onPostExecuteLoadSentRequestByDate(JSONArray array){
         try {
 
             if(!array.getJSONObject(0).getBoolean("success"))
