@@ -46,168 +46,13 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvBrand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tvBrand"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_alignLeft="@+id/line1"
-                android:layout_alignStart="@+id/line1" />
-
-            <TextView
-                android:id="@+id/tvBrandChoose"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvBrand"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_toEndOf="@+id/tvBrand"
-                android:layout_toRightOf="@+id/tvBrand"
-                android:editable="false"
-                android:hint="@string/hChoose"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvEnergy"
-                android:layout_width="60sp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvBrand"
-                android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@+id/tvBrand"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/tvEnergy"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/spFuelList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvBrandChoose"
-                android:layout_alignStart="@+id/tvBrandChoose"
-                android:layout_below="@+id/tvBrandChoose"
-                android:layout_marginTop="20dp"
-                android:entries="@array/fuel_array"
-                android:prompt="@string/chooseFuel" />
-
-            <TextView
-                android:id="@+id/tvFuelCons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvBrand"
-                android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@id/spFuelList"
-                android:layout_marginTop="20dp"
-                android:text="@string/tvFuelCons"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvMaxConsFuel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvFuelCons"
-                android:layout_marginEnd="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/tvFuelCons"
-                android:layout_toRightOf="@+id/tvFuelCons"
-                android:text="@string/tvMaxCons"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvUnitFuel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvMaxConsFuel"
-                android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@+id/tvMaxConsFuel"
-                android:layout_toRightOf="@+id/tvMaxConsFuel"
-                android:text="@string/tvUnitFuel" />
-
-            <TextView
-                android:id="@+id/tvNbSit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvBrand"
-                android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@+id/tvFuelCons"
-                android:layout_marginTop="20dp"
-                android:text="@string/tvNbSit"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvNbSitsChoose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvNbSit"
-                android:layout_alignLeft="@+id/tvMaxConsFuel"
-                android:layout_alignStart="@+id/tvMaxConsFuel"
-                android:layout_alignTop="@+id/tvNbSit"
-                android:layout_toEndOf="@+id/tvNbSit"
-                android:layout_toRightOf="@+id/tvNbSit"
-                android:editable="false"
-                android:hint="@string/hChoose"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvEstimatedMileage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/tvBrand"
-                android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@id/tvNbSit"
-                android:layout_marginTop="20dp"
-                android:text="@string/tvEstimatedMileage"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvChooseMileage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvEstimatedMileage"
-                android:layout_alignLeft="@+id/tvNbSitsChoose"
-                android:layout_alignStart="@+id/tvNbSitsChoose"
-                android:layout_toEndOf="@+id/tvEstimatedMileage"
-                android:layout_toRightOf="@+id/tvEstimatedMileage"
-                android:text="@string/hChoose"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tvKms"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvChooseMileage"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/tvChooseMileage"
-                android:layout_toRightOf="@+id/tvChooseMileage"
-                android:text="@string/tvKms"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <View
-                android:id="@+id/line1"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/tvEstimatedMileage"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/boldGreen" />
-
-            <TextView
                 android:id="@+id/tvFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tvBrand"
-                android:layout_marginTop="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
                 android:layout_alignStart="@+id/tvBrand"
-                android:layout_below="@id/line1"
                 android:text="@string/tvFrom"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -294,15 +139,170 @@
                 android:text="@string/tvTime"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <View
+                android:id="@+id/line1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvChooseTimeTo"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/boldGreen" />
+
+            <TextView
+                android:id="@+id/tvBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/line1"
+                android:layout_alignStart="@+id/line1"
+                android:layout_below="@+id/line1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tvBrand"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <TextView
+                android:id="@+id/tvBrandChoose"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvBrand"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/tvBrand"
+                android:layout_toRightOf="@+id/tvBrand"
+                android:editable="false"
+                android:hint="@string/hChoose"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvEnergy"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvBrand"
+                android:layout_alignStart="@+id/tvBrand"
+                android:layout_below="@+id/tvBrand"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/tvEnergy"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/spFuelList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvBrandChoose"
+                android:layout_alignStart="@+id/tvBrandChoose"
+                android:layout_below="@+id/tvBrandChoose"
+                android:layout_marginTop="20dp"
+                android:entries="@array/fuel_array"
+                android:prompt="@string/chooseFuel" />
+
+            <TextView
+                android:id="@+id/tvFuelCons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvBrand"
+                android:layout_alignStart="@+id/tvBrand"
+                android:layout_below="@id/spFuelList"
+                android:layout_marginTop="20dp"
+                android:text="@string/tvFuelCons"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <TextView
+                android:id="@+id/tvMaxConsFuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvFuelCons"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/tvFuelCons"
+                android:layout_toRightOf="@+id/tvFuelCons"
+                android:text="@string/tvMaxCons"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvUnitFuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvMaxConsFuel"
+                android:layout_marginBottom="2dp"
+                android:layout_toEndOf="@+id/tvMaxConsFuel"
+                android:layout_toRightOf="@+id/tvMaxConsFuel"
+                android:text="@string/tvUnitFuel" />
+
+            <TextView
+                android:id="@+id/tvNbSit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvBrand"
+                android:layout_alignStart="@+id/tvBrand"
+                android:layout_below="@+id/tvFuelCons"
+                android:layout_marginTop="20dp"
+                android:text="@string/tvNbSit"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvNbSitsChoose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvNbSit"
+                android:layout_alignLeft="@+id/tvMaxConsFuel"
+                android:layout_alignStart="@+id/tvMaxConsFuel"
+                android:layout_alignTop="@+id/tvNbSit"
+                android:layout_toEndOf="@+id/tvNbSit"
+                android:layout_toRightOf="@+id/tvNbSit"
+                android:editable="false"
+                android:hint="@string/hChoose"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvEstimatedMileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tvBrand"
+                android:layout_alignStart="@+id/tvBrand"
+                android:layout_below="@id/tvNbSit"
+                android:layout_marginTop="20dp"
+                android:text="@string/tvEstimatedMileage"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvChooseMileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvEstimatedMileage"
+                android:layout_alignLeft="@+id/tvNbSitsChoose"
+                android:layout_alignStart="@+id/tvNbSitsChoose"
+                android:layout_toEndOf="@+id/tvEstimatedMileage"
+                android:layout_toRightOf="@+id/tvEstimatedMileage"
+                android:text="@string/hChoose"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvKms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvChooseMileage"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/tvChooseMileage"
+                android:layout_toRightOf="@+id/tvChooseMileage"
+                android:text="@string/tvKms"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <Button
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvChooseTimeTo"
+                android:layout_below="@id/tvKms"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:text="@string/btnSearch" />
-
 
         </RelativeLayout>
     </ScrollView>
