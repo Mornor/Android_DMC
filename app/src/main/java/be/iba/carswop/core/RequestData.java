@@ -77,7 +77,7 @@ public class RequestData extends ActionBarActivity {
     public void onPostExecuteLoadRequestData(JSONArray array){
         try{
             if(!array.getJSONObject(0).getBoolean("success"))
-                Log.e("JSONExcetpion", "JsonReceived is empty");
+                Log.e("JSONException", "JsonReceived is empty");
             tvNbRequest.setText(array.getJSONObject(1).getString("nbRequestSent"));
             tvNbAccepted.setText(array.getJSONObject(1).getString("nbAccepted"));
             tvNbRefuted.setText(array.getJSONObject(1).getString("nbRefuted"));

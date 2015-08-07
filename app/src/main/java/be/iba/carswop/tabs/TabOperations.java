@@ -220,23 +220,29 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
      * To know which step has to be launched, we have to query the DB to check if the transaction exist or not
      * If it exist, next step is to set the odometer
      * If not, next step is to show the request data */
-    private void launchNextStep(JSONObject object){
+    private void launchNextStep(JSONObject object) {
         this.object = object;
         String status = "";
-        try{
+        try {
             fromDate = object.getString("fromDate");
-            toDate   = object.getString("toDate");
-            status   = object.getString("status");
-        }catch(JSONException e){
+            toDate = object.getString("toDate");
+            status = object.getString("status");
+        } catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived)
+        if (status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived)
             Toast.makeText(this.getActivity(), "Status : Request has been sent", Toast.LENGTH_LONG).show();
-        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && !isReceived)
-            Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
-        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
+        if (status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && !isReceived)
+            launchIntentToRequestData();
+        if (status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && isReceived)
+            Toast.makeText(this.getActivity(), "Status : Waiting for the driver's confirmation", Toast.LENGTH_LONG).show();
+        if (status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
             lauchIntentToRequestReceived();
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived)
+            Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && isReceived)
+            Toast.makeText(this.getActivity(), "Please set your odometer", Toast.LENGTH_LONG).show();
     }
 
     private void lauchIntentToRequestReceived(){
