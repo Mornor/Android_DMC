@@ -276,7 +276,7 @@ public class JsonParser {
     /***Get the data of the requests of the User
      * @param username : Username of the current Android user.
      * @param sent  : if true, retrieve the sent request by the user (if false, retrieve the received ones)
-     * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"}]*/
+     * @return JSONArray like this : [{"dateFrom":"value", "dateTo":"value"},{"dateFrom":"value", "dateTo":"value"},{"status":"value"}]*/
     public JSONArray getRequestsByDate(String username, boolean sent){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -320,6 +320,7 @@ public class JsonParser {
             e.printStackTrace();
         }
 
+        Log.d("Json ", createJsonArrayFromString(json).toString());
         return createJsonArrayFromString(json);
     }
 

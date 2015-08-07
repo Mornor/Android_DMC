@@ -116,8 +116,10 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     private void fetchReceivedTransactions(){
-        swipeRefreshLayout.setRefreshing(false);
-        //loadReceivedTransactions();
+        swipeRefreshLayout.setRefreshing(true);
+        clearListView();
+        if(user != null)
+            new HttpAsyncNotif(getActivity(), this, false).execute(Action.GET_REQUESTS_BY_DATE);
     }
 
     private void fetchSentTransactions(){
@@ -130,11 +132,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private void updateReceivedOrSent(boolean isReceived, String choice){
         this.isReceived = isReceived;
         tvReceivedOrSent.setText(choice);
-    }
-
-    private void loadReceivedTransactions(){
-        //if(user != null)
-            //new HttpAsyncNotif(getActivity(), this).execute(Action.GET_RECEIVED_REQUESTS_BY_DATE);
     }
 
     public void onPostExecuteLoadSentRequestByDate(JSONArray array){
@@ -234,8 +231,10 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER))
+        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived)
             Toast.makeText(this.getActivity(), "Status : Request has been sent", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
+            Toast.makeText(this.getActivity(), "Status : Request received", Toast.LENGTH_LONG).show();
         //new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
     }
 
