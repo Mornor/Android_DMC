@@ -192,6 +192,7 @@ public class JsonParser {
                 e.printStackTrace();
             }
 
+            Log.d("getTransactions ", createJsonArrayFromString(json).toString());
             return createJsonArrayFromString(json);
     }
 

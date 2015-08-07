@@ -208,7 +208,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         startActivity(i);
     }
 
-    private void launchIntentToRequestSent(){
+    private void launchIntentToAcceptedRequest(){
         Intent i = new Intent(this.getActivity(), AcceptedRequest.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
@@ -242,7 +242,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived)
             Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
         if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && isReceived)
-            Toast.makeText(this.getActivity(), "Please set your odometer", Toast.LENGTH_LONG).show();
+            launchIntentToAcceptedRequest();
     }
 
     private void lauchIntentToRequestReceived(){
