@@ -233,6 +233,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
 
         if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived)
             Toast.makeText(this.getActivity(), "Status : Request has been sent", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && !isReceived)
+            Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
         if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
             lauchIntentToRequestReceived();
     }
