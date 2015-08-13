@@ -297,12 +297,12 @@
 
             <Button
                 android:id="@+id/btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
                 android:layout_below="@id/tvKms"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:text="@string/btnSearch" />
+                android:layout_marginTop="20dp"
+                android:background="@drawable/search_xhdpi" />
 
         </RelativeLayout>
     </ScrollView>
@@ -310,7 +310,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-1dp">
+        android:layout_marginBottom="-1dp"
+        android:layout_marginTop="10dp" >
 
         <Button
             android:id="@+id/btnSwop"
