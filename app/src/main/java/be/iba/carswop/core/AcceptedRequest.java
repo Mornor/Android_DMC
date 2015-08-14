@@ -100,7 +100,7 @@ public class AcceptedRequest extends ActionBarActivity {
         try {
             status = object.getString("status");
         } catch (JSONException e) {
-            Log.e(e.getClass().getName(), "There is not status field", e);
+            Log.e(e.getClass().getName(), "There is no status field", e);
         }
 
         if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY)){

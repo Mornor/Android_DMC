@@ -221,6 +221,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
      * If it exist, next step is to set the odometer
      * If not, next step is to show the request data */
     private void launchNextStep(JSONObject object) {
+        Log.d("Object ", object.toString());
         this.object = object;
         String status = "";
         try {
@@ -239,11 +240,15 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Toast.makeText(this.getActivity(), "Status : Waiting for the driver's confirmation", Toast.LENGTH_LONG).show();
         if (status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
             lauchIntentToRequestReceived();
-        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived)
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived){
             Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
+            new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
+        }
+
         if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && isReceived)
             launchIntentToAcceptedRequest();
     }
+
 
     private void lauchIntentToRequestReceived(){
         Intent i = new Intent(this.getActivity(), RequestReceived.class);
