@@ -34,6 +34,8 @@ public class NotificationDispatcher {
                     return buildNotification(object, "Reminder", "Reminder", new Intent(notifCaller, NotificationUser.class));
                 case NotificationTypeConstants.OWNER_SET_ODOMETER:
                     return buildNotification(object, "News from request", "New status", new Intent(notifCaller, NotificationUser.class));
+                case NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES:
+                    return buildNotification(object, "Request has been accepted", "You have been selected", new Intent(notifCaller, NotificationUser.class));
                 default:
                     break;
             }

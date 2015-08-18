@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -188,12 +189,21 @@ public class TabSearchCar extends Fragment {
         String timeToday = now.hour+ " : "+now.minute+ " h";
         Timestamp todayTimestamp = Tools.createTimestampFromString(dateToday, timeToday);
 
-        if(dateFromTimestamp.equals(dateToTimestamp))
+        if(dateFromTimestamp.equals(dateToTimestamp)){
+            Log.d("Tmstp err equals", "");
             return false;
-        if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp))
+        }
+
+        if(dateFromTimestamp.before(todayTimestamp) || dateToTimestamp.before(todayTimestamp)){
+            Log.d("Tmstp err before", "");
             return false;
-        if(dateFromTimestamp.after(dateToTimestamp))
+        }
+
+        if(dateFromTimestamp.after(dateToTimestamp)){
+            Log.d("Tmstp err after", "");
             return false;
+        }
+
         else
             return true;
     }
