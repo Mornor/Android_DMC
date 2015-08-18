@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AcceptedRequest extends ActionBarActivity {
@@ -97,13 +98,29 @@ public class AcceptedRequest extends ActionBarActivity {
     /*Launch the confirm rent Dialog only if it is necessary for the owner to se the odometer*/
     private void launchConfirmRentDialog(JSONObject object){
         String status = "";
+        String fromDate = "";
         try {
             status = object.getString("status");
+            fromDate = object.getString("fromDate").substring(0,10);
         } catch (JSONException e) {
             Log.e(e.getClass().getName(), "There is no status field", e);
         }
 
-        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY)){
+        // Compare fromDate of Transaction to the currentDate
+        Calendar c = Calendar.getInstance();
+        String year = String.valueOf(c.get(Calendar.YEAR));
+        String month = String.valueOf((c.get(Calendar.MONTH) + 1));
+        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+
+        // This way if month == 8, we get 08
+        if(month.length() == 1)
+            month = "0"+String.valueOf(month).charAt(0);
+        if(day.length() == 1)
+            day = "0"+String.valueOf(month).charAt(0);
+        String currentDate = (year+"-"+month+"-"+day);
+
+
+        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && currentDate.equals(fromDate)){
             OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
             Bundle bdl = new Bundle();
             bdl.putString("json", object.toString());
@@ -111,8 +128,11 @@ public class AcceptedRequest extends ActionBarActivity {
             ownerConfirmRent.show(getSupportFragmentManager(), "");
         }
 
+        else if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && !currentDate.equals(fromDate))
+            Toast.makeText(this, "Either this transaction happened or will happen.", Toast.LENGTH_LONG).show();
+
         else
-            Toast.makeText(this, "Nothing left to do with this one", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nothing left to do with this one.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
