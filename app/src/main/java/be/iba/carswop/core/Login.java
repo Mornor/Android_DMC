@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -70,6 +71,10 @@ public class Login extends ActionBarActivity {
         etLogin     = (EditText)findViewById(R.id.etLogin);
         etPassword  = (EditText)findViewById(R.id.etPassword);
         tvMoto      = (TextView)findViewById(R.id.tvMoto);
+
+        // Add font to tvMoto
+        /*Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/calibri.ttf");
+        tvMoto.setTypeface(typeface);*/
 
         // Test if the android is connected to the Internet
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);

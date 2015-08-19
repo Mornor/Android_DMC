@@ -151,7 +151,7 @@ public class AddCar extends ActionBarActivity {
             return false;
         }
 
-        if(tvNbSits.getText().toString().isEmpty()){
+        if(tvNbSits.getText().toString().equals(getResources().getString(R.string.hChoose))){
             tvNbSits.setTextColor(Color.RED);
             return false;
         }
