@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import be.iba.carswop.R;
 import be.iba.carswop.http.HttpAsync;
 import be.iba.carswop.http.HttpAsyncJson;
@@ -104,11 +106,8 @@ public class Login extends ActionBarActivity {
     }
 
     public void onClickLogin(){
-        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        if(!isConnected)
-            createAndShowResult("No internet connection", "Retry");
+        if(!Tools.checkInternetConnection(this))
+            Toast.makeText(this, "Please, connect your phone to the internet", Toast.LENGTH_LONG).show();
         else
             new HttpAsync(this).execute(Action.AUTHENTICATE);
      }
