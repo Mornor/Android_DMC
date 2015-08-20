@@ -12,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import be.iba.carswop.R;
 import be.iba.carswop.http.HttpAsync;
 import be.iba.carswop.http.HttpAsyncJson;
 import be.iba.carswop.models.User;
 import be.iba.carswop.utils.Action;
+import be.iba.carswop.utils.Tools;
 
 
 public class Register extends ActionBarActivity {
@@ -85,10 +88,14 @@ public class Register extends ActionBarActivity {
             if(confirmMailError)
                 tvError.setText(error);
         }
-
         // If confirmation succeed
-        else
-            checkUsernameUnique(username);
+        else{
+            if(!Tools.checkInternetConnection(this))
+                Toast.makeText(this, "Please, connect your phone to the internet", Toast.LENGTH_LONG).show();
+            else
+                checkUsernameUnique(username);
+        }
+
 
     }
 

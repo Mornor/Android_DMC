@@ -1,6 +1,8 @@
 package be.iba.carswop.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import java.sql.Timestamp;
@@ -17,6 +19,14 @@ public class Tools {
         editor.putString("username", username);
         editor.putString("password", password);
         editor.apply();
+    }
+
+    public static final boolean checkInternetConnection(Context context){
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && cm.getActiveNetworkInfo().isConnected())
+            return true;
+        else
+            return false;
     }
 
     // Retrieve username and password from SharedPreferences

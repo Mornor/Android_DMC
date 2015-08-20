@@ -3,6 +3,8 @@ package be.iba.carswop.http;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
 import be.iba.carswop.core.ListSpecificCars;
 import be.iba.carswop.core.Login;
 import be.iba.carswop.core.Register;
@@ -11,6 +13,8 @@ import be.iba.carswop.service.Notification;
 import be.iba.carswop.tabs.TabSearchCar;
 import be.iba.carswop.utils.Action;
 import be.iba.carswop.utils.Constants;
+import be.iba.carswop.utils.Tools;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -135,6 +139,7 @@ public class HttpAsyncJson extends AsyncTask<Action, Void, JSONArray>{
             else
                 loginCaller.onPostExecuteLoadUser(jsonArray);
         }
+
         if(registerCaller != null){
             try {
                 JSONObject jsonResult = jsonArray.getJSONObject(0);
@@ -145,7 +150,10 @@ public class HttpAsyncJson extends AsyncTask<Action, Void, JSONArray>{
                 Log.d("HttpAsyncJson ", e.toString());
                 e.printStackTrace();
             }
-        }
+    }
+
+
+
         if(tabSearchCarCaller != null){
             tabSearchCarCaller.getSearchBrandCar().dismiss();
             tabSearchCarCaller.onPostExecuteSearchBrand(jsonArray);
