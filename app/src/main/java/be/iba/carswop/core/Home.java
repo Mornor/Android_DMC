@@ -70,7 +70,6 @@ public class Home extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 

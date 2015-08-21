@@ -95,8 +95,6 @@ public class Register extends ActionBarActivity {
             else
                 checkUsernameUnique(username);
         }
-
-
     }
 
     private void checkUsernameUnique(String username){
