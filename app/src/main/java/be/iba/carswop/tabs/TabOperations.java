@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +48,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private String fromDate;
     private String toDate;
     private TextView tvReceivedOrSent;
+    private ImageView ivPullDownToRefresh;
+    private TextView tvPullDownToRefresh;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isReceived; // True if yes.
     private List<JSONObject> requestByDate = new ArrayList<>();
@@ -72,6 +75,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         tvReceivedOrSent            = (TextView)v.findViewById(R.id.tvReceivedOrSent);
         lvRequestStatus             = (ListView)v.findViewById(R.id.lvRequestsStatut);
         swipeRefreshLayout          = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefresh);
+        ivPullDownToRefresh         = (ImageView)v.findViewById(R.id.ivArrowPullDown);
+        tvPullDownToRefresh         = (TextView)v.findViewById(R.id.tvSwipeDown);
         isReceived                  = true;
 
         // Set the listeners
@@ -109,6 +114,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     // Method called when the user swipe down to refresh the ListView.
     @Override
     public void onRefresh() {
+        tvPullDownToRefresh.setVisibility(View.GONE);
+        ivPullDownToRefresh.setVisibility(View.GONE);
         if(isReceived)
             fetchReceivedTransactions();
         else
@@ -180,21 +187,25 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         // If owner has set the odometer, the next step is to set the final odometer (after the car has been driven).
-        if(transactionStatus.equals(NotificationTypeConstants.OWNER_SET_ODOMETER)){
-            RequesterConfirmRent cr = new RequesterConfirmRent();
-            Bundle bdl = new Bundle();
-            bdl.putString("json", transactionData.toString());
-            cr.setArguments(bdl);
-            cr.show(getFragmentManager(), "");
-        }
+        switch (transactionStatus) {
+            case NotificationTypeConstants.OWNER_SET_ODOMETER:
+                RequesterConfirmRent cr = new RequesterConfirmRent();
+                Bundle bdl = new Bundle();
+                bdl.putString("json", transactionData.toString());
+                cr.setArguments(bdl);
+                cr.show(getFragmentManager(), "");
+                break;
 
-        // If driver has set the odometer, then the transaction is over.
-        else if(transactionStatus.equals(NotificationTypeConstants.DRIVER_SET_ODOMETER)){
-            Toast.makeText(this.getActivity(), "This transaction is over", Toast.LENGTH_LONG).show();
-        }
+            // If driver has set the odometer, then the transaction is over.
+            case NotificationTypeConstants.DRIVER_SET_ODOMETER:
+                Toast.makeText(this.getActivity(), "This transaction is over", Toast.LENGTH_LONG).show();
+                break;
 
-        else if(transactionStatus.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) || transactionStatus.equals(NotificationTypeConstants.REQUEST_REFUTED_BY_OWNER)){
-            launchIntentToRequestData();
+            case NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER:
+
+            case NotificationTypeConstants.REQUEST_REFUTED_BY_OWNER:
+                launchIntentToRequestData();
+                break;
         }
 
     }
