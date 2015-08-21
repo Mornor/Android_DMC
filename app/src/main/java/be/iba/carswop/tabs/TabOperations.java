@@ -83,7 +83,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnReceived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearListView();
+                clearListView(); clearListView();
                 updateReceivedOrSent(true, "RECEIVED");
             }
         });
@@ -91,7 +91,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         btnSent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearListView();
+                clearListView(); clearListView();
                 updateReceivedOrSent(false, "SENT");
             }
         });
@@ -116,6 +116,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onRefresh() {
         tvPullDownToRefresh.setVisibility(View.GONE);
         ivPullDownToRefresh.setVisibility(View.GONE);
+        clearListView();
         if(isReceived)
             fetchReceivedTransactions();
         else
