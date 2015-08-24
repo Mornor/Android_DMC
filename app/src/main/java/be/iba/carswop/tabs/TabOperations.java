@@ -144,7 +144,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void onPostExecuteLoadSentRequestByDate(JSONArray array){
         try {
-
+            Log.d("CurrentJson", array.toString());
             if(!array.getJSONObject(0).getBoolean("success"))
                 Log.e("Error", "JSON empty");
             else {
