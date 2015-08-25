@@ -145,12 +145,13 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onPostExecuteLoadSentRequestByDate(JSONArray array){
         try {
             Log.d("CurrentJson", array.toString());
-            if(!array.getJSONObject(0).getBoolean("success"))
+            JSONArray withoutDuplicates = addOnlyRequestOrTransactionIntoListView(array);
+            if(false/*!array.getJSONObject(0).getBoolean("success")*/)
                 Log.e("Error", "JSON empty");
             else {
                 // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
-                for (int i = 1; i < array.length(); i++) {
-                    JSONObject temp = array.getJSONObject(i);
+                for (int i = 0; i < withoutDuplicates.length(); i++) {
+                    JSONObject temp = withoutDuplicates.getJSONObject(i);
                     requestByDate.add(temp);
                 }
             }
@@ -170,6 +171,34 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
                 launchNextStep(jsonObjectClicked);
             }
         });
+    }
+
+    /**Populate the ListView to only have a the Request or the Transaction based on from_date and to_date
+     * Indeed, from a certain time, the Request become a Transaction and we do not have to display it.*/
+    private JSONArray addOnlyRequestOrTransactionIntoListView(JSONArray array) {
+        JSONArray copyArray = array;
+        JSONArray resultArray = new JSONArray();
+
+        int i = 0, j = 0;
+        try {
+            while(i < array.length()){
+                JSONObject temp = array.getJSONObject(i);
+                j = 0;
+                while(j < array.length()){
+                    if(temp.getString("fromDate").equals(array.getJSONObject(j).getString("fromDate")))
+                        if(array.getJSONObject(j).getBoolean("isTransaction"))
+                            resultArray.put(temp);
+                    j++;
+                }
+                i++;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Rcvd", copyArray.toString());
+        Log.d("Without", resultArray.toString());
+        return resultArray;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
