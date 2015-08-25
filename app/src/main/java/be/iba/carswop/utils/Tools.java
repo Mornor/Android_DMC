@@ -59,6 +59,12 @@ public class Tools {
         editor.apply();
     }
 
+    /**@param date : yyyy-mm-dd
+     * @return date like dd/mm/yyyy*/
+    public static String convertDateUsToEuFormat(String date){
+        String[] item = date.split("-");
+        return item[2]+"/"+item[1]+"/"+item[0];
+    }
 
     public static Timestamp StringAndroidToTimestamp(String s){
         Timestamp timestamp = null;

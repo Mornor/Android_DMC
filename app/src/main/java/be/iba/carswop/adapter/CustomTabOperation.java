@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.iba.carswop.R;
+import be.iba.carswop.utils.Tools;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.List;
@@ -33,8 +35,8 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         TextView tvIsSwop       = (TextView) rootView.findViewById(R.id.tvIsSwop);
 
         try{
-            tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10));
-            tvToDate.setText(currentJson.getString("toDate").substring(0, 10));
+            tvFromDate.setText(Tools.convertDateUsToEuFormat(currentJson.getString("fromDate").substring(0, 10)));
+            tvToDate.setText(Tools.convertDateUsToEuFormat(currentJson.getString("toDate").substring(0, 10)));
             if(currentJson.getBoolean("isTransaction")) {
                 tvFromDate.setTextColor(Color.GREEN);
                 tvToDate.setTextColor(Color.GREEN);
