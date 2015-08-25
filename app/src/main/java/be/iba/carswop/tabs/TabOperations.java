@@ -24,6 +24,7 @@ import be.iba.carswop.core.AcceptedRequest;
 import be.iba.carswop.core.RequestData;
 import be.iba.carswop.core.Home;
 import be.iba.carswop.core.RequestReceived;
+import be.iba.carswop.fragment.OwnerConfirmRent;
 import be.iba.carswop.fragment.RequesterConfirmRent;
 import be.iba.carswop.http.HttpAsyncNotif;
 import be.iba.carswop.http.HttpAsyncTransaction;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -146,10 +148,9 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         try {
             Log.d("CurrentJson", array.toString());
             JSONArray withoutDuplicates = addOnlyRequestOrTransactionIntoListView(array);
-            if(false/*!array.getJSONObject(0).getBoolean("success")*/)
-                Log.e("Error", "JSON empty");
+            if(withoutDuplicates.length() == 0)
+                Toast.makeText(this.getActivity(), "Nothing to show", Toast.LENGTH_SHORT).show();
             else {
-                // Start from 1 because 0 is the JSON to indicate if array is empty (true) or not
                 for (int i = 0; i < withoutDuplicates.length(); i++) {
                     JSONObject temp = withoutDuplicates.getJSONObject(i);
                     requestByDate.add(temp);
@@ -176,7 +177,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     /**Populate the ListView to only have a the Request or the Transaction based on from_date and to_date
      * Indeed, from a certain time, the Request become a Transaction and we do not have to display it.*/
     private JSONArray addOnlyRequestOrTransactionIntoListView(JSONArray array) {
-        JSONArray copyArray = array;
         JSONArray resultArray = new JSONArray();
 
         int i = 0, j = 0;
@@ -196,7 +196,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             e.printStackTrace();
         }
 
-        Log.d("Rcvd", copyArray.toString());
         Log.d("Without", resultArray.toString());
         return resultArray;
     }
@@ -262,13 +261,16 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
      * If it exist, next step is to set the odometer
      * If not, next step is to show the request data */
     private void launchNextStep(JSONObject object) {
-        Log.d("Object ", object.toString());
         this.object = object;
         String status = "";
+        boolean isTransaction = false;
         try {
             fromDate = object.getString("fromDate");
             toDate = object.getString("toDate");
             status = object.getString("status");
+            Log.d("Status", status);
+            isTransaction = object.getBoolean("isTransaction");
+            Log.d("isTransaction", String.valueOf(isTransaction));
         } catch (JSONException e) {
             Log.e(e.getClass().getName(), "JSONException", e);
         }
@@ -285,11 +287,39 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
             new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
         }
-
-        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && isReceived)
-            launchIntentToAcceptedRequest();
+        if(!isTransaction && isReceived)
+            launchConfirmDialogIfNecessary(fromDate, status);
     }
 
+    private void launchConfirmDialogIfNecessary(String fromDate, String status){
+        // Compare fromDate of Transaction to the currentDate
+        Calendar c = Calendar.getInstance();
+        String year = String.valueOf(c.get(Calendar.YEAR));
+        String month = String.valueOf((c.get(Calendar.MONTH) + 1));
+        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+
+        // This way if month == 8, we get 08
+        if(month.length() == 1)
+            month = "0"+String.valueOf(month).charAt(0);
+        if(day.length() == 1)
+            day = "0"+String.valueOf(month).charAt(0);
+        String currentDate = (year+"-"+month+"-"+day);
+
+
+        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && currentDate.equals(fromDate)){
+            OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
+            Bundle bdl = new Bundle();
+            bdl.putString("json", object.toString());
+            ownerConfirmRent.setArguments(bdl);
+            ownerConfirmRent.show(this.getActivity().getSupportFragmentManager(), "");
+        }
+
+        else if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && !currentDate.equals(fromDate))
+            Toast.makeText(this.getActivity(), "Either this transaction happened or will happen.", Toast.LENGTH_LONG).show();
+
+        else
+            Toast.makeText(this.getActivity(), "Nothing left to do with this one.", Toast.LENGTH_SHORT).show();
+    }
 
     private void lauchIntentToRequestReceived(){
         Intent i = new Intent(this.getActivity(), RequestReceived.class);
