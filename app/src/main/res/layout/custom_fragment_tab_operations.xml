@@ -5,46 +5,43 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:text="@string/tvFrom"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="15dp"/>
-
-    <TextView
         android:id="@+id/tvFromEditable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tvDate"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/tvFrom"
-        android:layout_toEndOf="@+id/tvFrom"
-        android:layout_toRightOf="@+id/tvFrom"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
 
     <TextView
-        android:id="@+id/tvTo"
+        android:id="@+id/tvIsSwop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tvTo"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/tvFrom"
+        android:layout_below="@+id/tvFromEditable"
+        android:layout_alignLeft="@+id/tvFromEditable"
+        android:layout_alignStart="@+id/tvFromEditable" />
+
+    <TextView
+        android:id="@+id/tvTilt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
         android:layout_toEndOf="@+id/tvFromEditable"
         android:layout_toRightOf="@+id/tvFromEditable"
-        android:layout_marginLeft="20dp" />
+        android:layout_alignTop="@+id/tvFromEditable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
     <TextView
         android:id="@+id/tvToEditable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tvDate"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/tvFrom"
-        android:layout_toEndOf="@+id/tvTo"
-        android:layout_toRightOf="@+id/tvTo"
-        android:layout_marginLeft="20dp" />
+        android:layout_alignTop="@+id/tvTilt"
+        android:layout_toRightOf="@+id/tvTilt"
+        android:layout_toEndOf="@+id/tvTilt"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
 
 </RelativeLayout>
