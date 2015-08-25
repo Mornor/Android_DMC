@@ -30,19 +30,23 @@ public class CustomTabOperation extends ArrayAdapter<JSONObject> {
         JSONObject currentJson  = getItem(position);
         TextView tvFromDate     = (TextView) rootView.findViewById(R.id.tvFromEditable);
         TextView tvToDate       = (TextView) rootView.findViewById(R.id.tvToEditable);
-        boolean isTransaction   = false;
+        TextView tvIsSwop       = (TextView) rootView.findViewById(R.id.tvIsSwop);
 
         try{
             tvFromDate.setText(currentJson.getString("fromDate").substring(0, 10));
             tvToDate.setText(currentJson.getString("toDate").substring(0, 10));
             if(currentJson.getBoolean("isTransaction")) {
-                tvFromDate.setTextColor(Color.RED);
-                tvToDate.setTextColor(Color.RED);
-            }
-            else{
                 tvFromDate.setTextColor(Color.GREEN);
                 tvToDate.setTextColor(Color.GREEN);
             }
+            else{
+                tvFromDate.setTextColor(Color.RED);
+                tvToDate.setTextColor(Color.RED);
+            }
+            if(currentJson.getBoolean("exchange"))
+                tvIsSwop.setText("Swop");
+            else if(!currentJson.getBoolean("exchange"))
+                tvIsSwop.setText("Rent");
 
         }catch (JSONException e){
             Log.e(e.getClass().getName(), "JSONException", e);
