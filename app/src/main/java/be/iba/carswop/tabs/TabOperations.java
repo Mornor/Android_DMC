@@ -178,26 +178,63 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
      * Indeed, from a certain time, the Request become a Transaction and we do not have to display it.*/
     private JSONArray addOnlyRequestOrTransactionIntoListView(JSONArray array) {
         JSONArray resultArray = new JSONArray();
+        JSONArray copyArray = new JSONArray();
 
-        int i = 0, j = 0;
         try {
+            // Create a copy of the original Array
+            for (int i = 0; i < array.length(); i++)
+                copyArray.put(array.getJSONObject(i));
+
+            // Put every items with the same date.
+            int i = 0, j = 0;
             while(i < array.length()){
-                JSONObject temp = array.getJSONObject(i);
-                j = 0;
-                while(j < array.length()){
-                    if(temp.getString("fromDate").equals(array.getJSONObject(j).getString("fromDate")))
-                        if(array.getJSONObject(j).getBoolean("isTransaction"))
-                            resultArray.put(temp);
+                while(j < copyArray.length()){
+                    if(i!=j && array.getJSONObject(i).getString("fromDate").equals(copyArray.getJSONObject(j).getString("fromDate")))
+                        resultArray.put(copyArray.getJSONObject(j));
                     j++;
                 }
-                i++;
+                i++; j = 0;
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+            // Put every single items
+            // If no duplicates, put everything in resultArray
+            if(resultArray.length() == 0){
+                for(int p = 0 ; p < array.length() ; p++){
+                    resultArray.put(array.getJSONObject(p));
+                }
+            }
+
+            int k = 0, l = 0;
+            while(k < array.length()){
+                while (l < resultArray.length()){
+                    if(k!=l && !isIntPresentInArray(resultArray, array.getJSONObject(k).getInt("id")))
+                        resultArray.put(array.getJSONObject(k));
+                    l++;
+                }
+                k++; l = 0;
+            }
+
+        }catch (JSONException e){
+            Log.e(this.getClass().getName(), "JSONException", e);
         }
 
-        Log.d("Without", resultArray.toString());
         return resultArray;
+    }
+
+    private boolean isIntPresentInArray(JSONArray array, int toFind){
+        try{
+            for(int i = 0 ; i < array.length() ; i++){
+                if(array.getJSONObject(i).getInt("id") == toFind)
+                    return true;
+            }
+            return false;
+        }catch (JSONException e){
+            Log.e(this.getClass().getName(), "JSONException", e);
+        }
+
+
+
+        return true;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
