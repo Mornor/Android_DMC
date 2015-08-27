@@ -31,6 +31,7 @@ import be.iba.carswop.http.HttpAsyncTransaction;
 import be.iba.carswop.models.User;
 import be.iba.carswop.utils.Action;
 import be.iba.carswop.utils.NotificationTypeConstants;
+import be.iba.carswop.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -146,7 +147,6 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void onPostExecuteLoadSentRequestByDate(JSONArray array){
         try {
-            Log.d("CurrentJson", array.toString());
             JSONArray withoutDuplicates = addOnlyRequestOrTransactionIntoListView(array);
             if(withoutDuplicates.length() == 0)
                 Toast.makeText(this.getActivity(), "Nothing to show", Toast.LENGTH_SHORT).show();
@@ -180,6 +180,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
         JSONArray resultArray = new JSONArray();
         JSONArray copyArray = new JSONArray();
 
+        Log.d("Rcvd", array.toString());
+
         try {
             // Create a copy of the original Array
             for (int i = 0; i < array.length(); i++)
@@ -190,7 +192,8 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             while(i < array.length()){
                 while(j < copyArray.length()){
                     if(i!=j && array.getJSONObject(i).getString("fromDate").equals(copyArray.getJSONObject(j).getString("fromDate")))
-                        resultArray.put(copyArray.getJSONObject(j));
+                        if(copyArray.getJSONObject(j).getBoolean("isTransaction"))
+                            resultArray.put(copyArray.getJSONObject(j));
                     j++;
                 }
                 i++; j = 0;
@@ -218,23 +221,22 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Log.e(this.getClass().getName(), "JSONException", e);
         }
 
+        Log.d("Without", resultArray.toString());
         return resultArray;
     }
 
     private boolean isIntPresentInArray(JSONArray array, int toFind){
+        boolean result = false;
         try{
             for(int i = 0 ; i < array.length() ; i++){
                 if(array.getJSONObject(i).getInt("id") == toFind)
-                    return true;
+                    result = true;
             }
-            return false;
+            result = false;
         }catch (JSONException e){
             Log.e(this.getClass().getName(), "JSONException", e);
         }
-
-
-
-        return true;
+        return result;
     }
 
     public void onPostCheckTransactionStatus(JSONArray array){
@@ -312,20 +314,23 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             Log.e(e.getClass().getName(), "JSONException", e);
         }
 
-        if (status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived)
-            Toast.makeText(this.getActivity(), "Status : Request has been sent", Toast.LENGTH_LONG).show();
-        if (status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && !isReceived)
+        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && !isReceived && !isTransaction)
+            Toast.makeText(this.getActivity(), "Request has been sent :)", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived && !isTransaction)
+            lauchIntentToRequestReceived(); // Then, close it (it's the stuff with "for sure" or "sorry"
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && isReceived && !isTransaction)
+            Toast.makeText(this.getActivity(), "Wait for the owner's choice", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && !isReceived && !isTransaction)
             launchIntentToRequestData();
-        if (status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_OWNER) && isReceived)
-            Toast.makeText(this.getActivity(), "Status : Waiting for the driver's confirmation", Toast.LENGTH_LONG).show();
-        if (status.equals(NotificationTypeConstants.WAITING_FOR_ANSWER_OF_OWNER) && isReceived)
-            lauchIntentToRequestReceived();
-        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived){
-            Toast.makeText(this.getActivity(), "Status : Request has been accepted", Toast.LENGTH_LONG).show();
-            new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
-        }
-        if(!isTransaction && isReceived)
+        if(status.equals(NotificationTypeConstants.REQUEST_ACCEPTED_BY_BOTH_SIDES) && !isReceived && !isTransaction)
+            Toast.makeText(this.getActivity(), "Waiting for the transaction to happen...", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && isReceived && isTransaction)
             launchConfirmDialogIfNecessary(fromDate, status);
+        if(status.equals(NotificationTypeConstants.OWNER_SET_ODOMETER) && isReceived && isTransaction)
+            Toast.makeText(this.getActivity(), "Rent/Swop is happening", Toast.LENGTH_LONG).show();
+        if(status.equals(NotificationTypeConstants.OWNER_SET_ODOMETER) && !isReceived && isTransaction)
+            new HttpAsyncTransaction(this.getActivity(), this).execute(Action.CHECK_TRANSACTION_STATUS);
+
     }
 
     private void launchConfirmDialogIfNecessary(String fromDate, String status){
@@ -340,10 +345,9 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             month = "0"+String.valueOf(month).charAt(0);
         if(day.length() == 1)
             day = "0"+String.valueOf(month).charAt(0);
-        String currentDate = (year+"-"+month+"-"+day);
+        String currentDate = (day+"/"+month+"/"+year);
 
-
-        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && currentDate.equals(fromDate)){
+        if(status.equals(NotificationTypeConstants.DRIVER_WAITING_FOR_OWNER_KEY) && currentDate.equals(Tools.convertDateUsToEuFormat(fromDate.substring(0,10)))){
             OwnerConfirmRent ownerConfirmRent = new OwnerConfirmRent();
             Bundle bdl = new Bundle();
             bdl.putString("json", object.toString());
