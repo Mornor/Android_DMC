@@ -179,9 +179,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private JSONArray addOnlyRequestOrTransactionIntoListView(JSONArray array) {
         JSONArray resultArray = new JSONArray();
         JSONArray copyArray = new JSONArray();
-
-        Log.d("Rcvd", array.toString());
-
+        
         try {
             // Create a copy of the original Array
             for (int i = 0; i < array.length(); i++)
@@ -200,21 +198,21 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
             }
 
             // Put every single items
+            int k = 0, l = 0;
+            while(k < array.length()){
+                while (l < resultArray.length()){
+                    if(!isIntPresentInArray(resultArray, array.getJSONObject(l).getInt("id")))
+                        resultArray.put(array.getJSONObject(l));
+                    l++;
+                }
+                k++; l = 0;
+            }
+
             // If no duplicates, put everything in resultArray
             if(resultArray.length() == 0){
                 for(int p = 0 ; p < array.length() ; p++){
                     resultArray.put(array.getJSONObject(p));
                 }
-            }
-
-            int k = 0, l = 0;
-            while(k < array.length()){
-                while (l < resultArray.length()){
-                    if(k!=l && !isIntPresentInArray(resultArray, array.getJSONObject(k).getInt("id")))
-                        resultArray.put(array.getJSONObject(k));
-                    l++;
-                }
-                k++; l = 0;
             }
 
         }catch (JSONException e){
