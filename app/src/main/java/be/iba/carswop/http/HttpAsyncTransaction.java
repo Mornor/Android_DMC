@@ -92,7 +92,7 @@ public class HttpAsyncTransaction extends AsyncTask<Action, Void, JSONArray> {
     }
 
     private JSONArray computeAmountToPay(){
-        return new JsonParser().computeAmountToPay(requesterConfirmRentCaller.getIdTransaction());
+        return new JsonParser().computeAmountToPay(requesterConfirmRentCaller.getIdTransaction(), requesterConfirmRentCaller.getNbExtraKms(), requesterConfirmRentCaller.getNbFilledTanks(), requesterConfirmRentCaller.getConso(), requesterConfirmRentCaller.isOwnCardBoolean());
     }
 
     private JSONArray checkTransactionStatus(){

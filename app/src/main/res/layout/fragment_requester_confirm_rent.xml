@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/tvSetOdometer"
         android:text="Please, set the mileage of the car"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -26,8 +27,8 @@
         android:text="Please, set the fuel consumption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/etSetOdometer"
-        android:layout_alignLeft="@+id/tvSetOdometer"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginTop="10dp" />
 
@@ -40,16 +41,54 @@
         android:layout_centerHorizontal="true"
         android:width="120dp" />
 
+    <TextView
+        android:id="@+id/tvNbTankFilled"
+        android:text="Nbr of tank filled"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/etSetConso"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etNbTankFilled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_alignBottom="@id/tvNbTankFilled"
+        android:layout_toRightOf="@+id/tvNbTankFilled"
+        android:layout_toEndOf="@+id/tvNbTankFilled"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/tvExtraKms"
+        android:text="Extra kms fee"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvOwnCard"
+        android:layout_centerHorizontal="true" />
+
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNbTankFilled"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/switch1" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/etSetConso" >
+        android:layout_below="@id/tvExtraKms"
+        android:id="@+id/linearLayout">
 
         <Button
             android:id="@+id/btnOk"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/btnOk" />
@@ -62,5 +101,37 @@
             android:text="@string/btnCancelNumberPicker"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Own Card"
+        android:id="@+id/tvOwnCard"
+        android:layout_alignTop="@+id/switch1"
+        android:layout_toLeftOf="@+id/etSetConso"
+        android:layout_toStartOf="@+id/etSetConso" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Owner's card"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/tvOwnCard"
+        android:layout_alignRight="@+id/tvSetConso"
+        android:layout_alignEnd="@+id/tvSetConso" />
+
+    <EditText
+        android:id="@+id/etExtraKms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+
+        android:layout_marginLeft="15dp"
+        android:layout_alignBottom="@id/tvExtraKms"
+        android:layout_toEndOf="@id/tvExtraKms"
+        android:layout_toRightOf="@+id/tvExtraKms"
+        android:layout_below="@+id/textView2" />
 
 </RelativeLayout>

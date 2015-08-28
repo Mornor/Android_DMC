@@ -179,7 +179,7 @@ public class TabOperations extends Fragment implements SwipeRefreshLayout.OnRefr
     private JSONArray addOnlyRequestOrTransactionIntoListView(JSONArray array) {
         JSONArray resultArray = new JSONArray();
         JSONArray copyArray = new JSONArray();
-        
+
         try {
             // Create a copy of the original Array
             for (int i = 0; i < array.length(); i++)

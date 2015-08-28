@@ -215,12 +215,16 @@ public class JsonParser {
         return createJsonArrayFromString(json);
     }
 
-    public JSONArray computeAmountToPay(String idTransaction){
+    public JSONArray computeAmountToPay(String idTransaction, int extraKms, int nbFilledTanks, String consommation, boolean ownCard){
         try{
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(Constants.COMPUTE_AMOUNT_TO_PAY_URL);
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("idTransaction", idTransaction));
+            list.add(new BasicNameValuePair("extraKms", String.valueOf(extraKms)));
+            list.add(new BasicNameValuePair("nbFilledTanks", String.valueOf(nbFilledTanks)));
+            list.add(new BasicNameValuePair("consumption", consommation));
+            list.add(new BasicNameValuePair("ownCard", String.valueOf(ownCard)));
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();

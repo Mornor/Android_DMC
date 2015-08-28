@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import be.iba.carswop.R;
@@ -25,11 +27,17 @@ public class RequesterConfirmRent extends DialogFragment {
     private EditText etSetConso;
     private EditText etSetMileage;
     private ProgressDialog progressDialog;
+    private EditText etNbFilledTanks;
+    private EditText etExtraKms;
+    private Switch ownCard;
 
     private String brand;
+    private boolean ownCardBoolean;
     private String model;
     private String mileage;
     private String conso;
+    private int nbFilledTanks;
+    private int nbExtraKms;
     private double startMileage;
     private String ownerName;
     private int idTransaction;
@@ -70,6 +78,9 @@ public class RequesterConfirmRent extends DialogFragment {
         TextView tvSetMileage   = (TextView) v.findViewById(R.id.tvSetOdometer);
         etSetConso              = (EditText)v.findViewById(R.id.etSetConso);
         etSetMileage            = (EditText)v.findViewById(R.id.etSetOdometer);
+        etNbFilledTanks         = (EditText)v.findViewById(R.id.etNbTankFilled);
+        ownCard                 = (Switch)v.findViewById(R.id.switch1);
+        etExtraKms              = (EditText)v.findViewById(R.id.etExtraKms);
         Button btnOk            = (Button) v.findViewById(R.id.btnOk);
         Button btnCancel        = (Button) v.findViewById(R.id.btnCancel);
 
@@ -91,6 +102,13 @@ public class RequesterConfirmRent extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismissDialog();
+            }
+        });
+
+        ownCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ownCardBoolean = b;
             }
         });
     }
@@ -139,6 +157,8 @@ public class RequesterConfirmRent extends DialogFragment {
 
 
     private void getAmountToPay(){
+        nbFilledTanks   = Integer.valueOf(etNbFilledTanks.getText().toString());
+        nbExtraKms      = Integer.valueOf(etExtraKms.getText().toString());
         new HttpAsyncTransaction(this, true).execute(Action.COMPUTE_AMOUNT_TO_PAY);
     }
 
@@ -165,6 +185,46 @@ public class RequesterConfirmRent extends DialogFragment {
 
     public String getConso() {
         return conso;
+    }
+
+    public int getNbExtraKms() {
+        return nbExtraKms;
+    }
+
+    public void setNbExtraKms(int nbExtraKms) {
+        this.nbExtraKms = nbExtraKms;
+    }
+
+    public int getNbFilledTanks() {
+        return nbFilledTanks;
+    }
+
+    public void setNbFilledTanks(int nbFilledTanks) {
+        this.nbFilledTanks = nbFilledTanks;
+    }
+
+    public void setConso(String conso) {
+        this.conso = conso;
+    }
+
+    public void setMileage(String mileage) {
+        this.mileage = mileage;
+    }
+
+    public double getStartMileage() {
+        return startMileage;
+    }
+
+    public void setStartMileage(double startMileage) {
+        this.startMileage = startMileage;
+    }
+
+    public void setIdTransaction(int idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public boolean isOwnCardBoolean() {
+        return ownCardBoolean;
     }
 
     // "false" is true if it is the owner who set the value at the BEGINNING of the Transaction (false if it is the driver)
